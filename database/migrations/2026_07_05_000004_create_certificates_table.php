@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('contact_messages', function (Blueprint $table) {
+        Schema::create('certificates', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email');
-            $table->string('subject')->nullable();
-            $table->text('message');
-            $table->boolean('is_read')->default(false);
+            $table->string('title');
+            $table->string('organization');
+            $table->string('issue_date'); // Date string, e.g., "March 2026"
+            $table->string('credential_url')->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('contact_messages');
+        Schema::dropIfExists('certificates');
     }
 };

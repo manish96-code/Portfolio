@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('contact_messages', function (Blueprint $table) {
+        Schema::create('social_links', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email');
-            $table->string('subject')->nullable();
-            $table->text('message');
-            $table->boolean('is_read')->default(false);
+            $table->string('platform'); // github, linkedin, email, twitter, etc.
+            $table->string('url');
+            $table->string('icon')->nullable(); // SVG reference or class string
             $table->timestamps();
         });
     }
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('contact_messages');
+        Schema::dropIfExists('social_links');
     }
 };
