@@ -6,11 +6,15 @@
 
         <title inertia>{{ config('app.name', 'Portfolio') }}</title>
 
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
         @viteReactRefresh
         @vite(['resources/css/app.css', 'resources/js/app.jsx'])
         @inertiaHead
     </head>
-    <body class="bg-[#0b0f19] text-[#f3f4f6] antialiased selection:bg-cyan-500 selection:text-black">
+    <body class="bg-white text-[#111827] antialiased selection:bg-[#2563EB]/10 selection:text-[#2563EB]">
         @inertia
     </body>
 </html>

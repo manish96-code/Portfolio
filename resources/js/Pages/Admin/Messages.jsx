@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import AdminLayout from '../Layouts/AdminLayout';
+import AdminLayout from '../../Layouts/AdminLayout';
 import { Head, router } from '@inertiajs/react';
 
 export default function Messages({ messages }) {

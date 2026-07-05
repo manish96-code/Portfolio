@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import AppLayout from '../../Layouts/AppLayout';
-import { Head, useForm } from '@inertiajs/react';
+import { Head, useForm, Link } from '@inertiajs/react';
 
 export default function Home({ projects, skills, experiences, certificates, socialLinks, settings }) {
     const { data, setData, post, processing, errors, reset, wasSuccessful } = useForm({
@@ -10,52 +10,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
         message: '',
     });
 
-    const [typingText, setTypingText] = useState('');
     const [activeTab, setActiveTab] = useState('all');
-
-    const designations = [
-        'Full Stack Laravel Developer',
-        'Backend Developer',
-        'React Developer',
-        'Problem Solver'
-    ];
-
-    // Typing Designation Effect
-    useEffect(() => {
-        let currentIdx = 0;
-        let charIdx = 0;
-        let isDeleting = false;
-        let timeout;
-
-        const type = () => {
-            const currentString = designations[currentIdx];
-            if (!isDeleting) {
-                setTypingText(currentString.substring(0, charIdx + 1));
-                charIdx++;
-
-                if (charIdx === currentString.length) {
-                    isDeleting = true;
-                    timeout = setTimeout(type, 1500); // Wait at end of string
-                } else {
-                    timeout = setTimeout(type, 80);
-                }
-            } else {
-                setTypingText(currentString.substring(0, charIdx - 1));
-                charIdx--;
-
-                if (charIdx === 0) {
-                    isDeleting = false;
-                    currentIdx = (currentIdx + 1) % designations.length;
-                    timeout = setTimeout(type, 500);
-                } else {
-                    timeout = setTimeout(type, 40);
-                }
-            }
-        };
-
-        type();
-        return () => clearTimeout(timeout);
-    }, []);
 
     const handleContactSubmit = (e) => {
         e.preventDefault();
@@ -64,11 +19,9 @@ export default function Home({ projects, skills, experiences, certificates, soci
         });
     };
 
-    // Skills processing
-    const skillKeys = Object.keys(skills || {});
-
-    // Filter projects
+    const skillCategories = Object.keys(skills || {});
     const allProjects = projects || [];
+    
     const filteredProjects = activeTab === 'all'
         ? allProjects
         : allProjects.filter(project => {
@@ -83,361 +36,370 @@ export default function Home({ projects, skills, experiences, certificates, soci
     return (
         <AppLayout settings={settings} socialLinks={socialLinks}>
             <Head>
-                <title>Home - मनीष कुमार</title>
+                <title>Portfolio - Manish Kumar</title>
                 <meta name="description" content={settings?.meta_description || 'Manish Kumar Professional Portfolio'} />
-                <meta name="title" content={settings?.meta_title} />
             </Head>
 
-            {/* Hero Section */}
-            <section className="max-w-6xl mx-auto px-6 py-20 md:py-32 grid grid-cols-1 md:grid-cols-12 gap-12 items-center relative">
-                <div className="md:col-span-7 flex flex-col justify-center space-y-6">
-                    <div className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-[#FF2D20]/10 border border-[#FF2D20]/20 text-[#FF2D20] text-xs font-semibold w-fit">
-                        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                        {settings?.current_company || 'Comestro Techlabs Pvt Ltd'} Intern
-                    </div>
+            {/* 1. Hero Section (White Background) */}
+            <section className="bg-white py-24 md:py-36 border-b border-[#E5E7EB]">
+                <div className="max-w-[1280px] mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+                    <div className="lg:col-span-8 space-y-6">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 border border-[#E5E7EB] text-[#6B7280] text-xs font-medium">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                            {settings?.current_company || 'Comestro Techlabs Pvt Ltd'} Intern
+                        </div>
 
-                    <h1 className="text-5xl md:text-7xl font-black text-slate-100 tracking-tight leading-none">
-                        Hi, I am <br />
-                        <span className="bg-gradient-to-r from-[#FF2D20] via-[#FF5F56] to-purple-500 bg-clip-text text-transparent">
-                            {settings?.name || 'Manish Kumar'}
-                        </span>
-                    </h1>
+                        <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-[#111827] leading-none">
+                            {settings?.name || 'Manish Kumar'}<br />
+                            <span className="text-[#6B7280] text-3xl sm:text-5xl font-medium block mt-3">
+                                {settings?.title || 'Full Stack Laravel Developer'}
+                            </span>
+                        </h1>
 
-                    <div className="h-10 flex items-center">
-                        <p className="text-xl md:text-2xl font-mono text-slate-400">
-                            &gt; <span className="text-cyan-400 font-bold">{typingText}</span>
-                            <span className="animate-ping ml-1 text-[#FF2D20]">|</span>
+                        <p className="text-[#6B7280] text-base sm:text-lg leading-relaxed max-w-2xl font-normal">
+                            {settings?.bio || 'I build clean, minimal, and high-performance web applications using Laravel, React, and MySQL.'}
                         </p>
-                    </div>
 
-                    <p className="text-slate-400 text-base md:text-lg leading-relaxed max-w-xl font-light">
-                        {settings?.bio || 'Full Stack Developer Intern specializing in high performance web applications using Laravel, React, and MySQL.'}
-                    </p>
-
-                    <div className="flex flex-wrap items-center gap-4 pt-4">
-                        <a href="#projects" className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#FF2D20] to-purple-600 hover:from-[#e0241b] hover:to-purple-500 text-white font-bold transition shadow-lg shadow-[#FF2D20]/20 hover:scale-[1.02] duration-300">
-                            Explore Projects
-                        </a>
-                        <a 
-                            href="/resume/download" 
-                            target="_blank"
-                            className="px-6 py-3.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-200 hover:text-white font-bold hover:bg-slate-850 hover:border-slate-700 transition duration-300 flex items-center gap-2"
-                        >
-                            Download Resume
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-
-                {/* Avatar Shield */}
-                <div className="md:col-span-5 flex justify-center relative">
-                    <div className="absolute inset-0 bg-[#FF2D20]/10 rounded-full blur-3xl pointer-events-none animate-pulse"></div>
-                    <div className="w-72 h-72 md:w-80 md:h-80 rounded-3xl bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-850 p-4 shadow-2xl relative overflow-hidden group">
-                        <div className="absolute inset-0 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:16px_16px] opacity-30"></div>
-                        <div className="w-full h-full rounded-2xl bg-gradient-to-br from-[#FF2D20]/5 to-purple-950/15 border border-slate-800 flex flex-col items-center justify-center text-center p-6 space-y-4">
-                            <div className="w-24 h-24 rounded-2xl bg-slate-950 border border-slate-800 flex items-center justify-center relative shadow-inner overflow-hidden">
-                                <span className="text-4xl font-extrabold text-white">MK</span>
-                                <div className="absolute inset-0 bg-gradient-to-t from-[#FF2D20]/20 to-transparent"></div>
-                            </div>
-                            <div>
-                                <h3 className="font-extrabold text-xl text-slate-100">{settings?.name || 'Manish Kumar'}</h3>
-                                <p className="text-xs text-[#FF2D20] font-semibold mt-1 tracking-wider uppercase">{settings?.title || 'Full Stack Developer'}</p>
-                            </div>
-                            <p className="text-xs text-slate-400 leading-relaxed font-light">
-                                Education: {settings?.education || 'BCA'}<br />
-                                Location: {settings?.location || 'India'}
-                            </p>
+                        <div className="flex flex-wrap items-center gap-4 pt-4">
+                            <a 
+                                href="#projects" 
+                                className="px-5 py-2.5 rounded-lg bg-[#2563EB] hover:bg-[#1d4ed8] text-white text-sm font-semibold transition duration-150 shadow-sm"
+                            >
+                                View Projects
+                            </a>
+                            <a 
+                                href="/resume/download" 
+                                target="_blank"
+                                className="px-5 py-2.5 rounded-lg bg-white border border-[#2563EB] text-[#2563EB] text-sm font-semibold hover:bg-[#2563EB]/5 transition duration-150"
+                            >
+                                Download Resume
+                            </a>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* About Section */}
-            <section id="about" className="max-w-6xl mx-auto px-6 py-20 border-t border-slate-900 grid grid-cols-1 md:grid-cols-12 gap-12">
-                <div className="md:col-span-5 space-y-4">
-                    <h4 className="text-xs text-[#FF2D20] font-black uppercase tracking-widest">Biography</h4>
-                    <h2 className="text-3xl font-extrabold text-slate-100">Career Objective & Background</h2>
-                    <p className="text-slate-400 text-sm leading-relaxed font-light">
-                        {settings?.objective || 'Passionate engineer focused on crafting complete full-stack web applications.'}
-                    </p>
-                    <div className="pt-4 space-y-3.5">
-                        <div className="flex items-center gap-3">
-                            <span className="w-6 h-6 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-xs text-[#FF2D20]">🏢</span>
-                            <span className="text-sm text-slate-300">Interning at <strong className="text-white">{settings?.current_company || 'Comestro Techlabs'}</strong></span>
+            {/* 2. About & Experience Section (Soft Gray Background) */}
+            <section id="about" className="bg-[#F8FAFC] py-24 border-b border-[#E5E7EB]">
+                <div id="experience" className="max-w-[1280px] mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-16">
+                    <div className="lg:col-span-5 space-y-6">
+                        <div className="space-y-2">
+                            <span className="text-xs font-semibold text-[#2563EB] uppercase tracking-wider">About Me</span>
+                            <h2 className="text-3xl font-bold tracking-tight text-[#111827]">Background & Direction</h2>
                         </div>
-                        <div className="flex items-center gap-3">
-                            <span className="w-6 h-6 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-xs text-[#FF2D20]">🎓</span>
-                            <span className="text-sm text-slate-300">Degree: <strong className="text-white">{settings?.education || 'BCA'}</strong></span>
+                        <p className="text-[#6B7280] text-sm leading-relaxed">
+                            {settings?.objective || 'Highly motivated developer seeking to leverage modern frameworks to deliver robust client applications.'}
+                        </p>
+                        
+                        <div className="space-y-4 pt-4 border-t border-[#E5E7EB]">
+                            <div className="flex items-center gap-3 text-sm text-[#6B7280]">
+                                <span className="font-semibold text-[#111827]">Education:</span>
+                                <span>{settings?.education || 'BCA, Purnea University'}</span>
+                            </div>
+                            <div className="flex items-center gap-3 text-sm text-[#6B7280]">
+                                <span className="font-semibold text-[#111827]">Current Location:</span>
+                                <span>{settings?.location || 'Jaipur, Rajasthan, India'}</span>
+                            </div>
                         </div>
-                        <div className="flex items-center gap-3">
-                            <span className="w-6 h-6 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-xs text-[#FF2D20]">📍</span>
-                            <span className="text-sm text-slate-300">Based in <strong className="text-white">{settings?.location || 'India'}</strong></span>
+                    </div>
+
+                    <div className="lg:col-span-7 space-y-8">
+                        <h3 className="text-xs font-bold text-[#6B7280] uppercase tracking-wider pb-2 border-b border-[#E5E7EB]">Timeline</h3>
+                        <div className="space-y-8">
+                            {experiences?.map((exp, idx) => {
+                                const tech = Array.isArray(exp.skills_used) ? exp.skills_used : JSON.parse(exp.skills_used || '[]');
+                                return (
+                                    <div key={idx} className="bg-white border border-[#E5E7EB] rounded-xl p-6 shadow-sm transition hover:border-[#2563EB]/40">
+                                        <div className="flex flex-col sm:flex-row sm:justify-between items-start sm:items-center gap-2 mb-3">
+                                            <div>
+                                                <h4 className="font-bold text-base text-[#111827]">{exp.designation}</h4>
+                                                <span className="text-xs text-[#6B7280]">{exp.company}</span>
+                                            </div>
+                                            <span className="text-[11px] font-semibold text-[#2563EB] px-2.5 py-1 rounded bg-[#2563EB]/5 border border-[#2563EB]/10">
+                                                {exp.duration}
+                                            </span>
+                                        </div>
+                                        <p className="text-xs text-[#6B7280] leading-relaxed mb-4">
+                                            {exp.description}
+                                        </p>
+                                        <div className="flex flex-wrap gap-1.5">
+                                            {tech.map((t, index) => (
+                                                <span key={index} className="px-2 py-0.5 rounded bg-[#F3F4F6] text-[#4B5563] text-[10px] font-medium">
+                                                    {t}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                );
+                            })}
                         </div>
                     </div>
                 </div>
+            </section>
 
-                <div className="md:col-span-7 bg-slate-900/40 border border-slate-900 p-8 rounded-2xl relative overflow-hidden backdrop-blur-sm">
-                    <h3 className="font-bold text-slate-200 mb-6 text-sm uppercase tracking-wider">Experience & Internships Timeline</h3>
-                    <div className="relative border-l border-slate-800 pl-6 space-y-8">
-                        {experiences?.map((exp, idx) => {
-                            const tech = Array.isArray(exp.skills_used) ? exp.skills_used : JSON.parse(exp.skills_used || '[]');
-                            return (
-                                <div key={idx} className="relative">
-                                    <div className="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-[#020617] border-2 border-[#FF2D20] flex items-center justify-center">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-[#FF2D20]"></div>
-                                    </div>
-                                    <div className="flex flex-col sm:flex-row sm:justify-between items-start sm:items-center gap-2 mb-2">
-                                        <h4 className="font-extrabold text-base text-slate-100">{exp.designation}</h4>
-                                        <span className="text-[10px] font-bold uppercase tracking-wider text-[#FF2D20] px-2 py-0.5 rounded bg-[#FF2D20]/15">
-                                            {exp.duration}
+            {/* 3. Skills Section (White Background) */}
+            <section id="skills" className="bg-white py-24 border-b border-[#E5E7EB]">
+                <div className="max-w-[1280px] mx-auto px-6">
+                    <div className="text-center max-w-xl mx-auto mb-16 space-y-2">
+                        <span className="text-xs font-semibold text-[#2563EB] uppercase tracking-wider">Expertise</span>
+                        <h2 className="text-3xl font-bold tracking-tight text-[#111827]">Skills Ecosystem</h2>
+                        <p className="text-[#6B7280] text-sm">Categorized list of key languages, frameworks, and workflow tools.</p>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {skillCategories.map((category, idx) => (
+                            <div key={idx} className="bg-white border border-[#E5E7EB] rounded-xl p-6 shadow-sm">
+                                <h3 className="font-bold text-sm text-[#111827] uppercase tracking-wider pb-3 border-b border-[#E5E7EB] mb-4">
+                                    {category}
+                                </h3>
+                                <div className="flex flex-wrap gap-2">
+                                    {skills[category].map((skill, sIdx) => (
+                                        <span 
+                                            key={sIdx}
+                                            className="px-3 py-1.5 rounded-lg bg-[#F8FAFC] border border-[#E5E7EB] text-[#111827] text-xs font-medium hover:border-[#2563EB]/40 transition duration-150"
+                                        >
+                                            {skill.name}
                                         </span>
-                                    </div>
-                                    <span className="text-xs text-slate-400 font-semibold mb-3 block">{exp.company}</span>
-                                    <p className="text-xs text-slate-400 leading-relaxed font-light mb-4">
-                                        {exp.description}
-                                    </p>
-                                    <div className="flex flex-wrap gap-1.5">
-                                        {tech.map((t, index) => (
-                                            <span key={index} className="px-2 py-0.5 rounded bg-slate-950 text-slate-500 border border-slate-850 text-[9px] uppercase tracking-wider font-bold">
-                                                {t}
-                                            </span>
-                                        ))}
-                                    </div>
+                                    ))}
                                 </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* 4. Projects Grid (Soft Gray Background) */}
+            <section id="projects" className="bg-[#F8FAFC] py-24 border-b border-[#E5E7EB]">
+                <div className="max-w-[1280px] mx-auto px-6">
+                    <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12">
+                        <div className="space-y-2">
+                            <span className="text-xs font-semibold text-[#2563EB] uppercase tracking-wider">Showcase</span>
+                            <h2 className="text-3xl font-bold tracking-tight text-[#111827]">Case Studies & Projects</h2>
+                        </div>
+
+                        {/* Filter Tabs */}
+                        <div className="flex flex-wrap gap-2">
+                            {uniqueTags.map((tag, idx) => (
+                                <button
+                                    key={idx}
+                                    onClick={() => setActiveTab(tag)}
+                                    className={`px-3 py-1.5 rounded-lg text-xs font-medium capitalize transition ${
+                                        activeTab === tag 
+                                            ? 'bg-[#2563EB] text-white' 
+                                            : 'bg-white text-[#6B7280] border border-[#E5E7EB] hover:bg-slate-50'
+                                    }`}
+                                >
+                                    {tag}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {filteredProjects.map((project) => {
+                            const tags = Array.isArray(project.technologies) ? project.technologies : JSON.parse(project.technologies || '[]');
+                            return (
+                                <article key={project.id} className="group bg-white border border-[#E5E7EB] rounded-xl overflow-hidden flex flex-col justify-between hover:border-[#2563EB]/40 transition-all duration-200 shadow-sm hover:-translate-y-1">
+                                    <div>
+                                        {/* Realistic Browser Mockup Frame */}
+                                        <div className="border-b border-[#E5E7EB] bg-[#F8FAFC] px-4 py-2.5 flex items-center gap-2">
+                                            <div className="flex gap-1.5">
+                                                <span className="w-2.5 h-2.5 rounded-full bg-[#E5E7EB]"></span>
+                                                <span className="w-2.5 h-2.5 rounded-full bg-[#E5E7EB]"></span>
+                                                <span className="w-2.5 h-2.5 rounded-full bg-[#E5E7EB]"></span>
+                                            </div>
+                                            <div className="bg-white border border-[#E5E7EB] text-[10px] text-[#6B7280] rounded px-3 py-0.5 text-center flex-grow max-w-[160px] truncate font-mono">
+                                                {project.slug}.local
+                                            </div>
+                                        </div>
+
+                                        <div className="p-6 space-y-4">
+                                            <div className="flex justify-between items-center">
+                                                <div className="flex flex-wrap gap-1">
+                                                    {tags.slice(0, 3).map((t, idx) => (
+                                                        <span key={idx} className="px-2 py-0.5 rounded bg-[#F3F4F6] text-[#6B7280] text-[9px] uppercase tracking-wider font-bold">
+                                                            {t}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                                {project.is_featured && (
+                                                    <span className="text-[9px] font-bold text-[#2563EB] uppercase tracking-wider">
+                                                        ★ Featured
+                                                    </span>
+                                                )}
+                                            </div>
+
+                                            <h3 className="text-lg font-bold text-[#111827]">
+                                                {project.title}
+                                            </h3>
+                                            
+                                            <p className="text-[#6B7280] text-xs leading-relaxed line-clamp-3">
+                                                {project.description}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    {/* Action Links */}
+                                    <div className="px-6 pb-6 pt-4 border-t border-[#E5E7EB]/60 flex items-center justify-between gap-3">
+                                        <div className="flex gap-2">
+                                            {project.github_url && (
+                                                <a 
+                                                    href={project.github_url} 
+                                                    target="_blank" 
+                                                    rel="noreferrer" 
+                                                    className="p-1.5 rounded-md border border-[#E5E7EB] hover:border-[#2563EB]/40 text-[#6B7280] hover:text-[#2563EB] transition"
+                                                    title="GitHub Repository"
+                                                >
+                                                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                                        <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
+                                                    </svg>
+                                                </a>
+                                            )}
+                                            {project.live_url && (
+                                                <a 
+                                                    href={project.live_url} 
+                                                    target="_blank" 
+                                                    rel="noreferrer" 
+                                                    className="p-1.5 rounded-md border border-[#E5E7EB] hover:border-[#2563EB]/40 text-[#6B7280] hover:text-[#2563EB] transition"
+                                                    title="Live Demo"
+                                                >
+                                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                                                    </svg>
+                                                </a>
+                                            )}
+                                        </div>
+                                        <Link 
+                                            href={`/project/${project.slug}`}
+                                            className="px-3 py-1.5 rounded-lg border border-[#2563EB] text-[#2563EB] text-xs font-semibold hover:bg-[#2563EB]/5 transition"
+                                        >
+                                            View Details
+                                        </Link>
+                                    </div>
+                                </article>
                             );
                         })}
                     </div>
                 </div>
             </section>
 
-            {/* Skills Section */}
-            <section id="skills" className="max-w-6xl mx-auto px-6 py-20 border-t border-slate-900">
-                <div className="text-center mb-12">
-                    <h4 className="text-xs text-[#FF2D20] font-black uppercase tracking-widest">Stack</h4>
-                    <h2 className="text-3xl font-extrabold text-slate-100 mt-2">Technical Skills & Ecosystem</h2>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-                    {skillKeys.map((category, idx) => (
-                        <div key={idx} className="bg-slate-900/20 border border-slate-900/60 p-6 rounded-2xl">
-                            <h3 className="font-extrabold text-sm text-[#FF2D20] uppercase tracking-wider mb-6 pb-2 border-b border-slate-900">
-                                {category}
-                            </h3>
-                            <div className="space-y-4">
-                                {skills[category].map((skill, sIdx) => (
-                                    <div key={sIdx} className="space-y-2">
-                                        <div className="flex justify-between items-center text-xs">
-                                            <span className="font-bold text-slate-200">{skill.name}</span>
-                                            <span className="text-slate-500 font-semibold">{skill.level}%</span>
-                                        </div>
-                                        <div className="w-full bg-slate-900 h-1.5 rounded-full overflow-hidden">
-                                            <div 
-                                                className="bg-gradient-to-r from-[#FF2D20] to-purple-600 h-full rounded-full"
-                                                style={{ width: `${skill.level}%` }}
-                                            ></div>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </section>
-
-            {/* Projects Grid */}
-            <section id="projects" className="max-w-6xl mx-auto px-6 py-20 border-t border-slate-900">
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12">
-                    <div>
-                        <h4 className="text-xs text-[#FF2D20] font-black uppercase tracking-widest">Showcase</h4>
-                        <h2 className="text-3xl font-extrabold text-slate-100 mt-2">Selected Case Studies</h2>
+            {/* 5. Certificates Section (White Background) */}
+            <section className="bg-white py-24 border-b border-[#E5E7EB]">
+                <div className="max-w-[1280px] mx-auto px-6">
+                    <div className="text-center max-w-xl mx-auto mb-16 space-y-2">
+                        <span className="text-xs font-semibold text-[#2563EB] uppercase tracking-wider">Achievements</span>
+                        <h2 className="text-3xl font-bold tracking-tight text-[#111827]">Certifications & Awards</h2>
                     </div>
 
-                    {/* Filter Tabs */}
-                    <div className="flex flex-wrap gap-2.5">
-                        {uniqueTags.map((tag, idx) => (
-                            <button
-                                key={idx}
-                                onClick={() => setActiveTab(tag)}
-                                className={`px-4 py-1.5 rounded-xl text-xs font-semibold capitalize transition ${
-                                    activeTab === tag 
-                                        ? 'bg-[#FF2D20] text-white shadow-lg shadow-[#FF2D20]/25' 
-                                        : 'bg-slate-900/50 hover:bg-slate-800 text-slate-400 border border-slate-850'
-                                }`}
-                            >
-                                {tag}
-                            </button>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        {certificates?.map((cert) => (
+                            <div key={cert.id} className="p-6 rounded-xl bg-white border border-[#E5E7EB] flex justify-between items-center shadow-sm hover:border-[#2563EB]/40 transition">
+                                <div className="space-y-1">
+                                    <h3 className="font-bold text-sm text-[#111827]">{cert.title}</h3>
+                                    <div className="flex gap-4 text-xs text-[#6B7280]">
+                                        <span>{cert.organization}</span>
+                                        <span>{cert.issue_date}</span>
+                                    </div>
+                                </div>
+                                {cert.credential_url && (
+                                    <a 
+                                        href={cert.credential_url} 
+                                        target="_blank" 
+                                        rel="noreferrer"
+                                        className="px-3 py-1.5 rounded-lg border border-[#E5E7EB] text-xs text-[#6B7280] hover:text-[#2563EB] hover:border-[#2563EB]/40 transition"
+                                    >
+                                        Verify
+                                    </a>
+                                )}
+                            </div>
                         ))}
                     </div>
                 </div>
+            </section>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {filteredProjects.map((project) => {
-                        const tags = Array.isArray(project.technologies) ? project.technologies : JSON.parse(project.technologies || '[]');
-                        return (
-                            <article key={project.id} className="group bg-slate-900/30 border border-slate-900 hover:border-slate-850 p-6 rounded-2xl flex flex-col justify-between hover:bg-slate-900/50 transition duration-300 relative overflow-hidden">
-                                <div className="absolute top-0 right-0 w-24 h-24 bg-[#FF2D20]/5 rounded-full blur-xl group-hover:bg-[#FF2D20]/10 transition-all duration-300"></div>
+            {/* 6. Contact Section (Soft Gray Background) */}
+            <section id="contact" className="bg-[#F8FAFC] py-24">
+                <div className="max-w-[1280px] mx-auto px-6">
+                    <div className="text-center max-w-xl mx-auto mb-16 space-y-2">
+                        <span className="text-xs font-semibold text-[#2563EB] uppercase tracking-wider">Connect</span>
+                        <h2 className="text-3xl font-bold tracking-tight text-[#111827]">Get in Touch</h2>
+                        <p className="text-[#6B7280] text-sm">Have a project proposal? Drop a direct message below.</p>
+                    </div>
+
+                    <div className="max-w-lg mx-auto">
+                        {wasSuccessful && (
+                            <div className="p-4 mb-6 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs text-center font-medium">
+                                Message submitted successfully to the database.
+                            </div>
+                        )}
+
+                        <form onSubmit={handleContactSubmit} className="space-y-4 bg-white border border-[#E5E7EB] p-8 rounded-xl shadow-sm">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
-                                    <div className="flex justify-between items-center gap-2 mb-4">
-                                        <div className="flex flex-wrap gap-1.5">
-                                            {tags.map((t, idx) => (
-                                                <span key={idx} className="px-2 py-0.5 rounded bg-slate-950 text-cyan-400 border border-slate-850 text-[9px] uppercase tracking-wider font-bold">
-                                                    {t}
-                                                </span>
-                                            ))}
-                                        </div>
-                                        {project.is_featured && (
-                                            <span className="px-2 py-0.5 rounded bg-[#FF2D20]/10 text-[#FF2D20] border border-[#FF2D20]/30 text-[9px] font-bold uppercase tracking-wider">
-                                                Featured
-                                            </span>
-                                        )}
-                                    </div>
-                                    <h3 className="text-xl font-bold text-slate-100 group-hover:text-[#FF2D20] transition duration-300 mb-3">
-                                        {project.title}
-                                    </h3>
-                                    <p className="text-slate-400 text-xs leading-relaxed mb-6 font-light">
-                                        {project.description}
-                                    </p>
+                                    <label className="block text-[11px] font-semibold text-[#6B7280] mb-1.5" htmlFor="name">Your Name</label>
+                                    <input
+                                        type="text"
+                                        id="name"
+                                        value={data.name}
+                                        onChange={e => setData('name', e.target.value)}
+                                        className="w-full bg-white border border-[#E5E7EB] focus:border-[#2563EB] rounded-lg px-3 py-2 text-xs text-[#111827] outline-none transition"
+                                        placeholder="Jane Doe"
+                                        required
+                                    />
+                                    {errors.name && <p className="text-[10px] text-rose-600 mt-1">{errors.name}</p>}
                                 </div>
-                                <div className="flex items-center justify-between pt-4 border-t border-slate-900">
-                                    <a 
-                                        href={project.github_url} 
-                                        target="_blank" 
-                                        rel="noreferrer" 
-                                        className="text-xs text-slate-500 hover:text-slate-200 transition"
-                                    >
-                                        GitHub Link &rarr;
-                                    </a>
-                                    <Link 
-                                        href={`/project/${project.slug}`}
-                                        className="text-xs text-[#FF2D20] font-bold hover:underline transition"
-                                    >
-                                        View Case Study
-                                    </Link>
-                                </div>
-                            </article>
-                        );
-                    })}
-                </div>
-            </section>
-
-            {/* Certificates Section */}
-            <section className="max-w-6xl mx-auto px-6 py-20 border-t border-slate-900">
-                <div className="text-center mb-12">
-                    <h4 className="text-xs text-[#FF2D20] font-black uppercase tracking-widest">Achievements</h4>
-                    <h2 className="text-3xl font-extrabold text-slate-100 mt-2">Certifications & Awards</h2>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {certificates?.map((cert) => (
-                        <div key={cert.id} className="p-6 rounded-2xl bg-slate-900/30 border border-slate-900 flex gap-6 items-center hover:border-slate-800 transition">
-                            <div className="w-12 h-12 rounded-xl bg-[#FF2D20]/10 flex items-center justify-center font-bold text-lg text-[#FF2D20]">
-                                🏆
-                            </div>
-                            <div className="flex-grow">
-                                <h3 className="font-bold text-slate-200">{cert.title}</h3>
-                                <div className="flex justify-between items-center text-xs text-slate-500 mt-1">
-                                    <span>{cert.organization}</span>
-                                    <span>{cert.issue_date}</span>
+                                <div>
+                                    <label className="block text-[11px] font-semibold text-[#6B7280] mb-1.5" htmlFor="email">Email Address</label>
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        value={data.email}
+                                        onChange={e => setData('email', e.target.value)}
+                                        className="w-full bg-white border border-[#E5E7EB] focus:border-[#2563EB] rounded-lg px-3 py-2 text-xs text-[#111827] outline-none transition"
+                                        placeholder="jane@example.com"
+                                        required
+                                    />
+                                    {errors.email && <p className="text-[10px] text-rose-600 mt-1">{errors.email}</p>}
                                 </div>
                             </div>
-                            {cert.credential_url && (
-                                <a 
-                                    href={cert.credential_url} 
-                                    target="_blank" 
-                                    rel="noreferrer"
-                                    className="px-3 py-1.5 rounded-lg border border-slate-800 text-xs text-slate-400 hover:text-white hover:border-slate-700 transition"
-                                >
-                                    Verify
-                                </a>
-                            )}
-                        </div>
-                    ))}
-                </div>
-            </section>
 
-            {/* Contact Section */}
-            <section id="contact" className="max-w-6xl mx-auto px-6 py-20 border-t border-slate-900 relative">
-                <div className="max-w-3xl mx-auto text-center mb-12">
-                    <h4 className="text-xs text-[#FF2D20] font-black uppercase tracking-widest">Connect</h4>
-                    <h2 className="text-3xl font-extrabold text-slate-100 mt-2">Let's Work Together</h2>
-                    <p className="text-slate-400 text-xs mt-2">Submit details directly to save a message in my secure database.</p>
-                </div>
-
-                <div className="max-w-xl mx-auto">
-                    {wasSuccessful && (
-                        <div className="p-4 mb-6 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs text-center font-semibold">
-                            Success! Your message was submitted to my SQLite/MySQL backend database.
-                        </div>
-                    )}
-
-                    <form onSubmit={handleContactSubmit} className="space-y-5 p-8 rounded-2xl bg-slate-950/60 border border-slate-900 backdrop-blur-sm shadow-xl">
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                             <div>
-                                <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2" htmlFor="name">Your Name</label>
+                                <label className="block text-[11px] font-semibold text-[#6B7280] mb-1.5" htmlFor="subject">Subject</label>
                                 <input
                                     type="text"
-                                    id="name"
-                                    value={data.name}
-                                    onChange={e => setData('name', e.target.value)}
-                                    className="w-full bg-slate-900/60 border border-slate-900 focus:border-[#FF2D20]/60 focus:ring-1 focus:ring-[#FF2D20]/20 rounded-xl px-4 py-2.5 text-xs text-slate-200 transition"
-                                    placeholder="Jane Doe"
+                                    id="subject"
+                                    value={data.subject}
+                                    onChange={e => setData('subject', e.target.value)}
+                                    className="w-full bg-white border border-[#E5E7EB] focus:border-[#2563EB] rounded-lg px-3 py-2 text-xs text-[#111827] outline-none transition"
+                                    placeholder="Collaboration Proposal"
                                     required
                                 />
-                                {errors.name && <p className="text-[10px] text-rose-500 mt-1">{errors.name}</p>}
+                                {errors.subject && <p className="text-[10px] text-rose-600 mt-1">{errors.subject}</p>}
                             </div>
+
                             <div>
-                                <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2" htmlFor="email">Email Address</label>
-                                <input
-                                    type="email"
-                                    id="email"
-                                    value={data.email}
-                                    onChange={e => setData('email', e.target.value)}
-                                    className="w-full bg-slate-900/60 border border-slate-900 focus:border-[#FF2D20]/60 focus:ring-1 focus:ring-[#FF2D20]/20 rounded-xl px-4 py-2.5 text-xs text-slate-200 transition"
-                                    placeholder="jane@example.com"
+                                <label className="block text-[11px] font-semibold text-[#6B7280] mb-1.5" htmlFor="message">Message</label>
+                                <textarea
+                                    id="message"
+                                    rows="5"
+                                    value={data.message}
+                                    onChange={e => setData('message', e.target.value)}
+                                    className="w-full bg-white border border-[#E5E7EB] focus:border-[#2563EB] rounded-lg px-3 py-2 text-xs text-[#111827] outline-none transition resize-none"
+                                    placeholder="Message details..."
                                     required
-                                />
-                                {errors.email && <p className="text-[10px] text-rose-500 mt-1">{errors.email}</p>}
+                                ></textarea>
+                                {errors.message && <p className="text-[10px] text-rose-600 mt-1">{errors.message}</p>}
                             </div>
-                        </div>
 
-                        <div>
-                            <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2" htmlFor="subject">Subject</label>
-                            <input
-                                type="text"
-                                id="subject"
-                                value={data.subject}
-                                onChange={e => setData('subject', e.target.value)}
-                                className="w-full bg-slate-900/60 border border-slate-900 focus:border-[#FF2D20]/60 focus:ring-1 focus:ring-[#FF2D20]/20 rounded-xl px-4 py-2.5 text-xs text-slate-200 transition"
-                                placeholder="Consulting/Project Collaboration"
-                                required
-                            />
-                            {errors.subject && <p className="text-[10px] text-rose-500 mt-1">{errors.subject}</p>}
-                        </div>
-
-                        <div>
-                            <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2" htmlFor="message">Message</label>
-                            <textarea
-                                id="message"
-                                rows="5"
-                                value={data.message}
-                                onChange={e => setData('message', e.target.value)}
-                                className="w-full bg-slate-900/60 border border-slate-900 focus:border-[#FF2D20]/60 focus:ring-1 focus:ring-[#FF2D20]/20 rounded-xl px-4 py-2.5 text-xs text-slate-200 transition resize-none"
-                                placeholder="Details of your request..."
-                                required
-                            ></textarea>
-                            {errors.message && <p className="text-[10px] text-rose-500 mt-1">{errors.message}</p>}
-                        </div>
-
-                        <button
-                            type="submit"
-                            disabled={processing}
-                            className="w-full py-3 rounded-xl bg-[#FF2D20] hover:bg-[#e0241b] text-white font-bold transition shadow-lg shadow-[#FF2D20]/20 disabled:opacity-50"
-                        >
-                            {processing ? 'Sending details...' : 'Submit Message'}
-                        </button>
-                    </form>
+                            <button
+                                type="submit"
+                                disabled={processing}
+                                className="w-full py-2.5 rounded-lg bg-[#2563EB] hover:bg-[#1d4ed8] text-white font-semibold text-xs transition duration-150"
+                            >
+                                {processing ? 'Submitting...' : 'Send Message'}
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </section>
         </AppLayout>
