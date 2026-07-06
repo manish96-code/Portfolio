@@ -15,10 +15,10 @@ class ExperienceSeeder extends Seeder
         $experiences = [
             [
                 'company' => 'Comestro Techlabs Pvt Ltd',
-                'designation' => 'Full Stack Developer Intern',
-                'duration' => 'Currently',
-                'description' => "Developed multi-vendor bookstore applications (KitabiAdda) and academic portals using Laravel, Inertia, and React. Optimized SQL query performance and integrated custom MCP server nodes to assist in codebase analysis.",
-                'skills_used' => ['Laravel', 'React', 'Inertia.js', 'Tailwind CSS', 'MySQL', 'Git'],
+                'designation' => 'Laravel Developer',
+                'duration' => 'May 2024 - Present',
+                'description' => "Developed multi-vendor e-commerce bookstore marketplaces (KitabiAdda) and campus networking portals (Campus Connect) using Laravel, React, Inertia, and MySQL. Experienced in writing clean code, designing database schemas, and managing repository integrations.",
+                'skills_used' => ['Laravel', 'React', 'PHP', 'MySQL', 'Git', 'GitHub', 'Inertia.js'],
                 'is_current' => true,
                 'order_index' => 0,
             ]

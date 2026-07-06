@@ -14,17 +14,17 @@ class SettingSeeder extends Seeder
     {
         $settings = [
             'name' => 'Manish Kumar',
-            'title' => 'Full Stack Laravel Developer',
+            'title' => 'Full Stack Web Developer | Laravel | React | PHP',
             'location' => 'Jaipur, Rajasthan, India',
             'current_company' => 'Comestro Techlabs Pvt Ltd',
-            'education' => 'BCA, Purnea University',
-            'objective' => 'Highly motivated Full Stack Developer Intern looking to leverage solid expertise in Laravel, React, and MySQL database management to build modern web environments.',
-            'bio' => 'I build premium, high-performance web applications using Laravel, React, and Inertia.js. Specialize in crafting pixel-perfect frontend layouts using Tailwind CSS and integrating Model Context Protocol servers for AI agents.',
-            'email' => 'manish.kumar@example.com',
-            'phone' => '+91 9876543210',
+            'education' => 'BCA, Purnea University (2021-2024)',
+            'objective' => 'Seeking to leverage solid expertise in Laravel, React, and MySQL database management to build modern, high-performance web environments.',
+            'bio' => 'Passionate about building modern web applications that solve real-world problems. Specialize in full-stack ecosystems leveraging Laravel on the backend and React/Inertia on the frontend.',
+            'email' => 'manish96611311@gmail.com',
+            'phone' => '+91 9661131100', // Mock representation or similar
             'resume_file' => '/downloads/resume.pdf',
-            'meta_title' => 'Manish Kumar | Full Stack Laravel Developer Portfolio',
-            'meta_description' => 'Personal portfolio of Manish Kumar. Full Stack Developer Intern at Comestro Techlabs Pvt Ltd. Expert in Laravel, PHP, React, and MySQL.',
+            'meta_title' => 'Manish Kumar | Full Stack Web Developer',
+            'meta_description' => 'Personal portfolio of Manish Kumar. Full Stack Web Developer Intern at Comestro Techlabs Pvt Ltd. Expert in Laravel, PHP, React, and MySQL.',
             'robots' => 'index, follow',
         ];
 

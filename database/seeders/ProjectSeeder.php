@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Project;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
 
 class ProjectSeeder extends Seeder
 {
@@ -15,14 +14,27 @@ class ProjectSeeder extends Seeder
     {
         $projects = [
             [
+                'title' => 'LinkUp',
+                'slug' => 'linkup',
+                'description' => 'A modern social media platform featuring posts, comments, likes, real-time messaging, and profile customization.',
+                'content' => "# LinkUp - Modern Social Media Platform\n\n## Overview\nLinkUp is a full-featured social media web application built with a modern single-page experience using Inertia.js, React, and Laravel.\n\n## Core Features\n- **Activity Feed**: Interactive posts, image uploads, likes, and nested comments.\n- **User Relations**: Follow/unfollow mechanics, user profile customize screens.\n- **Real-time Messaging**: Instant chat integrations.\n- **Modern SPA Router**: Fast page updates without page reloads using Inertia.js.",
+                'thumbnail' => '/images/projects/linkup-thumb.jpg',
+                'images' => ['/images/projects/linkup-1.jpg'],
+                'technologies' => ['Laravel', 'React', 'Inertia', 'MySQL', 'Tailwind CSS'],
+                'github_url' => 'https://github.com/manish96-code/LinkUp',
+                'live_url' => 'http://localhost:8000',
+                'status' => 'Completed',
+                'is_featured' => true,
+            ],
+            [
                 'title' => 'KitabiAdda',
                 'slug' => 'kitabi-adda',
-                'description' => 'A premium Multi-Vendor Book Marketplace designed for students, sellers, and readers to interact and transact seamlessly.',
-                'content' => "# KitabiAdda - Multi Vendor Book Marketplace\n\n## Overview\nKitabiAdda is a sophisticated digital storefront that brings local book vendors and students together onto a unified platform. Built to address the high costs of academic textbooks, the application allows users to buy new/used books, list their own books for sale, and coordinate delivery with local riders.\n\n## Problem Statement\nStudents struggle to find affordable textbooks, while independent local bookshops lack digital storefront infrastructure. General e-commerce sites don't cater to the specialized needs of book condition grading, rental models, or local hyper-local delivery services.\n\n## Solution\nWe developed a multi-tenant marketplace where:\n1. **Sellers** get dedicated dashboard portals to manage inventories, view transactions, and process payouts.\n2. **Customers** browse categorized lists, apply discount coupons, track orders, and request returns.\n3. **Riders** accept deliveries based on location, update progress, and earn commissions.\n\n## Core Features\n- **Interactive Front Store**: Filter by genre, author, and condition.\n- **Vendor Dashboards**: Dynamic charts, sales reports, inventory tracking.\n- **Rider Allocation System**: Automated order assignment with timers.\n- **Coupon & Refund system**: Secure cancellation logs and checkout discounts.\n\n## Architecture\nBuilt on a solid Model-View-Controller framework using Laravel on the backend and React/Inertia on the frontend. Utilizing SQLite/MySQL databases for relational transactions.\n\n## Challenges & Future Improvements\n- **Challenge**: Coordinating multi-vendor shipments. Resolved by splitting a single order into multiple sub-shipments assigned to different vendors.\n- **Improvement**: Integrating automated shipping APIs (e.g. Shiprocket) and SMS notifications.",
+                'description' => 'A premium Multi-Vendor Book Marketplace designed for students, sellers, and readers to interact and transact book sales.',
+                'content' => "# KitabiAdda - Multi Vendor Book Marketplace\n\n## Overview\nKitabiAdda is a multi-vendor bookstore designed to connect local bookshops and students. Users can list books, purchase copies, and rate sellers.",
                 'thumbnail' => '/images/projects/kitabiadda-thumb.jpg',
-                'images' => ['/images/projects/kitabiadda-1.jpg', '/images/projects/kitabiadda-2.jpg'],
+                'images' => ['/images/projects/kitabiadda-1.jpg'],
                 'technologies' => ['Laravel', 'React', 'Inertia', 'MySQL', 'Tailwind CSS'],
-                'github_url' => 'https://github.com',
+                'github_url' => 'https://github.com/manish96-code/KitabiAdda',
                 'live_url' => 'http://localhost:8000',
                 'status' => 'Completed',
                 'is_featured' => true,
@@ -30,27 +42,40 @@ class ProjectSeeder extends Seeder
             [
                 'title' => 'Campus Connect',
                 'slug' => 'campus-connect',
-                'description' => 'A dynamic social and academic platform for students to share notes, assignments, and interact in real-time.',
-                'content' => "# Campus Connect - Student Social Network\n\n## Overview\nCampus Connect is a customized digital hub designed for university students to connect, interact, share course resources, and manage classroom assignments.\n\n## Problem Statement\nStudents are forced to use multiple disjointed tools (WhatsApp for chat, Google Drive for resource sharing, emails for announcements), leading to information loss and lack of community engagement.\n\n## Solution\nAn all-in-one platform combining files sharing, academic forums, real-time message boards, and social timelines. Students register with university email IDs to gain access to their respective campus workspace.\n\n## Core Features\n- **Resource Hub**: Upload and download lecture notes, test materials, and past papers sorted by subject codes.\n- **Social Feed**: Write posts, upload images, tag peers, like, and comment.\n- **Events & Announcements**: Administrative alerts, test schedules, and club gatherings.\n- **Profiles**: View student details, academic courses, and uploaded files.\n\n## Tech Stack\n- Laravel framework\n- React.js frontend integrated via Inertia.js\n- MySQL database storage\n- Tailwind CSS design system",
+                'description' => 'An all-in-one college management and campus social networking system for students and teachers.',
+                'content' => "# Campus Connect - Campus Management System\n\n## Overview\nCampusConnect integrates course files sharing, student timelines, and assignment boards onto a single clean dashboard.",
                 'thumbnail' => '/images/projects/campusconnect-thumb.jpg',
                 'images' => ['/images/projects/campusconnect-1.jpg'],
-                'technologies' => ['Laravel', 'React', 'MySQL', 'Tailwind CSS', 'Inertia'],
-                'github_url' => 'https://github.com',
+                'technologies' => ['Laravel', 'Livewire', 'MySQL', 'Tailwind CSS'],
+                'github_url' => 'https://github.com/manish96-code/CampusConnect',
                 'live_url' => 'http://localhost:8000',
                 'status' => 'Completed',
                 'is_featured' => true,
             ],
             [
-                'title' => 'Gym Management SaaS',
-                'slug' => 'gym-management-saas',
-                'description' => 'A multi-tenant software-as-a-service system designed for fitness clubs to handle subscriptions, billing, and attendance tracking.',
-                'content' => "# Gym Management SaaS\n\n## Overview\nThis project is a multi-tenant software application that allows fitness center owners to manage memberships, process monthly fees, track staff schedules, and check member check-ins.\n\n## Core Features\n- **Multi-Tenant Database Structure**: Isolated data storage per gym instance.\n- **Membership Plans**: Configure customizable recurring subscription packages.\n- **Automated Billing**: Generates recurring invoices, receipts, and tracks pending balances.\n- **Attendance Log**: QR-code based entry checks for gym members.\n- **Reports**: Graphic representations of monthly sales trends and popular workout hours.",
-                'thumbnail' => '/images/projects/gymsaas-thumb.jpg',
+                'title' => 'Client Management',
+                'slug' => 'client-management',
+                'description' => 'A secure client portal for project management, tracking billable hours, invoices, and messaging.',
+                'content' => "# Client Management Portal\n\n## Overview\nA clean portal built for agencies to coordinate task deliverables and invoice milestones with clients.",
+                'thumbnail' => '/images/projects/client-thumb.jpg',
                 'images' => [],
-                'technologies' => ['Laravel', 'React', 'MySQL', 'Tailwind CSS', 'Inertia'],
-                'github_url' => 'https://github.com',
+                'technologies' => ['PHP', 'MySQL', 'HTML5', 'CSS3'],
+                'github_url' => 'https://github.com/manish96-code',
                 'live_url' => 'http://localhost:8000',
-                'status' => 'In Progress',
+                'status' => 'Completed',
+                'is_featured' => false,
+            ],
+            [
+                'title' => 'Recipe Finder',
+                'slug' => 'recipe-finder',
+                'description' => 'A React-based single-page application integrating third-party recipe REST APIs with local filtering.',
+                'content' => "# Recipe Finder\n\n## Overview\nAllows users to search for dishes, filter by dietary requirements, and save recipes to their local storage.",
+                'thumbnail' => '/images/projects/recipe-thumb.jpg',
+                'images' => [],
+                'technologies' => ['React', 'REST API', 'JavaScript', 'Tailwind CSS'],
+                'github_url' => 'https://github.com/manish96-code',
+                'live_url' => 'http://localhost:8000',
+                'status' => 'Completed',
                 'is_featured' => false,
             ]
         ];

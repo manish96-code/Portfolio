@@ -11,13 +11,21 @@ class Project extends Model
 
     protected $fillable = [
         'title',
+        'slug',
         'description',
-        'tags',
+        'content',
+        'thumbnail',
+        'images',
+        'technologies',
         'github_url',
         'live_url',
+        'status',
+        'is_featured',
     ];
 
     protected $casts = [
-        'tags' => 'array',
+        'images' => 'array',
+        'technologies' => 'array',
+        'is_featured' => 'boolean',
     ];
 }
