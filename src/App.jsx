@@ -10,10 +10,32 @@ export default function App() {
 
     useEffect(() => {
         const handleHashChange = () => {
-            setCurrentPath(window.location.hash || '#/');
-            window.scrollTo({ top: 0, behavior: 'instant' });
+            const hash = window.location.hash || '#/';
+            setCurrentPath(hash);
+            
+            // Only scroll to top if we are transitioning to a different subpage (like projects or blogs)
+            // If it's a section anchor on the home page, let the browser scroll to it naturally or scroll smoothly
+            if (hash.startsWith('#/')) {
+                window.scrollTo({ top: 0, behavior: 'instant' });
+            } else if (hash.startsWith('#')) {
+                const element = document.getElementById(hash.substring(1));
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
         };
         window.addEventListener('hashchange', handleHashChange);
+        
+        // Initial scroll check on load
+        if (window.location.hash && !window.location.hash.startsWith('#/')) {
+            setTimeout(() => {
+                const element = document.getElementById(window.location.hash.substring(1));
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                }
+            }, 100);
+        }
+        
         return () => window.removeEventListener('hashchange', handleHashChange);
     }, []);
 
