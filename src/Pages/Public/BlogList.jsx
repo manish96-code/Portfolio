@@ -6,7 +6,7 @@ export default function BlogList({ blogs, categories, socialLinks, settings }) {
     const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
-        document.title = 'Articles & Insights | Manish Kumar';
+        document.title = 'Insights & Articles | Manish Kumar';
     }, []);
 
     const filteredBlogs = (blogs || []).filter(blog => {
@@ -18,25 +18,25 @@ export default function BlogList({ blogs, categories, socialLinks, settings }) {
 
     return (
         <AppLayout settings={settings} socialLinks={socialLinks}>
-            <div className="max-w-[1280px] mx-auto px-6 py-16 md:py-24 font-mono-atkinson">
+            <div className="max-w-[1200px] mx-auto px-6 py-16 md:py-24">
                 <div className="text-center max-w-xl mx-auto mb-16 space-y-3">
-                    <span className="text-xs font-bold text-[#942929] uppercase tracking-wider block">Insights</span>
-                    <h1 className="text-4xl md:text-5xl font-black text-[#111827] tracking-tight font-moderno uppercase">Articles & Blog</h1>
-                    <p className="text-gray-500 text-sm">Deep dives into Laravel, React, Inertia, and modern developer workflows.</p>
+                    <span className="text-xs font-semibold text-[#3B82F6] uppercase tracking-wider block font-code">Insights</span>
+                    <h1 className="text-4xl font-extrabold text-[#0F172A] tracking-tight">Articles & Knowledge Base</h1>
+                    <p className="text-[#475569] text-sm font-normal">Deep dives into Laravel frameworks, React applications, and software architecture.</p>
                 </div>
 
                 {/* Filters Board */}
-                <div className="flex flex-col sm:flex-row gap-6 justify-between items-center mb-12 pb-6 border-b border-[#E5E7EB]">
+                <div className="flex flex-col sm:flex-row gap-6 justify-between items-center mb-12 pb-6 border-b border-[#F1F5F9]">
                     {/* Category Pills */}
                     <div className="flex flex-wrap gap-2">
                         {categories.map((cat, idx) => (
                             <button
                                 key={idx}
                                 onClick={() => setSelectedCategory(cat)}
-                                className={`px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition ${
+                                className={`px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition ${
                                     selectedCategory === cat
-                                        ? 'bg-[#942929] text-white'
-                                        : 'bg-white text-gray-500 border border-[#E5E7EB] hover:bg-slate-50'
+                                        ? 'bg-[#3B82F6] text-white'
+                                        : 'bg-white text-gray-500 border border-[#E2E8F0] hover:bg-slate-50'
                                 }`}
                             >
                                 {cat}
@@ -51,7 +51,7 @@ export default function BlogList({ blogs, categories, socialLinks, settings }) {
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             placeholder="SEARCH ARTICLES..."
-                            className="w-full bg-white border border-[#E5E7EB] focus:border-[#942929] rounded-lg px-4 py-2.5 text-xs text-[#111827] placeholder-gray-400 outline-none transition"
+                            className="w-full bg-white border border-[#E2E8F0] focus:border-[#3B82F6] rounded-lg px-4 py-2.5 text-xs text-[#0F172A] placeholder-gray-400 outline-none transition font-code"
                         />
                     </div>
                 </div>
@@ -62,44 +62,44 @@ export default function BlogList({ blogs, categories, socialLinks, settings }) {
                         filteredBlogs.map((blog) => {
                             const tags = blog.tags || [];
                             return (
-                                <article key={blog.id} className="p-8 rounded-2xl bg-white border border-[#E5E7EB] hover:border-[#942929]/40 transition duration-150 flex flex-col justify-between shadow-sm">
+                                <article key={blog.id} className="p-8 rounded-xl bg-white border border-[#E2E8F0] hover:border-[#3B82F6]/40 transition duration-150 flex flex-col justify-between shadow-sm">
                                     <div className="space-y-4">
-                                        <div className="flex items-center justify-between text-xs font-bold">
-                                            <span className="text-[#942929] uppercase tracking-wider">{blog.category}</span>
+                                        <div className="flex items-center justify-between text-xs font-code">
+                                            <span className="text-[#3B82F6] font-bold uppercase tracking-wider">{blog.category}</span>
                                             <span className="text-gray-400">{new Date(blog.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).toUpperCase()}</span>
                                         </div>
 
                                         <a href={`#/blog/${blog.slug}`}>
-                                            <h3 className="text-lg font-black text-[#111827] hover:text-[#942929] transition duration-150 leading-snug font-moderno uppercase">
+                                            <h3 className="text-lg font-bold text-[#0F172A] hover:text-[#3B82F6] transition duration-150 leading-snug">
                                                 {blog.title}
                                             </h3>
                                         </a>
 
-                                        <p className="text-gray-500 text-xs leading-relaxed line-clamp-3 font-light">
+                                        <p className="text-[#475569] text-xs leading-relaxed line-clamp-3 font-normal">
                                             {blog.summary}
                                         </p>
                                     </div>
 
-                                    <div className="flex items-center justify-between pt-6 border-t border-[#E5E7EB]/60 mt-6">
+                                    <div className="flex items-center justify-between pt-6 border-t border-[#F1F5F9] mt-6">
                                         <div className="flex flex-wrap gap-1">
                                             {tags.slice(0, 3).map((t, idx) => (
-                                                <span key={idx} className="px-2 py-0.5 rounded bg-[#FFEDED] text-[#942929] text-[9px] uppercase tracking-wider font-bold">
+                                                <span key={idx} className="px-2 py-0.5 rounded bg-[#F8FAFC] border border-[#E2E8F0] text-[#64748B] text-[10px] font-code">
                                                     {t}
                                                 </span>
                                             ))}
                                         </div>
                                         <a 
                                             href={`#/blog/${blog.slug}`}
-                                            className="text-xs text-[#942929] font-bold uppercase tracking-wider hover:underline transition"
+                                            className="text-xs text-[#3B82F6] font-semibold hover:underline transition"
                                         >
-                                            Read &rarr;
+                                            Read Article &rarr;
                                         </a>
                                     </div>
                                 </article>
                             );
                         })
                     ) : (
-                        <div className="text-center py-20 text-gray-400 border border-[#E5E7EB] rounded-2xl bg-[#F8FAFC] col-span-2">
+                        <div className="text-center py-20 text-gray-400 border border-[#E2E8F0] rounded-xl bg-[#F8FAFC] col-span-2">
                             <p className="text-sm font-light">No articles matched your criteria.</p>
                         </div>
                     )}

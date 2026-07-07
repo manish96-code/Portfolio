@@ -1,7 +1,6 @@
 @import 'tailwindcss';
 
 @theme {
-    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
-    --font-moderno: 'MuseoModerno', sans-serif;
-    --font-mono-atkinson: 'Atkinson Hyperlegible Mono', monospace;
+    --font-sans: 'Geist', 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
 }
