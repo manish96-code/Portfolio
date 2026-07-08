@@ -77,37 +77,37 @@ export default function AppLayout({ children, settings, socialLinks }) {
     ];
 
     return (
-        <div className="min-h-screen bg-navy text-slate font-sans antialiased">
+        <div className="min-h-screen bg-cream text-body font-sans antialiased">
             
             {/* Fixed Left Social Bar */}
             <div className="hidden lg:flex fixed bottom-0 left-10 z-30 flex-col items-center gap-6">
-                <a href="https://github.com/manish96-code" target="_blank" rel="noreferrer" className="text-slate hover:text-green hover:-translate-y-0.5 transition-all duration-200">
+                <a href="https://github.com/manish96-code" target="_blank" rel="noreferrer" className="text-body-light hover:text-coral hover:-translate-y-0.5 transition-all duration-200">
                     <IconGitHub />
                 </a>
-                <a href="https://linkedin.com/in/manish-kumar" target="_blank" rel="noreferrer" className="text-slate hover:text-green hover:-translate-y-0.5 transition-all duration-200">
+                <a href="https://linkedin.com/in/manish-kumar" target="_blank" rel="noreferrer" className="text-body-light hover:text-coral hover:-translate-y-0.5 transition-all duration-200">
                     <IconLinkedIn />
                 </a>
-                <a href={`mailto:${email}`} className="text-slate hover:text-green hover:-translate-y-0.5 transition-all duration-200">
+                <a href={`mailto:${email}`} className="text-body-light hover:text-coral hover:-translate-y-0.5 transition-all duration-200">
                     <IconMail />
                 </a>
-                <div className="w-px h-24 bg-slate/40"></div>
+                <div className="w-px h-24 bg-stone"></div>
             </div>
 
             {/* Fixed Right Email Bar */}
             <div className="hidden lg:flex fixed bottom-0 right-10 z-30 flex-col items-center gap-6">
-                <a href={`mailto:${email}`} className="text-slate text-xs font-mono tracking-widest hover:text-green hover:-translate-y-0.5 transition-all duration-200" style={{ writingMode: 'vertical-rl' }}>
+                <a href={`mailto:${email}`} className="text-body-light text-xs font-mono tracking-widest hover:text-coral hover:-translate-y-0.5 transition-all duration-200" style={{ writingMode: 'vertical-rl' }}>
                     {email}
                 </a>
-                <div className="w-px h-24 bg-slate/40"></div>
+                <div className="w-px h-24 bg-stone"></div>
             </div>
 
             {/* Header / Navigation */}
-            <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-navy/90 backdrop-blur-md shadow-lg shadow-navy/50 py-4' : 'py-6'}`}>
+            <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/90 backdrop-blur-md shadow-warm py-4' : 'bg-transparent py-6'}`}>
                 <div className="max-w-[1100px] mx-auto px-6 lg:px-12 flex justify-between items-center">
                     
                     {/* Logo */}
-                    <a href="#/" className="text-green font-mono text-lg font-bold hover:opacity-80 transition-opacity">
-                        &lt;MK /&gt;
+                    <a href="#/" className="font-display text-charcoal text-xl font-bold hover:text-coral transition-colors duration-200">
+                        MK
                     </a>
 
                     {/* Desktop Nav */}
@@ -116,9 +116,8 @@ export default function AppLayout({ children, settings, socialLinks }) {
                             <a
                                 key={idx}
                                 href={item.href}
-                                className="px-4 py-2 text-[13px] font-mono text-slate-light hover:text-green transition-colors duration-200"
+                                className="px-4 py-2 text-[13px] font-medium text-body hover:text-coral transition-colors duration-200"
                             >
-                                <span className="text-green mr-1">0{idx + 1}.</span>
                                 {item.label}
                             </a>
                         ))}
@@ -126,7 +125,7 @@ export default function AppLayout({ children, settings, socialLinks }) {
                             href={settings?.resume_file || '#'}
                             target="_blank"
                             rel="noreferrer"
-                            className="ml-4 px-4 py-2 rounded border border-green text-green text-[13px] font-mono hover:bg-green-tint transition-all duration-200"
+                            className="ml-4 px-5 py-2 rounded-full border border-coral text-coral text-[13px] font-medium hover:bg-coral hover:text-white transition-all duration-200"
                         >
                             Resume
                         </a>
@@ -134,7 +133,7 @@ export default function AppLayout({ children, settings, socialLinks }) {
 
                     {/* Mobile Hamburger */}
                     <button 
-                        className="md:hidden text-green p-2" 
+                        className="md:hidden text-charcoal p-2" 
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                         aria-label="Toggle menu"
                     >
@@ -150,9 +149,9 @@ export default function AppLayout({ children, settings, socialLinks }) {
 
                 {/* Mobile Menu Overlay */}
                 {mobileMenuOpen && (
-                    <div className="md:hidden fixed inset-0 top-0 bg-navy-light/95 backdrop-blur-lg z-40 flex flex-col items-center justify-center gap-8">
+                    <div className="md:hidden fixed inset-0 top-0 bg-white/98 backdrop-blur-lg z-40 flex flex-col items-center justify-center gap-8">
                         <button 
-                            className="absolute top-6 right-6 text-green p-2"
+                            className="absolute top-6 right-6 text-charcoal p-2"
                             onClick={() => setMobileMenuOpen(false)}
                         >
                             <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -164,9 +163,8 @@ export default function AppLayout({ children, settings, socialLinks }) {
                                 key={idx}
                                 href={item.href}
                                 onClick={() => setMobileMenuOpen(false)}
-                                className="text-slate-lightest text-lg font-mono"
+                                className="text-charcoal text-lg font-display font-semibold hover:text-coral transition-colors"
                             >
-                                <span className="text-green block text-center text-sm mb-1">0{idx + 1}.</span>
                                 {item.label}
                             </a>
                         ))}
@@ -174,7 +172,7 @@ export default function AppLayout({ children, settings, socialLinks }) {
                             href={settings?.resume_file || '#'}
                             target="_blank"
                             rel="noreferrer"
-                            className="mt-4 px-8 py-3 rounded border border-green text-green font-mono hover:bg-green-tint transition-all"
+                            className="mt-4 px-8 py-3 rounded-full border border-coral text-coral font-medium hover:bg-coral hover:text-white transition-all"
                         >
                             Resume
                         </a>
@@ -188,22 +186,27 @@ export default function AppLayout({ children, settings, socialLinks }) {
             </main>
 
             {/* Footer */}
-            <footer className="py-6 text-center">
-                <a 
-                    href="https://github.com/manish96-code" 
-                    target="_blank" 
-                    rel="noreferrer"
-                    className="text-xs font-mono text-slate hover:text-green transition-colors"
-                >
-                    <p>Designed & Built by Manish Kumar</p>
-                </a>
+            <footer className="py-8 border-t border-stone-light">
+                <div className="max-w-[1100px] mx-auto px-6 lg:px-12 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <p className="text-xs text-body-light">
+                        © {new Date().getFullYear()} Manish Kumar
+                    </p>
+                    <a 
+                        href="https://github.com/manish96-code" 
+                        target="_blank" 
+                        rel="noreferrer"
+                        className="text-xs text-body-light hover:text-coral transition-colors"
+                    >
+                        Designed & Built by Manish Kumar
+                    </a>
+                </div>
             </footer>
 
             {/* Back to Top */}
             {showBackToTop && (
                 <button
                     onClick={scrollToTop}
-                    className="fixed bottom-6 right-6 z-40 w-10 h-10 rounded-full bg-green-tint border border-green/30 text-green flex items-center justify-center hover:bg-green/20 transition-all duration-200 lg:hidden"
+                    className="fixed bottom-6 right-6 z-40 w-10 h-10 rounded-full bg-white border border-stone text-coral flex items-center justify-center hover:bg-coral-tint hover:border-coral transition-all duration-200 shadow-warm lg:hidden"
                     title="Back to Top"
                 >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
