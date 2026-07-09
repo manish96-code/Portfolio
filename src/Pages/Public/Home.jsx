@@ -1,5 +1,32 @@
-import React, { useState, useEffect, useRef } from 'react';
-import AppLayout, { IconGitHub, IconExternal, IconFolder } from '../../Layouts/AppLayout';
+import React, { useEffect, useMemo, useState } from 'react';
+import AppLayout, { IconExternal, IconFolder, IconGitHub } from '../../Layouts/AppLayout';
+
+const scrollToSection = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+};
+
+const SectionHeader = ({ eyebrow, title, copy }) => (
+    <div className="mb-10 grid gap-4 md:grid-cols-[0.65fr_1fr] md:items-end">
+        <div>
+            <p className="font-mono text-xs font-semibold uppercase tracking-[0.22em] text-coral">{eyebrow}</p>
+            <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-charcoal md:text-4xl">{title}</h2>
+        </div>
+        {copy && <p className="max-w-2xl text-sm leading-7 text-body md:ml-auto">{copy}</p>}
+    </div>
+);
+
+const ProjectMonogram = ({ title }) => (
+    <div className="project-visual relative flex aspect-[16/10] items-center justify-center overflow-hidden rounded-lg border border-stone-light bg-white">
+        <div className="absolute inset-0 grid grid-cols-6 grid-rows-4 opacity-70">
+            {Array.from({ length: 24 }).map((_, idx) => (
+                <span key={idx} className="border-b border-r border-stone-light/70" />
+            ))}
+        </div>
+        <div className="relative flex h-24 w-24 items-center justify-center rounded-lg border border-charcoal/10 bg-charcoal text-3xl font-bold text-white shadow-warm-lg">
+            {title.substring(0, 2)}
+        </div>
+    </div>
+);
 
 export default function Home({ projects, skills, experiences, certificates, socialLinks, settings, navigate }) {
     const [nameVal, setNameVal] = useState('');
@@ -9,22 +36,22 @@ export default function Home({ projects, skills, experiences, certificates, soci
     const [wasSuccessful, setWasSuccessful] = useState(false);
 
     useEffect(() => {
-        document.title = 'Manish Kumar | Full Stack Developer';
-        
-        // Initialize fade-in observer
+        document.title = settings?.meta_title || 'Manish Kumar | Full Stack Developer';
+
         const observer = new IntersectionObserver(
             (entries) => {
-                entries.forEach(entry => {
+                entries.forEach((entry) => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('visible');
                     }
                 });
             },
-            { threshold: 0.1 }
+            { threshold: 0.12 }
         );
-        document.querySelectorAll('.fade-section').forEach(el => observer.observe(el));
+
+        document.querySelectorAll('.fade-section').forEach((el) => observer.observe(el));
         return () => observer.disconnect();
-    }, []);
+    }, [settings?.meta_title]);
 
     const handleContactSubmit = (e) => {
         e.preventDefault();
@@ -39,401 +66,377 @@ export default function Home({ projects, skills, experiences, certificates, soci
         }, 1000);
     };
 
-    const name = settings?.name || 'Manish Kumar';
+    const featuredProjects = useMemo(() => (projects || []).filter((project) => project.is_featured), [projects]);
+    const otherProjects = useMemo(() => (projects || []).filter((project) => !project.is_featured), [projects]);
     const skillCategories = skills ? Object.keys(skills) : [];
-
-    // Featured projects (first 3) and other projects
-    const featuredProjects = (projects || []).filter(p => p.is_featured);
-    const otherProjects = (projects || []).filter(p => !p.is_featured);
+    const primarySkills = skills ? Object.values(skills).flat().map((skill) => skill.name).slice(0, 10) : [];
+    const activeExperience = experiences?.[0];
 
     return (
-        <AppLayout settings={settings} socialLinks={socialLinks}>
-            
-            {/* Hero Section */}
-            <section className="min-h-[80vh] flex flex-col justify-center pt-32 pb-16 md:py-20">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                    
-                    {/* Left Column: Details */}
-                    <div className="space-y-6 lg:col-span-7">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-coral-tint border border-coral-light/20 text-coral font-mono text-xs mb-1 animate-pulse">
-                            <span className="w-1.5 h-1.5 rounded-full bg-coral"></span>
-                            Available for Opportunities
-                        </div>
-                        
-                        <h1 className="font-display text-charcoal text-5xl sm:text-6xl md:text-7xl font-bold leading-[1.05] tracking-tight">
-                            Manish <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral to-coral-light">Kumar.</span>
-                        </h1>
-                        
-                        <h2 className="text-lg md:text-xl font-display font-medium text-body-light tracking-tight leading-relaxed">
-                            Building high-performance web ecosystems with <span className="text-coral font-mono text-sm font-semibold bg-coral-tint px-2 py-0.5 rounded border border-coral-light/10">Laravel & React</span>
-                        </h2>
-
-                        <p className="text-body max-w-lg text-sm md:text-base leading-relaxed">
-                            Full Stack Developer currently interning at{' '}
-                            <a href="#experience" className="text-coral link-underline font-medium">Comestro Techlabs</a>,
-                            specializing in scalable web structures, database design, and modern single page applications.
+        <AppLayout settings={settings} socialLinks={socialLinks} navigate={navigate}>
+            <section className="grid min-h-[92vh] items-center gap-12 pt-28 pb-16 lg:grid-cols-[1.05fr_0.95fr] lg:pt-24">
+                <div>
+                    <div className="mb-7 flex flex-wrap items-center gap-3">
+                        <span className="inline-flex h-2.5 w-2.5 rounded-full bg-sage shadow-[0_0_0_6px_rgba(139,158,139,0.16)]" />
+                        <p className="font-mono text-xs font-semibold uppercase tracking-[0.22em] text-body-light">
+                            Available for full-stack roles
                         </p>
-
-                        <div className="pt-4 flex flex-wrap items-center gap-4">
-                            <a 
-                                href="#projects" 
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
-                                }}
-                                className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-coral text-white font-medium text-sm hover:bg-coral-dark hover:shadow-coral/20 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5"
-                            >
-                                View my work
-                                <span className="group-hover:translate-x-1 transition-transform duration-200">→</span>
-                            </a>
-                            <a 
-                                href="#contact" 
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-                                }}
-                                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-stone text-body font-medium text-sm hover:border-coral hover:text-coral transition-all duration-300 transform hover:-translate-y-0.5"
-                            >
-                                Get in touch
-                            </a>
-                        </div>
                     </div>
 
-                    {/* Right Column: Dynamic Code Window Visual */}
-                    <div className="hidden lg:block lg:col-span-5 relative group">
-                        {/* Background glowing orb */}
-                        <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-coral to-sage opacity-15 blur-xl group-hover:opacity-25 transition duration-1000 group-hover:duration-200"></div>
-                        
-                        {/* Interactive Editor Mockup */}
-                        <div className="relative bg-[#1A1918] border border-stone-light/10 rounded-2xl overflow-hidden shadow-2xl font-mono text-xs text-stone-dark/80">
-                            {/* Window Header */}
-                            <div className="bg-[#151413] px-4 py-3 flex items-center justify-between border-b border-stone-light/5">
-                                <div className="flex gap-1.5">
-                                    <span className="w-2.5 h-2.5 rounded-full bg-[#E8604C]/70"></span>
-                                    <span className="w-2.5 h-2.5 rounded-full bg-[#8B9E8B]/70"></span>
-                                    <span className="w-2.5 h-2.5 rounded-full bg-stone-dark/50"></span>
+                    <h1 className="max-w-4xl font-display text-5xl font-bold leading-[0.98] tracking-tight text-charcoal sm:text-6xl lg:text-7xl">
+                        Laravel and React developer building useful web products.
+                    </h1>
+
+                    <p className="mt-7 max-w-2xl text-base leading-8 text-body md:text-lg">
+                        I am {settings?.name || 'Manish Kumar'}, a full-stack developer in Jaipur focused on clean Laravel
+                        backends, responsive React interfaces, and database-backed products that are easy to maintain.
+                    </p>
+
+                    <div className="mt-9 flex flex-wrap gap-3">
+                        <button
+                            type="button"
+                            onClick={() => scrollToSection('projects')}
+                            className="inline-flex items-center gap-2 rounded-lg bg-charcoal px-5 py-3 text-sm font-semibold text-white shadow-warm transition hover:-translate-y-0.5 hover:bg-coral"
+                        >
+                            View projects
+                            <span aria-hidden="true">-&gt;</span>
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => scrollToSection('contact')}
+                            className="inline-flex items-center rounded-lg border border-stone bg-white px-5 py-3 text-sm font-semibold text-charcoal transition hover:-translate-y-0.5 hover:border-coral hover:text-coral"
+                        >
+                            Contact me
+                        </button>
+                    </div>
+
+                    <div className="mt-10 grid max-w-2xl grid-cols-3 border-y border-stone-light">
+                        {[
+                            ['2024', 'BCA graduate'],
+                            ['5+', 'Built projects'],
+                            ['Full stack', 'Laravel, React, MySQL'],
+                        ].map(([value, label]) => (
+                            <div key={label} className="border-r border-stone-light py-5 pr-4 last:border-r-0 last:pl-4 sm:px-5 sm:first:pl-0">
+                                <p className="font-display text-xl font-bold text-charcoal sm:text-2xl">{value}</p>
+                                <p className="mt-1 text-xs leading-5 text-body-light">{label}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                <div className="relative">
+                    <div className="developer-panel rounded-lg border border-stone-light bg-white p-4 shadow-warm-lg">
+                        <div className="flex items-center justify-between border-b border-stone-light pb-4">
+                            <div>
+                                <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-body-light">Current stack</p>
+                                <p className="mt-1 font-display text-xl font-semibold text-charcoal">Product build room</p>
+                            </div>
+                            <span className="rounded-lg bg-sage-tint px-3 py-1.5 font-mono text-xs font-semibold text-sage">online</span>
+                        </div>
+
+                        <div className="grid gap-3 py-4 sm:grid-cols-2">
+                            {['Laravel APIs', 'React UI', 'MySQL schemas', 'Git workflow'].map((item, idx) => (
+                                <div key={item} className="rounded-lg border border-stone-light bg-cream p-4">
+                                    <p className="font-mono text-xs text-coral">0{idx + 1}</p>
+                                    <p className="mt-3 text-sm font-semibold text-charcoal">{item}</p>
                                 </div>
-                                <span className="text-[10px] tracking-wider text-body-light font-mono select-none">Developer.php</span>
-                                <span className="w-4 h-4"></span>
-                            </div>
-                            
-                            {/* Window Code Content */}
-                            <div className="p-6 space-y-2 select-none leading-relaxed text-left">
-                                <div><span className="text-coral">namespace</span> <span className="text-stone">Portfolio\Core</span>;</div>
-                                <div className="h-2"></div>
-                                <div><span className="text-coral">class</span> <span className="text-sage">ManishKumar</span> <span className="text-coral">extends</span> <span className="text-stone">FullStackDeveloper</span> &#123;</div>
-                                <div className="pl-4"><span className="text-coral">use</span> <span className="text-stone">HasBackendSkills, HasFrontendSkills</span>;</div>
-                                <div className="h-2"></div>
-                                <div className="pl-4"><span className="text-coral">public function</span> <span className="text-[#8B9E8B]">getCoreStack</span>() : <span className="text-coral">array</span> &#123;</div>
-                                <div className="pl-8"><span className="text-coral">return</span> [</div>
-                                <div className="pl-12"><span className="text-sage">'Backend'</span> =&gt; <span className="text-stone-dark">'Laravel / PHP'</span>,</div>
-                                <div className="pl-12"><span className="text-sage">'Frontend'</span> =&gt; <span className="text-stone-dark">'React / TailwindCSS'</span>,</div>
-                                <div className="pl-12"><span className="text-sage">'Database'</span> =&gt; <span className="text-stone-dark">'MySQL / Redis'</span></div>
-                                <div className="pl-8">];</div>
-                                <div className="pl-4">&#125;</div>
-                                <div>&#125;</div>
-                            </div>
+                            ))}
+                        </div>
+
+                        <div className="rounded-lg bg-charcoal p-5 font-mono text-xs leading-6 text-stone-light">
+                            <p><span className="text-coral">const</span> developer = &#123;</p>
+                            <p className="pl-4">name: <span className="text-sage-light">'Manish Kumar'</span>,</p>
+                            <p className="pl-4">focus: <span className="text-sage-light">'shipping clean web apps'</span>,</p>
+                            <p className="pl-4">tools: [<span className="text-sage-light">'Laravel'</span>, <span className="text-sage-light">'React'</span>]</p>
+                            <p>&#125;;</p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* About Section */}
-            <section id="about" className="py-16 md:py-20 fade-section">
-                <div className="flex items-center gap-4 mb-12">
-                    <p className="text-xs font-mono text-coral uppercase tracking-[0.2em]">About</p>
-                    <div className="section-divider"></div>
-                </div>
+            <section id="about" className="fade-section py-16 md:py-20">
+                <SectionHeader
+                    eyebrow="About"
+                    title="Practical engineering with product sense."
+                    copy="I like web apps that feel calm on the surface and solid underneath: clear data models, predictable interfaces, and code that another developer can pick up without a treasure map."
+                />
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
-                    <div className="md:col-span-2 space-y-5 text-base leading-relaxed">
+                <div className="grid gap-8 lg:grid-cols-[1fr_0.8fr]">
+                    <div className="space-y-5 text-base leading-8 text-body">
                         <p>
-                            Hello! I'm Manish, a passionate software developer from Jaipur, India.
-                            I enjoy building web applications that are structured, scalable, and solve
-                            real-world problems. My interest in web development started during my
-                            BCA program at Purnea University, where I discovered the joy of turning
-                            database schemas into live, interactive products.
+                            My development journey started during my BCA program at Purnea University, where database
+                            design, interface building, and problem solving clicked into one discipline.
                         </p>
                         <p>
-                            Currently, I'm interning at{' '}
-                            <a href="https://comestro.com" target="_blank" rel="noreferrer" className="text-coral link-underline font-medium">
+                            At{' '}
+                            <a href="https://comestro.com" target="_blank" rel="noreferrer" className="link-underline font-semibold text-coral">
                                 Comestro Techlabs Pvt Ltd
                             </a>
-                            {' '}where I build multi-vendor e-commerce platforms, campus management
-                            systems, and social networking applications using modern full-stack tooling.
+                            , I work on e-commerce, campus systems, and social products using Laravel, React, Inertia,
+                            Tailwind CSS, and MySQL.
                         </p>
-                        <p className="text-body-light">Technologies I work with:</p>
-                        
-                        <ul className="grid grid-cols-2 gap-x-6 gap-y-2 mt-4 font-mono text-sm">
-                            {(skills ? Object.values(skills).flat().map(s => s.name).slice(0, 8) : ['Laravel', 'React', 'PHP', 'MySQL', 'Inertia.js', 'Tailwind CSS', 'JavaScript', 'Git & GitHub']).map((tech, idx) => (
-                                <li key={idx} className="flex items-center gap-2.5">
-                                    <span className="text-coral text-xs">▸</span>
-                                    <span className="text-charcoal-light">{tech}</span>
-                                </li>
+                    </div>
+
+                    <div className="rounded-lg border border-stone-light bg-white p-6 shadow-warm">
+                        <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-body-light">Core tools</p>
+                        <div className="mt-5 flex flex-wrap gap-2">
+                            {(primarySkills.length ? primarySkills : ['Laravel', 'React', 'PHP', 'MySQL', 'Tailwind CSS', 'Git']).map((tech) => (
+                                <span key={tech} className="rounded-lg border border-stone-light bg-cream px-3 py-2 text-xs font-semibold text-charcoal">
+                                    {tech}
+                                </span>
                             ))}
-                        </ul>
-                    </div>
-
-                    {/* Profile Image Placeholder */}
-                    <div className="relative group mx-auto md:mx-0">
-                        <div className="relative w-64 h-64 rounded-2xl overflow-hidden shadow-warm-lg border border-stone-light group-hover:border-coral-light transition-all duration-300">
-                            {/* Placeholder avatar */}
-                            <div className="w-full h-full bg-cream-dark flex items-center justify-center text-stone-dark">
-                                <svg className="w-24 h-24 opacity-30" fill="none" stroke="currentColor" strokeWidth="1" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
-                                </svg>
-                            </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* Experience Section */}
-            <section id="experience" className="py-16 md:py-20 fade-section">
-                <div className="flex items-center gap-4 mb-12">
-                    <p className="text-xs font-mono text-coral uppercase tracking-[0.2em]">Experience</p>
-                    <div className="section-divider"></div>
-                </div>
+            <section id="experience" className="fade-section py-16 md:py-20">
+                <SectionHeader
+                    eyebrow="Experience"
+                    title="Recent work"
+                    copy="Hands-on internship experience building production-style modules, managing repositories, and connecting front-end flows to Laravel backends."
+                />
 
-                <div className="max-w-2xl space-y-6">
-                    {experiences?.map((exp, idx) => (
-                        <div key={idx} className="bg-white rounded-xl p-7 md:p-8 shadow-warm border border-stone-light/60 hover:border-coral-light/40 transition-all duration-300 relative">
-                            {/* Left accent bar */}
-                            <div className="absolute left-0 top-6 bottom-6 w-[3px] rounded-full bg-coral/60"></div>
-                            
-                            <div className="pl-4">
-                                <h3 className="font-display text-charcoal text-lg md:text-xl font-semibold">
-                                    {exp.designation}{' '}
-                                    <span className="text-coral">@ {exp.company}</span>
-                                </h3>
-                                <p className="font-mono text-sm text-body-light mt-1">{exp.duration}</p>
-                                <p className="mt-4 text-body leading-relaxed text-sm">
-                                    {exp.description}
-                                </p>
-                                <div className="flex flex-wrap gap-2 mt-4">
-                                    {exp.skills_used?.map((skill, sIdx) => (
-                                        <span key={sIdx} className="px-2.5 py-1 rounded-full bg-sage-tint text-sage text-xs font-mono font-medium">
-                                            {skill}
-                                        </span>
-                                    ))}
-                                </div>
-                            </div>
+                <div className="rounded-lg border border-stone-light bg-white p-6 shadow-warm md:p-8">
+                    <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
+                        <div>
+                            <p className="font-display text-2xl font-bold text-charcoal">{activeExperience?.designation || 'Laravel Developer'}</p>
+                            <p className="mt-2 text-sm font-semibold text-coral">@ {activeExperience?.company || settings?.current_company}</p>
                         </div>
-                    ))}
+                        <p className="font-mono text-sm text-body-light">{activeExperience?.duration || 'May 2024 - Present'}</p>
+                    </div>
+                    <p className="mt-6 max-w-4xl text-sm leading-7 text-body">{activeExperience?.description}</p>
+                    <div className="mt-6 flex flex-wrap gap-2">
+                        {activeExperience?.skills_used?.map((skill) => (
+                            <span key={skill} className="rounded-lg bg-sage-tint px-3 py-1.5 font-mono text-xs font-semibold text-sage">
+                                {skill}
+                            </span>
+                        ))}
+                    </div>
                 </div>
             </section>
 
-            {/* Projects Section */}
-            <section id="projects" className="py-16 md:py-20 fade-section">
-                <div className="flex items-center gap-4 mb-12">
-                    <p className="text-xs font-mono text-coral uppercase tracking-[0.2em]">Projects</p>
-                    <div className="section-divider"></div>
-                </div>
+            <section id="projects" className="fade-section py-16 md:py-20">
+                <SectionHeader
+                    eyebrow="Projects"
+                    title="Selected builds"
+                    copy="A mix of social, marketplace, education, and utility projects, with Laravel and React doing most of the heavy lifting."
+                />
 
-                {/* Featured projects — alternating left/right */}
-                <div className="space-y-12 md:space-y-16">
-                    {featuredProjects.map((project, idx) => (
-                        <div key={project.id} className={`relative grid grid-cols-1 md:grid-cols-12 items-center gap-4`}>
-                            
-                            {/* Project Image / Visual Area */}
-                            <div className={`md:col-span-7 ${idx % 2 !== 0 ? 'md:col-start-6' : ''} relative rounded-xl overflow-hidden group`}>
-                                <a href={`/project/${project.slug}`} onClick={(e) => { e.preventDefault(); navigate(`/project/${project.slug}`); }} className="block">
-                                    <div className="bg-cream-dark aspect-video rounded-xl flex items-center justify-center relative overflow-hidden group-hover:shadow-warm-lg transition-all duration-300 border border-stone-light">
-                                        <span className="text-6xl md:text-8xl font-display font-bold text-stone/30 select-none">
-                                            {project.title.substring(0, 2)}
-                                        </span>
-                                    </div>
-                                </a>
-                            </div>
+                <div className="grid gap-6">
+                    {featuredProjects.map((project) => (
+                        <article key={project.id} className="grid gap-6 rounded-lg border border-stone-light bg-white p-5 shadow-warm transition hover:-translate-y-1 hover:shadow-warm-lg lg:grid-cols-[0.85fr_1.15fr] lg:p-6">
+                            <a
+                                href={`/project/${project.slug}`}
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    navigate(`/project/${project.slug}`);
+                                }}
+                                className="block"
+                            >
+                                <ProjectMonogram title={project.title} />
+                            </a>
 
-                            {/* Project Text Details */}
-                            <div className={`md:col-span-7 md:row-start-1 ${idx % 2 !== 0 ? 'md:col-start-1 md:text-left' : 'md:col-start-6 md:text-right'} relative z-10`}>
-                                <p className="font-mono text-coral text-xs mb-2 uppercase tracking-wider">Featured Project</p>
-                                <h3 className="font-display text-charcoal text-xl md:text-2xl font-bold mb-4">
-                                    <a href={`/project/${project.slug}`} onClick={(e) => { e.preventDefault(); navigate(`/project/${project.slug}`); }} className="hover:text-coral transition-colors">
-                                        {project.title}
-                                    </a>
-                                </h3>
-                                
-                                <div className="bg-white p-6 rounded-xl shadow-warm-lg text-sm text-body leading-relaxed mb-4 border border-stone-light/50">
-                                    {project.description}
+                            <div className="flex flex-col justify-between">
+                                <div>
+                                    <p className="font-mono text-xs font-semibold uppercase tracking-[0.18em] text-coral">Featured</p>
+                                    <h3 className="mt-2 font-display text-2xl font-bold text-charcoal">
+                                        <a
+                                            href={`/project/${project.slug}`}
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                navigate(`/project/${project.slug}`);
+                                            }}
+                                            className="transition hover:text-coral"
+                                        >
+                                            {project.title}
+                                        </a>
+                                    </h3>
+                                    <p className="mt-4 text-sm leading-7 text-body">{project.description}</p>
                                 </div>
 
-                                <ul className={`flex flex-wrap gap-3 font-mono text-xs text-body-light mb-4 ${idx % 2 !== 0 ? 'justify-start' : 'md:justify-end'}`}>
-                                    {project.technologies?.map((tech, tIdx) => (
-                                        <li key={tIdx}>{tech}</li>
-                                    ))}
-                                </ul>
-
-                                <div className={`flex items-center gap-4 ${idx % 2 !== 0 ? 'justify-start' : 'md:justify-end'}`}>
-                                    {project.github_url && (
-                                        <a href={project.github_url} target="_blank" rel="noreferrer" className="text-charcoal hover:text-coral transition-colors">
-                                            <IconGitHub />
-                                        </a>
-                                    )}
-                                    {project.live_url && (
-                                        <a href={project.live_url} target="_blank" rel="noreferrer" className="text-charcoal hover:text-coral transition-colors">
-                                            <IconExternal />
-                                        </a>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-
-                {/* Other Noteworthy Projects */}
-                {otherProjects.length > 0 && (
-                    <div className="mt-16 md:mt-20">
-                        <h3 className="font-display text-charcoal text-2xl font-bold text-center mb-2">Other Noteworthy Projects</h3>
-                        <p className="text-center text-sm text-body-light mb-12">
-                            <a href="/blogs" onClick={(e) => { e.preventDefault(); navigate('/blogs'); }} className="text-coral link-underline">view the archive</a>
-                        </p>
-
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                            {otherProjects.map((project) => (
-                                <div 
-                                    key={project.id}
-                                    className="bg-white rounded-xl p-6 flex flex-col justify-between h-full card-lift group border border-stone-light/60 shadow-warm"
-                                >
-                                    <div>
-                                        <div className="flex justify-between items-center mb-6">
-                                            <span className="text-coral"><IconFolder /></span>
-                                            <div className="flex items-center gap-3">
-                                                {project.github_url && (
-                                                    <a href={project.github_url} target="_blank" rel="noreferrer" className="text-body-light hover:text-coral transition-colors">
-                                                        <IconGitHub />
-                                                    </a>
-                                                )}
-                                                <a href={`/project/${project.slug}`} onClick={(e) => { e.preventDefault(); navigate(`/project/${project.slug}`); }} className="text-body-light hover:text-coral transition-colors">
-                                                    <IconExternal />
-                                                </a>
-                                            </div>
-                                        </div>
-
-                                        <h3 className="font-display text-charcoal text-lg font-semibold mb-2 group-hover:text-coral transition-colors">
-                                            <a href={`/project/${project.slug}`} onClick={(e) => { e.preventDefault(); navigate(`/project/${project.slug}`); }}>{project.title}</a>
-                                        </h3>
-                                        <p className="text-sm text-body leading-relaxed line-clamp-4">
-                                            {project.description}
-                                        </p>
-                                    </div>
-
-                                    <div className="flex flex-wrap gap-2 mt-6 font-mono text-xs text-body-light">
-                                        {project.technologies?.slice(0, 3).map((tech, tIdx) => (
-                                            <span key={tIdx}>{tech}</span>
+                                <div className="mt-6 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+                                    <div className="flex flex-wrap gap-2">
+                                        {project.technologies?.map((tech) => (
+                                            <span key={tech} className="font-mono text-xs text-body-light">{tech}</span>
                                         ))}
                                     </div>
+                                    <div className="flex items-center gap-3 text-charcoal">
+                                        {project.github_url && (
+                                            <a href={project.github_url} target="_blank" rel="noreferrer" className="transition hover:text-coral" aria-label={`${project.title} GitHub`}>
+                                                <IconGitHub />
+                                            </a>
+                                        )}
+                                        <a
+                                            href={`/project/${project.slug}`}
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                navigate(`/project/${project.slug}`);
+                                            }}
+                                            className="transition hover:text-coral"
+                                            aria-label={`${project.title} details`}
+                                        >
+                                            <IconExternal />
+                                        </a>
+                                    </div>
                                 </div>
-                            ))}
-                        </div>
+                            </div>
+                        </article>
+                    ))}
+                </div>
+
+                {otherProjects.length > 0 && (
+                    <div className="mt-10 grid gap-4 sm:grid-cols-2">
+                        {otherProjects.map((project) => (
+                            <article key={project.id} className="rounded-lg border border-stone-light bg-white p-6 shadow-warm transition hover:-translate-y-1 hover:shadow-warm-lg">
+                                <div className="mb-5 flex items-center justify-between text-coral">
+                                    <IconFolder />
+                                    <a
+                                        href={`/project/${project.slug}`}
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            navigate(`/project/${project.slug}`);
+                                        }}
+                                        className="text-charcoal transition hover:text-coral"
+                                        aria-label={`${project.title} details`}
+                                    >
+                                        <IconExternal />
+                                    </a>
+                                </div>
+                                <h3 className="font-display text-xl font-bold text-charcoal">{project.title}</h3>
+                                <p className="mt-3 text-sm leading-7 text-body">{project.description}</p>
+                                <div className="mt-5 flex flex-wrap gap-2">
+                                    {project.technologies?.slice(0, 4).map((tech) => (
+                                        <span key={tech} className="font-mono text-xs text-body-light">{tech}</span>
+                                    ))}
+                                </div>
+                            </article>
+                        ))}
                     </div>
                 )}
             </section>
 
-            {/* Skills Section */}
-            <section id="skills" className="py-16 md:py-20 fade-section">
-                <div className="flex items-center gap-4 mb-12">
-                    <p className="text-xs font-mono text-coral uppercase tracking-[0.2em]">Skills</p>
-                    <div className="section-divider"></div>
-                </div>
+            <section id="skills" className="fade-section py-16 md:py-20">
+                <SectionHeader
+                    eyebrow="Skills"
+                    title="Stack coverage"
+                    copy="Frontend, backend, database, and tooling skills grouped by where they show up in a real build."
+                />
 
-                <div className="flex flex-wrap justify-center gap-6">
-                    {skillCategories.map((category, idx) => (
-                        <div key={idx} className="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] bg-white rounded-xl p-6 border border-stone-light/60 shadow-warm hover:border-coral-light/30 transition-all duration-300 flex flex-col justify-between">
-                            <div>
-                                <h3 className="text-coral font-mono text-sm font-semibold mb-5 flex items-center gap-2">
-                                    <span className="text-coral/40">&#123;</span>
-                                    {category}
-                                    <span className="text-coral/40">&#125;</span>
-                                </h3>
-                                <div className="flex flex-wrap gap-2.5">
-                                    {skills[category].map((skill, sIdx) => (
-                                        <div 
-                                            key={sIdx} 
-                                            className="group px-3 py-1.5 rounded-lg bg-[#FAFAF9] border border-stone-light/60 text-charcoal-light text-xs font-medium transition-all duration-200 hover:bg-white hover:border-coral-light/50 hover:text-coral hover:shadow-warm hover:-translate-y-0.5 cursor-default flex items-center gap-2"
-                                        >
-                                            <span className="w-1.5 h-1.5 rounded-full bg-stone-dark group-hover:bg-coral transition-colors duration-200"></span>
-                                            {skill.name}
+                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                    {skillCategories.map((category) => (
+                        <div key={category} className="rounded-lg border border-stone-light bg-white p-6 shadow-warm">
+                            <h3 className="font-display text-lg font-bold text-charcoal">{category}</h3>
+                            <div className="mt-5 space-y-4">
+                                {skills[category].map((skill) => (
+                                    <div key={skill.name}>
+                                        <div className="flex items-center justify-between text-sm">
+                                            <span className="font-semibold text-charcoal-light">{skill.name}</span>
+                                            <span className="font-mono text-xs text-body-light">{skill.level}%</span>
                                         </div>
-                                    ))}
-                                </div>
+                                        <div className="mt-2 h-2 rounded-lg bg-cream-dark">
+                                            <div className="h-full rounded-lg bg-coral" style={{ width: `${skill.level}%` }} />
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
                         </div>
                     ))}
                 </div>
             </section>
 
-            {/* Contact Section */}
-            <section id="contact" className="py-16 md:py-20 fade-section text-center max-w-xl mx-auto">
-                <p className="font-mono text-coral text-xs uppercase tracking-[0.2em] mb-4">Contact</p>
-                <h2 className="font-display text-charcoal text-4xl md:text-5xl font-bold mb-6">Let's Talk</h2>
-                <p className="text-body text-base leading-relaxed mb-12">
-                    I'm currently looking for new opportunities to grow as a developer. Whether you have a project, 
-                    a question, or just want to say hi — my inbox is always open.
-                </p>
-
-                {wasSuccessful && (
-                    <div className="p-4 mb-8 rounded-xl bg-sage-tint border border-sage/30 text-sage text-sm font-mono text-center">
-                        Message sent successfully! I'll get back to you soon.
+            {certificates?.length > 0 && (
+                <section className="fade-section py-16 md:py-20">
+                    <SectionHeader eyebrow="Credentials" title="Learning milestones" />
+                    <div className="grid gap-4 md:grid-cols-2">
+                        {certificates.map((certificate) => (
+                            <a
+                                key={certificate.id}
+                                href={certificate.credential_url}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="rounded-lg border border-stone-light bg-white p-6 shadow-warm transition hover:-translate-y-1 hover:border-coral-light hover:shadow-warm-lg"
+                            >
+                                <p className="font-display text-lg font-bold text-charcoal">{certificate.title}</p>
+                                <p className="mt-3 text-sm text-body">{certificate.organization}</p>
+                                <p className="mt-2 font-mono text-xs text-body-light">{certificate.issue_date}</p>
+                            </a>
+                        ))}
                     </div>
-                )}
+                </section>
+            )}
 
-                <form onSubmit={handleContactSubmit} className="space-y-5 text-left">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                        <div>
-                            <label className="block text-xs font-medium text-charcoal-light mb-2" htmlFor="name">Name</label>
-                            <input
-                                type="text"
-                                id="name"
-                                value={nameVal}
-                                onChange={e => setNameVal(e.target.value)}
-                                className="w-full bg-white border border-stone focus:border-coral rounded-xl px-4 py-3 text-sm text-charcoal outline-none transition-colors placeholder:text-stone-dark/50"
-                                placeholder="Your name"
-                                required
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-xs font-medium text-charcoal-light mb-2" htmlFor="email">Email</label>
-                            <input
-                                type="email"
-                                id="email"
-                                value={emailVal}
-                                onChange={e => setEmailVal(e.target.value)}
-                                className="w-full bg-white border border-stone focus:border-coral rounded-xl px-4 py-3 text-sm text-charcoal outline-none transition-colors placeholder:text-stone-dark/50"
-                                placeholder="your@email.com"
-                                required
-                            />
-                        </div>
-                    </div>
-
+            <section id="contact" className="fade-section py-16 md:py-24">
+                <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
                     <div>
-                        <label className="block text-xs font-medium text-charcoal-light mb-2" htmlFor="message">Message</label>
-                        <textarea
-                            id="message"
-                            rows="5"
-                            value={messageVal}
-                            onChange={e => setMessageVal(e.target.value)}
-                            className="w-full bg-white border border-stone focus:border-coral rounded-xl px-4 py-3 text-sm text-charcoal outline-none transition-colors resize-none placeholder:text-stone-dark/50"
-                            placeholder="What's on your mind?"
-                            required
-                        ></textarea>
+                        <p className="font-mono text-xs font-semibold uppercase tracking-[0.22em] text-coral">Contact</p>
+                        <h2 className="mt-3 font-display text-4xl font-bold tracking-tight text-charcoal">Let us build something useful.</h2>
+                        <p className="mt-5 text-sm leading-7 text-body">
+                            I am open to developer roles, internships, collaborations, and practical web projects.
+                            Send a note and I will get back to you.
+                        </p>
+                        <a href={`mailto:${settings?.email}`} className="link-underline mt-6 inline-block text-sm font-semibold text-coral">
+                            {settings?.email}
+                        </a>
                     </div>
 
-                    <div className="text-center pt-2">
+                    <form onSubmit={handleContactSubmit} className="rounded-lg border border-stone-light bg-white p-6 shadow-warm md:p-8">
+                        {wasSuccessful && (
+                            <div className="mb-6 rounded-lg border border-sage/30 bg-sage-tint p-4 text-sm font-semibold text-sage">
+                                Message sent successfully. I will get back to you soon.
+                            </div>
+                        )}
+
+                        <div className="grid gap-5 sm:grid-cols-2">
+                            <div>
+                                <label className="mb-2 block text-xs font-semibold text-charcoal-light" htmlFor="name">Name</label>
+                                <input
+                                    type="text"
+                                    id="name"
+                                    value={nameVal}
+                                    onChange={(e) => setNameVal(e.target.value)}
+                                    className="w-full rounded-lg border border-stone bg-cream px-4 py-3 text-sm text-charcoal outline-none transition focus:border-coral focus:bg-white"
+                                    placeholder="Your name"
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <label className="mb-2 block text-xs font-semibold text-charcoal-light" htmlFor="email">Email</label>
+                                <input
+                                    type="email"
+                                    id="email"
+                                    value={emailVal}
+                                    onChange={(e) => setEmailVal(e.target.value)}
+                                    className="w-full rounded-lg border border-stone bg-cream px-4 py-3 text-sm text-charcoal outline-none transition focus:border-coral focus:bg-white"
+                                    placeholder="your@email.com"
+                                    required
+                                />
+                            </div>
+                        </div>
+
+                        <div className="mt-5">
+                            <label className="mb-2 block text-xs font-semibold text-charcoal-light" htmlFor="message">Message</label>
+                            <textarea
+                                id="message"
+                                rows="5"
+                                value={messageVal}
+                                onChange={(e) => setMessageVal(e.target.value)}
+                                className="w-full resize-none rounded-lg border border-stone bg-cream px-4 py-3 text-sm text-charcoal outline-none transition focus:border-coral focus:bg-white"
+                                placeholder="Tell me about the project or role"
+                                required
+                            />
+                        </div>
+
                         <button
                             type="submit"
                             disabled={processing}
-                            className="px-8 py-3.5 rounded-full bg-coral text-white font-medium text-sm hover:bg-coral-dark transition-all duration-200 cursor-pointer disabled:opacity-50 shadow-warm"
+                            className="mt-6 inline-flex w-full items-center justify-center rounded-lg bg-coral px-5 py-3 text-sm font-semibold text-white transition hover:bg-coral-dark disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
                         >
-                            {processing ? 'Sending...' : 'Send Message'}
+                            {processing ? 'Sending...' : 'Send message'}
                         </button>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </section>
-
-            {/* Bottom padding */}
-            <div className="h-10"></div>
         </AppLayout>
     );
 }

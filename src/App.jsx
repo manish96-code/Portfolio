@@ -14,7 +14,7 @@ export default function App() {
         };
         window.addEventListener('popstate', handlePopState);
         
-        // Initial scroll to dynamic URL hashes if they exist on loading (e.g. /#experience)
+        // Initial scroll to dynamic URL hashes if they exist on loading
         if (window.location.hash) {
             setTimeout(() => {
                 const element = document.getElementById(window.location.hash.substring(1));

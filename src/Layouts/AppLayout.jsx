@@ -228,7 +228,7 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
             <footer className="py-8 border-t border-stone-light">
                 <div className="max-w-[1100px] mx-auto px-6 lg:px-12 flex flex-col sm:flex-row items-center justify-between gap-4">
                     <p className="text-xs text-body-light">
-                        © {new Date().getFullYear()} Manish Kumar
+                        (c) {new Date().getFullYear()} Manish Kumar
                     </p>
                     <a 
                         href="https://github.com/manish96-code" 
