@@ -326,18 +326,12 @@ export default function Home({ projects, skills, experiences, certificates, soci
                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                     {skillCategories.map((category) => (
                         <div key={category} className="rounded-lg border border-stone-light bg-white p-6 shadow-warm">
-                            <h3 className="font-display text-lg font-bold text-charcoal">{category}</h3>
-                            <div className="mt-5 space-y-4">
+                            <h3 className="font-display text-lg font-bold text-charcoal mb-4">{category}</h3>
+                            <div className="flex flex-wrap gap-2">
                                 {skills[category].map((skill) => (
-                                    <div key={skill.name}>
-                                        <div className="flex items-center justify-between text-sm">
-                                            <span className="font-semibold text-charcoal-light">{skill.name}</span>
-                                            <span className="font-mono text-xs text-body-light">{skill.level}%</span>
-                                        </div>
-                                        <div className="mt-2 h-2 rounded-lg bg-cream-dark">
-                                            <div className="h-full rounded-lg bg-coral" style={{ width: `${skill.level}%` }} />
-                                        </div>
-                                    </div>
+                                    <span key={skill.name} className="rounded-lg border border-stone-light bg-cream px-3 py-2 text-xs font-semibold text-charcoal">
+                                        {skill.name}
+                                    </span>
                                 ))}
                             </div>
                         </div>
