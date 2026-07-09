@@ -35,7 +35,7 @@ function SimpleMarkdown({ content }) {
     );
 }
 
-export default function ProjectDetails({ project, socialLinks, settings }) {
+export default function ProjectDetails({ project, socialLinks, settings, navigate }) {
     
     useEffect(() => {
         if (project) {
@@ -48,9 +48,9 @@ export default function ProjectDetails({ project, socialLinks, settings }) {
     const tags = project.technologies || [];
 
     return (
-        <AppLayout settings={settings} socialLinks={socialLinks}>
+        <AppLayout settings={settings} socialLinks={socialLinks} navigate={navigate}>
             <div className="pt-32 pb-24">
-                <a href="#/" className="inline-flex items-center gap-2 text-sm font-medium text-coral hover:underline mb-8 group">
+                <a href="/" onClick={(e) => { e.preventDefault(); navigate('/'); }} className="inline-flex items-center gap-2 text-sm font-medium text-coral hover:underline mb-8 group">
                     <span className="group-hover:-translate-x-1 transition-transform">←</span> Back to Portfolio
                 </a>
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import AppLayout from '../../Layouts/AppLayout';
 
-export default function BlogList({ blogs, categories, socialLinks, settings }) {
+export default function BlogList({ blogs, categories, socialLinks, settings, navigate }) {
     const [selectedCategory, setSelectedCategory] = useState('all');
     const [searchQuery, setSearchQuery] = useState('');
 
@@ -17,7 +17,7 @@ export default function BlogList({ blogs, categories, socialLinks, settings }) {
     });
 
     return (
-        <AppLayout settings={settings} socialLinks={socialLinks}>
+        <AppLayout settings={settings} socialLinks={socialLinks} navigate={navigate}>
             <div className="pt-32 pb-24">
                 {/* Header */}
                 <div className="text-center max-w-xl mx-auto mb-16 space-y-4">
@@ -68,7 +68,7 @@ export default function BlogList({ blogs, categories, socialLinks, settings }) {
                                             <span className="text-body-light">{new Date(blog.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
                                         </div>
 
-                                        <a href={`#/blog/${blog.slug}`}>
+                                        <a href={`/blog/${blog.slug}`} onClick={(e) => { e.preventDefault(); navigate(`/blog/${blog.slug}`); }}>
                                             <h3 className="text-lg font-display font-bold text-charcoal group-hover:text-coral transition-colors leading-snug">
                                                 {blog.title}
                                             </h3>
@@ -88,7 +88,8 @@ export default function BlogList({ blogs, categories, socialLinks, settings }) {
                                             ))}
                                         </div>
                                         <a 
-                                            href={`#/blog/${blog.slug}`}
+                                            href={`/blog/${blog.slug}`}
+                                            onClick={(e) => { e.preventDefault(); navigate(`/blog/${blog.slug}`); }}
                                             className="text-xs font-medium text-coral link-underline"
                                         >
                                             Read →

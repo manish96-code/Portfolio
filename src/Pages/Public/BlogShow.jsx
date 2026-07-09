@@ -35,7 +35,7 @@ function BlogMarkdown({ content }) {
     );
 }
 
-export default function BlogShow({ blog, socialLinks, settings }) {
+export default function BlogShow({ blog, socialLinks, settings, navigate }) {
     
     useEffect(() => {
         if (blog) {
@@ -48,9 +48,9 @@ export default function BlogShow({ blog, socialLinks, settings }) {
     const tags = blog.tags || [];
 
     return (
-        <AppLayout settings={settings} socialLinks={socialLinks}>
+        <AppLayout settings={settings} socialLinks={socialLinks} navigate={navigate}>
             <article className="max-w-[768px] mx-auto pt-32 pb-24">
-                <a href="#/blogs" className="inline-flex items-center gap-2 text-sm font-medium text-coral hover:underline mb-8 group">
+                <a href="/blogs" onClick={(e) => { e.preventDefault(); navigate('/blogs'); }} className="inline-flex items-center gap-2 text-sm font-medium text-coral hover:underline mb-8 group">
                     <span className="group-hover:-translate-x-1 transition-transform">←</span> Back to Articles
                 </a>
 

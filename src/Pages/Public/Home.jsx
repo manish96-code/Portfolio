@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import AppLayout, { IconGitHub, IconExternal, IconFolder } from '../../Layouts/AppLayout';
 
-export default function Home({ projects, skills, experiences, certificates, socialLinks, settings }) {
+export default function Home({ projects, skills, experiences, certificates, socialLinks, settings, navigate }) {
     const [nameVal, setNameVal] = useState('');
     const [emailVal, setEmailVal] = useState('');
     const [messageVal, setMessageVal] = useState('');
@@ -49,48 +49,97 @@ export default function Home({ projects, skills, experiences, certificates, soci
     return (
         <AppLayout settings={settings} socialLinks={socialLinks}>
             
-            {/* ═══════════════════════════════════════════
-                HERO SECTION
-            ═══════════════════════════════════════════ */}
-            <section className="min-h-screen flex flex-col justify-center py-24 md:py-0">
-                <div className="space-y-6 max-w-2xl">
-                    <p className="font-mono text-coral text-sm tracking-wide">
-                        Hello, I'm
-                    </p>
+            {/* Hero Section */}
+            <section className="min-h-[80vh] flex flex-col justify-center pt-32 pb-16 md:py-20">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                     
-                    <h1 className="font-display text-charcoal text-5xl sm:text-6xl md:text-8xl font-bold leading-[0.95] tracking-tight">
-                        Manish
-                        <br />
-                        <span className="text-body-light">Kumar.</span>
-                    </h1>
-                    
-                    <p className="text-body max-w-lg text-base md:text-lg leading-relaxed">
-                        A full-stack developer currently at{' '}
-                        <a href="#experience" className="text-coral link-underline font-medium">Comestro Techlabs</a>,
-                        building exceptional web applications with Laravel, React, and modern databases.
-                    </p>
+                    {/* Left Column: Details */}
+                    <div className="space-y-6 lg:col-span-7">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-coral-tint border border-coral-light/20 text-coral font-mono text-xs mb-1 animate-pulse">
+                            <span className="w-1.5 h-1.5 rounded-full bg-coral"></span>
+                            Available for Opportunities
+                        </div>
+                        
+                        <h1 className="font-display text-charcoal text-5xl sm:text-6xl md:text-7xl font-bold leading-[1.05] tracking-tight">
+                            Manish <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral to-coral-light">Kumar.</span>
+                        </h1>
+                        
+                        <h2 className="text-lg md:text-xl font-display font-medium text-body-light tracking-tight leading-relaxed">
+                            Building high-performance web ecosystems with <span className="text-coral font-mono text-sm font-semibold bg-coral-tint px-2 py-0.5 rounded border border-coral-light/10">Laravel & React</span>
+                        </h2>
 
-                    <div className="pt-4 flex items-center gap-4">
-                        <a 
-                            href="#projects" 
-                            className="inline-block px-7 py-3.5 rounded-full bg-coral text-white font-medium text-sm hover:bg-coral-dark transition-all duration-200 shadow-warm"
-                        >
-                            View my work
-                        </a>
-                        <a 
-                            href="#contact" 
-                            className="inline-block px-7 py-3.5 rounded-full border border-stone text-body font-medium text-sm hover:border-coral hover:text-coral transition-all duration-200"
-                        >
-                            Get in touch
-                        </a>
+                        <p className="text-body max-w-lg text-sm md:text-base leading-relaxed">
+                            Full Stack Developer currently interning at{' '}
+                            <a href="#experience" className="text-coral link-underline font-medium">Comestro Techlabs</a>,
+                            specializing in scalable web structures, database design, and modern single page applications.
+                        </p>
+
+                        <div className="pt-4 flex flex-wrap items-center gap-4">
+                            <a 
+                                href="#projects" 
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+                                }}
+                                className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-coral text-white font-medium text-sm hover:bg-coral-dark hover:shadow-coral/20 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5"
+                            >
+                                View my work
+                                <span className="group-hover:translate-x-1 transition-transform duration-200">→</span>
+                            </a>
+                            <a 
+                                href="#contact" 
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                                }}
+                                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-stone text-body font-medium text-sm hover:border-coral hover:text-coral transition-all duration-300 transform hover:-translate-y-0.5"
+                            >
+                                Get in touch
+                            </a>
+                        </div>
+                    </div>
+
+                    {/* Right Column: Dynamic Code Window Visual */}
+                    <div className="hidden lg:block lg:col-span-5 relative group">
+                        {/* Background glowing orb */}
+                        <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-coral to-sage opacity-15 blur-xl group-hover:opacity-25 transition duration-1000 group-hover:duration-200"></div>
+                        
+                        {/* Interactive Editor Mockup */}
+                        <div className="relative bg-[#1A1918] border border-stone-light/10 rounded-2xl overflow-hidden shadow-2xl font-mono text-xs text-stone-dark/80">
+                            {/* Window Header */}
+                            <div className="bg-[#151413] px-4 py-3 flex items-center justify-between border-b border-stone-light/5">
+                                <div className="flex gap-1.5">
+                                    <span className="w-2.5 h-2.5 rounded-full bg-[#E8604C]/70"></span>
+                                    <span className="w-2.5 h-2.5 rounded-full bg-[#8B9E8B]/70"></span>
+                                    <span className="w-2.5 h-2.5 rounded-full bg-stone-dark/50"></span>
+                                </div>
+                                <span className="text-[10px] tracking-wider text-body-light font-mono select-none">Developer.php</span>
+                                <span className="w-4 h-4"></span>
+                            </div>
+                            
+                            {/* Window Code Content */}
+                            <div className="p-6 space-y-2 select-none leading-relaxed text-left">
+                                <div><span className="text-coral">namespace</span> <span className="text-stone">Portfolio\Core</span>;</div>
+                                <div className="h-2"></div>
+                                <div><span className="text-coral">class</span> <span className="text-sage">ManishKumar</span> <span className="text-coral">extends</span> <span className="text-stone">FullStackDeveloper</span> &#123;</div>
+                                <div className="pl-4"><span className="text-coral">use</span> <span className="text-stone">HasBackendSkills, HasFrontendSkills</span>;</div>
+                                <div className="h-2"></div>
+                                <div className="pl-4"><span className="text-coral">public function</span> <span className="text-[#8B9E8B]">getCoreStack</span>() : <span className="text-coral">array</span> &#123;</div>
+                                <div className="pl-8"><span className="text-coral">return</span> [</div>
+                                <div className="pl-12"><span className="text-sage">'Backend'</span> =&gt; <span className="text-stone-dark">'Laravel / PHP'</span>,</div>
+                                <div className="pl-12"><span className="text-sage">'Frontend'</span> =&gt; <span className="text-stone-dark">'React / TailwindCSS'</span>,</div>
+                                <div className="pl-12"><span className="text-sage">'Database'</span> =&gt; <span className="text-stone-dark">'MySQL / Redis'</span></div>
+                                <div className="pl-8">];</div>
+                                <div className="pl-4">&#125;</div>
+                                <div>&#125;</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            {/* ═══════════════════════════════════════════
-                ABOUT SECTION
-            ═══════════════════════════════════════════ */}
-            <section id="about" className="py-28 fade-section">
+            {/* About Section */}
+            <section id="about" className="py-16 md:py-20 fade-section">
                 <div className="flex items-center gap-4 mb-12">
                     <p className="text-xs font-mono text-coral uppercase tracking-[0.2em]">About</p>
                     <div className="section-divider"></div>
@@ -139,10 +188,8 @@ export default function Home({ projects, skills, experiences, certificates, soci
                 </div>
             </section>
 
-            {/* ═══════════════════════════════════════════
-                EXPERIENCE SECTION
-            ═══════════════════════════════════════════ */}
-            <section id="experience" className="py-28 fade-section">
+            {/* Experience Section */}
+            <section id="experience" className="py-16 md:py-20 fade-section">
                 <div className="flex items-center gap-4 mb-12">
                     <p className="text-xs font-mono text-coral uppercase tracking-[0.2em]">Experience</p>
                     <div className="section-divider"></div>
@@ -176,23 +223,21 @@ export default function Home({ projects, skills, experiences, certificates, soci
                 </div>
             </section>
 
-            {/* ═══════════════════════════════════════════
-                FEATURED PROJECTS SECTION
-            ═══════════════════════════════════════════ */}
-            <section id="projects" className="py-28 fade-section">
+            {/* Projects Section */}
+            <section id="projects" className="py-16 md:py-20 fade-section">
                 <div className="flex items-center gap-4 mb-12">
                     <p className="text-xs font-mono text-coral uppercase tracking-[0.2em]">Projects</p>
                     <div className="section-divider"></div>
                 </div>
 
                 {/* Featured projects — alternating left/right */}
-                <div className="space-y-20">
+                <div className="space-y-12 md:space-y-16">
                     {featuredProjects.map((project, idx) => (
                         <div key={project.id} className={`relative grid grid-cols-1 md:grid-cols-12 items-center gap-4`}>
                             
                             {/* Project Image / Visual Area */}
                             <div className={`md:col-span-7 ${idx % 2 !== 0 ? 'md:col-start-6' : ''} relative rounded-xl overflow-hidden group`}>
-                                <a href={`#/project/${project.slug}`} className="block">
+                                <a href={`/project/${project.slug}`} onClick={(e) => { e.preventDefault(); navigate(`/project/${project.slug}`); }} className="block">
                                     <div className="bg-cream-dark aspect-video rounded-xl flex items-center justify-center relative overflow-hidden group-hover:shadow-warm-lg transition-all duration-300 border border-stone-light">
                                         <span className="text-6xl md:text-8xl font-display font-bold text-stone/30 select-none">
                                             {project.title.substring(0, 2)}
@@ -205,7 +250,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
                             <div className={`md:col-span-7 md:row-start-1 ${idx % 2 !== 0 ? 'md:col-start-1 md:text-left' : 'md:col-start-6 md:text-right'} relative z-10`}>
                                 <p className="font-mono text-coral text-xs mb-2 uppercase tracking-wider">Featured Project</p>
                                 <h3 className="font-display text-charcoal text-xl md:text-2xl font-bold mb-4">
-                                    <a href={`#/project/${project.slug}`} className="hover:text-coral transition-colors">
+                                    <a href={`/project/${project.slug}`} onClick={(e) => { e.preventDefault(); navigate(`/project/${project.slug}`); }} className="hover:text-coral transition-colors">
                                         {project.title}
                                     </a>
                                 </h3>
@@ -239,10 +284,10 @@ export default function Home({ projects, skills, experiences, certificates, soci
 
                 {/* Other Noteworthy Projects */}
                 {otherProjects.length > 0 && (
-                    <div className="mt-28">
+                    <div className="mt-16 md:mt-20">
                         <h3 className="font-display text-charcoal text-2xl font-bold text-center mb-2">Other Noteworthy Projects</h3>
                         <p className="text-center text-sm text-body-light mb-12">
-                            <a href="#/blogs" className="text-coral link-underline">view the archive</a>
+                            <a href="/blogs" onClick={(e) => { e.preventDefault(); navigate('/blogs'); }} className="text-coral link-underline">view the archive</a>
                         </p>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -260,14 +305,14 @@ export default function Home({ projects, skills, experiences, certificates, soci
                                                         <IconGitHub />
                                                     </a>
                                                 )}
-                                                <a href={`#/project/${project.slug}`} className="text-body-light hover:text-coral transition-colors">
+                                                <a href={`/project/${project.slug}`} onClick={(e) => { e.preventDefault(); navigate(`/project/${project.slug}`); }} className="text-body-light hover:text-coral transition-colors">
                                                     <IconExternal />
                                                 </a>
                                             </div>
                                         </div>
 
                                         <h3 className="font-display text-charcoal text-lg font-semibold mb-2 group-hover:text-coral transition-colors">
-                                            <a href={`#/project/${project.slug}`}>{project.title}</a>
+                                            <a href={`/project/${project.slug}`} onClick={(e) => { e.preventDefault(); navigate(`/project/${project.slug}`); }}>{project.title}</a>
                                         </h3>
                                         <p className="text-sm text-body leading-relaxed line-clamp-4">
                                             {project.description}
@@ -286,48 +331,41 @@ export default function Home({ projects, skills, experiences, certificates, soci
                 )}
             </section>
 
-            {/* ═══════════════════════════════════════════
-                SKILLS SECTION
-            ═══════════════════════════════════════════ */}
-            <section id="skills" className="py-28 fade-section">
+            {/* Skills Section */}
+            <section id="skills" className="py-16 md:py-20 fade-section">
                 <div className="flex items-center gap-4 mb-12">
                     <p className="text-xs font-mono text-coral uppercase tracking-[0.2em]">Skills</p>
                     <div className="section-divider"></div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                <div className="flex flex-wrap justify-center gap-6">
                     {skillCategories.map((category, idx) => (
-                        <div key={idx} className="bg-white rounded-xl p-6 border border-stone-light/60 shadow-warm hover:border-coral-light/30 transition-all duration-300">
-                            <h3 className="text-coral font-mono text-sm font-semibold mb-5 flex items-center gap-2">
-                                <span className="text-coral/40">&#123;</span>
-                                {category}
-                                <span className="text-coral/40">&#125;</span>
-                            </h3>
-                            <div className="space-y-3.5">
-                                {skills[category].map((skill, sIdx) => (
-                                    <div key={sIdx} className="space-y-1.5">
-                                        <div className="flex justify-between items-center text-xs">
-                                            <span className="text-charcoal-light font-medium">{skill.name}</span>
-                                            <span className="font-mono text-body-light/60">{skill.level}%</span>
+                        <div key={idx} className="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] bg-white rounded-xl p-6 border border-stone-light/60 shadow-warm hover:border-coral-light/30 transition-all duration-300 flex flex-col justify-between">
+                            <div>
+                                <h3 className="text-coral font-mono text-sm font-semibold mb-5 flex items-center gap-2">
+                                    <span className="text-coral/40">&#123;</span>
+                                    {category}
+                                    <span className="text-coral/40">&#125;</span>
+                                </h3>
+                                <div className="flex flex-wrap gap-2.5">
+                                    {skills[category].map((skill, sIdx) => (
+                                        <div 
+                                            key={sIdx} 
+                                            className="group px-3 py-1.5 rounded-lg bg-[#FAFAF9] border border-stone-light/60 text-charcoal-light text-xs font-medium transition-all duration-200 hover:bg-white hover:border-coral-light/50 hover:text-coral hover:shadow-warm hover:-translate-y-0.5 cursor-default flex items-center gap-2"
+                                        >
+                                            <span className="w-1.5 h-1.5 rounded-full bg-stone-dark group-hover:bg-coral transition-colors duration-200"></span>
+                                            {skill.name}
                                         </div>
-                                        <div className="h-1.5 bg-cream-dark rounded-full overflow-hidden">
-                                            <div 
-                                                className="h-full bg-sage rounded-full skill-bar"
-                                                style={{ width: `${skill.level}%` }}
-                                            ></div>
-                                        </div>
-                                    </div>
-                                ))}
+                                    ))}
+                                </div>
                             </div>
                         </div>
                     ))}
                 </div>
             </section>
 
-            {/* ═══════════════════════════════════════════
-                CONTACT SECTION
-            ═══════════════════════════════════════════ */}
-            <section id="contact" className="py-28 fade-section text-center max-w-xl mx-auto">
+            {/* Contact Section */}
+            <section id="contact" className="py-16 md:py-20 fade-section text-center max-w-xl mx-auto">
                 <p className="font-mono text-coral text-xs uppercase tracking-[0.2em] mb-4">Contact</p>
                 <h2 className="font-display text-charcoal text-4xl md:text-5xl font-bold mb-6">Let's Talk</h2>
                 <p className="text-body text-base leading-relaxed mb-12">
@@ -395,7 +433,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
             </section>
 
             {/* Bottom padding */}
-            <div className="h-24"></div>
+            <div className="h-10"></div>
         </AppLayout>
     );
 }

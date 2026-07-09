@@ -32,7 +32,7 @@ const IconFolder = () => (
 );
 
 
-export default function AppLayout({ children, settings, socialLinks }) {
+export default function AppLayout({ children, settings, socialLinks, navigate }) {
     const [showBackToTop, setShowBackToTop] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
@@ -66,6 +66,28 @@ export default function AppLayout({ children, settings, socialLinks }) {
 
     const scrollToTop = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    const handleNavClick = (e, href) => {
+        e.preventDefault();
+        const targetId = href.replace('#', '');
+        
+        if (window.location.pathname === '/') {
+            const element = document.getElementById(targetId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        } else if (navigate) {
+            navigate('/');
+            setTimeout(() => {
+                const element = document.getElementById(targetId);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                }
+            }, 100);
+        } else {
+            window.location.href = '/' + href;
+        }
     };
 
     const navItems = [
@@ -106,7 +128,20 @@ export default function AppLayout({ children, settings, socialLinks }) {
                 <div className="max-w-[1100px] mx-auto px-6 lg:px-12 flex justify-between items-center">
                     
                     {/* Logo */}
-                    <a href="#/" className="font-display text-charcoal text-xl font-bold hover:text-coral transition-colors duration-200">
+                    <a 
+                        href="/" 
+                        onClick={(e) => {
+                            e.preventDefault();
+                            if (window.location.pathname === '/') {
+                                scrollToTop();
+                            } else if (navigate) {
+                                navigate('/');
+                            } else {
+                                window.location.href = '/';
+                            }
+                        }} 
+                        className="font-display text-charcoal text-xl font-bold hover:text-coral transition-colors duration-200"
+                    >
                         MK
                     </a>
 
@@ -116,6 +151,7 @@ export default function AppLayout({ children, settings, socialLinks }) {
                             <a
                                 key={idx}
                                 href={item.href}
+                                onClick={(e) => handleNavClick(e, item.href)}
                                 className="px-4 py-2 text-[13px] font-medium text-body hover:text-coral transition-colors duration-200"
                             >
                                 {item.label}
@@ -162,7 +198,10 @@ export default function AppLayout({ children, settings, socialLinks }) {
                             <a
                                 key={idx}
                                 href={item.href}
-                                onClick={() => setMobileMenuOpen(false)}
+                                onClick={(e) => {
+                                    setMobileMenuOpen(false);
+                                    handleNavClick(e, item.href);
+                                }}
                                 className="text-charcoal text-lg font-display font-semibold hover:text-coral transition-colors"
                             >
                                 {item.label}

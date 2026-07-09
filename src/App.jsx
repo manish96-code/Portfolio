@@ -6,28 +6,16 @@ import BlogShow from './Pages/Public/BlogShow';
 import { portfolioData } from './data/portfolioData';
 
 export default function App() {
-    const [currentPath, setCurrentPath] = useState(window.location.hash || '#/');
+    const [currentPath, setCurrentPath] = useState(window.location.pathname || '/');
 
     useEffect(() => {
-        const handleHashChange = () => {
-            const hash = window.location.hash || '#/';
-            setCurrentPath(hash);
-            
-            // Only scroll to top if we are transitioning to a different subpage (like projects or blogs)
-            // If it's a section anchor on the home page, let the browser scroll to it naturally or scroll smoothly
-            if (hash.startsWith('#/')) {
-                window.scrollTo({ top: 0, behavior: 'instant' });
-            } else if (hash.startsWith('#')) {
-                const element = document.getElementById(hash.substring(1));
-                if (element) {
-                    element.scrollIntoView({ behavior: 'smooth' });
-                }
-            }
+        const handlePopState = () => {
+            setCurrentPath(window.location.pathname || '/');
         };
-        window.addEventListener('hashchange', handleHashChange);
+        window.addEventListener('popstate', handlePopState);
         
-        // Initial scroll check on load
-        if (window.location.hash && !window.location.hash.startsWith('#/')) {
+        // Initial scroll to dynamic URL hashes if they exist on loading (e.g. /#experience)
+        if (window.location.hash) {
             setTimeout(() => {
                 const element = document.getElementById(window.location.hash.substring(1));
                 if (element) {
@@ -36,19 +24,26 @@ export default function App() {
             }, 100);
         }
         
-        return () => window.removeEventListener('hashchange', handleHashChange);
+        return () => window.removeEventListener('popstate', handlePopState);
     }, []);
 
-    // Helper to render pages based on Hash
+    // Custom client-side navigation helper
+    const navigate = (path) => {
+        window.history.pushState(null, '', path);
+        setCurrentPath(path);
+        window.scrollTo({ top: 0, behavior: 'instant' });
+    };
+
+    // Helper to render pages based on pathname
     const renderPage = () => {
         const path = currentPath;
 
-        if (path === '#/' || path === '') {
-            return <Home {...portfolioData} />;
+        if (path === '/' || path === '') {
+            return <Home {...portfolioData} navigate={navigate} />;
         }
 
-        if (path.startsWith('#/project/')) {
-            const slug = path.replace('#/project/', '');
+        if (path.startsWith('/project/')) {
+            const slug = path.replace('/project/', '');
             const project = portfolioData.projects.find(p => p.slug === slug);
             if (project) {
                 return (
@@ -56,12 +51,13 @@ export default function App() {
                         project={project} 
                         socialLinks={portfolioData.socialLinks} 
                         settings={portfolioData.settings} 
+                        navigate={navigate}
                     />
                 );
             }
         }
 
-        if (path === '#/blogs' || path.startsWith('#/blogs?')) {
+        if (path === '/blogs' || path.startsWith('/blogs?')) {
             const categories = ['all', ...new Set(portfolioData.blogs.map(b => b.category))];
             return (
                 <BlogList 
@@ -70,12 +66,13 @@ export default function App() {
                     filters={{}} 
                     socialLinks={portfolioData.socialLinks} 
                     settings={portfolioData.settings} 
+                    navigate={navigate}
                 />
             );
         }
 
-        if (path.startsWith('#/blog/')) {
-            const slug = path.replace('#/blog/', '');
+        if (path.startsWith('/blog/')) {
+            const slug = path.replace('/blog/', '');
             const blog = portfolioData.blogs.find(b => b.slug === slug);
             if (blog) {
                 return (
@@ -83,13 +80,14 @@ export default function App() {
                         blog={blog} 
                         socialLinks={portfolioData.socialLinks} 
                         settings={portfolioData.settings} 
+                        navigate={navigate}
                     />
                 );
             }
         }
 
         // Fallback to Home page
-        return <Home {...portfolioData} />;
+        return <Home {...portfolioData} navigate={navigate} />;
     };
 
     return renderPage();
