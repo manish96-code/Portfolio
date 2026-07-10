@@ -7,7 +7,7 @@ export const portfolioData = {
         education: 'BCA, Purnea University (2021-2024)',
         objective: 'Seeking to leverage solid expertise in Laravel, React, and MySQL database management to build modern, high-performance web environments.',
         bio: 'Passionate about building modern web applications that solve real-world problems. Specialize in full-stack ecosystems leveraging Laravel on the backend and React/Inertia on the frontend.',
-        email: 'manish96611311@gmail.com',
+        email: 'manish966128@gmail.com',
         phone: '+91 9661131100',
         resume_file: '/downloads/resume.pdf',
         meta_title: 'Manish Kumar | Full Stack Web Developer',
@@ -16,7 +16,7 @@ export const portfolioData = {
     socialLinks: [
         { platform: 'GitHub', url: 'https://github.com/manish96-code', icon: 'github' },
         { platform: 'LinkedIn', url: 'https://linkedin.com/in/manish-kumar', icon: 'linkedin' },
-        { platform: 'Email', url: 'mailto:manish96611311@gmail.com', icon: 'mail' }
+        { platform: 'Email', url: 'mailto:manish966128@gmail.com', icon: 'mail' }
     ],
     skills: {
         Frontend: [

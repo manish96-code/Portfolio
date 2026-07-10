@@ -14,19 +14,19 @@ const IconLinkedIn = () => (
 );
 
 const IconMail = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/>
     </svg>
 );
 
 const IconExternal = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/>
     </svg>
 );
 
 const IconFolder = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" className="w-10 h-10" fill="none" stroke="currentColor" strokeWidth="1" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z"/>
     </svg>
 );
@@ -37,7 +37,7 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const name = settings?.name || 'Manish Kumar';
-    const email = settings?.email || 'manish96611311@gmail.com';
+    const email = settings?.email || 'manish966128@gmail.com';
 
     useEffect(() => {
         const handleScroll = () => {
@@ -99,35 +99,56 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
     ];
 
     return (
-        <div className="min-h-screen bg-cream text-body font-sans antialiased">
+        <div className="min-h-screen bg-cream text-stone font-sans antialiased">
             
-            {/* Fixed Left Social Bar */}
-            <div className="hidden lg:flex fixed bottom-0 left-10 z-30 flex-col items-center gap-6">
-                <a href="https://github.com/manish96-code" target="_blank" rel="noreferrer" className="text-body-light hover:text-coral hover:-translate-y-0.5 transition-all duration-200">
+            {/* Fixed Left Social Bar - Hand-Drawn Wobbly Circle Badges */}
+            <div className="hidden lg:flex fixed bottom-0 left-8 z-30 flex-col items-center gap-4">
+                <a 
+                    href="https://github.com/manish96-code" 
+                    target="_blank" 
+                    rel="noreferrer" 
+                    className="flex items-center justify-center w-10 h-10 border-2 border-stone bg-white rounded-wobbly shadow-hard-muted hover:bg-coral hover:text-white hover:-translate-y-1 hover:rotate-6 transition-hand"
+                >
                     <IconGitHub />
                 </a>
-                <a href="https://linkedin.com/in/manish-kumar" target="_blank" rel="noreferrer" className="text-body-light hover:text-coral hover:-translate-y-0.5 transition-all duration-200">
+                <a 
+                    href="https://linkedin.com/in/manish-kumar" 
+                    target="_blank" 
+                    rel="noreferrer" 
+                    className="flex items-center justify-center w-10 h-10 border-2 border-stone bg-white rounded-wobbly shadow-hard-muted hover:bg-coral hover:text-white hover:-translate-y-1 hover:-rotate-6 transition-hand"
+                >
                     <IconLinkedIn />
                 </a>
-                <a href={`mailto:${email}`} className="text-body-light hover:text-coral hover:-translate-y-0.5 transition-all duration-200">
+                <a 
+                    href={`mailto:${email}`} 
+                    className="flex items-center justify-center w-10 h-10 border-2 border-stone bg-white rounded-wobbly shadow-hard-muted hover:bg-coral hover:text-white hover:-translate-y-1 hover:rotate-12 transition-hand"
+                >
                     <IconMail />
                 </a>
-                <div className="w-px h-24 bg-stone"></div>
+                <div className="w-0 h-24 border-l-2 border-dashed border-stone"></div>
             </div>
 
-            {/* Fixed Right Email Bar */}
-            <div className="hidden lg:flex fixed bottom-0 right-10 z-30 flex-col items-center gap-6">
-                <a href={`mailto:${email}`} className="text-body-light text-xs font-mono tracking-widest hover:text-coral hover:-translate-y-0.5 transition-all duration-200" style={{ writingMode: 'vertical-rl' }}>
+            {/* Fixed Right Email Bar - Hand-Drawn Label */}
+            <div className="hidden lg:flex fixed bottom-0 right-8 z-30 flex-col items-center gap-5">
+                <a 
+                    href={`mailto:${email}`} 
+                    className="text-stone text-[14px] font-mono tracking-wider hover:text-coral hover:-translate-y-1 transition-hand border-2 border-stone bg-white px-2 py-4 rounded-wobbly shadow-hard-muted hover:rotate-3" 
+                    style={{ writingMode: 'vertical-rl' }}
+                >
                     {email}
                 </a>
-                <div className="w-px h-24 bg-stone"></div>
+                <div className="w-0 h-20 border-l-2 border-dashed border-stone"></div>
             </div>
 
-            {/* Header / Navigation */}
-            <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/90 backdrop-blur-md shadow-warm py-4' : 'bg-transparent py-6'}`}>
+            {/* Header / Navigation - Notebook Sheet Header */}
+            <header className={`fixed top-0 left-0 right-0 z-50 transition-hand ${
+                scrolled 
+                    ? 'bg-white border-b-3 border-stone shadow-hard py-3' 
+                    : 'bg-transparent py-5'
+            }`}>
                 <div className="max-w-[1100px] mx-auto px-6 lg:px-12 flex justify-between items-center">
                     
-                    {/* Logo */}
+                    {/* Stamp-like Logo */}
                     <a 
                         href="/" 
                         onClick={(e) => {
@@ -140,19 +161,19 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                                 window.location.href = '/';
                             }
                         }} 
-                        className="font-display text-charcoal text-xl font-bold hover:text-coral transition-colors duration-200"
+                        className="font-display text-stone text-xl font-bold border-3 border-stone px-3.5 py-1 rounded-wobbly bg-postit shadow-hard-muted hover:rotate-6 transition-hand inline-block"
                     >
                         MK
                     </a>
 
-                    {/* Desktop Nav */}
-                    <nav className="hidden md:flex items-center gap-1">
+                    {/* Desktop Nav - Hand-drawn typography and highlights */}
+                    <nav className="hidden md:flex items-center gap-2">
                         {navItems.map((item, idx) => (
                             <a
                                 key={idx}
                                 href={item.href}
                                 onClick={(e) => handleNavClick(e, item.href)}
-                                className="px-4 py-2 text-[13px] font-medium text-body hover:text-coral transition-colors duration-200"
+                                className="px-3.5 py-1.5 text-base font-semibold text-stone hover:text-coral link-underline-wavy transition-hand font-sans"
                             >
                                 {item.label}
                             </a>
@@ -161,19 +182,19 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                             href={settings?.resume_file || '#'}
                             target="_blank"
                             rel="noreferrer"
-                            className="ml-4 px-5 py-2 rounded-full border border-coral text-coral text-[13px] font-medium hover:bg-coral hover:text-white transition-all duration-200"
+                            className="ml-4 px-5 py-2 border-3 border-stone bg-coral text-white rounded-wobbly font-bold shadow-hard hover:shadow-hard-muted hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] transition-hand text-sm"
                         >
                             Resume
                         </a>
                     </nav>
 
-                    {/* Mobile Hamburger */}
+                    {/* Mobile Hamburger - Wobbly badge button */}
                     <button 
-                        className="md:hidden text-charcoal p-2" 
+                        className="md:hidden text-stone p-2 border-2 border-stone bg-white rounded-wobbly shadow-hard-muted" 
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                         aria-label="Toggle menu"
                     >
-                        <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                        <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                             {mobileMenuOpen ? (
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                             ) : (
@@ -183,17 +204,22 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                     </button>
                 </div>
 
-                {/* Mobile Menu Overlay */}
+                {/* Mobile Menu Overlay - Full Notebook Page */}
                 {mobileMenuOpen && (
-                    <div className="md:hidden fixed inset-0 top-0 bg-white/98 backdrop-blur-lg z-40 flex flex-col items-center justify-center gap-8">
+                    <div className="md:hidden fixed inset-0 top-0 bg-cream z-40 flex flex-col items-center justify-center gap-8 border-10 border-double border-stone p-8 radial-dots">
                         <button 
-                            className="absolute top-6 right-6 text-charcoal p-2"
+                            className="absolute top-6 right-6 text-stone p-2 border-2 border-stone bg-white rounded-wobbly shadow-hard-muted"
                             onClick={() => setMobileMenuOpen(false)}
                         >
-                            <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                            <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                             </svg>
                         </button>
+                        
+                        <div className="text-center font-display text-4xl font-bold mb-4 border-b-2 border-dashed border-stone pb-2 px-6 rotate-1">
+                            Navigation
+                        </div>
+                        
                         {navItems.map((item, idx) => (
                             <a
                                 key={idx}
@@ -202,7 +228,7 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                                     setMobileMenuOpen(false);
                                     handleNavClick(e, item.href);
                                 }}
-                                className="text-charcoal text-lg font-display font-semibold hover:text-coral transition-colors"
+                                className="text-stone text-2xl font-display font-semibold hover:text-coral hover:link-underline-wavy transition-hand hover:rotate-2"
                             >
                                 {item.label}
                             </a>
@@ -211,7 +237,7 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                             href={settings?.resume_file || '#'}
                             target="_blank"
                             rel="noreferrer"
-                            className="mt-4 px-8 py-3 rounded-full border border-coral text-coral font-medium hover:bg-coral hover:text-white transition-all"
+                            className="mt-6 px-8 py-3 border-3 border-stone bg-coral text-white rounded-wobbly font-bold shadow-hard hover:translate-x-[2px] hover:translate-y-[2px] transition-hand"
                         >
                             Resume
                         </a>
@@ -219,36 +245,36 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                 )}
             </header>
 
-            {/* Main Content */}
+            {/* Main Content - Sketchbook boundaries */}
             <main className="max-w-[1100px] mx-auto px-6 lg:px-12">
                 {children}
             </main>
 
-            {/* Footer */}
-            <footer className="py-8 border-t border-stone-light">
-                <div className="max-w-[1100px] mx-auto px-6 lg:px-12 flex flex-col sm:flex-row items-center justify-between gap-4">
-                    <p className="text-xs text-body-light">
-                        (c) {new Date().getFullYear()} Manish Kumar
+            {/* Footer - Pinned Note footer style */}
+            <footer className="py-12 border-t-3 border-dashed border-stone mt-12 bg-cream">
+                <div className="max-w-[1100px] mx-auto px-6 lg:px-12 flex flex-col sm:flex-row items-center justify-between gap-6 font-sans">
+                    <p className="text-sm font-bold border-2 border-stone bg-white px-3 py-1.5 rounded-wobbly shadow-hard-muted rotate-[-1deg]">
+                        © {new Date().getFullYear()} {name}
                     </p>
                     <a 
                         href="https://github.com/manish96-code" 
                         target="_blank" 
                         rel="noreferrer"
-                        className="text-xs text-body-light hover:text-coral transition-colors"
+                        className="text-sm font-bold border-2 border-stone bg-postit text-stone px-4 py-2 rounded-wobbly shadow-hard-muted hover:bg-coral hover:text-white hover:-translate-y-0.5 hover:rotate-[2deg] transition-hand"
                     >
-                        Designed & Built by Manish Kumar
+                        📝 Designed & Sketch-Built by {name}
                     </a>
                 </div>
             </footer>
 
-            {/* Back to Top */}
+            {/* Back to Top - Floating Circular Sketch Tag */}
             {showBackToTop && (
                 <button
                     onClick={scrollToTop}
-                    className="fixed bottom-6 right-6 z-40 w-10 h-10 rounded-full bg-white border border-stone text-coral flex items-center justify-center hover:bg-coral-tint hover:border-coral transition-all duration-200 shadow-warm lg:hidden"
+                    className="fixed bottom-6 right-6 z-40 w-12 h-12 rounded-wobbly bg-white border-3 border-stone text-coral flex items-center justify-center hover:bg-coral hover:text-white transition-hand shadow-hard lg:hidden"
                     title="Back to Top"
                 >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
                     </svg>
                 </button>
