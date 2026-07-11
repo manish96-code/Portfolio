@@ -14,7 +14,7 @@ const IconLinkedIn = () => (
 );
 
 const IconMail = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/>
     </svg>
 );
@@ -26,11 +26,10 @@ const IconExternal = () => (
 );
 
 const IconFolder = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z"/>
     </svg>
 );
-
 
 export default function AppLayout({ children, settings, socialLinks, navigate }) {
     const [showBackToTop, setShowBackToTop] = useState(false);
@@ -58,11 +57,11 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                     }
                 });
             },
-            { threshold: 0.1 }
+            { threshold: 0.08 }
         );
         document.querySelectorAll('.fade-section').forEach(el => observer.observe(el));
         return () => observer.disconnect();
-    }, []);
+    }, [children]);
 
     const scrollToTop = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -99,15 +98,16 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
     ];
 
     return (
-        <div className="min-h-screen bg-cream text-stone font-sans antialiased">
+        <div className="min-h-screen bg-[#05070c] text-slate-100 font-sans antialiased">
             
-            {/* Fixed Left Social Bar - Hand-Drawn Wobbly Circle Badges */}
+            {/* Fixed Left Social Bar - Glass capsule circles */}
             <div className="hidden lg:flex fixed bottom-0 left-8 z-30 flex-col items-center gap-4">
                 <a 
                     href="https://github.com/manish96-code" 
                     target="_blank" 
                     rel="noreferrer" 
-                    className="flex items-center justify-center w-10 h-10 border-2 border-stone bg-white rounded-wobbly shadow-hard-muted hover:bg-coral hover:text-white hover:-translate-y-1 hover:rotate-6 transition-hand"
+                    className="flex items-center justify-center w-10 h-10 border border-white/10 bg-slate-900/60 text-slate-300 rounded-full hover:text-cyan-400 hover:border-cyan-400/50 backdrop-blur hover:-translate-y-1 shadow-[0_4px_12px_rgba(0,0,0,0.4)] hover:shadow-[0_0_15px_rgba(0,242,254,0.3)] transition-all duration-300"
+                    title="GitHub"
                 >
                     <IconGitHub />
                 </a>
@@ -115,40 +115,42 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                     href="https://linkedin.com/in/manish-kumar" 
                     target="_blank" 
                     rel="noreferrer" 
-                    className="flex items-center justify-center w-10 h-10 border-2 border-stone bg-white rounded-wobbly shadow-hard-muted hover:bg-coral hover:text-white hover:-translate-y-1 hover:-rotate-6 transition-hand"
+                    className="flex items-center justify-center w-10 h-10 border border-white/10 bg-slate-900/60 text-slate-300 rounded-full hover:text-cyan-400 hover:border-cyan-400/50 backdrop-blur hover:-translate-y-1 shadow-[0_4px_12px_rgba(0,0,0,0.4)] hover:shadow-[0_0_15px_rgba(0,242,254,0.3)] transition-all duration-300"
+                    title="LinkedIn"
                 >
                     <IconLinkedIn />
                 </a>
                 <a 
                     href={`mailto:${email}`} 
-                    className="flex items-center justify-center w-10 h-10 border-2 border-stone bg-white rounded-wobbly shadow-hard-muted hover:bg-coral hover:text-white hover:-translate-y-1 hover:rotate-12 transition-hand"
+                    className="flex items-center justify-center w-10 h-10 border border-white/10 bg-slate-900/60 text-slate-300 rounded-full hover:text-cyan-400 hover:border-cyan-400/50 backdrop-blur hover:-translate-y-1 shadow-[0_4px_12px_rgba(0,0,0,0.4)] hover:shadow-[0_0_15px_rgba(0,242,254,0.3)] transition-all duration-300"
+                    title="Email"
                 >
                     <IconMail />
                 </a>
-                <div className="w-0 h-24 border-l-2 border-dashed border-stone"></div>
+                <div className="w-[1px] h-24 bg-gradient-to-t from-cyan-500/50 to-transparent"></div>
             </div>
 
-            {/* Fixed Right Email Bar - Hand-Drawn Label */}
+            {/* Fixed Right Email Bar - Glass capsule label */}
             <div className="hidden lg:flex fixed bottom-0 right-8 z-30 flex-col items-center gap-5">
                 <a 
                     href={`mailto:${email}`} 
-                    className="text-stone text-[14px] font-mono tracking-wider hover:text-coral hover:-translate-y-1 transition-hand border-2 border-stone bg-white px-2 py-4 rounded-wobbly shadow-hard-muted hover:rotate-3" 
+                    className="text-slate-300 text-[13px] font-mono tracking-wider hover:text-cyan-400 hover:-translate-y-1 transition-all duration-300 border border-white/10 bg-slate-900/60 px-2.5 py-4 rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.4)] hover:shadow-[0_0_15px_rgba(0,242,254,0.3)] hover:border-cyan-400/50 backdrop-blur" 
                     style={{ writingMode: 'vertical-rl' }}
                 >
                     {email}
                 </a>
-                <div className="w-0 h-20 border-l-2 border-dashed border-stone"></div>
+                <div className="w-[1px] h-20 bg-gradient-to-t from-cyan-500/50 to-transparent"></div>
             </div>
 
-            {/* Header / Navigation - Notebook Sheet Header */}
-            <header className={`fixed top-0 left-0 right-0 z-50 transition-hand ${
+            {/* Header / Navigation - Sticky Glass Header */}
+            <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
                 scrolled 
-                    ? 'bg-white border-b-3 border-stone shadow-hard py-3' 
+                    ? 'bg-[#0a0e17]/80 border-b border-white/5 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.3)] py-3' 
                     : 'bg-transparent py-5'
             }`}>
                 <div className="max-w-[1100px] mx-auto px-6 lg:px-12 flex justify-between items-center">
                     
-                    {/* Stamp-like Logo */}
+                    {/* Glowing Logo */}
                     <a 
                         href="/" 
                         onClick={(e) => {
@@ -161,19 +163,19 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                                 window.location.href = '/';
                             }
                         }} 
-                        className="font-display text-stone text-xl font-bold border-3 border-stone px-3.5 py-1 rounded-wobbly bg-postit shadow-hard-muted hover:rotate-6 transition-hand inline-block"
+                        className="font-display text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500 text-xl font-black border border-white/10 px-4 py-1.5 rounded-xl bg-slate-900/60 shadow-[0_4px_12px_rgba(0,0,0,0.3)] hover:border-cyan-400/50 transition-all duration-300 inline-block"
                     >
                         MK
                     </a>
 
-                    {/* Desktop Nav - Hand-drawn typography and highlights */}
+                    {/* Desktop Nav - Glowing links */}
                     <nav className="hidden md:flex items-center gap-2">
                         {navItems.map((item, idx) => (
                             <a
                                 key={idx}
                                 href={item.href}
                                 onClick={(e) => handleNavClick(e, item.href)}
-                                className="px-3.5 py-1.5 text-base font-semibold text-stone hover:text-coral link-underline-wavy transition-hand font-sans"
+                                className="px-4 py-1.5 text-[15px] font-semibold text-slate-300 hover:text-cyan-400 link-underline transition-all duration-300"
                             >
                                 {item.label}
                             </a>
@@ -182,15 +184,15 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                             href={settings?.resume_file || '#'}
                             target="_blank"
                             rel="noreferrer"
-                            className="ml-4 px-5 py-2 border-3 border-stone bg-coral text-white rounded-wobbly font-bold shadow-hard hover:shadow-hard-muted hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] transition-hand text-sm"
+                            className="ml-4 px-5 py-2 border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20 hover:text-white rounded-lg font-bold shadow-[0_0_15px_rgba(6,182,212,0.15)] transition-all duration-300 text-sm"
                         >
                             Resume
                         </a>
                     </nav>
 
-                    {/* Mobile Hamburger - Wobbly badge button */}
+                    {/* Mobile Hamburger - Glass button */}
                     <button 
-                        className="md:hidden text-stone p-2 border-2 border-stone bg-white rounded-wobbly shadow-hard-muted" 
+                        className="md:hidden text-slate-300 p-2.5 border border-white/10 bg-slate-900/60 rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.3)] hover:text-cyan-400 transition-all duration-300" 
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                         aria-label="Toggle menu"
                     >
@@ -204,11 +206,11 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                     </button>
                 </div>
 
-                {/* Mobile Menu Overlay - Full Notebook Page */}
+                {/* Mobile Menu Overlay - Full Dark glass overlay */}
                 {mobileMenuOpen && (
-                    <div className="md:hidden fixed inset-0 top-0 bg-cream z-40 flex flex-col items-center justify-center gap-8 border-10 border-double border-stone p-8 radial-dots">
+                    <div className="md:hidden fixed inset-0 top-0 bg-[#05070c]/95 backdrop-blur-xl z-40 flex flex-col items-center justify-center gap-8 border border-white/5 p-8">
                         <button 
-                            className="absolute top-6 right-6 text-stone p-2 border-2 border-stone bg-white rounded-wobbly shadow-hard-muted"
+                            className="absolute top-6 right-6 text-slate-300 p-2.5 border border-white/10 bg-slate-900/60 rounded-xl hover:text-cyan-400 transition-all duration-300"
                             onClick={() => setMobileMenuOpen(false)}
                         >
                             <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
@@ -216,7 +218,7 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                             </svg>
                         </button>
                         
-                        <div className="text-center font-display text-4xl font-bold mb-4 border-b-2 border-dashed border-stone pb-2 px-6 rotate-1">
+                        <div className="text-center font-display text-3xl font-black mb-4 border-b border-white/10 pb-2 px-6 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">
                             Navigation
                         </div>
                         
@@ -228,7 +230,7 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                                     setMobileMenuOpen(false);
                                     handleNavClick(e, item.href);
                                 }}
-                                className="text-stone text-2xl font-display font-semibold hover:text-coral hover:link-underline-wavy transition-hand hover:rotate-2"
+                                className="text-slate-300 text-2xl font-display font-bold hover:text-cyan-400 transition-all duration-200"
                             >
                                 {item.label}
                             </a>
@@ -237,7 +239,7 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                             href={settings?.resume_file || '#'}
                             target="_blank"
                             rel="noreferrer"
-                            className="mt-6 px-8 py-3 border-3 border-stone bg-coral text-white rounded-wobbly font-bold shadow-hard hover:translate-x-[2px] hover:translate-y-[2px] transition-hand"
+                            className="mt-6 px-8 py-3 border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 rounded-lg font-bold shadow-[0_0_20px_rgba(6,182,212,0.2)] hover:bg-cyan-500 hover:text-white transition-all duration-300"
                         >
                             Resume
                         </a>
@@ -245,36 +247,36 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                 )}
             </header>
 
-            {/* Main Content - Sketchbook boundaries */}
+            {/* Main Content - Bento Canvas boundaries */}
             <main className="max-w-[1100px] mx-auto px-6 lg:px-12">
                 {children}
             </main>
 
-            {/* Footer - Pinned Note footer style */}
-            <footer className="py-12 border-t-3 border-dashed border-stone mt-12 bg-cream">
-                <div className="max-w-[1100px] mx-auto px-6 lg:px-12 flex flex-col sm:flex-row items-center justify-between gap-6 font-sans">
-                    <p className="text-sm font-bold border-2 border-stone bg-white px-3 py-1.5 rounded-wobbly shadow-hard-muted rotate-[-1deg]">
+            {/* Footer - Sleek minimal divider footer */}
+            <footer className="py-12 border-t border-white/5 mt-16 bg-[#05070c]/60 backdrop-blur-sm">
+                <div className="max-w-[1100px] mx-auto px-6 lg:px-12 flex flex-col sm:flex-row items-center justify-between gap-6">
+                    <p className="text-sm font-semibold border border-white/5 bg-slate-900/40 text-slate-400 px-4 py-2 rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.2)]">
                         © {new Date().getFullYear()} {name}
                     </p>
                     <a 
                         href="https://github.com/manish96-code" 
                         target="_blank" 
                         rel="noreferrer"
-                        className="text-sm font-bold border-2 border-stone bg-postit text-stone px-4 py-2 rounded-wobbly shadow-hard-muted hover:bg-coral hover:text-white hover:-translate-y-0.5 hover:rotate-[2deg] transition-hand"
+                        className="text-sm font-medium border border-white/10 bg-slate-900/60 text-slate-300 hover:text-cyan-400 hover:border-cyan-400/40 px-4 py-2 rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.2)] hover:shadow-[0_0_15px_rgba(0,242,254,0.15)] transition-all duration-300"
                     >
-                        📝 Designed & Sketch-Built by {name}
+                        ⚡ Designed & Developed by {name}
                     </a>
                 </div>
             </footer>
 
-            {/* Back to Top - Floating Circular Sketch Tag */}
+            {/* Back to Top */}
             {showBackToTop && (
                 <button
                     onClick={scrollToTop}
-                    className="fixed bottom-6 right-6 z-40 w-12 h-12 rounded-wobbly bg-white border-3 border-stone text-coral flex items-center justify-center hover:bg-coral hover:text-white transition-hand shadow-hard lg:hidden"
+                    className="fixed bottom-6 right-6 z-40 w-11 h-11 rounded-full bg-slate-900 border border-white/15 text-cyan-400 flex items-center justify-center hover:bg-cyan-400 hover:text-slate-950 transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.5)] hover:shadow-[0_0_15px_rgba(0,242,254,0.4)]"
                     title="Back to Top"
                 >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
                     </svg>
                 </button>

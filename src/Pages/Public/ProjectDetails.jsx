@@ -6,40 +6,40 @@ function SimpleMarkdown({ content }) {
 
     const lines = content.split('\n');
     return (
-        <div className="space-y-4 text-stone leading-relaxed text-base font-sans">
+        <div className="space-y-4 text-slate-300 leading-relaxed text-base font-sans">
             {lines.map((line, idx) => {
                 if (line.startsWith('# ')) {
                     return (
-                        <h1 key={idx} className="text-3xl font-display font-bold text-stone mt-8 mb-4 pb-2 border-b-3 border-dashed border-stone rotate-[-0.5deg]">
+                        <h1 key={idx} className="text-3xl font-display font-extrabold text-white mt-8 mb-4 pb-2 border-b border-white/5">
                             {line.replace('# ', '')}
                         </h1>
                     );
                 }
                 if (line.startsWith('## ')) {
                     return (
-                        <h2 key={idx} className="text-2xl font-display font-bold text-stone mt-6 mb-3 rotate-[0.5deg]">
+                        <h2 key={idx} className="text-2xl font-display font-extrabold text-white mt-6 mb-3">
                             {line.replace('## ', '')}
                         </h2>
                     );
                 }
                 if (line.startsWith('### ')) {
                     return (
-                        <h3 key={idx} className="text-lg font-bold text-coral mt-5 mb-2 font-mono rotate-[-1deg]">
+                        <h3 key={idx} className="text-lg font-bold text-cyan-400 mt-5 mb-2 font-mono">
                             {line.replace('### ', '')}
                         </h3>
                     );
                 }
                 if (line.startsWith('- ')) {
                     return (
-                        <li key={idx} className="list-none ml-4 mt-2 text-stone flex items-start gap-2">
-                            <span className="text-coral text-lg select-none">✏️</span>
+                        <li key={idx} className="list-none ml-4 mt-2 text-slate-300 flex items-start gap-2.5">
+                            <span className="text-cyan-400 select-none">✦</span>
                             <span>{line.replace('- ', '')}</span>
                         </li>
                     );
                 }
                 if (/^\d+\.\s/.test(line)) {
                     return (
-                        <li key={idx} className="list-decimal ml-6 mt-1 text-stone font-semibold">
+                        <li key={idx} className="list-decimal ml-6 mt-1 text-slate-300 font-medium">
                             {line.replace(/^\d+\.\s/, '')}
                         </li>
                     );
@@ -50,7 +50,7 @@ function SimpleMarkdown({ content }) {
                 if (line.trim() === '') {
                     return <div key={idx} className="h-2"></div>;
                 }
-                return <p key={idx} className="rotate-[0.2deg]">{line}</p>;
+                return <p key={idx}>{line}</p>;
             })}
         </div>
     );
@@ -72,11 +72,11 @@ export default function ProjectDetails({ project, socialLinks, settings, navigat
         <AppLayout settings={settings} socialLinks={socialLinks} navigate={navigate}>
             <div className="pt-32 pb-24 font-sans">
                 
-                {/* Back button styled as a wobbly sketch tag */}
+                {/* Back button */}
                 <a 
                     href="/" 
                     onClick={(e) => { e.preventDefault(); navigate('/'); }} 
-                    className="inline-flex items-center gap-2 text-sm font-bold text-stone border-2 border-stone bg-white px-4 py-2 rounded-wobbly shadow-hard-muted hover:bg-coral hover:text-white hover:rotate-[-2deg] hover:translate-y-[-1px] transition-hand mb-8 group"
+                    className="inline-flex items-center gap-2 text-sm font-bold text-slate-300 border border-white/10 bg-slate-900/60 px-4.5 py-2.5 rounded-xl hover:text-cyan-400 hover:border-cyan-400/40 hover:-translate-y-0.5 hover:shadow-[0_0_15px_rgba(0,242,254,0.15)] transition-all duration-300 mb-8 group"
                 >
                     <span className="group-hover:-translate-x-1 transition-transform">←</span> Back to Portfolio
                 </a>
@@ -85,66 +85,69 @@ export default function ProjectDetails({ project, socialLinks, settings, navigat
                     
                     {/* Project Content */}
                     <div className="lg:col-span-8 space-y-6">
-                        <span className="inline-block border-2 border-stone bg-coral text-white px-3 py-1 text-xs font-bold font-mono rounded-wobbly rotate-[-2deg] shadow-hard-muted">
-                            CASE STUDY 📝
+                        <span className="inline-flex items-center gap-1.5 bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-[11px] font-bold uppercase tracking-[0.2em] px-3.5 py-1.5 rounded-full font-mono">
+                            <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse-glow" /> Case Study
                         </span>
                         
                         <div className="flex flex-wrap gap-2.5">
                             {tags.map((t, idx) => (
                                 <span 
                                     key={idx} 
-                                    className="px-3 py-1 rounded-wobbly border-2 border-stone bg-sage-tint text-sage text-xs font-mono font-bold shadow-hard-muted rotate-[1deg]"
+                                    className="px-3.5 py-1.5 rounded-lg border border-white/5 bg-slate-950/60 text-slate-300 text-xs font-mono font-semibold"
                                 >
                                     {t}
                                 </span>
                             ))}
                         </div>
 
-                        <h1 className="text-4xl md:text-6xl font-display font-bold text-stone tracking-tight leading-tight rotate-[-1deg]">
+                        <h1 className="text-4xl md:text-6xl font-display font-black text-white tracking-tight leading-tight">
                             {project.title}
                         </h1>
 
-                        <p className="text-stone text-lg leading-relaxed max-w-3xl font-medium rotate-[0.5deg]">
+                        <p className="text-slate-300 text-lg leading-relaxed max-w-3xl font-medium">
                             {project.description}
                         </p>
 
-                        {/* Main detailed content sheet - styled like a notebook page pinned to the background */}
-                        <div className="bg-white border-3 border-stone p-8 md:p-12 mt-8 shadow-hard rounded-wobbly-md card-tack relative rotate-[-0.5deg] hover:rotate-0 transition-hand">
+                        {/* Main detailed content sheet */}
+                        <div className="border border-white/10 bg-slate-900/40 p-8 md:p-12 mt-8 shadow-2xl rounded-2xl relative">
+                            <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent"></div>
                             <SimpleMarkdown content={project.content} />
                         </div>
                     </div>
 
-                    {/* Metadata Sidebar - Yellow Sticky Note Post-it style */}
+                    {/* Metadata Sidebar */}
                     <div className="lg:col-span-4 space-y-6">
-                        <div className="bg-postit border-3 border-stone p-6 space-y-6 sticky top-24 shadow-hard rounded-wobbly-md card-tape relative rotate-1 hover:rotate-0 transition-hand text-stone">
-                            <h3 className="font-display text-2xl font-bold text-stone border-b-2 border-dashed border-stone pb-2">
-                                📌 Project Info
+                        <div className="border border-white/10 bg-slate-900/50 p-6 space-y-6 sticky top-24 shadow-2xl rounded-2xl relative">
+                            <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-purple-500/40 to-transparent"></div>
+                            
+                            <h3 className="font-display text-2xl font-bold text-white border-b border-white/5 pb-3">
+                                Project Info
                             </h3>
                             
-                            <div className="space-y-4 text-base font-semibold">
-                                <div className="flex justify-between py-2 border-b border-dashed border-stone/30">
-                                    <span className="text-stone/70">Status</span>
-                                    <span className={`font-bold ${project.status === 'Completed' ? 'text-sage' : 'text-coral'} rotate-2`}>
+                            <div className="space-y-4 text-[15px] font-medium text-slate-300">
+                                <div className="flex justify-between py-2 border-b border-white/5">
+                                    <span className="text-slate-500">Status</span>
+                                    <span className={`font-bold ${project.status === 'Completed' ? 'text-emerald-400' : 'text-cyan-400'}`}>
                                         {project.status}
                                     </span>
                                 </div>
-                                <div className="flex justify-between py-2 border-b border-dashed border-stone/30 font-sans">
-                                    <span className="text-stone/70">Type</span>
-                                    <span className="text-stone rotate-[-1deg]">Full Stack</span>
+                                <div className="flex justify-between py-2 border-b border-white/5">
+                                    <span className="text-slate-500">Type</span>
+                                    <span className="text-slate-200">Full Stack</span>
                                 </div>
-                                <div className="flex justify-between py-2 font-sans">
-                                    <span className="text-stone/70">Stack</span>
-                                    <span className="text-stone rotate-1">Laravel & React</span>
+                                <div className="flex justify-between py-2">
+                                    <span className="text-slate-500">Stack</span>
+                                    <span className="text-slate-200">Laravel & React</span>
                                 </div>
                             </div>
 
-                            <div className="space-y-4 pt-4 border-t-3 border-dashed border-stone">
+                            <div className="space-y-4 pt-4 border-t border-white/5">
                                 {project.live_url && (
                                     <a 
                                         href={project.live_url} 
                                         target="_blank" 
                                         rel="noreferrer" 
-                                        className="btn-hand-primary flex items-center justify-center gap-2.5 w-full py-3 text-base font-bold shadow-hard"
+                                        className="btn-hand-primary flex items-center justify-center gap-2.5 w-full py-3.5 text-base font-bold"
                                     >
                                         <IconExternal /> Live Demo
                                     </a>
@@ -154,7 +157,7 @@ export default function ProjectDetails({ project, socialLinks, settings, navigat
                                         href={project.github_url} 
                                         target="_blank" 
                                         rel="noreferrer" 
-                                        className="btn-hand-secondary flex items-center justify-center gap-2.5 w-full py-3 text-base font-bold shadow-hard"
+                                        className="btn-hand-secondary flex items-center justify-center gap-2.5 w-full py-3.5 text-base font-bold"
                                     >
                                         <IconGitHub /> Source Code
                                     </a>
