@@ -8,15 +8,15 @@ const scrollToSection = (id) => {
 const SectionHeader = ({ eyebrow, title, copy }) => (
     <div className="mb-12 grid gap-6 md:grid-cols-[0.65fr_1fr] md:items-end font-sans">
         <div>
-            <span className="inline-flex items-center gap-1.5 bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-[11px] font-bold uppercase tracking-[0.2em] px-3.5 py-1.5 rounded-full font-mono">
-                <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse-glow" /> {eyebrow}
+            <span className="inline-block sticky-note-tag text-stone text-xs font-bold uppercase tracking-[0.2em] px-3.5 py-1.5 font-mono">
+                📌 {eyebrow}
             </span>
-            <h2 className="mt-4 font-display text-4xl font-extrabold tracking-tight text-white md:text-5xl leading-tight">
+            <h2 className="mt-4 font-display text-4xl font-bold tracking-tight text-stone md:text-5xl leading-tight rotate-[-0.5deg]">
                 {title}
             </h2>
         </div>
         {copy && (
-            <p className="max-w-2xl text-[16px] leading-relaxed text-slate-400 md:ml-auto border-l-2 border-slate-800 pl-6">
+            <p className="max-w-2xl text-lg leading-relaxed text-body-light md:ml-auto border-l-3 border-dashed border-stone pl-6 rotate-[0.5deg]">
                 {copy}
             </p>
         )}
@@ -24,13 +24,13 @@ const SectionHeader = ({ eyebrow, title, copy }) => (
 );
 
 const ProjectMonogram = ({ title }) => (
-    <div className="project-visual relative flex aspect-[16/10] items-center justify-center overflow-hidden rounded-xl border border-white/5 bg-slate-900/60 transition-all duration-300 group-hover:border-cyan-500/40">
-        <div className="absolute inset-0 grid grid-cols-6 grid-rows-4 opacity-10">
+    <div className="project-visual relative flex aspect-[16/10] items-center justify-center overflow-hidden rounded-wobbly-md border-3 border-stone bg-white shadow-hard-muted transition-hand group-hover:rotate-1">
+        <div className="absolute inset-0 grid grid-cols-6 grid-rows-4 opacity-30">
             {Array.from({ length: 24 }).map((_, idx) => (
-                <span key={idx} className="border-b border-r border-slate-500/30" />
+                <span key={idx} className="border-b-2 border-r-2 border-stone/50 border-dashed" />
             ))}
         </div>
-        <div className="relative flex h-16 w-16 items-center justify-center rounded-xl border border-white/10 bg-slate-950 text-2xl font-display font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500 shadow-[0_4px_15px_rgba(0,0,0,0.5)] group-hover:scale-115 transition-all duration-300">
+        <div className="relative flex h-20 w-20 items-center justify-center rounded-wobbly border-3 border-stone bg-stone text-3xl font-display font-bold text-white shadow-hard rotate-3 group-hover:-rotate-3 transition-hand">
             {title.substring(0, 2)}
         </div>
     </div>
@@ -54,7 +54,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
                     }
                 });
             },
-            { threshold: 0.08 }
+            { threshold: 0.12 }
         );
 
         document.querySelectorAll('.fade-section').forEach((el) => observer.observe(el));
@@ -82,94 +82,108 @@ export default function Home({ projects, skills, experiences, certificates, soci
 
     return (
         <AppLayout settings={settings} socialLinks={socialLinks} navigate={navigate}>
-            
+
             {/* HERO SECTION */}
             <section className="relative grid min-h-[92vh] items-center gap-12 pt-28 pb-16 lg:grid-cols-[1.1fr_0.9fr] lg:pt-32">
-                
-                {/* Visual mesh light decoration */}
-                <div className="absolute top-20 right-0 w-72 h-72 bg-cyan-500/10 rounded-full filter blur-[100px] pointer-events-none -z-10"></div>
-                <div className="absolute bottom-20 left-0 w-80 h-80 bg-purple-600/10 rounded-full filter blur-[120px] pointer-events-none -z-10"></div>
+
+                {/* Sketchy floating accent top right of text */}
+                <div className="hidden md:block absolute top-28 left-[40%] text-coral animate-float-sketchy z-10 opacity-70">
+                    <svg className="w-12 h-12" viewBox="0 0 50 50" fill="none" stroke="currentColor" strokeWidth="2.5">
+                        <path d="M10,10 Q25,0 40,10 Q50,25 40,40 Q25,50 10,40 Z" strokeDasharray="3,4" />
+                    </svg>
+                </div>
 
                 <div className="relative">
                     <div className="mb-7 flex flex-wrap items-center gap-3">
-                        <span className="flex h-2.5 w-2.5 rounded-full bg-emerald-500 relative">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                        </span>
-                        <p className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-cyan-400">
-                            Available for full-stack developer roles
+                        <span className="inline-flex h-3.5 w-3.5 rounded-full bg-sage border-2 border-stone shadow-hard" />
+                        <p className="font-mono text-sm font-bold uppercase tracking-[0.2em] text-stone">
+                            ✏️ Available for full-stack roles
                         </p>
                     </div>
 
-                    <h1 className="max-w-4xl font-display text-5xl font-black leading-[1.1] tracking-tight text-white sm:text-6xl lg:text-7xl">
-                        Building high-performance <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600">Laravel & React</span> web applications
+                    <h1 className="max-w-4xl font-display text-5xl font-bold leading-[1.05] tracking-tight text-stone sm:text-6xl lg:text-7xl rotate-[-1deg]">
+                        Laravel and React developer building useful web products<span className="text-coral inline-block rotate-12 ml-1">!</span>
                     </h1>
 
-                    <p className="mt-8 max-w-2xl font-sans text-lg md:text-xl leading-relaxed text-slate-400">
-                        I am {settings?.name || 'Manish Kumar'}, a full-stack engineer in Jaipur focused on clean Laravel backends, interactive React interfaces, and robust database architectures.
+                    <p className="mt-8 max-w-2xl font-sans text-xl leading-relaxed text-body-light rotate-[0.5deg]">
+                        I am {settings?.name || 'Manish Kumar'}, a full-stack developer in Jaipur focused on clean Laravel
+                        backends, responsive React interfaces, and database-backed products that are easy to maintain.
                     </p>
 
                     <div className="mt-10 flex flex-wrap gap-4 items-center relative z-20">
                         <button
                             type="button"
                             onClick={() => scrollToSection('projects')}
-                            className="btn-hand-primary px-8 py-3.5 text-base font-bold"
+                            className="btn-hand-primary px-8 py-3.5 text-lg font-bold"
                         >
                             View projects ➜
                         </button>
                         <button
                             type="button"
                             onClick={() => scrollToSection('contact')}
-                            className="btn-hand-secondary px-8 py-3.5 text-base font-bold"
+                            className="btn-hand-secondary px-8 py-3.5 text-lg font-bold"
                         >
                             Contact me
                         </button>
+
+                        {/* Hand-Drawn Arrow decoration pointing to CTA */}
+                        <div className="hidden md:block absolute -bottom-24 left-[15%] text-coral animate-float-sketchy">
+                            <svg className="w-20 h-20" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="3">
+                                <path d="M15,15 C45,5 75,25 80,55" strokeDasharray="4,4" />
+                                <path d="M70,48 L82,56 L76,42" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                            <span className="font-display text-base font-bold block -mt-3 ml-6 rotate-[15deg]">Check these out!</span>
+                        </div>
                     </div>
 
-                    {/* Stats Layout - Bento Statistics Grid */}
-                    <div className="mt-16 grid max-w-2xl grid-cols-3 border-y border-white/5">
+                    <div className="mt-14 grid max-w-2xl grid-cols-3 border-y-3 border-dashed border-stone">
                         {[
                             ['2024', 'BCA graduate'],
-                            ['5+', 'Core Projects'],
-                            ['Full Stack', 'Laravel & React'],
+                            ['5+', 'Built projects'],
+                            ['Full stack', 'Laravel & React'],
                         ].map(([value, label], idx) => (
-                            <div key={label} className="border-r border-white/5 py-6 pr-4 last:border-r-0 last:pl-6 sm:px-6 sm:first:pl-0 font-sans">
-                                <p className="font-display text-2xl md:text-3xl font-extrabold text-white text-transparent bg-clip-text bg-gradient-to-r from-slate-100 to-slate-300">{value}</p>
-                                <p className="mt-1 text-xs font-bold text-slate-500 uppercase tracking-wider">{label}</p>
+                            <div key={label} className="border-r-3 border-dashed border-stone py-6 pr-4 last:border-r-0 last:pl-6 sm:px-6 sm:first:pl-0 font-sans">
+                                <p className="font-display text-2xl font-bold text-stone sm:text-3xl rotate-[-2deg]">{value}</p>
+                                <p className="mt-1 text-xs font-bold text-body-light uppercase tracking-wider">{label}</p>
                             </div>
                         ))}
                     </div>
                 </div>
 
-                {/* Right Hero Visual Panel - Futuristic Stack Bento */}
+                {/* Right Hero Visual Panel */}
                 <div className="relative">
-                    <div className="absolute -inset-1.5 rounded-2xl bg-gradient-to-r from-cyan-500 to-purple-600 opacity-20 blur-xl"></div>
-                    
-                    <div className="relative developer-panel border border-white/10 bg-slate-900/60 p-6 shadow-2xl rounded-2xl backdrop-blur-md">
-                        <div className="flex items-center justify-between border-b border-white/5 pb-5">
+                    {/* Scribbled decoration surrounding card */}
+                    <div className="hidden md:block absolute -top-8 -right-8 text-coral animate-float-sketchy z-10">
+                        <svg className="w-16 h-16" viewBox="0 0 50 50" fill="none" stroke="currentColor" strokeWidth="2.5">
+                            <path d="M5,25 C5,10 45,10 45,25 C45,40 5,40 5,25" strokeDasharray="3,4" />
+                        </svg>
+                    </div>
+
+                    <div className="developer-panel border-3 border-stone bg-white p-6 shadow-hard rounded-wobbly-md card-tape relative rotate-1 hover:rotate-0 transition-hand">
+                        <div className="flex items-center justify-between border-b-3 border-dashed border-stone pb-5">
                             <div>
-                                <p className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-slate-500">Current stack</p>
-                                <p className="mt-1 font-display text-2xl font-bold text-white">Product build room</p>
+                                <p className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-body-light">Current stack</p>
+                                <p className="mt-1 font-display text-2xl font-bold text-stone">Product build room</p>
                             </div>
-                            <span className="flex items-center gap-1.5 border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 px-3.5 py-1 font-mono text-xs font-bold rounded-full shadow-[0_0_12px_rgba(6,182,212,0.2)]">
-                                <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse-glow" /> active
+                            <span className="border-2 border-stone bg-sage text-white px-3 py-1 font-mono text-xs font-bold rounded-wobbly rotate-[-2deg] shadow-hard-muted">
+                                active ✒️
                             </span>
                         </div>
 
                         <div className="grid gap-4 py-6 sm:grid-cols-2">
-                            {['Laravel APIs', 'React SPA', 'MySQL schemas', 'Inertia routers'].map((item, idx) => (
-                                <div key={item} className="rounded-xl border border-white/5 bg-slate-950/60 p-4 transition-all duration-300 hover:border-cyan-500/30 hover:bg-slate-950/90">
-                                    <p className="font-mono text-xs font-bold text-cyan-400">0{idx + 1}.</p>
-                                    <p className="mt-2 text-base font-semibold text-slate-300 font-sans">{item}</p>
+                            {['Laravel APIs', 'React UI', 'MySQL schemas', 'Git workflow'].map((item, idx) => (
+                                <div key={item} className="rounded-wobbly-md border-3 border-stone bg-cream p-4 shadow-hard-muted rotate-[1deg] hover:rotate-[-1deg] transition-hand">
+                                    <p className="font-mono text-xs font-bold text-coral">0{idx + 1}.</p>
+                                    <p className="mt-2 text-base font-bold text-stone font-sans">{item}</p>
                                 </div>
                             ))}
                         </div>
 
-                        {/* Faux Code Terminal */}
-                        <div className="rounded-xl border border-white/5 bg-slate-950 p-5 font-mono text-xs leading-6 text-slate-300 shadow-inner">
-                            <p><span className="text-cyan-400">const</span> developer = &#123;</p>
-                            <p className="pl-4">name: <span className="text-purple-400">'Manish Kumar'</span>,</p>
-                            <p className="pl-4">focus: <span className="text-purple-400">'building performant web apps'</span>,</p>
-                            <p className="pl-4">stack: [<span className="text-cyan-400">'Laravel'</span>, <span className="text-cyan-400">'React'</span>]</p>
+                        <div className="rounded-wobbly-md border-3 border-stone bg-stone p-5 font-mono text-xs leading-6 text-cream shadow-hard rotate-[-1deg]">
+                            <p><span className="text-coral">const</span> developer = &#123;</p>
+                            <p className="pl-4">name: <span className="text-sage-light">'Manish Kumar'</span>,</p>
+                            <p className="pl-4">focus: <span className="text-sage-light">'shipping clean web apps'</span>,</p>
+                            <p className="pl-4">tools: [<span className="text-sage-light">'Laravel'</span>, <span className="text-sage-light">'React'</span>]</p>
                             <p>&#125;;</p>
                         </div>
                     </div>
@@ -177,33 +191,34 @@ export default function Home({ projects, skills, experiences, certificates, soci
             </section>
 
             {/* ABOUT SECTION */}
-            <section id="about" className="fade-section py-20 border-t border-white/5">
+            <section id="about" className="fade-section py-20 border-t-3 border-dashed border-stone">
                 <SectionHeader
                     eyebrow="About"
-                    title="Practical engineering with a product-first mindset."
-                    copy="I like building applications that are fast on the surface and organized underneath: clean databases, clean code architecture, and optimized queries that perform at scale."
+                    title="Practical engineering with product sense."
+                    copy="I like web apps that feel calm on the surface and solid underneath: clear data models, predictable interfaces, and code that another developer can pick up without a treasure map."
                 />
 
                 <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
-                    <div className="space-y-6 text-lg leading-relaxed text-slate-400 font-sans">
+                    <div className="space-y-6 text-lg leading-relaxed text-stone font-sans">
                         <p>
-                            My development journey started during my BCA program at Purnea University, where logic, clean code design, and user interfaces clicked into a single, cohesive discipline.
+                            My development journey started during my BCA program at Purnea University, where database
+                            design, interface building, and problem solving clicked into one discipline.
                         </p>
                         <p>
                             At{' '}
-                            <a href="https://comestro.com" target="_blank" rel="noreferrer" className="link-underline-wavy font-bold text-cyan-400">
+                            <a href="https://comestro.com" target="_blank" rel="noreferrer" className="link-underline-wavy font-bold text-coral">
                                 Comestro Techlabs Pvt Ltd
                             </a>
-                            , I write backends for marketplaces, colleges, and social networks using Laravel, React, Inertia, and relational database query tuning.
+                            , I work on e-commerce, campus systems, and social products using Laravel, React, Inertia,
+                            Tailwind CSS, and MySQL.
                         </p>
                     </div>
 
-                    <div className="border border-white/10 bg-slate-900/50 p-8 shadow-2xl rounded-2xl relative">
-                        <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-500/40 to-transparent"></div>
-                        <p className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-slate-500 border-b border-white/5 pb-2">Core tools</p>
+                    <div className="border-3 border-stone bg-white p-8 shadow-hard rounded-wobbly-md card-tape relative rotate-[-1deg] hover:rotate-0 transition-hand">
+                        <p className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-body-light border-b-2 border-dashed border-stone pb-2">Core tools</p>
                         <div className="mt-6 flex flex-wrap gap-2.5">
                             {(primarySkills.length ? primarySkills : ['Laravel', 'React', 'PHP', 'MySQL', 'Tailwind CSS', 'Git']).map((tech) => (
-                                <span key={tech} className="border border-white/5 bg-slate-950/60 rounded-lg px-3.5 py-1.5 text-sm font-bold text-slate-300 shadow-md hover:border-cyan-500/30 hover:text-cyan-400 transition-all duration-300">
+                                <span key={tech} className="border-2 border-stone bg-cream rounded-wobbly px-3.5 py-1.5 text-sm font-bold text-stone shadow-hard-muted hover:bg-postit transition-hand">
                                     {tech}
                                 </span>
                             ))}
@@ -213,29 +228,27 @@ export default function Home({ projects, skills, experiences, certificates, soci
             </section>
 
             {/* EXPERIENCE SECTION */}
-            <section id="experience" className="fade-section py-20 border-t border-white/5">
+            <section id="experience" className="fade-section py-20 border-t-3 border-dashed border-stone">
                 <SectionHeader
                     eyebrow="Experience"
-                    title="Professional journey"
-                    copy="Hands-on internship experiences building web apps, managing enterprise directories, and linking React hooks to PHP backends."
+                    title="Recent work"
+                    copy="Hands-on internship experience building production-style modules, managing repositories, and connecting front-end flows to Laravel backends."
                 />
 
-                <div className="border border-white/10 bg-slate-900/50 p-6 md:p-8 shadow-2xl rounded-2xl relative transition-all duration-300 hover:border-purple-500/40 font-sans">
-                    <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-purple-500/40 to-transparent"></div>
-                    
-                    <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between border-b border-white/5 pb-6">
+                <div className="border-3 border-stone bg-white p-6 md:p-8 shadow-hard rounded-wobbly-lg card-tack relative rotate-1 hover:rotate-0 transition-hand font-sans">
+                    <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between border-b-2 border-dashed border-stone pb-6">
                         <div>
-                            <p className="font-display text-3xl font-extrabold text-white">{activeExperience?.designation || 'Laravel Developer'}</p>
-                            <p className="mt-2 text-base font-bold text-cyan-400">@ {activeExperience?.company || settings?.current_company}</p>
+                            <p className="font-display text-3xl font-bold text-stone">{activeExperience?.designation || 'Laravel Developer'}</p>
+                            <p className="mt-2 text-base font-bold text-coral">@ {activeExperience?.company || settings?.current_company}</p>
                         </div>
-                        <p className="font-mono text-sm font-bold text-purple-400 border border-purple-500/30 bg-purple-500/10 px-4.5 py-1.5 rounded-full inline-block">
+                        <p className="font-mono text-sm font-bold text-stone border-2 border-stone bg-cream px-3 py-1 rounded-wobbly rotate-[2deg]">
                             {activeExperience?.duration || 'May 2024 - Present'}
                         </p>
                     </div>
-                    <p className="mt-6 text-base leading-relaxed text-slate-300 pr-4">{activeExperience?.description}</p>
+                    <p className="mt-6 text-base leading-relaxed text-stone pr-4">{activeExperience?.description}</p>
                     <div className="mt-8 flex flex-wrap gap-2.5">
                         {activeExperience?.skills_used?.map((skill) => (
-                            <span key={skill} className="border border-white/10 bg-slate-950/60 text-slate-300 px-3.5 py-1.5 font-mono text-xs font-bold rounded-md hover:border-cyan-500/30 hover:text-cyan-400 transition-all duration-300">
+                            <span key={skill} className="border-2 border-stone bg-sage-tint text-sage px-3 py-1 font-mono text-xs font-bold rounded-wobbly shadow-hard-muted rotate-[-1deg]">
                                 {skill}
                             </span>
                         ))}
@@ -244,17 +257,16 @@ export default function Home({ projects, skills, experiences, certificates, soci
             </section>
 
             {/* PROJECTS SECTION */}
-            <section id="projects" className="fade-section py-20 border-t border-white/5">
+            <section id="projects" className="fade-section py-20 border-t-3 border-dashed border-stone">
                 <SectionHeader
                     eyebrow="Projects"
                     title="Selected builds"
-                    copy="A curated mix of social networks, multi-vendor marketplaces, and administration portals."
+                    copy="A mix of social, marketplace, education, and utility projects, with Laravel and React doing most of the heavy lifting."
                 />
 
-                {/* Featured Projects list */}
                 <div className="grid gap-8">
                     {featuredProjects.map((project) => (
-                        <article key={project.id} className="grid gap-6 border border-white/10 bg-slate-900/40 p-5 md:p-6 shadow-2xl rounded-2xl hover:border-cyan-500/30 hover:bg-slate-900/60 hover:-translate-y-1 transition-all duration-300 lg:grid-cols-[0.85fr_1.15fr]">
+                        <article key={project.id} className="grid gap-6 border-3 border-stone bg-white p-5 md:p-6 shadow-hard rounded-wobbly-md rotate-[-0.5deg] hover:rotate-0 hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-hard-lg transition-hand lg:grid-cols-[0.85fr_1.15fr]">
                             <a
                                 href={`/project/${project.slug}`}
                                 onClick={(e) => {
@@ -268,39 +280,39 @@ export default function Home({ projects, skills, experiences, certificates, soci
 
                             <div className="flex flex-col justify-between font-sans">
                                 <div>
-                                    <span className="inline-flex items-center gap-1.5 bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 px-3.5 py-1 text-xs font-bold font-mono rounded-full">
+                                    <span className="inline-block border-2 border-stone bg-coral text-white px-2.5 py-0.5 text-xs font-bold font-mono rounded-wobbly rotate-[-2deg] shadow-hard-muted">
                                         FEATURED BUILD 🚀
                                     </span>
-                                    <h3 className="mt-3 font-display text-3xl font-extrabold text-white">
+                                    <h3 className="mt-3 font-display text-3xl font-bold text-stone">
                                         <a
                                             href={`/project/${project.slug}`}
                                             onClick={(e) => {
                                                 e.preventDefault();
                                                 navigate(`/project/${project.slug}`);
                                             }}
-                                            className="transition hover:text-cyan-400"
+                                            className="transition hover:text-coral hover:link-underline-wavy"
                                         >
                                             {project.title}
                                         </a>
                                     </h3>
-                                    <p className="mt-4 text-base leading-relaxed text-slate-400 pr-4">{project.description}</p>
+                                    <p className="mt-4 text-base leading-relaxed text-stone pr-4">{project.description}</p>
                                 </div>
 
-                                <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between border-t border-white/5 pt-6">
+                                <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between border-t-2 border-dashed border-stone pt-6">
                                     <div className="flex flex-wrap gap-2.5">
                                         {project.technologies?.map((tech) => (
-                                            <span key={tech} className="font-mono text-xs font-semibold text-slate-400 border border-white/5 bg-slate-950/60 px-2.5 py-1 rounded">
+                                            <span key={tech} className="font-mono text-xs font-bold text-stone-dark border border-stone bg-cream px-2 py-0.5 rounded-wobbly">
                                                 {tech}
                                             </span>
                                         ))}
                                     </div>
-                                    <div className="flex items-center gap-3">
+                                    <div className="flex items-center gap-4 text-stone">
                                         {project.github_url && (
-                                            <a 
-                                                href={project.github_url} 
-                                                target="_blank" 
-                                                rel="noreferrer" 
-                                                className="flex items-center justify-center w-9 h-9 border border-white/10 bg-slate-950/60 text-slate-300 rounded-full hover:bg-cyan-500 hover:text-slate-950 transition-all duration-300" 
+                                            <a
+                                                href={project.github_url}
+                                                target="_blank"
+                                                rel="noreferrer"
+                                                className="flex items-center justify-center w-9 h-9 border-2 border-stone bg-white rounded-wobbly shadow-hard-muted hover:bg-coral hover:text-white hover:rotate-6 transition-hand"
                                                 aria-label={`${project.title} GitHub`}
                                             >
                                                 <IconGitHub />
@@ -312,7 +324,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
                                                 e.preventDefault();
                                                 navigate(`/project/${project.slug}`);
                                             }}
-                                            className="flex items-center justify-center w-9 h-9 border border-white/10 bg-slate-950/60 text-slate-300 rounded-full hover:bg-cyan-500 hover:text-slate-950 transition-all duration-300"
+                                            className="flex items-center justify-center w-9 h-9 border-2 border-stone bg-white rounded-wobbly shadow-hard-muted hover:bg-coral hover:text-white hover:-rotate-6 transition-hand"
                                             aria-label={`${project.title} details`}
                                         >
                                             <IconExternal />
@@ -324,13 +336,13 @@ export default function Home({ projects, skills, experiences, certificates, soci
                     ))}
                 </div>
 
-                {/* Bento layout for other projects */}
                 {otherProjects.length > 0 && (
                     <div className="mt-10 grid gap-6 sm:grid-cols-2">
-                        {otherProjects.map((project) => (
-                            <article key={project.id} className="border border-white/10 bg-slate-900/40 p-6 shadow-2xl rounded-2xl hover:border-cyan-500/30 hover:bg-slate-900/60 hover:-translate-y-1 transition-all duration-300">
+                        {otherProjects.map((project, idx) => (
+                            <article key={project.id} className={`border-3 border-stone bg-white p-6 shadow-hard rounded-wobbly-md card-tape hover:shadow-hard-lg hover:rotate-0 transition-hand ${idx % 2 === 0 ? 'rotate-1' : '-rotate-1'
+                                }`}>
                                 <div className="mb-5 flex items-center justify-between">
-                                    <span className="text-cyan-400 bg-cyan-500/10 border border-cyan-500/20 p-2.5 rounded-lg inline-block">
+                                    <span className="text-coral bg-cream border-2 border-stone p-2 rounded-wobbly inline-block shadow-hard-muted">
                                         <IconFolder />
                                     </span>
                                     <a
@@ -339,17 +351,17 @@ export default function Home({ projects, skills, experiences, certificates, soci
                                             e.preventDefault();
                                             navigate(`/project/${project.slug}`);
                                         }}
-                                        className="flex items-center justify-center w-8 h-8 border border-white/10 bg-slate-950/60 text-slate-300 rounded-full hover:bg-cyan-500 hover:text-slate-950 transition-all duration-300"
+                                        className="flex items-center justify-center w-8 h-8 border-2 border-stone bg-white rounded-wobbly shadow-hard-muted hover:bg-coral hover:text-white hover:rotate-6 transition-hand"
                                         aria-label={`${project.title} details`}
                                     >
                                         <IconExternal />
                                     </a>
                                 </div>
-                                <h3 className="font-display text-2xl font-bold text-white">{project.title}</h3>
-                                <p className="mt-3 text-base leading-relaxed text-slate-400 font-sans">{project.description}</p>
-                                <div className="mt-5 flex flex-wrap gap-2 pt-4 border-t border-white/5">
+                                <h3 className="font-display text-2xl font-bold text-stone">{project.title}</h3>
+                                <p className="mt-3 text-base leading-relaxed text-stone font-sans">{project.description}</p>
+                                <div className="mt-5 flex flex-wrap gap-2 pt-4 border-t-2 border-dashed border-stone">
                                     {project.technologies?.slice(0, 4).map((tech) => (
-                                        <span key={tech} className="font-mono text-xs font-semibold text-slate-400 border border-white/5 bg-slate-950/60 px-2.5 py-1 rounded">
+                                        <span key={tech} className="font-mono text-xs font-bold text-stone-dark border border-stone bg-cream px-2 py-0.5 rounded-wobbly">
                                             {tech}
                                         </span>
                                     ))}
@@ -361,22 +373,23 @@ export default function Home({ projects, skills, experiences, certificates, soci
             </section>
 
             {/* SKILLS SECTION */}
-            <section id="skills" className="fade-section py-20 border-t border-white/5">
+            <section id="skills" className="fade-section py-20 border-t-3 border-dashed border-stone">
                 <SectionHeader
                     eyebrow="Skills"
-                    title="Expertise matrix"
-                    copy="Frontend frameworks, database systems, APIs, and project workflows."
+                    title="Stack coverage"
+                    copy="Frontend, backend, database, and tooling skills grouped by where they show up in a real build."
                 />
 
                 <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                    {skillCategories.map((category) => (
-                        <div key={category} className="border border-white/10 bg-slate-900/40 p-6 shadow-2xl rounded-2xl hover:border-cyan-500/30 hover:scale-[1.02] hover:-translate-y-1 transition-all duration-300">
-                            <h3 className="font-display text-2xl font-bold text-white mb-4 border-b border-white/5 pb-2 flex items-center gap-2">
-                                <span className="w-2.5 h-2.5 bg-cyan-500 rounded-full animate-pulse-glow" /> {category}
+                    {skillCategories.map((category, idx) => (
+                        <div key={category} className={`border-3 border-stone bg-postit p-6 shadow-hard rounded-wobbly hover:rotate-0 hover:scale-[1.02] transition-hand ${idx % 3 === 0 ? 'rotate-1' : idx % 3 === 1 ? '-rotate-1.5' : 'rotate-[1.5deg]'
+                            }`}>
+                            <h3 className="font-display text-2xl font-bold text-stone mb-4 border-b-2 border-dashed border-stone pb-2">
+                                📌 {category}
                             </h3>
                             <div className="flex flex-wrap gap-2">
                                 {skills[category].map((skill) => (
-                                    <span key={skill.name} className="border border-white/5 bg-slate-950/60 px-3.5 py-1.5 text-sm font-bold text-slate-300 rounded-lg hover:border-cyan-500/30 hover:text-cyan-400 transition-all duration-300 font-sans">
+                                    <span key={skill.name} className="border-2 border-stone bg-white px-3 py-1.5 text-sm font-bold text-stone shadow-hard-muted rounded-wobbly hover:bg-coral hover:text-white transition-hand font-sans">
                                         {skill.name}
                                     </span>
                                 ))}
@@ -388,20 +401,21 @@ export default function Home({ projects, skills, experiences, certificates, soci
 
             {/* CREDENTIALS SECTION */}
             {certificates?.length > 0 && (
-                <section className="fade-section py-20 border-t border-white/5">
-                    <SectionHeader eyebrow="Credentials" title="Certifications" />
+                <section className="fade-section py-20 border-t-3 border-dashed border-stone">
+                    <SectionHeader eyebrow="Credentials" title="Learning milestones" />
                     <div className="grid gap-6 md:grid-cols-2">
-                        {certificates.map((certificate) => (
+                        {certificates.map((certificate, idx) => (
                             <a
                                 key={certificate.id}
                                 href={certificate.credential_url}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="border border-white/10 bg-slate-900/40 p-6 shadow-2xl rounded-2xl hover:border-cyan-500/30 hover:bg-slate-900/60 hover:-translate-y-1 transition-all duration-300 block font-sans"
+                                className={`border-3 border-stone bg-white p-6 shadow-hard rounded-wobbly hover:-translate-y-1 hover:border-coral hover:shadow-hard-lg transition-hand block font-sans ${idx % 2 === 0 ? 'rotate-1' : '-rotate-1'
+                                    }`}
                             >
-                                <p className="font-display text-2xl font-extrabold text-white">{certificate.title}</p>
-                                <p className="mt-3 text-base font-bold text-cyan-400">🎗️ {certificate.organization}</p>
-                                <p className="mt-3.5 font-mono text-xs font-bold text-slate-400 border border-white/15 bg-slate-950/60 px-3.5 py-1.5 rounded inline-block">
+                                <p className="font-display text-2xl font-bold text-stone rotate-[-1deg]">{certificate.title}</p>
+                                <p className="mt-3 text-base font-bold text-coral">🎗️ {certificate.organization}</p>
+                                <p className="mt-2 font-mono text-xs font-bold text-stone-dark border border-stone bg-cream px-2.5 py-1 rounded-wobbly inline-block">
                                     {certificate.issue_date}
                                 </p>
                             </a>
@@ -411,51 +425,52 @@ export default function Home({ projects, skills, experiences, certificates, soci
             )}
 
             {/* CONTACT SECTION */}
-            <section id="contact" className="fade-section py-20 border-t border-white/5">
+            <section id="contact" className="fade-section py-20 border-t-3 border-dashed border-stone">
                 <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr]">
                     <div className="font-sans">
-                        <span className="inline-flex items-center gap-1.5 bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-[11px] font-bold uppercase tracking-[0.2em] px-3.5 py-1.5 rounded-full font-mono mb-4">
+                        <span className="inline-block sticky-note-tag text-stone text-xs font-bold uppercase tracking-[0.2em] px-3.5 py-1.5 font-mono mb-4">
                             📬 Contact
                         </span>
-                        <h2 className="font-display text-4xl font-extrabold tracking-tight text-white md:text-5xl leading-tight">
-                            Start a project discussion.
+                        <h2 className="font-display text-4xl font-bold tracking-tight text-stone md:text-5xl leading-tight rotate-[-1deg]">
+                            Let us build something useful.
                         </h2>
-                        <p className="mt-6 text-lg leading-relaxed text-slate-400 pr-4">
-                            I am open to developer roles, client projects, backend integration assignments, or database consultations.
+                        <p className="mt-6 text-lg leading-relaxed text-stone pr-4">
+                            I am open to developer roles, internships, collaborations, and practical web projects.
+                            Send a note and I will get back to you.
                         </p>
-                        <a href={`mailto:${settings?.email}`} className="link-underline-wavy mt-6 inline-block text-lg font-bold text-cyan-400">
+                        <a href={`mailto:${settings?.email}`} className="link-underline-wavy mt-6 inline-block text-lg font-bold text-coral">
                             {settings?.email}
                         </a>
                     </div>
 
-                    <form onSubmit={handleContactSubmit} className="border border-white/10 bg-slate-900/40 p-6 md:p-8 shadow-2xl rounded-2xl relative transition-all duration-300 hover:border-cyan-500/20 font-sans">
+                    <form onSubmit={handleContactSubmit} className="border-3 border-stone bg-white p-6 md:p-8 shadow-hard rounded-wobbly-md card-tape relative rotate-[-1deg] hover:rotate-0 transition-hand font-sans">
                         {wasSuccessful && (
-                            <div className="mb-6 border border-cyan-500/20 bg-cyan-500/10 p-4 text-base font-bold text-cyan-400 rounded-xl">
+                            <div className="mb-6 border-3 border-stone bg-postit p-4 text-base font-bold text-stone rounded-wobbly rotate-[1deg] shadow-hard-muted">
                                 📬 Message sent successfully! I will get back to you soon.
                             </div>
                         )}
 
                         <div className="grid gap-5 sm:grid-cols-2">
                             <div>
-                                <label className="mb-2 block text-sm font-semibold text-slate-300" htmlFor="name">Name</label>
+                                <label className="mb-2 block text-sm font-bold text-stone" htmlFor="name">Name</label>
                                 <input
                                     type="text"
                                     id="name"
                                     value={nameVal}
                                     onChange={(e) => setNameVal(e.target.value)}
-                                    className="w-full border border-white/10 bg-slate-950/50 px-4 py-3 text-base text-white rounded-xl outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/20 font-sans placeholder:text-slate-600 transition-all duration-300"
+                                    className="w-full border-3 border-stone bg-cream px-4 py-3 text-base text-stone rounded-wobbly outline-none transition focus:border-sage focus:bg-white focus:ring-2 focus:ring-sage/20 font-sans placeholder:text-stone-dark/50"
                                     placeholder="Your name"
                                     required
                                 />
                             </div>
                             <div>
-                                <label className="mb-2 block text-sm font-semibold text-slate-300" htmlFor="email">Email</label>
+                                <label className="mb-2 block text-sm font-bold text-stone" htmlFor="email">Email</label>
                                 <input
                                     type="email"
                                     id="email"
                                     value={emailVal}
                                     onChange={(e) => setEmailVal(e.target.value)}
-                                    className="w-full border border-white/10 bg-slate-950/50 px-4 py-3 text-base text-white rounded-xl outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/20 font-sans placeholder:text-slate-600 transition-all duration-300"
+                                    className="w-full border-3 border-stone bg-cream px-4 py-3 text-base text-stone rounded-wobbly outline-none transition focus:border-sage focus:bg-white focus:ring-2 focus:ring-sage/20 font-sans placeholder:text-stone-dark/50"
                                     placeholder="your@email.com"
                                     required
                                 />
@@ -463,14 +478,14 @@ export default function Home({ projects, skills, experiences, certificates, soci
                         </div>
 
                         <div className="mt-5">
-                            <label className="mb-2 block text-sm font-semibold text-slate-300" htmlFor="message">Message</label>
+                            <label className="mb-2 block text-sm font-bold text-stone" htmlFor="message">Message</label>
                             <textarea
                                 id="message"
                                 rows="5"
                                 value={messageVal}
                                 onChange={(e) => setMessageVal(e.target.value)}
-                                className="w-full resize-none border border-white/10 bg-slate-950/50 px-4 py-3 text-base text-white rounded-xl outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/20 font-sans placeholder:text-slate-600 transition-all duration-300"
-                                placeholder="Describe the role or project scope"
+                                className="w-full resize-none border-3 border-stone bg-cream px-4 py-3 text-base text-stone rounded-wobbly outline-none transition focus:border-sage focus:bg-white focus:ring-2 focus:ring-sage/20 font-sans placeholder:text-stone-dark/50"
+                                placeholder="Tell me about the project or role"
                                 required
                             />
                         </div>
@@ -478,9 +493,9 @@ export default function Home({ projects, skills, experiences, certificates, soci
                         <button
                             type="submit"
                             disabled={processing}
-                            className="btn-hand-primary mt-6 inline-flex w-full items-center justify-center px-8 py-3.5 text-base font-bold disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+                            className="btn-hand-primary mt-6 inline-flex w-full items-center justify-center px-8 py-3.5 text-lg font-bold disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
                         >
-                            {processing ? 'Sending...' : 'Send message'}
+                            {processing ? 'Sending...' : 'Send message ✉️'}
                         </button>
                     </form>
                 </div>
