@@ -102,20 +102,7 @@ export const portfolioData = {
             status: 'Completed',
             is_featured: true
         },
-        {
-            id: 4,
-            title: 'Client Management',
-            slug: 'client-management',
-            description: 'A secure client portal for project management, tracking billable hours, invoices, and messaging.',
-            content: "# Client Management Portal\n\n## Overview\nA clean portal built for agencies to coordinate task deliverables and invoice milestones with clients.",
-            thumbnail: '/images/projects/client-thumb.jpg',
-            images: [],
-            technologies: ['PHP', 'MySQL', 'HTML5', 'CSS3'],
-            github_url: 'https://github.com/manish96-code',
-            live_url: 'http://localhost:8000',
-            status: 'Completed',
-            is_featured: false
-        },
+
         {
             id: 5,
             title: 'Recipe Finder',
@@ -134,17 +121,17 @@ export const portfolioData = {
     certificates: [
         {
             id: 1,
-            title: 'Laravel Advanced Development Certification',
-            organization: 'Udemy / Laracasts',
-            issue_date: 'March 2024',
-            credential_url: 'https://verify.url'
+            title: 'Laravel & PHP Web Development',
+            organization: 'Status: Completed',
+            issue_date: 'Learned',
+            credential_url: '#'
         },
         {
             id: 2,
-            title: 'React - The Complete Guide (Hooks, Router, Redux)',
-            organization: 'Udemy',
-            issue_date: 'January 2024',
-            credential_url: 'https://verify.url'
+            title: 'Python Programming Language',
+            organization: 'Status: In Progress',
+            issue_date: 'Learning',
+            credential_url: '#'
         }
     ],
     blogs: [

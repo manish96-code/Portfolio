@@ -37,11 +37,7 @@ const ProjectMonogram = ({ title }) => (
 );
 
 export default function Home({ projects, skills, experiences, certificates, socialLinks, settings, navigate }) {
-    const [nameVal, setNameVal] = useState('');
-    const [emailVal, setEmailVal] = useState('');
-    const [messageVal, setMessageVal] = useState('');
-    const [processing, setProcessing] = useState(false);
-    const [wasSuccessful, setWasSuccessful] = useState(false);
+
 
     useEffect(() => {
         document.title = settings?.meta_title || 'Manish Kumar | Full Stack Developer';
@@ -61,21 +57,9 @@ export default function Home({ projects, skills, experiences, certificates, soci
         return () => observer.disconnect();
     }, [settings?.meta_title]);
 
-    const handleContactSubmit = (e) => {
-        e.preventDefault();
-        setProcessing(true);
-        setTimeout(() => {
-            setProcessing(false);
-            setWasSuccessful(true);
-            setNameVal('');
-            setEmailVal('');
-            setMessageVal('');
-            setTimeout(() => setWasSuccessful(false), 5000);
-        }, 1000);
-    };
 
-    const featuredProjects = useMemo(() => (projects || []).filter((project) => project.is_featured), [projects]);
-    const otherProjects = useMemo(() => (projects || []).filter((project) => !project.is_featured), [projects]);
+
+
     const skillCategories = skills ? Object.keys(skills) : [];
     const primarySkills = skills ? Object.values(skills).flat().map((skill) => skill.name).slice(0, 10) : [];
     const activeExperience = experiences?.[0];
@@ -265,8 +249,10 @@ export default function Home({ projects, skills, experiences, certificates, soci
                 />
 
                 <div className="grid gap-8">
-                    {featuredProjects.map((project) => (
-                        <article key={project.id} className="grid gap-6 border-3 border-stone bg-white p-5 md:p-6 shadow-hard rounded-wobbly-md rotate-[-0.5deg] hover:rotate-0 hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-hard-lg transition-hand lg:grid-cols-[0.85fr_1.15fr]">
+                    {(projects || []).map((project, idx) => (
+                        <article key={project.id} className={`grid gap-6 border-3 border-stone bg-white p-5 md:p-6 shadow-hard rounded-wobbly-md hover:rotate-0 hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-hard-lg transition-hand lg:grid-cols-[0.85fr_1.15fr] ${
+                            idx % 2 === 0 ? 'rotate-[-0.5deg]' : 'rotate-[0.5deg]'
+                        }`}>
                             <a
                                 href={`/project/${project.slug}`}
                                 onClick={(e) => {
@@ -280,9 +266,15 @@ export default function Home({ projects, skills, experiences, certificates, soci
 
                             <div className="flex flex-col justify-between font-sans">
                                 <div>
-                                    <span className="inline-block border-2 border-stone bg-coral text-white px-2.5 py-0.5 text-xs font-bold font-mono rounded-wobbly rotate-[-2deg] shadow-hard-muted">
-                                        FEATURED BUILD 🚀
-                                    </span>
+                                    {project.is_featured ? (
+                                        <span className="inline-block border-2 border-stone bg-coral text-white px-2.5 py-0.5 text-xs font-bold font-mono rounded-wobbly rotate-[-2deg] shadow-hard-muted">
+                                            FEATURED BUILD 🚀
+                                        </span>
+                                    ) : (
+                                        <span className="inline-block border-2 border-stone bg-sage text-white px-2.5 py-0.5 text-xs font-bold font-mono rounded-wobbly rotate-[2deg] shadow-hard-muted">
+                                            PROJECT BUILD 🚀
+                                        </span>
+                                    )}
                                     <h3 className="mt-3 font-display text-3xl font-bold text-stone">
                                         <a
                                             href={`/project/${project.slug}`}
@@ -335,41 +327,6 @@ export default function Home({ projects, skills, experiences, certificates, soci
                         </article>
                     ))}
                 </div>
-
-                {otherProjects.length > 0 && (
-                    <div className="mt-10 grid gap-6 sm:grid-cols-2">
-                        {otherProjects.map((project, idx) => (
-                            <article key={project.id} className={`border-3 border-stone bg-white p-6 shadow-hard rounded-wobbly-md card-tape hover:shadow-hard-lg hover:rotate-0 transition-hand ${idx % 2 === 0 ? 'rotate-1' : '-rotate-1'
-                                }`}>
-                                <div className="mb-5 flex items-center justify-between">
-                                    <span className="text-coral bg-cream border-2 border-stone p-2 rounded-wobbly inline-block shadow-hard-muted">
-                                        <IconFolder />
-                                    </span>
-                                    <a
-                                        href={`/project/${project.slug}`}
-                                        onClick={(e) => {
-                                            e.preventDefault();
-                                            navigate(`/project/${project.slug}`);
-                                        }}
-                                        className="flex items-center justify-center w-8 h-8 border-2 border-stone bg-white rounded-wobbly shadow-hard-muted hover:bg-coral hover:text-white hover:rotate-6 transition-hand"
-                                        aria-label={`${project.title} details`}
-                                    >
-                                        <IconExternal />
-                                    </a>
-                                </div>
-                                <h3 className="font-display text-2xl font-bold text-stone">{project.title}</h3>
-                                <p className="mt-3 text-base leading-relaxed text-stone font-sans">{project.description}</p>
-                                <div className="mt-5 flex flex-wrap gap-2 pt-4 border-t-2 border-dashed border-stone">
-                                    {project.technologies?.slice(0, 4).map((tech) => (
-                                        <span key={tech} className="font-mono text-xs font-bold text-stone-dark border border-stone bg-cream px-2 py-0.5 rounded-wobbly">
-                                            {tech}
-                                        </span>
-                                    ))}
-                                </div>
-                            </article>
-                        ))}
-                    </div>
-                )}
             </section>
 
             {/* SKILLS SECTION */}
@@ -425,80 +382,20 @@ export default function Home({ projects, skills, experiences, certificates, soci
             )}
 
             {/* CONTACT SECTION */}
-            <section id="contact" className="fade-section py-20 border-t-3 border-dashed border-stone">
-                <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr]">
-                    <div className="font-sans">
-                        <span className="inline-block sticky-note-tag text-stone text-xs font-bold uppercase tracking-[0.2em] px-3.5 py-1.5 font-mono mb-4">
-                            📬 Contact
-                        </span>
-                        <h2 className="font-display text-4xl font-bold tracking-tight text-stone md:text-5xl leading-tight rotate-[-1deg]">
-                            Let us build something useful.
-                        </h2>
-                        <p className="mt-6 text-lg leading-relaxed text-stone pr-4">
-                            I am open to developer roles, internships, collaborations, and practical web projects.
-                            Send a note and I will get back to you.
-                        </p>
-                        <a href={`mailto:${settings?.email}`} className="link-underline-wavy mt-6 inline-block text-lg font-bold text-coral">
-                            {settings?.email}
-                        </a>
-                    </div>
-
-                    <form onSubmit={handleContactSubmit} className="border-3 border-stone bg-white p-6 md:p-8 shadow-hard rounded-wobbly-md card-tape relative rotate-[-1deg] hover:rotate-0 transition-hand font-sans">
-                        {wasSuccessful && (
-                            <div className="mb-6 border-3 border-stone bg-postit p-4 text-base font-bold text-stone rounded-wobbly rotate-[1deg] shadow-hard-muted">
-                                📬 Message sent successfully! I will get back to you soon.
-                            </div>
-                        )}
-
-                        <div className="grid gap-5 sm:grid-cols-2">
-                            <div>
-                                <label className="mb-2 block text-sm font-bold text-stone" htmlFor="name">Name</label>
-                                <input
-                                    type="text"
-                                    id="name"
-                                    value={nameVal}
-                                    onChange={(e) => setNameVal(e.target.value)}
-                                    className="w-full border-3 border-stone bg-cream px-4 py-3 text-base text-stone rounded-wobbly outline-none transition focus:border-sage focus:bg-white focus:ring-2 focus:ring-sage/20 font-sans placeholder:text-stone-dark/50"
-                                    placeholder="Your name"
-                                    required
-                                />
-                            </div>
-                            <div>
-                                <label className="mb-2 block text-sm font-bold text-stone" htmlFor="email">Email</label>
-                                <input
-                                    type="email"
-                                    id="email"
-                                    value={emailVal}
-                                    onChange={(e) => setEmailVal(e.target.value)}
-                                    className="w-full border-3 border-stone bg-cream px-4 py-3 text-base text-stone rounded-wobbly outline-none transition focus:border-sage focus:bg-white focus:ring-2 focus:ring-sage/20 font-sans placeholder:text-stone-dark/50"
-                                    placeholder="your@email.com"
-                                    required
-                                />
-                            </div>
-                        </div>
-
-                        <div className="mt-5">
-                            <label className="mb-2 block text-sm font-bold text-stone" htmlFor="message">Message</label>
-                            <textarea
-                                id="message"
-                                rows="5"
-                                value={messageVal}
-                                onChange={(e) => setMessageVal(e.target.value)}
-                                className="w-full resize-none border-3 border-stone bg-cream px-4 py-3 text-base text-stone rounded-wobbly outline-none transition focus:border-sage focus:bg-white focus:ring-2 focus:ring-sage/20 font-sans placeholder:text-stone-dark/50"
-                                placeholder="Tell me about the project or role"
-                                required
-                            />
-                        </div>
-
-                        <button
-                            type="submit"
-                            disabled={processing}
-                            className="btn-hand-primary mt-6 inline-flex w-full items-center justify-center px-8 py-3.5 text-lg font-bold disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
-                        >
-                            {processing ? 'Sending...' : 'Send message ✉️'}
-                        </button>
-                    </form>
-                </div>
+            <section id="contact" className="fade-section py-20 border-t-3 border-dashed border-stone text-center max-w-2xl mx-auto font-sans">
+                <span className="inline-block sticky-note-tag text-stone text-xs font-bold uppercase tracking-[0.2em] px-3.5 py-1.5 font-mono mb-6">
+                    📬 Contact
+                </span>
+                <h2 className="font-display text-4xl font-bold tracking-tight text-stone md:text-5xl leading-tight rotate-[-1deg]">
+                    Let us build something useful.
+                </h2>
+                <p className="mt-6 text-lg leading-relaxed text-stone">
+                    I am open to developer roles, internships, collaborations, and practical web projects.
+                    Send a note and I will get back to you.
+                </p>
+                <a href={`mailto:${settings?.email}`} className="btn-hand-primary mt-8 inline-block px-8 py-3.5 text-lg font-bold">
+                    Email me: {settings?.email} ✉️
+                </a>
             </section>
         </AppLayout>
     );
