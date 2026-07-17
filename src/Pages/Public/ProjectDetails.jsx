@@ -6,40 +6,40 @@ function SimpleMarkdown({ content }) {
 
     const lines = content.split('\n');
     return (
-        <div className="space-y-4 text-stone leading-relaxed text-base font-sans">
+        <div className="space-y-4 text-zinc-700 leading-relaxed text-sm font-sans">
             {lines.map((line, idx) => {
                 if (line.startsWith('# ')) {
                     return (
-                        <h1 key={idx} className="text-3xl font-display font-bold text-stone mt-8 mb-4 pb-2 border-b-3 border-dashed border-stone rotate-[-0.5deg]">
+                        <h1 key={idx} className="text-2xl font-display font-extrabold text-zinc-900 mt-8 mb-4 pb-2 border-b border-zinc-200">
                             {line.replace('# ', '')}
                         </h1>
                     );
                 }
                 if (line.startsWith('## ')) {
                     return (
-                        <h2 key={idx} className="text-2xl font-display font-bold text-stone mt-6 mb-3 rotate-[0.5deg]">
+                        <h2 key={idx} className="text-xl font-display font-bold text-zinc-900 mt-6 mb-3">
                             {line.replace('## ', '')}
                         </h2>
                     );
                 }
                 if (line.startsWith('### ')) {
                     return (
-                        <h3 key={idx} className="text-lg font-bold text-coral mt-5 mb-2 font-mono rotate-[-1deg]">
+                        <h3 key={idx} className="text-base font-semibold text-teal-600 mt-5 mb-2 font-mono">
                             {line.replace('### ', '')}
                         </h3>
                     );
                 }
                 if (line.startsWith('- ')) {
                     return (
-                        <li key={idx} className="list-none ml-4 mt-2 text-stone flex items-start gap-2">
-                            <span className="text-coral text-lg select-none">✏️</span>
+                        <li key={idx} className="list-none ml-4 mt-2 text-zinc-700 flex items-start gap-2.5">
+                            <span className="w-1.5 h-1.5 rounded-full bg-indigo-650 mt-2 flex-shrink-0" />
                             <span>{line.replace('- ', '')}</span>
                         </li>
                     );
                 }
                 if (/^\d+\.\s/.test(line)) {
                     return (
-                        <li key={idx} className="list-decimal ml-6 mt-1 text-stone font-semibold">
+                        <li key={idx} className="list-decimal ml-6 mt-1 text-zinc-800 font-medium">
                             {line.replace(/^\d+\.\s/, '')}
                         </li>
                     );
@@ -50,7 +50,7 @@ function SimpleMarkdown({ content }) {
                 if (line.trim() === '') {
                     return <div key={idx} className="h-2"></div>;
                 }
-                return <p key={idx} className="rotate-[0.2deg]">{line}</p>;
+                return <p key={idx}>{line}</p>;
             })}
         </div>
     );
@@ -72,79 +72,82 @@ export default function ProjectDetails({ project, socialLinks, settings, navigat
         <AppLayout settings={settings} socialLinks={socialLinks} navigate={navigate}>
             <div className="pt-32 pb-24 font-sans">
 
-                {/* Back button styled as a wobbly sketch tag */}
+                {/* Back button */}
                 <a
                     href="/"
                     onClick={(e) => { e.preventDefault(); navigate('/'); }}
-                    className="inline-flex items-center gap-2 text-sm font-bold text-stone border-2 border-stone bg-white px-4 py-2 rounded-wobbly shadow-hard-muted hover:bg-coral hover:text-white hover:rotate-[-2deg] hover:translate-y-[-1px] transition-hand mb-8 group"
+                    className="inline-flex items-center gap-2 text-xs font-semibold text-zinc-650 hover:text-zinc-950 border border-zinc-200 bg-white/80 hover:bg-zinc-50 px-4 py-2 rounded-lg transition-all duration-300 mb-8 group"
                 >
-                    <span className="group-hover:-translate-x-1 transition-transform">←</span> Back to Portfolio
+                    <span className="group-hover:-translate-x-0.5 transition-transform">←</span> Back to Portfolio
                 </a>
 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
 
                     {/* Project Content */}
                     <div className="lg:col-span-8 space-y-6">
-                        <span className="inline-block border-2 border-stone bg-coral text-white px-3 py-1 text-xs font-bold font-mono rounded-wobbly rotate-[-2deg] shadow-hard-muted">
+                        <span className="inline-block border border-indigo-200 bg-indigo-50 text-indigo-650 px-3 py-1 text-[10px] font-semibold font-mono rounded-full">
                             CASE STUDY 📝
                         </span>
 
-                        <div className="flex flex-wrap gap-2.5">
+                        <div className="flex flex-wrap gap-1.5">
                             {tags.map((t, idx) => (
                                 <span
                                     key={idx}
-                                    className="px-3 py-1 rounded-wobbly border-2 border-stone bg-sage-tint text-sage text-xs font-mono font-bold shadow-hard-muted rotate-[1deg]"
+                                    className="px-2.5 py-0.5 rounded border border-zinc-200 bg-zinc-50 text-zinc-500 text-[10px] font-mono font-medium"
                                 >
                                     {t}
                                 </span>
                             ))}
                         </div>
 
-                        <h1 className="text-4xl md:text-6xl font-display font-bold text-stone tracking-tight leading-tight rotate-[-1deg]">
+                        <h1 className="text-3xl md:text-5xl font-display font-extrabold text-zinc-900 tracking-tight leading-tight">
                             {project.title}
                         </h1>
 
-                        <p className="text-stone text-lg leading-relaxed max-w-3xl font-medium rotate-[0.5deg]">
+                        <p className="text-zinc-650 text-base leading-relaxed max-w-3xl font-normal">
                             {project.description}
                         </p>
 
-                        {/* Main detailed content sheet - styled like a notebook page pinned to the background */}
-                        <div className="bg-white border-3 border-stone p-8 md:p-12 mt-8 shadow-hard rounded-wobbly-md card-tack relative rotate-[-0.5deg] hover:rotate-0 transition-hand">
+                        {/* Main detailed content sheet */}
+                        <div className="bg-white border border-zinc-200 p-8 md:p-10 mt-8 rounded-xl shadow-md">
                             <SimpleMarkdown content={project.content} />
                         </div>
                     </div>
 
-                    {/* Metadata Sidebar - Yellow Sticky Note Post-it style */}
+                    {/* Metadata Sidebar */}
                     <div className="lg:col-span-4 space-y-6">
-                        <div className="bg-postit border-3 border-stone p-6 space-y-6 sticky top-24 shadow-hard rounded-wobbly-md card-tape relative rotate-1 hover:rotate-0 transition-hand text-stone">
-                            <h3 className="font-display text-2xl font-bold text-stone border-b-2 border-dashed border-stone pb-2">
-                                📌 Project Info
+                        <div className="border border-zinc-200 bg-white p-6 space-y-6 sticky top-24 shadow-md rounded-xl relative overflow-hidden text-zinc-700">
+                            {/* Decorative top border */}
+                            <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-indigo-500 to-cyan-500"></div>
+
+                            <h3 className="font-display text-lg font-bold text-zinc-900 border-b border-zinc-150 pb-3">
+                                Project Info
                             </h3>
 
-                            <div className="space-y-4 text-base font-semibold">
-                                <div className="flex justify-between py-2 border-b border-dashed border-stone/30">
-                                    <span className="text-stone/70">Status</span>
-                                    <span className={`font-bold ${project.status === 'Completed' ? 'text-sage' : 'text-coral'} rotate-2`}>
+                            <div className="space-y-4 text-xs font-semibold">
+                                <div className="flex justify-between py-2 border-b border-zinc-100">
+                                    <span className="text-zinc-500">Status</span>
+                                    <span className={`font-bold ${project.status === 'Completed' ? 'text-emerald-650' : 'text-amber-600'}`}>
                                         {project.status}
                                     </span>
                                 </div>
-                                <div className="flex justify-between py-2 border-b border-dashed border-stone/30 font-sans">
-                                    <span className="text-stone/70">Type</span>
-                                    <span className="text-stone rotate-[-1deg]">Full Stack</span>
+                                <div className="flex justify-between py-2 border-b border-zinc-100 font-sans">
+                                    <span className="text-zinc-500">Type</span>
+                                    <span className="text-zinc-700">Full Stack</span>
                                 </div>
                                 <div className="flex justify-between py-2 font-sans">
-                                    <span className="text-stone/70">Stack</span>
-                                    <span className="text-stone rotate-1">Laravel & React</span>
+                                    <span className="text-zinc-500">Stack</span>
+                                    <span className="text-zinc-700">Laravel & React</span>
                                 </div>
                             </div>
 
-                            <div className="space-y-4 pt-4 border-t-3 border-dashed border-stone">
+                            <div className="space-y-3 pt-4 border-t border-zinc-100">
                                 {project.live_url && (
                                     <a
                                         href={project.live_url}
                                         target="_blank"
                                         rel="noreferrer"
-                                        className="btn-hand-primary flex items-center justify-center gap-2.5 w-full py-3 text-base font-bold shadow-hard"
+                                        className="btn-hand-primary flex items-center justify-center gap-2 w-full py-2.5 text-xs font-bold rounded-lg"
                                     >
                                         <IconExternal /> Live Demo
                                     </a>
@@ -154,7 +157,7 @@ export default function ProjectDetails({ project, socialLinks, settings, navigat
                                         href={project.github_url}
                                         target="_blank"
                                         rel="noreferrer"
-                                        className="btn-hand-secondary flex items-center justify-center gap-2.5 w-full py-3 text-base font-bold shadow-hard"
+                                        className="btn-hand-secondary flex items-center justify-center gap-2 w-full py-2.5 text-xs font-bold rounded-lg"
                                     >
                                         <IconGitHub /> Source Code
                                     </a>

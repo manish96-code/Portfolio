@@ -99,15 +99,20 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
     ];
 
     return (
-        <div className="min-h-screen bg-cream text-stone font-sans antialiased">
+        <div className="min-h-screen bg-zinc-50/50 text-zinc-900 font-sans antialiased relative overflow-hidden">
 
-            {/* Fixed Left Social Bar - Hand-Drawn Wobbly Circle Badges */}
+            {/* Ambient background glows */}
+            <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-indigo-500/[0.03] rounded-full blur-[120px] pointer-events-none -z-10"></div>
+            <div className="absolute top-1/3 right-1/4 w-[400px] h-[400px] bg-cyan-500/[0.02] rounded-full blur-[100px] pointer-events-none -z-10"></div>
+            <div className="absolute bottom-10 left-1/3 w-[600px] h-[600px] bg-indigo-500/[0.02] rounded-full blur-[150px] pointer-events-none -z-10"></div>
+
+            {/* Fixed Left Social Bar - Sleek Minimalist Badges */}
             <div className="hidden lg:flex fixed bottom-0 left-8 z-30 flex-col items-center gap-4">
                 <a
                     href="https://github.com/manish96-code"
                     target="_blank"
                     rel="noreferrer"
-                    className="flex items-center justify-center w-10 h-10 border-2 border-stone bg-white rounded-wobbly shadow-hard-muted hover:bg-coral hover:text-white hover:-translate-y-1 hover:rotate-6 transition-hand"
+                    className="flex items-center justify-center w-10 h-10 border border-zinc-200 bg-white/80 backdrop-blur-md rounded-full text-zinc-500 hover:text-indigo-650 hover:-translate-y-1 transition-all duration-300 shadow-sm"
                 >
                     <IconGitHub />
                 </a>
@@ -115,39 +120,39 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                     href="https://linkedin.com/in/manish-kumar"
                     target="_blank"
                     rel="noreferrer"
-                    className="flex items-center justify-center w-10 h-10 border-2 border-stone bg-white rounded-wobbly shadow-hard-muted hover:bg-coral hover:text-white hover:-translate-y-1 hover:-rotate-6 transition-hand"
+                    className="flex items-center justify-center w-10 h-10 border border-zinc-200 bg-white/80 backdrop-blur-md rounded-full text-zinc-500 hover:text-indigo-655 hover:-translate-y-1 transition-all duration-300 shadow-sm"
                 >
                     <IconLinkedIn />
                 </a>
                 <a
                     href={`mailto:${email}`}
-                    className="flex items-center justify-center w-10 h-10 border-2 border-stone bg-white rounded-wobbly shadow-hard-muted hover:bg-coral hover:text-white hover:-translate-y-1 hover:rotate-12 transition-hand"
+                    className="flex items-center justify-center w-10 h-10 border border-zinc-200 bg-white/80 backdrop-blur-md rounded-full text-zinc-500 hover:text-indigo-655 hover:-translate-y-1 transition-all duration-300 shadow-sm"
                 >
                     <IconMail />
                 </a>
-                <div className="w-0 h-24 border-l-2 border-dashed border-stone"></div>
+                <div className="w-px h-24 bg-gradient-to-t from-transparent to-zinc-300"></div>
             </div>
 
-            {/* Fixed Right Email Bar - Hand-Drawn Label */}
+            {/* Fixed Right Email Bar - Sleek Vertical Label */}
             <div className="hidden lg:flex fixed bottom-0 right-8 z-30 flex-col items-center gap-5">
                 <a
                     href={`mailto:${email}`}
-                    className="text-stone text-[14px] font-mono tracking-wider hover:text-coral hover:-translate-y-1 transition-hand border-2 border-stone bg-white px-2 py-4 rounded-wobbly shadow-hard-muted hover:rotate-3"
+                    className="text-zinc-500 hover:text-indigo-655 text-xs font-mono tracking-wider hover:-translate-y-1 transition-all duration-300 py-2"
                     style={{ writingMode: 'vertical-rl' }}
                 >
                     {email}
                 </a>
-                <div className="w-0 h-20 border-l-2 border-dashed border-stone"></div>
+                <div className="w-px h-20 bg-gradient-to-t from-transparent to-zinc-300"></div>
             </div>
 
-            {/* Header / Navigation - Notebook Sheet Header */}
-            <header className={`fixed top-0 left-0 right-0 z-50 transition-hand ${scrolled
-                    ? 'bg-white border-b-3 border-stone shadow-hard py-3'
+            {/* Header / Navigation - Glassmorphic Header */}
+            <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
+                    ? 'bg-white/80 backdrop-blur-md border-b border-zinc-200/80 py-3 shadow-sm'
                     : 'bg-transparent py-5'
                 }`}>
                 <div className="max-w-[1100px] mx-auto px-6 lg:px-12 flex justify-between items-center">
 
-                    {/* Stamp-like Logo */}
+                    {/* Minimal Monogram Logo */}
                     <a
                         href="/"
                         onClick={(e) => {
@@ -160,19 +165,19 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                                 window.location.href = '/';
                             }
                         }}
-                        className="font-display text-stone text-xl font-bold border-3 border-stone px-3.5 py-1 rounded-wobbly bg-postit shadow-hard-muted hover:rotate-6 transition-hand inline-block"
+                        className="font-display text-zinc-900 text-lg font-black tracking-wider border border-zinc-200 px-3.5 py-1 rounded-lg bg-white/80 shadow-sm hover:border-indigo-500/50 hover:shadow-indigo-500/10 transition-all duration-300 inline-block"
                     >
-                        MK
+                        <span className="bg-gradient-to-r from-indigo-600 to-cyan-600 bg-clip-text text-transparent">MK</span>
                     </a>
 
-                    {/* Desktop Nav - Hand-drawn typography and highlights */}
-                    <nav className="hidden md:flex items-center gap-2">
+                    {/* Desktop Nav */}
+                    <nav className="hidden md:flex items-center gap-1">
                         {navItems.map((item, idx) => (
                             <a
                                 key={idx}
                                 href={item.href}
                                 onClick={(e) => handleNavClick(e, item.href)}
-                                className="px-3.5 py-1.5 text-base font-semibold text-stone hover:text-coral link-underline-wavy transition-hand font-sans"
+                                className="px-3.5 py-1.5 text-sm font-medium text-zinc-600 hover:text-indigo-600 transition-colors duration-300 font-sans"
                             >
                                 {item.label}
                             </a>
@@ -181,19 +186,19 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                             href={settings?.resume_file || '#'}
                             target="_blank"
                             rel="noreferrer"
-                            className="ml-4 px-5 py-2 border-3 border-stone bg-coral text-white rounded-wobbly font-bold shadow-hard hover:shadow-hard-muted hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] transition-hand text-sm"
+                            className="ml-4 px-4 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-semibold shadow-md transition-all duration-300 text-xs border border-indigo-500/10"
                         >
                             Resume
                         </a>
                     </nav>
 
-                    {/* Mobile Hamburger - Wobbly badge button */}
+                    {/* Mobile Hamburger */}
                     <button
-                        className="md:hidden text-stone p-2 border-2 border-stone bg-white rounded-wobbly shadow-hard-muted"
+                        className="md:hidden text-zinc-600 p-2 border border-zinc-200 bg-white/80 backdrop-blur-sm rounded-lg shadow-sm"
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                         aria-label="Toggle menu"
                     >
-                        <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                             {mobileMenuOpen ? (
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                             ) : (
@@ -203,19 +208,19 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                     </button>
                 </div>
 
-                {/* Mobile Menu Overlay - Full Notebook Page */}
+                {/* Mobile Menu Overlay */}
                 {mobileMenuOpen && (
-                    <div className="md:hidden fixed inset-0 top-0 bg-cream z-40 flex flex-col items-center justify-center gap-8 border-10 border-double border-stone p-8 radial-dots">
+                    <div className="md:hidden fixed inset-0 bg-white/95 backdrop-blur-lg z-40 flex flex-col items-center justify-center gap-8 p-8 transition-all duration-300">
                         <button
-                            className="absolute top-6 right-6 text-stone p-2 border-2 border-stone bg-white rounded-wobbly shadow-hard-muted"
+                            className="absolute top-6 right-6 text-zinc-500 p-2 border border-zinc-200 bg-white/80 rounded-lg shadow-sm"
                             onClick={() => setMobileMenuOpen(false)}
                         >
-                            <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                             </svg>
                         </button>
 
-                        <div className="text-center font-display text-4xl font-bold mb-4 border-b-2 border-dashed border-stone pb-2 px-6 rotate-1">
+                        <div className="text-center font-display text-2xl font-bold mb-4 border-b border-zinc-200 pb-2 px-6 bg-gradient-to-r from-indigo-600 to-cyan-600 bg-clip-text text-transparent">
                             Navigation
                         </div>
 
@@ -227,7 +232,7 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                                     setMobileMenuOpen(false);
                                     handleNavClick(e, item.href);
                                 }}
-                                className="text-stone text-2xl font-display font-semibold hover:text-coral hover:link-underline-wavy transition-hand hover:rotate-2"
+                                className="text-zinc-800 text-xl font-medium hover:text-indigo-600 transition-colors duration-300"
                             >
                                 {item.label}
                             </a>
@@ -236,7 +241,7 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                             href={settings?.resume_file || '#'}
                             target="_blank"
                             rel="noreferrer"
-                            className="mt-6 px-8 py-3 border-3 border-stone bg-coral text-white rounded-wobbly font-bold shadow-hard hover:translate-x-[2px] hover:translate-y-[2px] transition-hand"
+                            className="mt-6 px-8 py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-bold shadow-md transition-all duration-300 text-sm border border-indigo-500/10"
                         >
                             Resume
                         </a>
@@ -244,36 +249,36 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                 )}
             </header>
 
-            {/* Main Content - Sketchbook boundaries */}
-            <main className="max-w-[1100px] mx-auto px-6 lg:px-12">
+            {/* Main Content */}
+            <main className="max-w-[1100px] mx-auto px-6 lg:px-12 relative z-10">
                 {children}
             </main>
 
-            {/* Footer - Pinned Note footer style */}
-            <footer className="py-12 border-t-3 border-dashed border-stone mt-12 bg-cream">
+            {/* Footer */}
+            <footer className="py-12 border-t border-zinc-200 mt-12 bg-zinc-50/50 relative z-10">
                 <div className="max-w-[1100px] mx-auto px-6 lg:px-12 flex flex-col sm:flex-row items-center justify-between gap-6 font-sans">
-                    <p className="text-sm font-bold border-2 border-stone bg-white px-3 py-1.5 rounded-wobbly shadow-hard-muted rotate-[-1deg]">
-                        © {new Date().getFullYear()} {name}
+                    <p className="text-sm text-zinc-500">
+                        © {new Date().getFullYear()} {name}. All rights reserved.
                     </p>
                     <a
                         href="https://github.com/manish96-code"
                         target="_blank"
                         rel="noreferrer"
-                        className="text-sm font-bold border-2 border-stone bg-postit text-stone px-4 py-2 rounded-wobbly shadow-hard-muted hover:bg-coral hover:text-white hover:-translate-y-0.5 hover:rotate-[2deg] transition-hand"
+                        className="text-xs font-semibold text-zinc-500 hover:text-indigo-600 transition-colors duration-300 border border-zinc-200 bg-white/50 px-4 py-2 rounded-lg"
                     >
-                        📝 Designed & Sketch-Built by {name}
+                        Built by {name}
                     </a>
                 </div>
             </footer>
 
-            {/* Back to Top - Floating Circular Sketch Tag */}
+            {/* Back to Top */}
             {showBackToTop && (
                 <button
                     onClick={scrollToTop}
-                    className="fixed bottom-6 right-6 z-40 w-12 h-12 rounded-wobbly bg-white border-3 border-stone text-coral flex items-center justify-center hover:bg-coral hover:text-white transition-hand shadow-hard lg:hidden"
+                    className="fixed bottom-6 right-6 z-40 w-10 h-10 rounded-full bg-white border border-zinc-200 text-zinc-500 flex items-center justify-center hover:bg-zinc-100 hover:text-zinc-900 transition-all duration-300 shadow-sm lg:hidden"
                     title="Back to Top"
                 >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
                     </svg>
                 </button>
