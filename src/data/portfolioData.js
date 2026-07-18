@@ -4,18 +4,21 @@ export const portfolioData = {
         title: 'Full Stack Web Developer | Laravel | React | PHP',
         location: 'Jaipur, Rajasthan, India',
         current_company: 'Comestro Techlabs Pvt Ltd',
-        education: 'BCA, Purnea University (2021-2024)',
+        education: 'BCA, Purnea University (2023-2026)',
         objective: 'Seeking to leverage solid expertise in Laravel, React, and MySQL database management to build modern, high-performance web environments.',
         bio: 'Passionate about building modern web applications that solve real-world problems. Specialize in full-stack ecosystems leveraging Laravel on the backend and React/Inertia on the frontend.',
         email: 'manish966128@gmail.com',
-        phone: '+91 9661131100',
+        phone: '+91 8207593672',
         resume_file: '/downloads/resume.pdf',
         meta_title: 'Manish Kumar | Full Stack Web Developer',
         meta_description: 'Personal portfolio of Manish Kumar. Full Stack Web Developer Intern at Comestro Techlabs Pvt Ltd. Expert in Laravel, PHP, React, and MySQL.'
     },
     socialLinks: [
         { platform: 'GitHub', url: 'https://github.com/manish96-code', icon: 'github' },
-        { platform: 'LinkedIn', url: 'https://linkedin.com/in/manish-kumar', icon: 'linkedin' },
+        { platform: 'LinkedIn', url: 'https://www.linkedin.com/in/manish-kumar-9661link', icon: 'linkedin' },
+        { platform: 'Facebook', url: 'https://www.facebook.com/share/1MArsUNxGr/', icon: 'facebook' },
+        { platform: 'Instagram', url: 'https://www.instagram.com/manish_kumar_9661?igsh=MTQxdmY2ajJrem9ocw==', icon: 'instagram' },
+        { platform: 'WhatsApp', url: 'https://wa.me/918207593672?text=Hello%20Manish%2C%20I%20visited%20your%20portfolio%20and%20wanted%20to%20connect!', icon: 'whatsapp' },
         { platform: 'Email', url: 'mailto:manish966128@gmail.com', icon: 'mail' }
     ],
     skills: {
@@ -54,7 +57,7 @@ export const portfolioData = {
         {
             company: 'Comestro Techlabs Pvt Ltd',
             designation: 'Laravel Developer',
-            duration: 'May 2024 - Present',
+            duration: 'May 2026 - Present',
             description: "Developed multi-vendor e-commerce bookstore marketplaces (KitabiAdda) and campus networking portals (Campus Connect) using Laravel, React, Inertia, and MySQL. Experienced in writing clean code, designing database schemas, and managing repository integrations.",
             skills_used: ['Laravel', 'React', 'PHP', 'MySQL', 'Git', 'GitHub', 'Inertia.js']
         }
@@ -66,11 +69,9 @@ export const portfolioData = {
             slug: 'linkup',
             description: 'A modern social media platform featuring posts, comments, likes, real-time messaging, and profile customization.',
             content: "# LinkUp - Modern Social Media Platform\n\n## Overview\nLinkUp is a full-featured social media web application built with a modern single-page experience using Inertia.js, React, and Laravel.\n\n## Core Features\n- **Activity Feed**: Interactive posts, image uploads, likes, and nested comments.\n- **User Relations**: Follow/unfollow mechanics, user profile customize screens.\n- **Real-time Messaging**: Instant chat integrations.\n- **Modern SPA Router**: Fast page updates without page reloads using Inertia.js.",
-            thumbnail: '/images/projects/linkup-thumb.jpg',
-            images: ['/images/projects/linkup-1.jpg'],
+            images: [],
             technologies: ['Laravel', 'React', 'Inertia', 'MySQL', 'Tailwind CSS'],
             github_url: 'https://github.com/manish96-code/LinkUp',
-            live_url: 'http://localhost:8000',
             status: 'Completed',
             is_featured: true
         },
@@ -80,11 +81,9 @@ export const portfolioData = {
             slug: 'kitabi-adda',
             description: 'A premium Multi-Vendor Book Marketplace designed for students, sellers, and readers to interact and transact book sales.',
             content: "# KitabiAdda - Multi Vendor Book Marketplace\n\n## Overview\nKitabiAdda is a multi-vendor bookstore designed to connect local bookshops and students. Users can list books, purchase copies, and rate sellers.",
-            thumbnail: '/images/projects/kitabiadda-thumb.jpg',
-            images: ['/images/projects/kitabiadda-1.jpg'],
+            images: [],
             technologies: ['Laravel', 'React', 'Inertia', 'MySQL', 'Tailwind CSS'],
             github_url: 'https://github.com/manish96-code/KitabiAdda',
-            live_url: 'http://localhost:8000',
             status: 'Completed',
             is_featured: true
         },
@@ -94,11 +93,9 @@ export const portfolioData = {
             slug: 'campus-connect',
             description: 'An all-in-one college management and campus social networking system for students and teachers.',
             content: "# Campus Connect - Campus Management System\n\n## Overview\nCampusConnect integrates course files sharing, student timelines, and assignment boards onto a single clean dashboard.",
-            thumbnail: '/images/projects/campusconnect-thumb.jpg',
-            images: ['/images/projects/campusconnect-1.jpg'],
+            images: [],
             technologies: ['Laravel', 'Livewire', 'MySQL', 'Tailwind CSS'],
             github_url: 'https://github.com/manish96-code/CampusConnect',
-            live_url: 'http://localhost:8000',
             status: 'Completed',
             is_featured: true
         },
@@ -113,7 +110,7 @@ export const portfolioData = {
             images: [],
             technologies: ['React', 'REST API', 'JavaScript', 'Tailwind CSS'],
             github_url: 'https://github.com/manish96-code',
-            live_url: 'http://localhost:8000',
+            live_url: 'https://the-recipe-finder-three.vercel.app/',
             status: 'Completed',
             is_featured: false
         }

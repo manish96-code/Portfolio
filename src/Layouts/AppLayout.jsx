@@ -13,6 +13,26 @@ const IconLinkedIn = () => (
     </svg>
 );
 
+const IconFacebook = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/>
+    </svg>
+);
+
+const IconInstagram = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+    </svg>
+);
+
+const IconWhatsApp = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.458L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.42 9.863-9.864.001-2.636-1.023-5.11-2.884-6.974C16.593 1.898 14.116.87 11.48.87c-5.437 0-9.863 4.421-9.865 9.867 0 1.704.457 3.364 1.324 4.803L1.89 21.05l5.757-1.509c.001-.001.002-.001.003-.001zm10.743-7.531c-.272-.136-1.614-.797-1.863-.888-.249-.09-.431-.136-.613.136-.182.271-.703.888-.862 1.069-.159.182-.318.204-.59.068-.272-.136-1.15-.424-2.19-1.353-.809-.721-1.355-1.612-1.514-1.884-.159-.272-.017-.419.119-.554.122-.122.272-.318.408-.477.136-.159.182-.272.272-.453.09-.182.045-.34-.023-.477-.068-.136-.613-1.477-.839-2.023-.22-.531-.44-.458-.604-.466-.156-.008-.337-.008-.517-.008-.18 0-.476.068-.726.34-.25.272-.953.932-.953 2.273s.975 2.632 1.111 2.813c.136.182 1.92 2.931 4.652 4.114.65.281 1.157.449 1.553.575.654.208 1.248.178 1.717.108.522-.078 1.614-.659 1.841-1.295.227-.636.227-1.182.159-1.295-.068-.113-.249-.182-.522-.318z"/>
+    </svg>
+);
+
 const IconMail = () => (
     <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
@@ -31,6 +51,25 @@ const IconFolder = () => (
     </svg>
 );
 
+const renderIcon = (iconName) => {
+    switch (iconName?.toLowerCase()) {
+        case 'github':
+            return <IconGitHub />;
+        case 'linkedin':
+            return <IconLinkedIn />;
+        case 'facebook':
+            return <IconFacebook />;
+        case 'instagram':
+            return <IconInstagram />;
+        case 'whatsapp':
+            return <IconWhatsApp />;
+        case 'mail':
+        case 'email':
+            return <IconMail />;
+        default:
+            return <IconExternal />;
+    }
+};
 
 export default function AppLayout({ children, settings, socialLinks, navigate }) {
     const [showBackToTop, setShowBackToTop] = useState(false);
@@ -108,28 +147,18 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
 
             {/* Fixed Left Social Bar - Sleek Minimalist Badges */}
             <div className="hidden lg:flex fixed bottom-0 left-8 z-30 flex-col items-center gap-4">
-                <a
-                    href="https://github.com/manish96-code"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="flex items-center justify-center w-10 h-10 border border-zinc-200 bg-white/80 backdrop-blur-md rounded-full text-zinc-500 hover:text-indigo-650 hover:-translate-y-1 transition-all duration-300 shadow-sm"
-                >
-                    <IconGitHub />
-                </a>
-                <a
-                    href="https://linkedin.com/in/manish-kumar"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="flex items-center justify-center w-10 h-10 border border-zinc-200 bg-white/80 backdrop-blur-md rounded-full text-zinc-500 hover:text-indigo-655 hover:-translate-y-1 transition-all duration-300 shadow-sm"
-                >
-                    <IconLinkedIn />
-                </a>
-                <a
-                    href={`mailto:${email}`}
-                    className="flex items-center justify-center w-10 h-10 border border-zinc-200 bg-white/80 backdrop-blur-md rounded-full text-zinc-500 hover:text-indigo-655 hover:-translate-y-1 transition-all duration-300 shadow-sm"
-                >
-                    <IconMail />
-                </a>
+                {socialLinks && socialLinks.map((link, idx) => (
+                    <a
+                        key={idx}
+                        href={link.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="flex items-center justify-center w-10 h-10 border border-zinc-200 bg-white/80 backdrop-blur-md rounded-full text-zinc-500 hover:text-indigo-650 hover:-translate-y-1 transition-all duration-300 shadow-sm"
+                        title={link.platform}
+                    >
+                        {renderIcon(link.icon || link.platform)}
+                    </a>
+                ))}
                 <div className="w-px h-24 bg-gradient-to-t from-transparent to-zinc-300"></div>
             </div>
 
@@ -287,4 +316,4 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
     );
 }
 
-export { IconGitHub, IconLinkedIn, IconMail, IconExternal, IconFolder };
+export { IconGitHub, IconLinkedIn, IconMail, IconExternal, IconFolder, IconFacebook, IconInstagram, IconWhatsApp };

@@ -23,12 +23,22 @@ const SectionHeader = ({ eyebrow, title, copy }) => (
     </div>
 );
 
-const ProjectMonogram = ({ title }) => (
-    <div className="project-visual relative flex aspect-[16/10] items-center justify-center overflow-hidden rounded-xl border border-zinc-200 bg-zinc-50 transition-all duration-300 group-hover:border-indigo-500/20 group-hover:bg-zinc-100">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:14px_24px] opacity-30"></div>
-        <div className="relative flex h-16 w-16 items-center justify-center rounded-xl border border-zinc-200 bg-white text-2xl font-display font-bold text-indigo-600 shadow-sm group-hover:scale-105 group-hover:text-cyan-600 transition-all duration-300">
-            {title.substring(0, 2).toUpperCase()}
-        </div>
+const ProjectMonogram = ({ title, thumbnail }) => (
+    <div className="project-visual relative flex aspect-[16/10] items-center justify-center overflow-hidden rounded-xl border border-zinc-200 bg-zinc-50 transition-all duration-300 group-hover:border-indigo-500/20 group-hover:bg-zinc-100 w-full h-full">
+        {thumbnail ? (
+            <img 
+                src={thumbnail} 
+                alt={title} 
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            />
+        ) : (
+            <>
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:14px_24px] opacity-30"></div>
+                <div className="relative flex h-16 w-16 items-center justify-center rounded-xl border border-zinc-200 bg-white text-2xl font-display font-bold text-indigo-600 shadow-sm group-hover:scale-105 group-hover:text-cyan-600 transition-all duration-300">
+                    {title.substring(0, 2).toUpperCase()}
+                </div>
+            </>
+        )}
     </div>
 );
 
@@ -105,7 +115,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
                     {/* Stats Counter */}
                     <div className="mt-14 grid max-w-2xl grid-cols-3 border-y border-zinc-200 py-2">
                         {[
-                            ['2024', 'BCA Graduate'],
+                            ['2026', 'BCA Graduate'],
                             ['5+', 'Projects Built'],
                             ['Full Stack', 'Laravel & React'],
                         ].map(([value, label], idx) => (
@@ -243,7 +253,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
                                 }}
                                 className="block"
                             >
-                                <ProjectMonogram title={project.title} />
+                                <ProjectMonogram title={project.title} thumbnail={project.thumbnail} />
                             </a>
 
                             <div className="flex flex-col justify-between font-sans">
