@@ -101,6 +101,36 @@ export const portfolioData = {
         },
 
         {
+            id: 4,
+            title: 'GymMitra',
+            slug: 'gymmitra',
+            description: 'A modern SaaS Gym Management software built for gym owners, staff, and members to streamline subscriptions, QR attendance, locker allocation, and billing.',
+            content: `# GymMitra - Modern Gym Management SaaS Platform
+
+GymMitra is a comprehensive, web-based gym management application designed to automate daily gym operations, member subscriptions, attendance tracking, staff management, and billing.
+
+## Key Features
+
+- **Multi-Gym SaaS Support**: Independent management accounts for different gym branches, staff roles, and gym owners.
+- **Member Management**: Easily add, edit, and track gym members, physical stats, BMI, and active membership plans.
+- **Excel & CSV Bulk Member Import**: Upload hundreds of member records at once using a downloadable spreadsheet template.
+- **Automated QR Code Attendance**: Instant check-in and check-out scanning system using smartphone cameras or QR codes.
+- **Locker Allocation & Management**: Assign, transfer, and release lockers with key tracking and 1-click bulk locker generation.
+- **Trainer & Staff Management**: Assign personal trainers to members, schedule training sessions, and track staff attendance.
+- **Subscriptions & Billing**: Automatic GST invoice generation, payment status tracking, and flexible membership plan upgrades.
+- **Real-Time Notifications**: Instant updates for new member signups, plan renewals, and gym announcements.
+- **Member Self-Service Portal**: Members can view their active plan, scan QR pass, track attendance history, and book group fitness classes.
+
+## Technologies Used
+Laravel, React, PHP, MySQL, Tailwind CSS, Inertia.js`,
+            images: [],
+            technologies: ['Laravel', 'React', 'PHP', 'MySQL', 'Tailwind CSS', 'Inertia.js'],
+            github_url: 'https://github.com/manish96-code',
+            live_url: 'https://manish.echovel.com',
+            status: 'Completed',
+            is_featured: true
+        },
+        {
             id: 5,
             title: 'Recipe Finder',
             slug: 'recipe-finder',

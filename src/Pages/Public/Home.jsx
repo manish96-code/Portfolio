@@ -432,6 +432,19 @@ export default function Home({ projects, skills, experiences, certificates, soci
                                         ))}
                                     </div>
                                     <div className="flex items-center gap-3 text-zinc-500">
+                                        {project.live_url && (
+                                            <a
+                                                href={project.live_url}
+                                                target="_blank"
+                                                rel="noreferrer"
+                                                className="flex items-center justify-center gap-1 px-2.5 h-8 border border-indigo-200 bg-indigo-50 text-indigo-600 font-mono text-[11px] font-semibold rounded-lg shadow-sm hover:bg-indigo-600 hover:text-white transition-all duration-200"
+                                                title="Live Demo"
+                                                aria-label={`${project.title} Live Demo`}
+                                            >
+                                                <span>Live</span>
+                                                <IconExternal />
+                                            </a>
+                                        )}
                                         {project.github_url && (
                                             <a
                                                 href={project.github_url}

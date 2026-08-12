@@ -211,14 +211,6 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                                 {item.label}
                             </a>
                         ))}
-                        <a
-                            href={settings?.resume_file || '#'}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="ml-4 px-4 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-semibold shadow-md transition-all duration-300 text-xs border border-indigo-500/10"
-                        >
-                            Resume
-                        </a>
                     </nav>
 
                     {/* Mobile Hamburger */}
@@ -249,7 +241,7 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                             </svg>
                         </button>
 
-                        <div className="text-center font-display text-2xl font-bold mb-4 border-b border-zinc-200 pb-2 px-6 bg-gradient-to-r from-indigo-600 to-cyan-600 bg-clip-text text-transparent">
+                        <div className="text-center font-display text-2xl font-bold mb-4 border-b border-zinc-200 pb-2 px-6 text-indigo-600">
                             Navigation
                         </div>
 
@@ -266,14 +258,6 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                                 {item.label}
                             </a>
                         ))}
-                        <a
-                            href={settings?.resume_file || '#'}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="mt-6 px-8 py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-bold shadow-md transition-all duration-300 text-sm border border-indigo-500/10"
-                        >
-                            Resume
-                        </a>
                     </div>
                 )}
             </header>
