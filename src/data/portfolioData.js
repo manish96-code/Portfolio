@@ -110,10 +110,110 @@ Laravel, React, PHP, MySQL, Tailwind CSS, Inertia.js`,
             id: 2,
             title: 'KitabiAdda',
             slug: 'kitabi-adda',
-            description: 'A premium Multi-Vendor Book Marketplace designed for students, sellers, and readers to interact and transact book sales.',
-            content: "# KitabiAdda - Multi Vendor Book Marketplace\n\n## Overview\nKitabiAdda is a multi-vendor bookstore designed to connect local bookshops and students. Users can list books, purchase copies, and rate sellers.",
+            description: 'A premium multi-vendor book marketplace that connects customers, local sellers, and delivery riders through a seamless digital platform for buying and selling books.',
+            content: `# KitabiAdda – Multi-Vendor Book Marketplace
+
+## Overview
+KitabiAdda is a full-stack multi-vendor online book marketplace designed to connect customers with local booksellers. The platform allows sellers to list and manage books, customers to discover and purchase books, and riders to handle order deliveries.
+
+The system provides separate role-based experiences for customers, vendors, riders, and administrators, making it suitable for managing the complete book-selling and delivery workflow from a single platform.
+
+---
+
+## Problem Statement
+Traditional local bookstores often have limited online visibility, while students and readers may have difficulty finding specific books nearby. Sellers also need a simple way to manage their products and orders digitally.
+
+KitabiAdda addresses these problems by bringing customers, local sellers, and delivery partners together on one centralized marketplace.
+
+---
+
+## Key Features
+
+### 👤 Customer Module
+- User registration and login
+- Browse available books by categories and subcategories
+- Book search and filtering
+- Detailed book pages with seller information
+- Cart management and checkout order placement
+- Order history and real-time status tracking
+- Seller rating and review functionality
+
+### 🏪 Vendor Module
+- Vendor registration, login, and dashboard
+- Add, edit, and delete book listings with pricing
+- Manage inventory and stock levels
+- View and process incoming customer orders
+- Seller profile and sales reporting
+
+### 🚴 Rider Module
+- Rider authentication and delivery dashboard
+- View assigned deliveries and accept tasks
+- Order delivery status updates and local delivery workflow
+
+### 🛡️ Admin Module
+- Centralized admin dashboard
+- Manage customers, vendors, riders, books, and categories
+- Monitor overall marketplace activities with role-based access control
+
+---
+
+## Order Workflow
+Customer places order → Vendor processes order → Rider is assigned → Rider delivers order → Order is completed
+
+1. Customer browses and selects a book.
+2. Book is added to the cart and checkout is completed.
+3. Order is created in the system and received by the Vendor.
+4. Vendor processes the order and a delivery Rider is assigned.
+5. Rider handles delivery and updates status until order completion.
+
+---
+
+## Role-Based Architecture
+- **Customer**: Browse and purchase books
+- **Vendor**: Manage books, inventory, and orders
+- **Rider**: Handle order delivery workflows
+- **Admin**: Manage the complete platform, users, and catalog
+
+---
+
+## Technical Implementation
+- **Frontend**: Built with React.js, Inertia.js, JavaScript, and Tailwind CSS for a responsive, single-page app interface.
+- **Backend**: Built with Laravel and PHP for authentication, role-based authorization, controllers, models, and business logic.
+- **Database**: Relational MySQL database structure handling users, roles, books, categories, cart, orders, and delivery statuses.
+- **Architecture**: Laravel handles backend logic and database operations while React powers the interactive frontend. **Inertia.js** bridges Laravel and React seamlessly without requiring a separate REST API layer.
+
+---
+
+## My Contribution
+Designed and developed the KitabiAdda marketplace from the backend architecture to the frontend user interface. Implemented authentication, role-based access, product/catalog management, cart and order workflows, vendor functionality, rider delivery workflows, database relationships, and responsive React interfaces using Laravel and Inertia.js.
+
+---
+
+## Challenges & Solutions
+
+### Challenge 1 — Multiple User Roles
+The platform required different permissions and dashboards for customers, vendors, riders, and administrators.
+- **Solution**: Implemented role-based authentication and authorization to control access across distinct modules.
+
+### Challenge 2 — Multi-Vendor Order Management
+Orders needed to be associated with correct sellers while maintaining a centralized marketplace workflow.
+- **Solution**: Designed relational models between vendors, products, orders, and order items for seamless data integrity.
+
+### Challenge 3 — Delivery Workflow
+After a vendor processes an order, the order needs to move through the delivery process.
+- **Solution**: Implemented rider assignment and status tracking to manage the delivery lifecycle.
+
+---
+
+## Project Highlights
+- Multi-Vendor Marketplace Architecture
+- 4 Role-Based Portals (Customer · Vendor · Rider · Admin)
+- Book Catalog & Inventory Management
+- Complete Cart, Checkout & Order Lifecycle
+- Rider Delivery Assignment Workflow
+- Laravel + React + Inertia.js Architecture`,
             images: [],
-            technologies: ['Laravel', 'React', 'Inertia', 'MySQL', 'Tailwind CSS'],
+            technologies: ['Laravel', 'React.js', 'Inertia.js', 'MySQL', 'Tailwind CSS', 'JavaScript'],
             github_url: 'https://github.com/manish96-code/KitabiAdda',
             status: 'Completed',
             is_featured: true
