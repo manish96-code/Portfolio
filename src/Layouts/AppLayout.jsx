@@ -177,7 +177,7 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
             {/* Header / Navigation - Glassmorphic Header */}
             <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
                     ? 'bg-white/80 backdrop-blur-md border-b border-zinc-200/80 py-3 shadow-sm'
-                    : 'bg-transparent py-5'
+                    : 'bg-transparent py-3.5'
                 }`}>
                 <div className="max-w-[1100px] mx-auto px-6 lg:px-12 flex justify-between items-center">
 
@@ -268,7 +268,7 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
             </main>
 
             {/* Footer */}
-            <footer className="py-12 border-t border-zinc-200 mt-12 bg-zinc-50/50 relative z-10">
+            <footer className="py-6 border-t border-zinc-200 mt-6 bg-zinc-50/50 relative z-10">
                 <div className="max-w-[1100px] mx-auto px-6 lg:px-12 flex flex-col sm:flex-row items-center justify-between gap-6 font-sans">
                     <p className="text-sm text-zinc-500">
                         © {new Date().getFullYear()} {name}. All rights reserved.
