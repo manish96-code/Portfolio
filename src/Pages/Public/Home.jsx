@@ -105,13 +105,14 @@ export default function Home({ projects, skills, experiences, certificates, soci
     return (
         <AppLayout settings={settings} socialLinks={socialLinks} navigate={navigate}>
 
-            {/* HERO SECTION */}
-            <section className="relative flex items-center pt-20 pb-6 lg:pt-24 overflow-hidden">
-                <div className="w-full grid gap-8 lg:grid-cols-[1.1fr_0.9fr] items-center relative z-10">
+            {/* REDESIGNED HERO SECTION */}
+            <section className="relative pt-20 pb-8 lg:pt-24 overflow-hidden font-sans">
+                <div className="w-full grid gap-10 lg:grid-cols-[1.1fr_0.9fr] items-center relative z-10">
                     
-                    {/* Left Content */}
+                    {/* Left Column - Main Intro & CTAs */}
                     <div>
-                        <div className="mb-4 flex flex-wrap items-center gap-3">
+                        {/* Status & Location Pill */}
+                        <div className="mb-4 flex flex-wrap items-center gap-2.5">
                             <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 font-mono text-[11px] font-semibold text-emerald-700 shadow-sm">
                                 <span className="relative flex h-2 w-2">
                                     <span className="status-pulse-dot absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
@@ -119,27 +120,42 @@ export default function Home({ projects, skills, experiences, certificates, soci
                                 </span>
                                 Available for full-stack roles
                             </span>
+                            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-100 border border-zinc-200 font-mono text-[11px] font-medium text-zinc-600">
+                                📍 Jaipur, India
+                            </span>
                         </div>
 
-                        <h1 className="max-w-3xl font-display text-2xl sm:text-3xl lg:text-4xl font-extrabold leading-snug tracking-tight text-zinc-900">
-                            Building high-performance web products with{' '}
+                        {/* Main Headline */}
+                        <h1 className="max-w-3xl font-display text-3xl sm:text-4xl lg:text-[42px] font-extrabold leading-[1.25] tracking-tight text-zinc-900">
+                            Architecting modern SaaS apps & web products with{' '}
                             <span className="text-indigo-600 font-extrabold block sm:inline">
                                 Laravel & React
                             </span>
                         </h1>
 
-                        <p className="mt-3.5 max-w-lg font-sans text-xs sm:text-sm leading-relaxed text-zinc-600">
-                            I am <strong className="text-zinc-900 font-semibold">{settings?.name || 'Manish Kumar'}</strong>, a full-stack developer based in Jaipur. I specialize in shipping clean Laravel backends, interactive React interfaces, and robust database solutions that scale cleanly.
+                        {/* Bio Summary */}
+                        <p className="mt-4 max-w-xl text-xs sm:text-sm leading-relaxed text-zinc-600">
+                            I am <strong className="text-zinc-900 font-semibold">{settings?.name || 'Manish Kumar'}</strong>, a full-stack software developer. I specialize in engineering multi-tenant SaaS platforms, e-commerce marketplaces, and reactive single-page user interfaces with solid Laravel backends and MySQL databases.
                         </p>
 
-                        {/* CTA Buttons */}
-                        <div className="mt-5 flex flex-wrap gap-3 items-center">
+                        {/* Core Stack Pills */}
+                        <div className="mt-5 flex flex-wrap items-center gap-1.5">
+                            <span className="text-[11px] font-mono font-semibold text-zinc-500 mr-1">Core Stack:</span>
+                            {['Laravel', 'React', 'Inertia.js', 'MySQL', 'PHP', 'Tailwind CSS'].map((tech) => (
+                                <span key={tech} className="px-2.5 py-0.5 rounded-md bg-zinc-100 border border-zinc-200 text-zinc-700 font-mono text-[11px] font-medium">
+                                    {tech}
+                                </span>
+                            ))}
+                        </div>
+
+                        {/* Action Buttons */}
+                        <div className="mt-6 flex flex-wrap gap-3 items-center">
                             <button
                                 type="button"
                                 onClick={() => scrollToSection('projects')}
                                 className="group relative inline-flex items-center gap-2 px-5 py-2.5 text-xs sm:text-sm font-semibold rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 shadow-sm shadow-indigo-600/20 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer"
                             >
-                                <span>View Projects</span>
+                                <span>View Selected Works</span>
                                 <svg className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                                 </svg>
@@ -156,17 +172,17 @@ export default function Home({ projects, skills, experiences, certificates, soci
                             </button>
                         </div>
 
-                        {/* Interactive Metric Cards */}
-                        <div className="mt-6 grid max-w-xl grid-cols-3 gap-3">
+                        {/* Metric Highlights */}
+                        <div className="mt-8 grid max-w-xl grid-cols-3 gap-3 border-t border-zinc-200 pt-5">
                             {[
-                                { value: '2026', title: 'BCA Graduate', tag: 'Academic' },
-                                { value: '5+', title: 'Projects Built', tag: 'Shipped' },
-                                { value: 'Full Stack', title: 'Laravel & React', tag: 'Core Stack' },
+                                { value: '2026', title: 'BCA Graduate', tag: 'Purnea Univ' },
+                                { value: '5+', title: 'Shipped Builds', tag: 'Live Projects' },
+                                { value: 'Full Stack', title: 'Laravel + React', tag: 'Architecture' },
                             ].map((item) => (
-                                <div key={item.title} className="p-3 sm:p-3.5 rounded-lg border border-zinc-200 bg-white hover:border-indigo-500/40 hover:shadow-sm transition-all duration-300 group">
+                                <div key={item.title} className="p-3 rounded-lg border border-zinc-200 bg-white hover:border-indigo-500/40 shadow-xs transition-all duration-200">
                                     <div className="flex items-center justify-between">
-                                        <p className="font-display text-base font-bold text-zinc-900 sm:text-lg group-hover:text-indigo-600 transition-colors">{item.value}</p>
-                                        <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-1.5 py-0.5 rounded border border-indigo-200">{item.tag}</span>
+                                        <p className="font-display text-base font-bold text-zinc-900 sm:text-lg">{item.value}</p>
+                                        <span className="text-[9px] font-mono font-semibold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-1.5 py-0.5 rounded border border-indigo-100">{item.tag}</span>
                                     </div>
                                     <p className="mt-0.5 text-[11px] font-medium text-zinc-500">{item.title}</p>
                                 </div>
@@ -174,20 +190,20 @@ export default function Home({ projects, skills, experiences, certificates, soci
                         </div>
                     </div>
 
-                    {/* Right Interactive IDE Visual Deck */}
+                    {/* Right Column - Interactive Terminal Visual Deck */}
                     <div className="relative">
-                        <div className="glass-terminal rounded-xl relative overflow-hidden text-zinc-300 font-mono text-xs border border-zinc-800 shadow-2xl">
+                        <div className="glass-terminal rounded-2xl relative overflow-hidden text-zinc-300 font-mono text-xs border border-zinc-800 shadow-2xl bg-zinc-950">
                             
                             {/* Window Topbar */}
-                            <div className="flex items-center justify-between px-4 py-3 bg-zinc-950/70 border-b border-zinc-800/80">
+                            <div className="flex items-center justify-between px-4 py-3 bg-zinc-900/90 border-b border-zinc-800">
                                 <div className="flex items-center gap-2">
-                                    <span className="w-3 h-3 rounded-full bg-[#ff5f56] inline-block shadow-inner"></span>
-                                    <span className="w-3 h-3 rounded-full bg-[#ffbd2e] inline-block shadow-inner"></span>
-                                    <span className="w-3 h-3 rounded-full bg-[#27c93f] inline-block shadow-inner"></span>
+                                    <span className="w-3 h-3 rounded-full bg-[#ff5f56] inline-block"></span>
+                                    <span className="w-3 h-3 rounded-full bg-[#ffbd2e] inline-block"></span>
+                                    <span className="w-3 h-3 rounded-full bg-[#27c93f] inline-block"></span>
                                 </div>
 
                                 {/* File Tab Switcher */}
-                                <div className="flex items-center bg-zinc-900/80 p-0.5 rounded-lg border border-zinc-800">
+                                <div className="flex items-center bg-zinc-950 p-0.5 rounded-lg border border-zinc-800">
                                     <button
                                         type="button"
                                         onClick={() => setActiveTab('developer.js')}
@@ -197,7 +213,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
                                                 : 'text-zinc-400 hover:text-zinc-200'
                                         }`}
                                     >
-                                        <span className="text-yellow-400 font-bold">JS</span> developer.js
+                                        <span className="text-yellow-400 font-bold">JS</span> developer.config.js
                                     </button>
                                     <button
                                         type="button"
@@ -208,7 +224,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
                                                 : 'text-zinc-400 hover:text-zinc-200'
                                         }`}
                                     >
-                                        <span className="text-cyan-400 font-bold">{}</span> tech-stack.json
+                                        <span className="text-cyan-400 font-bold">{}</span> stack-matrix.json
                                     </button>
                                 </div>
 
@@ -230,11 +246,11 @@ export default function Home({ projects, skills, experiences, certificates, soci
                             </div>
 
                             {/* Active Environment Pill Bar */}
-                            <div className="px-5 py-2.5 bg-zinc-950/40 border-b border-zinc-800/40 flex flex-wrap items-center justify-between text-[11px]">
+                            <div className="px-5 py-2.5 bg-zinc-900/40 border-b border-zinc-800 flex flex-wrap items-center justify-between text-[11px]">
                                 <div className="flex items-center gap-2">
-                                    <span className="text-zinc-500 uppercase tracking-wider text-[9px] font-bold">Stack:</span>
-                                    <span className="px-2 py-0.5 rounded bg-indigo-500/10 border border-indigo-500/20 text-indigo-300">React 19</span>
-                                    <span className="px-2 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/20 text-cyan-300">Laravel 11</span>
+                                    <span className="text-zinc-500 uppercase tracking-wider text-[9px] font-bold">Runtime:</span>
+                                    <span className="px-2 py-0.5 rounded bg-indigo-500/10 border border-indigo-500/20 text-indigo-300">Laravel 11</span>
+                                    <span className="px-2 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/20 text-cyan-300">React 19</span>
                                     <span className="px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20 text-emerald-300">MySQL</span>
                                 </div>
                                 <button
@@ -263,9 +279,9 @@ export default function Home({ projects, skills, experiences, certificates, soci
                                     <div className="leading-7">
                                         <p><span className="text-pink-400">const</span> <span className="text-blue-300">developer</span> <span className="text-zinc-500">=</span> &#123;</p>
                                         <p className="pl-6">name<span className="text-zinc-500">:</span> <span className="text-emerald-300">'{settings?.name || 'Manish Kumar'}'</span>,</p>
-                                        <p className="pl-6">role<span className="text-zinc-500">:</span> <span className="text-emerald-300">'Full Stack Developer'</span>,</p>
-                                        <p className="pl-6">location<span className="text-zinc-500">:</span> <span className="text-emerald-300">'Jaipur, India'</span>,</p>
-                                        <p className="pl-6">coreSkills<span className="text-zinc-500">:</span> [<span className="text-cyan-300">'Laravel'</span>, <span className="text-cyan-300">'React'</span>, <span className="text-cyan-300">'PHP'</span>, <span className="text-cyan-300">'MySQL'</span>],</p>
+                                        <p className="pl-6">title<span className="text-zinc-500">:</span> <span className="text-emerald-300">'Full Stack Web Developer'</span>,</p>
+                                        <p className="pl-6">location<span className="text-zinc-500">:</span> <span className="text-emerald-300">'Jaipur, Rajasthan, India'</span>,</p>
+                                        <p className="pl-6">featuredApps<span className="text-zinc-500">:</span> [<span className="text-cyan-300">'GymMitra SaaS'</span>, <span className="text-cyan-300">'KitabiAdda'</span>, <span className="text-cyan-300">'LinkUp'</span>],</p>
                                         <p className="pl-6">openForRoles<span className="text-zinc-500">:</span> <span className="text-amber-400">true</span></p>
                                         <p>&#125;;</p>
                                         <p className="mt-3 text-zinc-500">// Engineering clean web applications</p>
@@ -276,7 +292,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
                                         <p>&#123;</p>
                                         <p className="pl-6"><span className="text-cyan-300">"developer"</span>: <span className="text-emerald-300">"{settings?.name || 'Manish Kumar'}"</span>,</p>
                                         <p className="pl-6"><span className="text-cyan-300">"degree"</span>: <span className="text-emerald-300">"BCA (Purnea University)"</span>,</p>
-                                        <p className="pl-6"><span className="text-cyan-300">"frontend"</span>: [<span className="text-amber-300">"React 19"</span>, <span className="text-amber-300">"Tailwind CSS"</span>, <span className="text-amber-300">"JavaScript"</span>],</p>
+                                        <p className="pl-6"><span className="text-cyan-300">"frontend"</span>: [<span className="text-amber-300">"React 19"</span>, <span className="text-amber-300">"Tailwind CSS"</span>, <span className="text-amber-300">"Inertia.js"</span>],</p>
                                         <p className="pl-6"><span className="text-cyan-300">"backend"</span>: [<span className="text-amber-300">"Laravel 11"</span>, <span className="text-amber-300">"PHP"</span>, <span className="text-amber-300">"REST APIs"</span>],</p>
                                         <p className="pl-6"><span className="text-cyan-300">"database"</span>: [<span className="text-amber-300">"MySQL"</span>, <span className="text-amber-300">"Eloquent ORM"</span>]</p>
                                         <p>&#125;</p>
@@ -286,7 +302,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
 
                             {/* Live Output Console Drawer */}
                             {terminalOutput && (
-                                <div className="border-t border-zinc-800 bg-zinc-950/90 p-4 font-mono text-[11px] space-y-1 animate-fadeIn">
+                                <div className="border-t border-zinc-800 bg-zinc-950 p-4 font-mono text-[11px] space-y-1 animate-fadeIn">
                                     <div className="flex items-center justify-between text-zinc-500 mb-1 border-b border-zinc-800/60 pb-1">
                                         <span className="uppercase text-[9px] font-bold tracking-wider text-emerald-400 flex items-center gap-1.5">
                                             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block animate-ping"></span>
@@ -329,7 +345,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
                             <a href="https://comestro.com" target="_blank" rel="noreferrer" className="text-indigo-600 hover:text-indigo-500 transition-colors font-semibold underline decoration-indigo-500/30 decoration-2 underline-offset-4">
                                 Comestro Techlabs Pvt Ltd
                             </a>
-                            , I focus on engineering e-commerce bookstore platforms, social networks, and campus systems using Laravel, React, Inertia, Tailwind CSS, and MySQL database engines.
+                            , I focus on engineering multi-tenant SaaS applications, e-commerce bookstore platforms, social networks, and campus systems using Laravel, React, Inertia, Tailwind CSS, and MySQL database engines, while actively building and learning advanced SaaS software architecture.
                         </p>
                     </div>
 
