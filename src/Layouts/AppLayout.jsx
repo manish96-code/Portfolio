@@ -181,7 +181,7 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                 }`}>
                 <div className="max-w-[1100px] mx-auto px-6 lg:px-12 flex justify-between items-center">
 
-                    {/* Minimal Monogram Logo */}
+                    {/* Developer Code Brand Logo */}
                     <a
                         href="/"
                         onClick={(e) => {
@@ -194,24 +194,37 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                                 window.location.href = '/';
                             }
                         }}
-                        className="font-display text-zinc-900 text-lg font-black tracking-wider border border-zinc-200 px-3.5 py-1 rounded-lg bg-white/80 shadow-sm hover:border-indigo-500/50 hover:shadow-indigo-500/10 transition-all duration-300 inline-block"
+                        className="font-mono text-xs font-bold tracking-tight border border-zinc-200 px-3 py-1 rounded-lg bg-white shadow-xs hover:border-indigo-500/50 hover:bg-indigo-50/30 transition-all duration-200 inline-flex items-center gap-1.5"
                     >
-                        <span className="bg-gradient-to-r from-indigo-600 to-cyan-600 bg-clip-text text-transparent">MK</span>
+                        <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span>
+                        <span className="text-indigo-600 font-extrabold">&lt;</span>
+                        <span className="text-zinc-900 font-bold">manish.dev</span>
+                        <span className="text-indigo-600 font-extrabold">/&gt;</span>
                     </a>
 
-                    {/* Desktop Nav */}
-                    <nav className="hidden md:flex items-center gap-1">
-                        {navItems.map((item, idx) => (
-                            <a
-                                key={idx}
-                                href={item.href}
-                                onClick={(e) => handleNavClick(e, item.href)}
-                                className="px-3.5 py-1.5 text-sm font-medium text-zinc-600 hover:text-indigo-600 transition-colors duration-300 font-sans"
-                            >
-                                {item.label}
-                            </a>
-                        ))}
-                    </nav>
+                    {/* Desktop Nav & System Status */}
+                    <div className="hidden md:flex items-center gap-4">
+                        <nav className="flex items-center gap-1">
+                            {navItems.map((item, idx) => (
+                                <a
+                                    key={idx}
+                                    href={item.href}
+                                    onClick={(e) => handleNavClick(e, item.href)}
+                                    className="px-3 py-1.5 text-xs font-semibold text-zinc-600 hover:text-indigo-600 hover:bg-zinc-100 rounded-md transition-colors duration-200 font-sans"
+                                >
+                                    {item.label}
+                                </a>
+                            ))}
+                        </nav>
+
+                        {/* Tech Environment Status Pill */}
+                        <div className="hidden lg:flex items-center gap-2 px-2.5 py-1 rounded-md bg-zinc-100 border border-zinc-200 font-mono text-[11px]">
+                            <span className="text-emerald-600 font-bold">git:</span>
+                            <span className="text-zinc-700">main</span>
+                            <span className="text-zinc-300">•</span>
+                            <span className="text-indigo-600 font-semibold">Laravel + React</span>
+                        </div>
+                    </div>
 
                     {/* Mobile Hamburger */}
                     <button

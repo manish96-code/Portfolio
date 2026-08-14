@@ -113,15 +113,15 @@ export default function Home({ projects, skills, experiences, certificates, soci
                     <div>
                         {/* Status & Location Pill */}
                         <div className="mb-4 flex flex-wrap items-center gap-2.5">
-                            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 font-mono text-[11px] font-semibold text-emerald-700 shadow-sm">
+                            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 font-mono text-[11px] font-semibold text-emerald-700 shadow-xs">
                                 <span className="relative flex h-2 w-2">
                                     <span className="status-pulse-dot absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
                                     <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-600"></span>
                                 </span>
                                 Available for full-stack roles
                             </span>
-                            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-100 border border-zinc-200 font-mono text-[11px] font-medium text-zinc-600">
-                                📍 Jaipur, India
+                            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-zinc-100 border border-zinc-200 font-mono text-[11px] font-semibold text-zinc-700">
+                                <span className="text-indigo-600">$</span> php artisan serve --port=8000
                             </span>
                         </div>
 
@@ -135,14 +135,14 @@ export default function Home({ projects, skills, experiences, certificates, soci
 
                         {/* Bio Summary */}
                         <p className="mt-4 max-w-xl text-xs sm:text-sm leading-relaxed text-zinc-600">
-                            I am <strong className="text-zinc-900 font-semibold">{settings?.name || 'Manish Kumar'}</strong>, a full-stack software developer. I specialize in engineering multi-tenant SaaS platforms, e-commerce marketplaces, and reactive single-page user interfaces with solid Laravel backends and MySQL databases.
+                            I am <strong className="text-zinc-900 font-semibold">{settings?.name || 'Manish Kumar'}</strong>, a full-stack software engineer. I specialize in building multi-tenant SaaS platforms, e-commerce marketplaces, and reactive single-page user interfaces with robust Laravel backends and MySQL database engines.
                         </p>
 
                         {/* Core Stack Pills */}
-                        <div className="mt-5 flex flex-wrap items-center gap-1.5">
-                            <span className="text-[11px] font-mono font-semibold text-zinc-500 mr-1">Core Stack:</span>
-                            {['Laravel', 'React', 'Inertia.js', 'MySQL', 'PHP', 'Tailwind CSS'].map((tech) => (
-                                <span key={tech} className="px-2.5 py-0.5 rounded-md bg-zinc-100 border border-zinc-200 text-zinc-700 font-mono text-[11px] font-medium">
+                        <div className="mt-5 flex flex-wrap items-center gap-1.5 font-mono text-[11px]">
+                            <span className="font-semibold text-zinc-500 mr-1">// Core Stack:</span>
+                            {['Laravel 11', 'React 19', 'Inertia.js', 'MySQL', 'PHP 8.3', 'Tailwind CSS'].map((tech) => (
+                                <span key={tech} className="px-2.5 py-0.5 rounded-md bg-zinc-100 border border-zinc-200 text-zinc-800 font-semibold">
                                     {tech}
                                 </span>
                             ))}
@@ -155,7 +155,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
                                 onClick={() => scrollToSection('projects')}
                                 className="group relative inline-flex items-center gap-2 px-5 py-2.5 text-xs sm:text-sm font-semibold rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 shadow-sm shadow-indigo-600/20 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer"
                             >
-                                <span>View Selected Works</span>
+                                <span>View Repositories</span>
                                 <svg className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                                 </svg>
@@ -163,20 +163,17 @@ export default function Home({ projects, skills, experiences, certificates, soci
                             <button
                                 type="button"
                                 onClick={() => scrollToSection('contact')}
-                                className="inline-flex items-center gap-2 px-5 py-2.5 text-xs sm:text-sm font-semibold rounded-lg text-zinc-800 bg-white border border-zinc-300 hover:border-zinc-400 hover:bg-zinc-50 shadow-sm hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer"
+                                className="inline-flex items-center gap-2 px-5 py-2.5 text-xs sm:text-sm font-semibold rounded-lg text-zinc-800 bg-white border border-zinc-300 hover:border-zinc-400 hover:bg-zinc-50 shadow-sm hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer font-mono"
                             >
-                                <span>Contact Me</span>
-                                <svg className="w-3.5 h-3.5 text-zinc-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                </svg>
+                                <span>$ contact --email</span>
                             </button>
                         </div>
 
                         {/* Metric Highlights */}
                         <div className="mt-8 grid max-w-xl grid-cols-3 gap-3 border-t border-zinc-200 pt-5">
                             {[
-                                { value: '2026', title: 'BCA Graduate', tag: 'Purnea Univ' },
-                                { value: '5+', title: 'Shipped Builds', tag: 'Live Projects' },
+                                { value: '2026', title: 'BCA Graduate', tag: 'Academic' },
+                                { value: '5+', title: 'Shipped Builds', tag: 'Repositories' },
                                 { value: 'Full Stack', title: 'Laravel + React', tag: 'Architecture' },
                             ].map((item) => (
                                 <div key={item.title} className="p-3 rounded-lg border border-zinc-200 bg-white hover:border-indigo-500/40 shadow-xs transition-all duration-200">
@@ -279,7 +276,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
                                     <div className="leading-7">
                                         <p><span className="text-pink-400">const</span> <span className="text-blue-300">developer</span> <span className="text-zinc-500">=</span> &#123;</p>
                                         <p className="pl-6">name<span className="text-zinc-500">:</span> <span className="text-emerald-300">'{settings?.name || 'Manish Kumar'}'</span>,</p>
-                                        <p className="pl-6">title<span className="text-zinc-500">:</span> <span className="text-emerald-300">'Full Stack Web Developer'</span>,</p>
+                                        <p className="pl-6">title<span className="text-zinc-500">:</span> <span className="text-emerald-300">'Full Stack Software Engineer'</span>,</p>
                                         <p className="pl-6">location<span className="text-zinc-500">:</span> <span className="text-emerald-300">'Jaipur, Rajasthan, India'</span>,</p>
                                         <p className="pl-6">featuredApps<span className="text-zinc-500">:</span> [<span className="text-cyan-300">'GymMitra SaaS'</span>, <span className="text-cyan-300">'KitabiAdda'</span>, <span className="text-cyan-300">'LinkUp'</span>],</p>
                                         <p className="pl-6">openForRoles<span className="text-zinc-500">:</span> <span className="text-amber-400">true</span></p>
@@ -330,7 +327,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
             {/* ABOUT SECTION */}
             <section id="about" className="fade-section py-6 md:py-8 border-t border-zinc-200">
                 <SectionHeader
-                    eyebrow="About"
+                    eyebrow="// 01. ABOUT THE ENGINEER"
                     title="Practical engineering with product sense."
                     copy="I like web apps that feel calm on the surface and solid underneath: clear database relationships, predictable APIs, and interfaces that are pleasant to navigate."
                 />
@@ -365,7 +362,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
             {/* EXPERIENCE SECTION */}
             <section id="experience" className="fade-section py-6 md:py-8 border-t border-zinc-200">
                 <SectionHeader
-                    eyebrow="Experience"
+                    eyebrow="// 02. WORK EXPERIENCE & CONTRIBUTIONS"
                     title="Work History"
                     copy="Internship experience building production-level features, database optimizations, and integrating client side frameworks with Laravel backends."
                 />
@@ -394,7 +391,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
             {/* PROJECTS SECTION */}
             <section id="projects" className="fade-section py-6 md:py-8 border-t border-zinc-200">
                 <SectionHeader
-                    eyebrow="Projects"
+                    eyebrow="// 03. FEATURED CODE REPOSITORIES"
                     title="Selected Works"
                     copy="A curated selection of social, marketplace, educational, and utility projects, built primarily with React and Laravel."
                 />
@@ -496,7 +493,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
             {/* SKILLS SECTION */}
             <section id="skills" className="fade-section py-6 md:py-8 border-t border-zinc-200">
                 <SectionHeader
-                    eyebrow="Skills"
+                    eyebrow="// 04. TECHNICAL STACK & TOOLING"
                     title="Technical Stack"
                     copy="Languages, database engines, backend structures, and frontend frameworks."
                 />
@@ -522,7 +519,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
             {/* CREDENTIALS SECTION */}
             {certificates?.length > 0 && (
                 <section className="fade-section py-6 md:py-8 border-t border-zinc-200">
-                    <SectionHeader eyebrow="Credentials" title="Certifications" />
+                    <SectionHeader eyebrow="// 05. CERTIFICATIONS & LEARNING" title="Certifications" />
                     <div className="grid gap-4 md:grid-cols-2">
                         {certificates.map((certificate) => (
                             <a
@@ -546,7 +543,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
             {/* CONTACT SECTION */}
             <section id="contact" className="fade-section py-8 md:py-10 border-t border-zinc-200 text-center max-w-xl mx-auto font-sans relative">
                 <span className="inline-block px-3 py-1 font-mono text-[11px] font-semibold tracking-wider text-indigo-600 bg-indigo-50 border border-indigo-200 rounded-full mb-4">
-                    Contact
+                    // 06. CONTACT & CONNECT
                 </span>
                 <h2 className="font-display text-2xl md:text-3xl font-bold tracking-tight text-zinc-900 leading-snug">
                     Let us build something useful.
