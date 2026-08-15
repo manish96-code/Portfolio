@@ -105,13 +105,13 @@ export default function Home({ projects, skills, experiences, certificates, soci
     return (
         <AppLayout settings={settings} socialLinks={socialLinks} navigate={navigate}>
 
-            {/* REDESIGNED HERO SECTION */}
-            <section className="relative pt-20 pb-8 lg:pt-24 overflow-hidden font-sans">
+            {/* HERO SECTION */}
+            <section className="relative pt-16 pb-8 lg:pt-20 overflow-hidden font-sans">
                 <div className="w-full grid gap-10 lg:grid-cols-[1.1fr_0.9fr] items-center relative z-10">
                     
                     {/* Left Column - Main Intro & CTAs */}
                     <div>
-                        {/* Status & Location Pill */}
+                        {/* Status & Terminal Badge */}
                         <div className="mb-4 flex flex-wrap items-center gap-2.5">
                             <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 font-mono text-[11px] font-semibold text-emerald-700 shadow-xs">
                                 <span className="relative flex h-2 w-2">
@@ -120,22 +120,22 @@ export default function Home({ projects, skills, experiences, certificates, soci
                                 </span>
                                 Available for full-stack roles
                             </span>
-                            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-zinc-100 border border-zinc-200 font-mono text-[11px] font-semibold text-zinc-700">
-                                <span className="text-indigo-600">$</span> php artisan serve --port=8000
+                            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-100 border border-zinc-200 font-mono text-[11px] font-semibold text-zinc-700">
+                                <span className="text-indigo-600 font-bold">$</span> php artisan serve
                             </span>
                         </div>
 
                         {/* Main Headline */}
                         <h1 className="max-w-3xl font-display text-3xl sm:text-4xl lg:text-[42px] font-extrabold leading-[1.25] tracking-tight text-zinc-900">
-                            Architecting modern SaaS apps & web products with{' '}
+                            Full-Stack Software Engineer building scalable{' '}
                             <span className="text-indigo-600 font-extrabold block sm:inline">
-                                Laravel & React
+                                SaaS Apps & Web Products
                             </span>
                         </h1>
 
                         {/* Bio Summary */}
                         <p className="mt-4 max-w-xl text-xs sm:text-sm leading-relaxed text-zinc-600">
-                            I am <strong className="text-zinc-900 font-semibold">{settings?.name || 'Manish Kumar'}</strong>, a full-stack software engineer. I specialize in building multi-tenant SaaS platforms, e-commerce marketplaces, and reactive single-page user interfaces with robust Laravel backends and MySQL database engines.
+                            I am <strong className="text-zinc-900 font-semibold">{settings?.name || 'Manish Kumar'}</strong>, a full-stack software engineer based in Jaipur. I specialize in building multi-tenant SaaS platforms (GymMitra), e-commerce marketplaces (KitabiAdda), and reactive single-page user interfaces with solid Laravel backends and MySQL database engines.
                         </p>
 
                         {/* Core Stack Pills */}
@@ -155,7 +155,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
                                 onClick={() => scrollToSection('projects')}
                                 className="group relative inline-flex items-center gap-2 px-5 py-2.5 text-xs sm:text-sm font-semibold rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 shadow-sm shadow-indigo-600/20 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer"
                             >
-                                <span>View Repositories</span>
+                                <span>View Selected Works</span>
                                 <svg className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                                 </svg>
@@ -163,7 +163,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
                             <button
                                 type="button"
                                 onClick={() => scrollToSection('contact')}
-                                className="inline-flex items-center gap-2 px-5 py-2.5 text-xs sm:text-sm font-semibold rounded-lg text-zinc-800 bg-white border border-zinc-300 hover:border-zinc-400 hover:bg-zinc-50 shadow-sm hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer font-mono"
+                                className="inline-flex items-center gap-2 px-5 py-2.5 text-xs sm:text-sm font-semibold rounded-lg text-zinc-800 bg-white border border-zinc-300 hover:border-zinc-400 hover:bg-zinc-50 shadow-sm hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer font-mono text-xs"
                             >
                                 <span>$ contact --email</span>
                             </button>
@@ -236,7 +236,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
                                         <span className="text-[10px] text-emerald-400 font-sans font-medium">Copied!</span>
                                     ) : (
                                         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 002 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
                                         </svg>
                                     )}
                                 </button>
@@ -324,6 +324,31 @@ export default function Home({ projects, skills, experiences, certificates, soci
                 </div>
             </section>
 
+            {/* FEATURED SAAS SPOTLIGHT BANNER */}
+            <div className="my-6 p-4 rounded-xl border border-indigo-200 bg-indigo-50/50 flex flex-col sm:flex-row items-center justify-between gap-4 font-sans shadow-xs">
+                <div className="flex items-center gap-3">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-indigo-600 text-white font-mono text-xs font-bold shadow-sm">
+                        SaaS
+                    </span>
+                    <div>
+                        <div className="flex items-center gap-2">
+                            <span className="font-bold text-zinc-900 text-sm">GymMitra SaaS Platform</span>
+                            <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-100 text-emerald-700 border border-emerald-200">LIVE</span>
+                        </div>
+                        <p className="text-xs text-zinc-600 mt-0.5">Multi-tenant Gym Management software with QR attendance, locker allocation & billing.</p>
+                    </div>
+                </div>
+                <a
+                    href="https://manish.echovel.com"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="px-4 py-2 text-xs font-semibold font-mono rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition-all flex items-center gap-1.5 whitespace-nowrap cursor-pointer shadow-sm"
+                >
+                    <span>Visit GymMitra</span>
+                    <IconExternal />
+                </a>
+            </div>
+
             {/* ABOUT SECTION */}
             <section id="about" className="fade-section py-6 md:py-8 border-t border-zinc-200">
                 <SectionHeader
@@ -346,14 +371,20 @@ export default function Home({ projects, skills, experiences, certificates, soci
                         </p>
                     </div>
 
-                    <div className="border border-zinc-200 bg-white p-5 shadow-sm rounded-xl hover:border-zinc-300 transition-all duration-300">
-                        <p className="font-mono text-xs font-bold uppercase tracking-wider text-zinc-500 border-b border-zinc-200 pb-2.5">Core Stack Focus</p>
-                        <div className="mt-4 flex flex-wrap gap-2">
-                            {(primarySkills.length ? primarySkills : ['Laravel', 'React', 'PHP', 'MySQL', 'Tailwind CSS', 'Git']).map((tech) => (
-                                <span key={tech} className="border border-zinc-200 bg-zinc-50 rounded-lg px-2.5 py-1 text-xs font-semibold text-zinc-650 hover:border-indigo-500/30 hover:text-indigo-650 hover:bg-indigo-50/50 transition-all duration-200">
-                                    {tech}
-                                </span>
-                            ))}
+                    {/* Developer Class Definition Card */}
+                    <div className="border border-zinc-800 bg-zinc-950 p-5 shadow-xl rounded-xl font-mono text-xs text-zinc-300">
+                        <div className="flex items-center justify-between border-b border-zinc-800 pb-3 mb-3 text-[11px] text-zinc-500">
+                            <span>App/Engineer/ManishKumar.php</span>
+                            <span className="text-indigo-400 font-bold">PHP 8.3</span>
+                        </div>
+                        <div className="leading-6">
+                            <p><span className="text-pink-400">namespace</span> App\Engineer;</p>
+                            <p className="mt-2"><span className="text-blue-400">class</span> <span className="text-yellow-300">ManishKumar</span> &#123;</p>
+                            <p className="pl-4"><span className="text-indigo-300">public string</span> <span className="text-zinc-400">$role</span> = <span className="text-emerald-300">'Full-Stack Engineer'</span>;</p>
+                            <p className="pl-4"><span className="text-indigo-300">public string</span> <span className="text-zinc-400">$location</span> = <span className="text-emerald-300">'Jaipur, India'</span>;</p>
+                            <p className="pl-4"><span className="text-indigo-300">public array</span> <span className="text-zinc-400">$stack</span> = [<span className="text-cyan-300">'Laravel'</span>, <span className="text-cyan-300">'React'</span>, <span className="text-cyan-300">'MySQL'</span>];</p>
+                            <p className="pl-4"><span className="text-indigo-300">public bool</span> <span className="text-zinc-400">$available</span> = <span className="text-amber-400">true</span>;</p>
+                            <p>&#125;</p>
                         </div>
                     </div>
                 </div>
@@ -370,7 +401,11 @@ export default function Home({ projects, skills, experiences, certificates, soci
                 <div className="border border-zinc-200 bg-white p-5 md:p-6 shadow-sm rounded-xl hover:border-zinc-300 transition-all duration-300 font-sans">
                     <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between border-b border-zinc-200 pb-4">
                         <div>
-                            <p className="font-display text-xl font-bold text-zinc-900">{activeExperience?.designation || 'Laravel Developer'}</p>
+                            <div className="flex items-center gap-2">
+                                <span className="font-mono text-xs text-indigo-600 font-bold">commit #comestro-2024</span>
+                                <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-indigo-50 text-indigo-700 border border-indigo-100">MAIN</span>
+                            </div>
+                            <p className="font-display text-xl font-bold text-zinc-900 mt-1">{activeExperience?.designation || 'Laravel Developer'}</p>
                             <p className="mt-0.5 text-xs sm:text-sm font-semibold text-indigo-600">@ {activeExperience?.company || settings?.current_company}</p>
                         </div>
                         <p className="font-mono text-[11px] font-semibold text-zinc-550 border border-zinc-200 bg-zinc-50 px-2.5 py-0.5 rounded-full">
@@ -412,16 +447,21 @@ export default function Home({ projects, skills, experiences, certificates, soci
 
                             <div className="flex flex-col justify-between font-sans">
                                 <div>
-                                    {project.is_featured ? (
-                                        <span className="inline-block border border-indigo-200 bg-indigo-50 text-indigo-600 px-2.5 py-0.5 text-[10px] font-semibold font-mono rounded-full">
-                                            FEATURED BUILD 🚀
+                                    <div className="flex items-center justify-between mb-2">
+                                        <span className="font-mono text-[11px] text-zinc-500 font-semibold">
+                                            manish96-code / <strong className="text-zinc-900">{project.slug}</strong>
                                         </span>
-                                    ) : (
-                                        <span className="inline-block border border-cyan-200 bg-cyan-50 text-cyan-700 px-2.5 py-0.5 text-[10px] font-semibold font-mono rounded-full">
-                                            PROJECT BUILD 🚀
-                                        </span>
-                                    )}
-                                    <h3 className="mt-2.5 font-display text-xl font-bold text-zinc-900">
+                                        {project.is_featured ? (
+                                            <span className="inline-block border border-indigo-200 bg-indigo-50 text-indigo-600 px-2.5 py-0.5 text-[10px] font-semibold font-mono rounded-full">
+                                                FEATURED BUILD 🚀
+                                            </span>
+                                        ) : (
+                                            <span className="inline-block border border-cyan-200 bg-cyan-50 text-cyan-700 px-2.5 py-0.5 text-[10px] font-semibold font-mono rounded-full">
+                                                PROJECT BUILD 🚀
+                                            </span>
+                                        )}
+                                    </div>
+                                    <h3 className="font-display text-xl font-bold text-zinc-900">
                                         <a
                                             href={`/project/${project.slug}`}
                                             onClick={(e) => {
@@ -433,13 +473,13 @@ export default function Home({ projects, skills, experiences, certificates, soci
                                             {project.title}
                                         </a>
                                     </h3>
-                                    <p className="mt-2.5 text-xs sm:text-sm leading-relaxed text-zinc-600 pr-2">{project.description}</p>
+                                    <p className="mt-2 text-xs sm:text-sm leading-relaxed text-zinc-600 pr-2">{project.description}</p>
                                 </div>
 
                                 <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between border-t border-zinc-200 pt-4">
                                     <div className="flex flex-wrap gap-1.5">
                                         {project.technologies?.map((tech) => (
-                                            <span key={tech} className="font-mono text-[10px] font-medium text-zinc-550 border border-zinc-200 bg-zinc-50 px-2 py-0.5 rounded">
+                                            <span key={tech} className="font-mono text-[10px] font-semibold text-zinc-600 border border-zinc-200 bg-zinc-50 px-2 py-0.5 rounded">
                                                 {tech}
                                             </span>
                                         ))}
@@ -501,9 +541,12 @@ export default function Home({ projects, skills, experiences, certificates, soci
                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                     {skillCategories.map((category) => (
                         <div key={category} className="border border-zinc-200 bg-white p-5 shadow-sm rounded-xl hover:border-zinc-300 transition-all duration-300">
-                            <h3 className="font-display text-base font-bold text-zinc-900 mb-3 border-b border-zinc-200 pb-2">
-                                {category}
-                            </h3>
+                            <div className="flex items-center justify-between border-b border-zinc-200 pb-2 mb-3">
+                                <h3 className="font-display text-base font-bold text-zinc-900">
+                                    {category}
+                                </h3>
+                                <span className="font-mono text-[10px] text-zinc-400">config.json</span>
+                            </div>
                             <div className="flex flex-wrap gap-1.5">
                                 {skills[category].map((skill) => (
                                     <span key={skill.name} className="border border-zinc-200 bg-zinc-50 px-2.5 py-1 text-xs font-semibold text-zinc-650 hover:border-indigo-500/20 hover:text-indigo-650 transition-all duration-200 rounded-lg font-sans">
@@ -549,10 +592,10 @@ export default function Home({ projects, skills, experiences, certificates, soci
                     Let us build something useful.
                 </h2>
                 <p className="mt-3 text-xs sm:text-sm leading-relaxed text-zinc-600">
-                    I am currently open to full stack roles, collaborations, and projects. Feel free to reach out and I will reply as soon as possible.
+                    I am currently open to full stack software engineering roles, SaaS collaborations, and projects. Feel free to reach out and I will reply as soon as possible.
                 </p>
-                <a href={`mailto:${settings?.email}`} className="btn-hand-primary mt-8 inline-block text-sm px-6 py-3.5 font-bold shadow-lg">
-                    Email me: {settings?.email}
+                <a href={`mailto:${settings?.email}`} className="btn-hand-primary mt-8 inline-block text-sm px-6 py-3.5 font-bold shadow-lg font-mono">
+                    $ sendmail --to={settings?.email}
                 </a>
             </section>
         </AppLayout>
