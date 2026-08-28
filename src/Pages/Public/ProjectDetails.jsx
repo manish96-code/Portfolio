@@ -113,7 +113,7 @@ export default function ProjectDetails({ project, socialLinks, settings, navigat
 
     return (
         <AppLayout settings={settings} socialLinks={socialLinks} navigate={navigate}>
-            <div className="pt-28 pb-20 font-sans max-w-6xl mx-auto">
+            <div className="pt-20 sm:pt-28 pb-12 sm:pb-20 font-sans max-w-6xl mx-auto px-1 sm:px-0">
 
                 {/* Back button */}
                 <a

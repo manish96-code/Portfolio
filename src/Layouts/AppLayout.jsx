@@ -175,11 +175,10 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
             </div>
 
             {/* Header / Navigation - Glassmorphic Header */}
-            <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
-                    ? 'bg-white/80 backdrop-blur-md border-b border-zinc-200/80 py-3 shadow-sm'
-                    : 'bg-transparent py-3.5'
-                }`}>
-                <div className="max-w-[1100px] mx-auto px-6 lg:px-12 flex justify-between items-center">
+            <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white/95 backdrop-blur-md border-b border-zinc-200/80 ${
+                scrolled ? 'py-2.5 shadow-xs' : 'py-3'
+            }`}>
+                <div className="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-12 flex justify-between items-center">
 
                     {/* Developer Code Brand Logo */}
                     <a
@@ -194,7 +193,7 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                                 window.location.href = '/';
                             }
                         }}
-                        className="font-mono text-xs font-bold tracking-tight border border-zinc-200 px-3 py-1 rounded-lg bg-white shadow-xs hover:border-indigo-500/50 hover:bg-indigo-50/30 transition-all duration-200 inline-flex items-center gap-1.5"
+                        className="font-mono text-xs font-bold tracking-tight border border-zinc-200 px-2.5 sm:px-3 py-1 rounded-lg bg-white shadow-xs hover:border-indigo-500/50 hover:bg-indigo-50/30 transition-all duration-200 inline-flex items-center gap-1.5"
                     >
                         <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span>
                         <span className="text-indigo-600 font-extrabold">&lt;</span>
@@ -226,13 +225,13 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                         </div>
                     </div>
 
-                    {/* Mobile Hamburger */}
+                    {/* Mobile Hamburger Button */}
                     <button
-                        className="md:hidden text-zinc-600 p-2 border border-zinc-200 bg-white/80 backdrop-blur-sm rounded-lg shadow-sm"
+                        className="md:hidden text-zinc-700 p-2 border border-zinc-200 bg-white/90 backdrop-blur-sm rounded-lg shadow-xs hover:bg-zinc-50 active:scale-95 transition-all"
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                         aria-label="Toggle menu"
                     >
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
                             {mobileMenuOpen ? (
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                             ) : (
@@ -242,55 +241,84 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                     </button>
                 </div>
 
-                {/* Mobile Menu Overlay */}
+                {/* Mobile Menu Overlay Drawer */}
                 {mobileMenuOpen && (
-                    <div className="md:hidden fixed inset-0 bg-white/95 backdrop-blur-lg z-40 flex flex-col items-center justify-center gap-8 p-8 transition-all duration-300">
-                        <button
-                            className="absolute top-6 right-6 text-zinc-500 p-2 border border-zinc-200 bg-white/80 rounded-lg shadow-sm"
-                            onClick={() => setMobileMenuOpen(false)}
-                        >
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                        </button>
-
-                        <div className="text-center font-display text-2xl font-bold mb-4 border-b border-zinc-200 pb-2 px-6 text-indigo-600">
-                            Navigation
+                    <div className="md:hidden fixed inset-0 bg-zinc-950/95 backdrop-blur-xl z-50 flex flex-col justify-between p-6 text-white transition-all duration-300 animate-fadeIn">
+                        {/* Drawer Header */}
+                        <div className="flex items-center justify-between border-b border-zinc-800 pb-4">
+                            <div className="font-mono text-xs font-bold tracking-tight inline-flex items-center gap-1.5">
+                                <span className="w-2 h-2 rounded-full bg-emerald-400 inline-block animate-ping"></span>
+                                <span className="text-indigo-400 font-extrabold">&lt;</span>
+                                <span className="text-white font-bold">manish.dev</span>
+                                <span className="text-indigo-400 font-extrabold">/&gt;</span>
+                            </div>
+                            <button
+                                className="text-zinc-400 p-2 border border-zinc-800 bg-zinc-900 rounded-lg shadow-sm hover:text-white"
+                                onClick={() => setMobileMenuOpen(false)}
+                            >
+                                <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
                         </div>
 
-                        {navItems.map((item, idx) => (
-                            <a
-                                key={idx}
-                                href={item.href}
-                                onClick={(e) => {
-                                    setMobileMenuOpen(false);
-                                    handleNavClick(e, item.href);
-                                }}
-                                className="text-zinc-800 text-xl font-medium hover:text-indigo-600 transition-colors duration-300"
-                            >
-                                {item.label}
-                            </a>
-                        ))}
+                        {/* Navigation Links */}
+                        <div className="flex flex-col gap-4 font-sans text-center my-auto py-6">
+                            {navItems.map((item, idx) => (
+                                <a
+                                    key={idx}
+                                    href={item.href}
+                                    onClick={(e) => {
+                                        setMobileMenuOpen(false);
+                                        handleNavClick(e, item.href);
+                                    }}
+                                    className="text-zinc-200 text-xl font-bold hover:text-indigo-400 py-2 border-b border-zinc-900 transition-colors"
+                                >
+                                    {item.label}
+                                </a>
+                            ))}
+                        </div>
+
+                        {/* Mobile Social Links & Footer Status */}
+                        <div className="border-t border-zinc-800 pt-5 space-y-4 text-center">
+                            <div className="flex items-center justify-center gap-3">
+                                {socialLinks && socialLinks.map((link, idx) => (
+                                    <a
+                                        key={idx}
+                                        href={link.url}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className="flex items-center justify-center w-9 h-9 border border-zinc-800 bg-zinc-900 rounded-full text-zinc-400 hover:text-indigo-400 hover:border-indigo-500/50 transition-all"
+                                        title={link.platform}
+                                    >
+                                        {renderIcon(link.icon || link.platform)}
+                                    </a>
+                                ))}
+                            </div>
+                            <p className="font-mono text-[11px] text-zinc-500">
+                                $ status: 200 OK • Full Stack Software Engineer
+                            </p>
+                        </div>
                     </div>
                 )}
             </header>
 
             {/* Main Content */}
-            <main className="max-w-[1100px] mx-auto px-6 lg:px-12 relative z-10">
+            <main className="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
                 {children}
             </main>
 
             {/* Footer */}
             <footer className="py-6 border-t border-zinc-200 mt-6 bg-zinc-50/50 relative z-10">
-                <div className="max-w-[1100px] mx-auto px-6 lg:px-12 flex flex-col sm:flex-row items-center justify-between gap-6 font-sans">
-                    <p className="text-sm text-zinc-500">
+                <div className="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-12 flex flex-col sm:flex-row items-center justify-between gap-4 font-sans text-center sm:text-left">
+                    <p className="text-xs sm:text-sm text-zinc-500">
                         © {new Date().getFullYear()} {name}. All rights reserved.
                     </p>
                     <a
                         href="https://github.com/manish96-code"
                         target="_blank"
                         rel="noreferrer"
-                        className="text-xs font-semibold text-zinc-500 hover:text-indigo-600 transition-colors duration-300 border border-zinc-200 bg-white/50 px-4 py-2 rounded-lg"
+                        className="text-xs font-mono font-semibold text-zinc-600 hover:text-indigo-600 transition-colors duration-300 border border-zinc-200 bg-white px-3.5 py-1.5 rounded-lg shadow-xs"
                     >
                         Built by {name}
                     </a>

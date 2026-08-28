@@ -106,27 +106,27 @@ export default function Home({ projects, skills, experiences, certificates, soci
         <AppLayout settings={settings} socialLinks={socialLinks} navigate={navigate}>
 
             {/* HERO SECTION */}
-            <section className="relative pt-16 pb-8 lg:pt-20 overflow-hidden font-sans">
-                <div className="w-full grid gap-10 lg:grid-cols-[1.1fr_0.9fr] items-center relative z-10">
+            <section className="relative pt-20 pb-6 sm:pt-24 sm:pb-8 lg:pt-28 overflow-hidden font-sans">
+                <div className="w-full grid gap-8 sm:gap-10 lg:grid-cols-[1.1fr_0.9fr] items-center relative z-10">
                     
                     {/* Left Column - Main Intro & CTAs */}
-                    <div>
+                    <div className="text-center sm:text-left">
                         {/* Status & Terminal Badge */}
-                        <div className="mb-4 flex flex-wrap items-center gap-2.5">
-                            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 font-mono text-[11px] font-semibold text-emerald-700 shadow-xs">
+                        <div className="mb-4 flex flex-wrap items-center justify-center sm:justify-start gap-2 sm:gap-2.5">
+                            <span className="inline-flex items-center gap-2 px-2.5 sm:px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 font-mono text-[10px] sm:text-[11px] font-semibold text-emerald-700 shadow-xs">
                                 <span className="relative flex h-2 w-2">
                                     <span className="status-pulse-dot absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
                                     <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-600"></span>
                                 </span>
                                 Available for full-stack roles
                             </span>
-                            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-100 border border-zinc-200 font-mono text-[11px] font-semibold text-zinc-700">
+                            <span className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-zinc-100 border border-zinc-200 font-mono text-[10px] sm:text-[11px] font-semibold text-zinc-700">
                                 <span className="text-indigo-600 font-bold">$</span> php artisan serve
                             </span>
                         </div>
 
                         {/* Main Headline */}
-                        <h1 className="max-w-3xl font-display text-3xl sm:text-4xl lg:text-[42px] font-extrabold leading-[1.25] tracking-tight text-zinc-900">
+                        <h1 className="max-w-3xl mx-auto sm:mx-0 font-display text-2xl sm:text-4xl lg:text-[42px] font-extrabold leading-[1.25] tracking-tight text-zinc-900">
                             Full-Stack Software Engineer building scalable{' '}
                             <span className="text-indigo-600 font-extrabold block sm:inline">
                                 SaaS Apps & Web Products
@@ -134,26 +134,26 @@ export default function Home({ projects, skills, experiences, certificates, soci
                         </h1>
 
                         {/* Bio Summary */}
-                        <p className="mt-4 max-w-xl text-xs sm:text-sm leading-relaxed text-zinc-600">
+                        <p className="mt-3.5 max-w-xl mx-auto sm:mx-0 text-xs sm:text-sm leading-relaxed text-zinc-600">
                             I am <strong className="text-zinc-900 font-semibold">{settings?.name || 'Manish Kumar'}</strong>, a full-stack software engineer based in Jaipur. I specialize in building multi-tenant SaaS platforms (GymMitra), e-commerce marketplaces (KitabiAdda), and reactive single-page user interfaces with solid Laravel backends and MySQL database engines.
                         </p>
 
                         {/* Core Stack Pills */}
-                        <div className="mt-5 flex flex-wrap items-center gap-1.5 font-mono text-[11px]">
+                        <div className="mt-4 sm:mt-5 flex flex-wrap items-center justify-center sm:justify-start gap-1.5 font-mono text-[10px] sm:text-[11px]">
                             <span className="font-semibold text-zinc-500 mr-1">// Core Stack:</span>
                             {['Laravel 11', 'React 19', 'Inertia.js', 'MySQL', 'PHP 8.3', 'Tailwind CSS'].map((tech) => (
-                                <span key={tech} className="px-2.5 py-0.5 rounded-md bg-zinc-100 border border-zinc-200 text-zinc-800 font-semibold">
+                                <span key={tech} className="px-2 sm:px-2.5 py-0.5 rounded-md bg-zinc-100 border border-zinc-200 text-zinc-800 font-semibold">
                                     {tech}
                                 </span>
                             ))}
                         </div>
 
-                        {/* Action Buttons */}
-                        <div className="mt-6 flex flex-wrap gap-3 items-center">
+                        {/* Action Buttons - Centered on Mobile */}
+                        <div className="mt-5 sm:mt-6 flex flex-col sm:flex-row gap-2.5 sm:gap-3 items-center justify-center sm:justify-start max-w-md mx-auto sm:mx-0">
                             <button
                                 type="button"
                                 onClick={() => scrollToSection('projects')}
-                                className="group relative inline-flex items-center gap-2 px-5 py-2.5 text-xs sm:text-sm font-semibold rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 shadow-sm shadow-indigo-600/20 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer"
+                                className="w-full sm:w-auto group relative inline-flex items-center justify-center gap-2 px-6 py-2.5 text-xs sm:text-sm font-semibold rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 shadow-sm shadow-indigo-600/20 active:scale-95 transition-all duration-200 cursor-pointer"
                             >
                                 <span>View Selected Works</span>
                                 <svg className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -163,25 +163,25 @@ export default function Home({ projects, skills, experiences, certificates, soci
                             <button
                                 type="button"
                                 onClick={() => scrollToSection('contact')}
-                                className="inline-flex items-center gap-2 px-5 py-2.5 text-xs sm:text-sm font-semibold rounded-lg text-zinc-800 bg-white border border-zinc-300 hover:border-zinc-400 hover:bg-zinc-50 shadow-sm hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer font-mono text-xs"
+                                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-2.5 text-xs sm:text-sm font-semibold rounded-lg text-zinc-800 bg-white border border-zinc-300 hover:border-zinc-400 hover:bg-zinc-50 shadow-sm active:scale-95 transition-all duration-200 cursor-pointer font-mono"
                             >
                                 <span>$ contact --email</span>
                             </button>
                         </div>
 
                         {/* Metric Highlights */}
-                        <div className="mt-8 grid max-w-xl grid-cols-3 gap-3 border-t border-zinc-200 pt-5">
+                        <div className="mt-6 sm:mt-8 grid max-w-xl mx-auto sm:mx-0 grid-cols-3 gap-2 sm:gap-3 border-t border-zinc-200 pt-4 sm:pt-5">
                             {[
                                 { value: '2026', title: 'BCA Graduate', tag: 'Academic' },
-                                { value: '5+', title: 'Shipped Builds', tag: 'Repositories' },
-                                { value: 'Full Stack', title: 'Laravel + React', tag: 'Architecture' },
+                                { value: '5+', title: 'Shipped Builds', tag: 'Repos' },
+                                { value: 'Full Stack', title: 'Laravel + React', tag: 'Stack' },
                             ].map((item) => (
-                                <div key={item.title} className="p-3 rounded-lg border border-zinc-200 bg-white hover:border-indigo-500/40 shadow-xs transition-all duration-200">
-                                    <div className="flex items-center justify-between">
-                                        <p className="font-display text-base font-bold text-zinc-900 sm:text-lg">{item.value}</p>
-                                        <span className="text-[9px] font-mono font-semibold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-1.5 py-0.5 rounded border border-indigo-100">{item.tag}</span>
+                                <div key={item.title} className="p-2 sm:p-3 rounded-lg border border-zinc-200 bg-white hover:border-indigo-500/40 shadow-xs transition-all duration-200 text-center sm:text-left">
+                                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
+                                        <p className="font-display text-sm sm:text-lg font-bold text-zinc-900">{item.value}</p>
+                                        <span className="text-[8px] sm:text-[9px] font-mono font-semibold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-1 py-0.5 rounded border border-indigo-100 self-center sm:self-auto">{item.tag}</span>
                                     </div>
-                                    <p className="mt-0.5 text-[11px] font-medium text-zinc-500">{item.title}</p>
+                                    <p className="mt-0.5 text-[10px] sm:text-[11px] font-medium text-zinc-500 truncate">{item.title}</p>
                                 </div>
                             ))}
                         </div>
@@ -189,22 +189,22 @@ export default function Home({ projects, skills, experiences, certificates, soci
 
                     {/* Right Column - Interactive Terminal Visual Deck */}
                     <div className="relative">
-                        <div className="glass-terminal rounded-2xl relative overflow-hidden text-zinc-300 font-mono text-xs border border-zinc-800 shadow-2xl bg-zinc-950">
+                        <div className="glass-terminal rounded-xl sm:rounded-2xl relative overflow-hidden text-zinc-300 font-mono text-xs border border-zinc-800 shadow-2xl bg-zinc-950">
                             
                             {/* Window Topbar */}
-                            <div className="flex items-center justify-between px-4 py-3 bg-zinc-900/90 border-b border-zinc-800">
-                                <div className="flex items-center gap-2">
-                                    <span className="w-3 h-3 rounded-full bg-[#ff5f56] inline-block"></span>
-                                    <span className="w-3 h-3 rounded-full bg-[#ffbd2e] inline-block"></span>
-                                    <span className="w-3 h-3 rounded-full bg-[#27c93f] inline-block"></span>
+                            <div className="flex flex-wrap items-center justify-between gap-2 px-3 sm:px-4 py-2.5 sm:py-3 bg-zinc-900/90 border-b border-zinc-800">
+                                <div className="flex items-center gap-1.5 sm:gap-2">
+                                    <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#ff5f56] inline-block"></span>
+                                    <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#ffbd2e] inline-block"></span>
+                                    <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#27c93f] inline-block"></span>
                                 </div>
 
                                 {/* File Tab Switcher */}
-                                <div className="flex items-center bg-zinc-950 p-0.5 rounded-lg border border-zinc-800">
+                                <div className="flex items-center bg-zinc-950 p-0.5 rounded-lg border border-zinc-800 overflow-x-auto max-w-full">
                                     <button
                                         type="button"
                                         onClick={() => setActiveTab('developer.js')}
-                                        className={`px-3 py-1 text-[11px] font-medium rounded-md transition-all cursor-pointer flex items-center gap-1.5 ${
+                                        className={`px-2.5 sm:px-3 py-1 text-[10px] sm:text-[11px] font-medium rounded-md transition-all cursor-pointer flex items-center gap-1 whitespace-nowrap ${
                                             activeTab === 'developer.js'
                                                 ? 'bg-indigo-600 text-white shadow-sm'
                                                 : 'text-zinc-400 hover:text-zinc-200'
@@ -215,13 +215,13 @@ export default function Home({ projects, skills, experiences, certificates, soci
                                     <button
                                         type="button"
                                         onClick={() => setActiveTab('tech-stack.json')}
-                                        className={`px-3 py-1 text-[11px] font-medium rounded-md transition-all cursor-pointer flex items-center gap-1.5 ${
+                                        className={`px-2.5 sm:px-3 py-1 text-[10px] sm:text-[11px] font-medium rounded-md transition-all cursor-pointer flex items-center gap-1 whitespace-nowrap ${
                                             activeTab === 'tech-stack.json'
                                                 ? 'bg-indigo-600 text-white shadow-sm'
                                                 : 'text-zinc-400 hover:text-zinc-200'
                                         }`}
                                     >
-                                        <span className="text-cyan-400 font-bold">{}</span> stack-matrix.json
+                                        <span className="text-cyan-400 font-bold">{}</span> stack.json
                                     </button>
                                 </div>
 
@@ -229,69 +229,68 @@ export default function Home({ projects, skills, experiences, certificates, soci
                                 <button
                                     type="button"
                                     onClick={handleCopySnippet}
-                                    className="p-1.5 text-zinc-400 hover:text-white hover:bg-zinc-800 rounded transition-colors"
+                                    className="p-1 text-zinc-400 hover:text-white hover:bg-zinc-800 rounded transition-colors hidden sm:block"
                                     title="Copy Code"
                                 >
                                     {copied ? (
                                         <span className="text-[10px] text-emerald-400 font-sans font-medium">Copied!</span>
                                     ) : (
-                                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 002 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                        <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
                                         </svg>
                                     )}
                                 </button>
                             </div>
 
                             {/* Active Environment Pill Bar */}
-                            <div className="px-5 py-2.5 bg-zinc-900/40 border-b border-zinc-800 flex flex-wrap items-center justify-between text-[11px]">
-                                <div className="flex items-center gap-2">
-                                    <span className="text-zinc-500 uppercase tracking-wider text-[9px] font-bold">Runtime:</span>
-                                    <span className="px-2 py-0.5 rounded bg-indigo-500/10 border border-indigo-500/20 text-indigo-300">Laravel 11</span>
-                                    <span className="px-2 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/20 text-cyan-300">React 19</span>
-                                    <span className="px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20 text-emerald-300">MySQL</span>
+                            <div className="px-3 sm:px-5 py-2 bg-zinc-900/40 border-b border-zinc-800 flex flex-wrap items-center justify-between gap-2 text-[10px] sm:text-[11px]">
+                                <div className="flex flex-wrap items-center gap-1.5">
+                                    <span className="text-zinc-500 uppercase tracking-wider text-[8px] sm:text-[9px] font-bold">Runtime:</span>
+                                    <span className="px-1.5 py-0.5 rounded bg-indigo-500/10 border border-indigo-500/20 text-indigo-300">Laravel 11</span>
+                                    <span className="px-1.5 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/20 text-cyan-300">React 19</span>
                                 </div>
                                 <button
                                     type="button"
                                     onClick={handleRunCode}
                                     disabled={isExecuting}
-                                    className="px-2.5 py-1 rounded bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 hover:bg-emerald-500/25 transition-all text-[10px] font-medium flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
+                                    className="px-2 py-0.5 rounded bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 hover:bg-emerald-500/25 transition-all text-[10px] font-medium flex items-center gap-1 cursor-pointer disabled:opacity-50"
                                 >
                                     {isExecuting ? (
                                         <>
-                                            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping inline-block"></span>
+                                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping inline-block"></span>
                                             <span>Building...</span>
                                         </>
                                     ) : (
                                         <>
                                             <span>Run Code</span>
-                                            <span className="text-xs">▶</span>
+                                            <span className="text-[10px]">▶</span>
                                         </>
                                     )}
                                 </button>
                             </div>
 
                             {/* Code Area */}
-                            <div className="p-6 overflow-x-auto min-h-[220px]">
+                            <div className="p-4 sm:p-6 overflow-x-auto min-h-[200px] text-[11px] sm:text-xs">
                                 {activeTab === 'developer.js' ? (
-                                    <div className="leading-7">
+                                    <div className="leading-6 sm:leading-7 whitespace-pre sm:whitespace-normal">
                                         <p><span className="text-pink-400">const</span> <span className="text-blue-300">developer</span> <span className="text-zinc-500">=</span> &#123;</p>
-                                        <p className="pl-6">name<span className="text-zinc-500">:</span> <span className="text-emerald-300">'{settings?.name || 'Manish Kumar'}'</span>,</p>
-                                        <p className="pl-6">title<span className="text-zinc-500">:</span> <span className="text-emerald-300">'Full Stack Software Engineer'</span>,</p>
-                                        <p className="pl-6">location<span className="text-zinc-500">:</span> <span className="text-emerald-300">'Jaipur, Rajasthan, India'</span>,</p>
-                                        <p className="pl-6">featuredApps<span className="text-zinc-500">:</span> [<span className="text-cyan-300">'GymMitra SaaS'</span>, <span className="text-cyan-300">'KitabiAdda'</span>, <span className="text-cyan-300">'LinkUp'</span>],</p>
-                                        <p className="pl-6">openForRoles<span className="text-zinc-500">:</span> <span className="text-amber-400">true</span></p>
+                                        <p className="pl-4 sm:pl-6">name<span className="text-zinc-500">:</span> <span className="text-emerald-300">'{settings?.name || 'Manish Kumar'}'</span>,</p>
+                                        <p className="pl-4 sm:pl-6">title<span className="text-zinc-500">:</span> <span className="text-emerald-300">'Full Stack Software Engineer'</span>,</p>
+                                        <p className="pl-4 sm:pl-6">location<span className="text-zinc-500">:</span> <span className="text-emerald-300">'Jaipur, Rajasthan, India'</span>,</p>
+                                        <p className="pl-4 sm:pl-6">featuredApps<span className="text-zinc-500">:</span> [<span className="text-cyan-300">'GymMitra SaaS'</span>, <span className="text-cyan-300">'KitabiAdda'</span>, <span className="text-cyan-300">'LinkUp'</span>],</p>
+                                        <p className="pl-4 sm:pl-6">openForRoles<span className="text-zinc-500">:</span> <span className="text-amber-400">true</span></p>
                                         <p>&#125;;</p>
-                                        <p className="mt-3 text-zinc-500">// Engineering clean web applications</p>
+                                        <p className="mt-2 text-zinc-500">// Engineering clean web applications</p>
                                         <p><span className="text-purple-400">export default</span> developer;</p>
                                     </div>
                                 ) : (
-                                    <div className="leading-7">
+                                    <div className="leading-6 sm:leading-7 whitespace-pre sm:whitespace-normal">
                                         <p>&#123;</p>
-                                        <p className="pl-6"><span className="text-cyan-300">"developer"</span>: <span className="text-emerald-300">"{settings?.name || 'Manish Kumar'}"</span>,</p>
-                                        <p className="pl-6"><span className="text-cyan-300">"degree"</span>: <span className="text-emerald-300">"BCA (Purnea University)"</span>,</p>
-                                        <p className="pl-6"><span className="text-cyan-300">"frontend"</span>: [<span className="text-amber-300">"React 19"</span>, <span className="text-amber-300">"Tailwind CSS"</span>, <span className="text-amber-300">"Inertia.js"</span>],</p>
-                                        <p className="pl-6"><span className="text-cyan-300">"backend"</span>: [<span className="text-amber-300">"Laravel 11"</span>, <span className="text-amber-300">"PHP"</span>, <span className="text-amber-300">"REST APIs"</span>],</p>
-                                        <p className="pl-6"><span className="text-cyan-300">"database"</span>: [<span className="text-amber-300">"MySQL"</span>, <span className="text-amber-300">"Eloquent ORM"</span>]</p>
+                                        <p className="pl-4 sm:pl-6"><span className="text-cyan-300">"developer"</span>: <span className="text-emerald-300">"{settings?.name || 'Manish Kumar'}"</span>,</p>
+                                        <p className="pl-4 sm:pl-6"><span className="text-cyan-300">"degree"</span>: <span className="text-emerald-300">"BCA (Purnea University)"</span>,</p>
+                                        <p className="pl-4 sm:pl-6"><span className="text-cyan-300">"frontend"</span>: [<span className="text-amber-300">"React 19"</span>, <span className="text-amber-300">"Tailwind CSS"</span>, <span className="text-amber-300">"Inertia.js"</span>],</p>
+                                        <p className="pl-4 sm:pl-6"><span className="text-cyan-300">"backend"</span>: [<span className="text-amber-300">"Laravel 11"</span>, <span className="text-amber-300">"PHP"</span>, <span className="text-amber-300">"REST APIs"</span>],</p>
+                                        <p className="pl-4 sm:pl-6"><span className="text-cyan-300">"database"</span>: [<span className="text-amber-300">"MySQL"</span>, <span className="text-amber-300">"Eloquent ORM"</span>]</p>
                                         <p>&#125;</p>
                                     </div>
                                 )}
@@ -299,7 +298,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
 
                             {/* Live Output Console Drawer */}
                             {terminalOutput && (
-                                <div className="border-t border-zinc-800 bg-zinc-950 p-4 font-mono text-[11px] space-y-1 animate-fadeIn">
+                                <div className="border-t border-zinc-800 bg-zinc-950 p-3 sm:p-4 font-mono text-[10px] sm:text-[11px] space-y-1 animate-fadeIn">
                                     <div className="flex items-center justify-between text-zinc-500 mb-1 border-b border-zinc-800/60 pb-1">
                                         <span className="uppercase text-[9px] font-bold tracking-wider text-emerald-400 flex items-center gap-1.5">
                                             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block animate-ping"></span>
@@ -325,24 +324,24 @@ export default function Home({ projects, skills, experiences, certificates, soci
             </section>
 
             {/* FEATURED SAAS SPOTLIGHT BANNER */}
-            <div className="my-6 p-4 rounded-xl border border-indigo-200 bg-indigo-50/50 flex flex-col sm:flex-row items-center justify-between gap-4 font-sans shadow-xs">
-                <div className="flex items-center gap-3">
-                    <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-indigo-600 text-white font-mono text-xs font-bold shadow-sm">
+            <div className="my-5 sm:my-6 p-3.5 sm:p-4 rounded-xl border border-indigo-200 bg-indigo-50/50 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 font-sans shadow-xs text-center sm:text-left">
+                <div className="flex flex-col sm:flex-row items-center gap-3">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-indigo-600 text-white font-mono text-xs font-bold shadow-sm shrink-0">
                         SaaS
                     </span>
                     <div>
-                        <div className="flex items-center gap-2">
-                            <span className="font-bold text-zinc-900 text-sm">GymMitra SaaS Platform</span>
-                            <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-100 text-emerald-700 border border-emerald-200">LIVE</span>
+                        <div className="flex items-center justify-center sm:justify-start gap-2">
+                            <span className="font-bold text-zinc-900 text-xs sm:text-sm">GymMitra SaaS Platform</span>
+                            <span className="px-2 py-0.5 rounded text-[9px] sm:text-[10px] font-mono font-bold bg-emerald-100 text-emerald-700 border border-emerald-200">LIVE</span>
                         </div>
-                        <p className="text-xs text-zinc-600 mt-0.5">Multi-tenant Gym Management software with QR attendance, locker allocation & billing.</p>
+                        <p className="text-[11px] sm:text-xs text-zinc-600 mt-0.5">Multi-tenant Gym Management software with QR attendance, locker allocation & billing.</p>
                     </div>
                 </div>
                 <a
                     href="https://manish.echovel.com"
                     target="_blank"
                     rel="noreferrer"
-                    className="px-4 py-2 text-xs font-semibold font-mono rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition-all flex items-center gap-1.5 whitespace-nowrap cursor-pointer shadow-sm"
+                    className="w-full sm:w-auto justify-center px-4 py-2 text-xs font-semibold font-mono rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition-all flex items-center gap-1.5 whitespace-nowrap cursor-pointer shadow-sm active:scale-95"
                 >
                     <span>Visit GymMitra</span>
                     <IconExternal />
