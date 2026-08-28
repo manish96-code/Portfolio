@@ -107,26 +107,26 @@ export default function Home({ projects, skills, experiences, certificates, soci
 
             {/* HERO SECTION */}
             <section className="relative pt-20 pb-6 sm:pt-24 sm:pb-8 lg:pt-28 overflow-hidden font-sans">
-                <div className="w-full grid gap-8 sm:gap-10 lg:grid-cols-[1.1fr_0.9fr] items-center relative z-10">
+                <div className="w-full max-w-full grid gap-8 sm:gap-10 lg:grid-cols-[1.1fr_0.9fr] items-center relative z-10 min-w-0">
                     
                     {/* Left Column - Main Intro & CTAs */}
-                    <div className="text-center sm:text-left">
-                        {/* Status & Terminal Badge */}
-                        <div className="mb-4 flex flex-wrap items-center justify-center sm:justify-start gap-2 sm:gap-2.5">
-                            <span className="inline-flex items-center gap-2 px-2.5 sm:px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 font-mono text-[10px] sm:text-[11px] font-semibold text-emerald-700 shadow-xs">
-                                <span className="relative flex h-2 w-2">
+                    <div className="text-center sm:text-left w-full min-w-0 overflow-hidden px-1 sm:px-0">
+                        {/* Status & Terminal Badges - Vertically Stacked on Mobile to Prevent Flex Overflow */}
+                        <div className="mb-4 flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-2 sm:gap-2.5 w-full min-w-0">
+                            <span className="inline-flex items-center justify-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 font-mono text-[10px] sm:text-[11px] font-semibold text-emerald-700 shadow-xs max-w-full">
+                                <span className="relative flex h-2 w-2 shrink-0">
                                     <span className="status-pulse-dot absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
                                     <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-600"></span>
                                 </span>
-                                Available for full-stack roles
+                                <span className="truncate">Available for full-stack roles</span>
                             </span>
-                            <span className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-zinc-100 border border-zinc-200 font-mono text-[10px] sm:text-[11px] font-semibold text-zinc-700">
+                            <span className="inline-flex items-center justify-center gap-1 px-3 py-1 rounded-full bg-zinc-100 border border-zinc-200 font-mono text-[10px] sm:text-[11px] font-semibold text-zinc-700 max-w-full">
                                 <span className="text-indigo-600 font-bold">$</span> php artisan serve
                             </span>
                         </div>
 
                         {/* Main Headline */}
-                        <h1 className="max-w-3xl mx-auto sm:mx-0 font-display text-2xl sm:text-4xl lg:text-[42px] font-extrabold leading-[1.25] tracking-tight text-zinc-900">
+                        <h1 className="max-w-3xl mx-auto sm:mx-0 font-display text-xl sm:text-3xl lg:text-[40px] font-extrabold leading-snug sm:leading-[1.25] tracking-tight text-zinc-900 break-words min-w-0">
                             Full-Stack Software Engineer building scalable{' '}
                             <span className="text-indigo-600 font-extrabold block sm:inline">
                                 SaaS Apps & Web Products
@@ -134,26 +134,26 @@ export default function Home({ projects, skills, experiences, certificates, soci
                         </h1>
 
                         {/* Bio Summary */}
-                        <p className="mt-3.5 max-w-xl mx-auto sm:mx-0 text-xs sm:text-sm leading-relaxed text-zinc-600">
+                        <p className="mt-3.5 max-w-xl mx-auto sm:mx-0 text-xs sm:text-sm leading-relaxed text-zinc-600 break-words min-w-0">
                             I am <strong className="text-zinc-900 font-semibold">{settings?.name || 'Manish Kumar'}</strong>, a full-stack software engineer based in Jaipur. I specialize in building multi-tenant SaaS platforms (GymMitra), e-commerce marketplaces (KitabiAdda), and reactive single-page user interfaces with solid Laravel backends and MySQL database engines.
                         </p>
 
                         {/* Core Stack Pills */}
-                        <div className="mt-4 sm:mt-5 flex flex-wrap items-center justify-center sm:justify-start gap-1.5 font-mono text-[10px] sm:text-[11px]">
-                            <span className="font-semibold text-zinc-500 mr-1">// Core Stack:</span>
+                        <div className="mt-4 sm:mt-5 flex flex-wrap items-center justify-center sm:justify-start gap-1 sm:gap-1.5 font-mono text-[10px] sm:text-[11px] w-full min-w-0">
+                            <span className="font-semibold text-zinc-500 mr-1 text-[10px] w-full sm:w-auto text-center sm:text-left">// Core Stack:</span>
                             {['Laravel 11', 'React 19', 'Inertia.js', 'MySQL', 'PHP 8.3', 'Tailwind CSS'].map((tech) => (
-                                <span key={tech} className="px-2 sm:px-2.5 py-0.5 rounded-md bg-zinc-100 border border-zinc-200 text-zinc-800 font-semibold">
+                                <span key={tech} className="px-2 py-0.5 rounded-md bg-zinc-100 border border-zinc-200 text-zinc-800 font-semibold shrink-0">
                                     {tech}
                                 </span>
                             ))}
                         </div>
 
-                        {/* Action Buttons - Centered on Mobile */}
-                        <div className="mt-5 sm:mt-6 flex flex-col sm:flex-row gap-2.5 sm:gap-3 items-center justify-center sm:justify-start max-w-md mx-auto sm:mx-0">
+                        {/* Action Buttons */}
+                        <div className="mt-5 sm:mt-6 flex flex-col sm:flex-row gap-2.5 sm:gap-3 items-center justify-center sm:justify-start w-full max-w-md mx-auto sm:mx-0 min-w-0">
                             <button
                                 type="button"
                                 onClick={() => scrollToSection('projects')}
-                                className="w-full sm:w-auto group relative inline-flex items-center justify-center gap-2 px-6 py-2.5 text-xs sm:text-sm font-semibold rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 shadow-sm shadow-indigo-600/20 active:scale-95 transition-all duration-200 cursor-pointer"
+                                className="w-full sm:w-auto max-w-xs sm:max-w-none group relative inline-flex items-center justify-center gap-2 px-5 py-2.5 text-xs sm:text-sm font-semibold rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 shadow-sm shadow-indigo-600/20 active:scale-95 transition-all duration-200 cursor-pointer"
                             >
                                 <span>View Selected Works</span>
                                 <svg className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -163,32 +163,32 @@ export default function Home({ projects, skills, experiences, certificates, soci
                             <button
                                 type="button"
                                 onClick={() => scrollToSection('contact')}
-                                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-2.5 text-xs sm:text-sm font-semibold rounded-lg text-zinc-800 bg-white border border-zinc-300 hover:border-zinc-400 hover:bg-zinc-50 shadow-sm active:scale-95 transition-all duration-200 cursor-pointer font-mono"
+                                className="w-full sm:w-auto max-w-xs sm:max-w-none inline-flex items-center justify-center gap-2 px-5 py-2.5 text-xs sm:text-sm font-semibold rounded-lg text-zinc-800 bg-white border border-zinc-300 hover:border-zinc-400 hover:bg-zinc-50 shadow-sm active:scale-95 transition-all duration-200 cursor-pointer font-mono"
                             >
                                 <span>$ contact --email</span>
                             </button>
                         </div>
 
                         {/* Metric Highlights */}
-                        <div className="mt-6 sm:mt-8 grid max-w-xl mx-auto sm:mx-0 grid-cols-3 gap-2 sm:gap-3 border-t border-zinc-200 pt-4 sm:pt-5">
+                        <div className="mt-6 sm:mt-8 grid max-w-xl mx-auto sm:mx-0 grid-cols-3 gap-1.5 sm:gap-3 border-t border-zinc-200 pt-4 sm:pt-5 w-full min-w-0">
                             {[
                                 { value: '2026', title: 'BCA Graduate', tag: 'Academic' },
                                 { value: '5+', title: 'Shipped Builds', tag: 'Repos' },
                                 { value: 'Full Stack', title: 'Laravel + React', tag: 'Stack' },
                             ].map((item) => (
-                                <div key={item.title} className="p-2 sm:p-3 rounded-lg border border-zinc-200 bg-white hover:border-indigo-500/40 shadow-xs transition-all duration-200 text-center sm:text-left">
-                                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
-                                        <p className="font-display text-sm sm:text-lg font-bold text-zinc-900">{item.value}</p>
-                                        <span className="text-[8px] sm:text-[9px] font-mono font-semibold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-1 py-0.5 rounded border border-indigo-100 self-center sm:self-auto">{item.tag}</span>
+                                <div key={item.title} className="p-1.5 sm:p-3 rounded-lg border border-zinc-200 bg-white hover:border-indigo-500/40 shadow-xs transition-all duration-200 text-center sm:text-left overflow-hidden min-w-0">
+                                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-0.5">
+                                        <p className="font-display text-xs sm:text-lg font-bold text-zinc-900">{item.value}</p>
+                                        <span className="text-[7px] sm:text-[9px] font-mono font-semibold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-1 py-0.5 rounded border border-indigo-100 self-center sm:self-auto hidden xs:inline-block">{item.tag}</span>
                                     </div>
-                                    <p className="mt-0.5 text-[10px] sm:text-[11px] font-medium text-zinc-500 truncate">{item.title}</p>
+                                    <p className="mt-0.5 text-[9px] sm:text-[11px] font-medium text-zinc-500 truncate">{item.title}</p>
                                 </div>
                             ))}
                         </div>
                     </div>
 
                     {/* Right Column - Interactive Terminal Visual Deck */}
-                    <div className="relative">
+                    <div className="relative min-w-0">
                         <div className="glass-terminal rounded-xl sm:rounded-2xl relative overflow-hidden text-zinc-300 font-mono text-xs border border-zinc-800 shadow-2xl bg-zinc-950">
                             
                             {/* Window Topbar */}
@@ -272,7 +272,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
                             {/* Code Area */}
                             <div className="p-4 sm:p-6 overflow-x-auto min-h-[200px] text-[11px] sm:text-xs">
                                 {activeTab === 'developer.js' ? (
-                                    <div className="leading-6 sm:leading-7 whitespace-pre sm:whitespace-normal">
+                                    <div className="leading-6 sm:leading-7 whitespace-pre-wrap break-all sm:break-normal">
                                         <p><span className="text-pink-400">const</span> <span className="text-blue-300">developer</span> <span className="text-zinc-500">=</span> &#123;</p>
                                         <p className="pl-4 sm:pl-6">name<span className="text-zinc-500">:</span> <span className="text-emerald-300">'{settings?.name || 'Manish Kumar'}'</span>,</p>
                                         <p className="pl-4 sm:pl-6">title<span className="text-zinc-500">:</span> <span className="text-emerald-300">'Full Stack Software Engineer'</span>,</p>
@@ -284,7 +284,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
                                         <p><span className="text-purple-400">export default</span> developer;</p>
                                     </div>
                                 ) : (
-                                    <div className="leading-6 sm:leading-7 whitespace-pre sm:whitespace-normal">
+                                    <div className="leading-6 sm:leading-7 whitespace-pre-wrap break-all sm:break-normal">
                                         <p>&#123;</p>
                                         <p className="pl-4 sm:pl-6"><span className="text-cyan-300">"developer"</span>: <span className="text-emerald-300">"{settings?.name || 'Manish Kumar'}"</span>,</p>
                                         <p className="pl-4 sm:pl-6"><span className="text-cyan-300">"degree"</span>: <span className="text-emerald-300">"BCA (Purnea University)"</span>,</p>
