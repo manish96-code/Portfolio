@@ -245,17 +245,17 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
 
             {/* Mobile Menu Overlay Drawer - OUTSIDE header to avoid stacking context issues */}
             {mobileMenuOpen && (
-                <div className="md:hidden fixed inset-0 bg-zinc-950 z-[100] flex flex-col justify-between p-6 text-white">
+                <div className="md:hidden fixed inset-0 bg-white z-[100] flex flex-col justify-between p-6 text-zinc-900">
                     {/* Drawer Header */}
-                    <div className="flex items-center justify-between border-b border-zinc-800 pb-4">
+                    <div className="flex items-center justify-between border-b border-zinc-200 pb-4">
                         <div className="font-mono text-xs font-bold tracking-tight inline-flex items-center gap-1.5">
-                            <span className="w-2 h-2 rounded-full bg-emerald-400 inline-block animate-ping"></span>
-                            <span className="text-indigo-400 font-extrabold">&lt;</span>
-                            <span className="text-white font-bold">manish.dev</span>
-                            <span className="text-indigo-400 font-extrabold">/&gt;</span>
+                            <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-ping"></span>
+                            <span className="text-indigo-600 font-extrabold">&lt;</span>
+                            <span className="text-zinc-900 font-bold">manish.dev</span>
+                            <span className="text-indigo-600 font-extrabold">/&gt;</span>
                         </div>
                         <button
-                            className="text-zinc-400 p-2 border border-zinc-800 bg-zinc-900 rounded-lg shadow-sm hover:text-white cursor-pointer"
+                            className="text-zinc-500 p-2 border border-zinc-200 bg-zinc-50 rounded-lg shadow-xs hover:text-zinc-900 cursor-pointer"
                             onClick={() => setMobileMenuOpen(false)}
                         >
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
@@ -274,7 +274,7 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                                     setMobileMenuOpen(false);
                                     handleNavClick(e, item.href);
                                 }}
-                                className="text-zinc-200 text-xl font-bold hover:text-indigo-400 py-2 border-b border-zinc-900 transition-colors"
+                                className="text-zinc-800 text-xl font-bold hover:text-indigo-600 py-2 border-b border-zinc-100 transition-colors"
                             >
                                 {item.label}
                             </a>
@@ -282,7 +282,7 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                     </div>
 
                     {/* Mobile Social Links & Footer Status */}
-                    <div className="border-t border-zinc-800 pt-5 space-y-4 text-center">
+                    <div className="border-t border-zinc-200 pt-5 space-y-4 text-center">
                         <div className="flex items-center justify-center gap-3">
                             {socialLinks && socialLinks.map((link, idx) => (
                                 <a
@@ -290,14 +290,14 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                                     href={link.url}
                                     target="_blank"
                                     rel="noreferrer"
-                                    className="flex items-center justify-center w-9 h-9 border border-zinc-800 bg-zinc-900 rounded-full text-zinc-400 hover:text-indigo-400 hover:border-indigo-500/50 transition-all"
+                                    className="flex items-center justify-center w-9 h-9 border border-zinc-200 bg-zinc-50 rounded-full text-zinc-500 hover:text-indigo-600 hover:border-indigo-300 transition-all"
                                     title={link.platform}
                                 >
                                     {renderIcon(link.icon || link.platform)}
                                 </a>
                             ))}
                         </div>
-                        <p className="font-mono text-[11px] text-zinc-500">
+                        <p className="font-mono text-[11px] text-zinc-400">
                             $ status: 200 OK • Full Stack Software Engineer
                         </p>
                     </div>
