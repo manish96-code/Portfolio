@@ -241,67 +241,68 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                     </button>
                 </div>
 
-                {/* Mobile Menu Overlay Drawer */}
-                {mobileMenuOpen && (
-                    <div className="md:hidden fixed inset-0 bg-zinc-950/95 backdrop-blur-xl z-50 flex flex-col justify-between p-6 text-white transition-all duration-300 animate-fadeIn">
-                        {/* Drawer Header */}
-                        <div className="flex items-center justify-between border-b border-zinc-800 pb-4">
-                            <div className="font-mono text-xs font-bold tracking-tight inline-flex items-center gap-1.5">
-                                <span className="w-2 h-2 rounded-full bg-emerald-400 inline-block animate-ping"></span>
-                                <span className="text-indigo-400 font-extrabold">&lt;</span>
-                                <span className="text-white font-bold">manish.dev</span>
-                                <span className="text-indigo-400 font-extrabold">/&gt;</span>
-                            </div>
-                            <button
-                                className="text-zinc-400 p-2 border border-zinc-800 bg-zinc-900 rounded-lg shadow-sm hover:text-white"
-                                onClick={() => setMobileMenuOpen(false)}
-                            >
-                                <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                </svg>
-                            </button>
-                        </div>
+            </header>
 
-                        {/* Navigation Links */}
-                        <div className="flex flex-col gap-4 font-sans text-center my-auto py-6">
-                            {navItems.map((item, idx) => (
+            {/* Mobile Menu Overlay Drawer - OUTSIDE header to avoid stacking context issues */}
+            {mobileMenuOpen && (
+                <div className="md:hidden fixed inset-0 bg-zinc-950 z-[100] flex flex-col justify-between p-6 text-white">
+                    {/* Drawer Header */}
+                    <div className="flex items-center justify-between border-b border-zinc-800 pb-4">
+                        <div className="font-mono text-xs font-bold tracking-tight inline-flex items-center gap-1.5">
+                            <span className="w-2 h-2 rounded-full bg-emerald-400 inline-block animate-ping"></span>
+                            <span className="text-indigo-400 font-extrabold">&lt;</span>
+                            <span className="text-white font-bold">manish.dev</span>
+                            <span className="text-indigo-400 font-extrabold">/&gt;</span>
+                        </div>
+                        <button
+                            className="text-zinc-400 p-2 border border-zinc-800 bg-zinc-900 rounded-lg shadow-sm hover:text-white cursor-pointer"
+                            onClick={() => setMobileMenuOpen(false)}
+                        >
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    {/* Navigation Links */}
+                    <div className="flex flex-col gap-4 font-sans text-center my-auto py-6">
+                        {navItems.map((item, idx) => (
+                            <a
+                                key={idx}
+                                href={item.href}
+                                onClick={(e) => {
+                                    setMobileMenuOpen(false);
+                                    handleNavClick(e, item.href);
+                                }}
+                                className="text-zinc-200 text-xl font-bold hover:text-indigo-400 py-2 border-b border-zinc-900 transition-colors"
+                            >
+                                {item.label}
+                            </a>
+                        ))}
+                    </div>
+
+                    {/* Mobile Social Links & Footer Status */}
+                    <div className="border-t border-zinc-800 pt-5 space-y-4 text-center">
+                        <div className="flex items-center justify-center gap-3">
+                            {socialLinks && socialLinks.map((link, idx) => (
                                 <a
                                     key={idx}
-                                    href={item.href}
-                                    onClick={(e) => {
-                                        setMobileMenuOpen(false);
-                                        handleNavClick(e, item.href);
-                                    }}
-                                    className="text-zinc-200 text-xl font-bold hover:text-indigo-400 py-2 border-b border-zinc-900 transition-colors"
+                                    href={link.url}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="flex items-center justify-center w-9 h-9 border border-zinc-800 bg-zinc-900 rounded-full text-zinc-400 hover:text-indigo-400 hover:border-indigo-500/50 transition-all"
+                                    title={link.platform}
                                 >
-                                    {item.label}
+                                    {renderIcon(link.icon || link.platform)}
                                 </a>
                             ))}
                         </div>
-
-                        {/* Mobile Social Links & Footer Status */}
-                        <div className="border-t border-zinc-800 pt-5 space-y-4 text-center">
-                            <div className="flex items-center justify-center gap-3">
-                                {socialLinks && socialLinks.map((link, idx) => (
-                                    <a
-                                        key={idx}
-                                        href={link.url}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        className="flex items-center justify-center w-9 h-9 border border-zinc-800 bg-zinc-900 rounded-full text-zinc-400 hover:text-indigo-400 hover:border-indigo-500/50 transition-all"
-                                        title={link.platform}
-                                    >
-                                        {renderIcon(link.icon || link.platform)}
-                                    </a>
-                                ))}
-                            </div>
-                            <p className="font-mono text-[11px] text-zinc-500">
-                                $ status: 200 OK • Full Stack Software Engineer
-                            </p>
-                        </div>
+                        <p className="font-mono text-[11px] text-zinc-500">
+                            $ status: 200 OK • Full Stack Software Engineer
+                        </p>
                     </div>
-                )}
-            </header>
+                </div>
+            )}
 
             {/* Main Content */}
             <main className="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
