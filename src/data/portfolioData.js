@@ -256,6 +256,20 @@ After a vendor processes an order, the order needs to move through the delivery 
         {
             id: 2,
             title: 'Python Programming Language',
+            organization: 'Status: Completed',
+            issue_date: 'Learned',
+            credential_url: '#'
+        },
+        {
+            id: 3,
+            title: 'Django Framework',
+            organization: 'Status: In Progress',
+            issue_date: 'Learning',
+            credential_url: '#'
+        },
+        {
+            id: 4,
+            title: 'Next.js Framework',
             organization: 'Status: In Progress',
             issue_date: 'Learning',
             credential_url: '#'
