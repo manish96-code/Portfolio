@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import AppLayout from '../../Layouts/AppLayout';
+import SEO from '../../Components/SEO';
+import { getBlogSchema } from '../../utils/seoSchemas';
 
 function BlogMarkdown({ content }) {
     if (!content) return null;
@@ -67,9 +69,17 @@ export default function BlogShow({ blog, socialLinks, settings, navigate }) {
     if (!blog) return null;
 
     const tags = blog.tags || [];
+    const blogSchema = getBlogSchema(blog, settings);
 
     return (
         <AppLayout settings={settings} socialLinks={socialLinks} navigate={navigate}>
+            <SEO
+                title={blog.title}
+                description={blog.summary}
+                canonicalUrl={`/blog/${blog.slug}`}
+                ogType="article"
+                schemaData={blogSchema}
+            />
             <article className="max-w-[700px] mx-auto pt-32 pb-24 font-sans relative">
 
                 {/* Back button */}

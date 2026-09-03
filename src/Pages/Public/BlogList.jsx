@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import AppLayout from '../../Layouts/AppLayout';
+import SEO from '../../Components/SEO';
 
 export default function BlogList({ blogs, categories, socialLinks, settings, navigate }) {
     const [selectedCategory, setSelectedCategory] = useState('all');
     const [searchQuery, setSearchQuery] = useState('');
-
-    useEffect(() => {
-        document.title = 'Insights & Articles | Manish Kumar';
-    }, []);
 
     const filteredBlogs = (blogs || []).filter(blog => {
         const matchesCategory = selectedCategory === 'all' || blog.category.toLowerCase() === selectedCategory.toLowerCase();
@@ -18,6 +15,11 @@ export default function BlogList({ blogs, categories, socialLinks, settings, nav
 
     return (
         <AppLayout settings={settings} socialLinks={socialLinks} navigate={navigate}>
+            <SEO
+                title="Engineering Insights & Articles"
+                description="Technical articles on Laravel, React 19, Inertia.js, and database query optimization strategies by Manish Kumar."
+                canonicalUrl="/blogs"
+            />
             <div className="pt-32 pb-24 font-sans relative">
                 
                 {/* Background ambient light */}

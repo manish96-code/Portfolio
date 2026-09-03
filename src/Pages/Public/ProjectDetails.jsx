@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import AppLayout, { IconGitHub, IconExternal } from '../../Layouts/AppLayout';
+import SEO from '../../Components/SEO';
+import { getProjectSchema } from '../../utils/seoSchemas';
 
 function SimpleMarkdown({ content }) {
     if (!content) return null;
@@ -110,9 +112,17 @@ export default function ProjectDetails({ project, socialLinks, settings, navigat
     if (!project) return null;
 
     const tags = project.technologies || [];
+    const projectSchema = getProjectSchema(project, settings);
 
     return (
         <AppLayout settings={settings} socialLinks={socialLinks} navigate={navigate}>
+            <SEO
+                title={`${project.title} | Case Study`}
+                description={project.description}
+                canonicalUrl={`/project/${project.slug}`}
+                ogImage={project.thumbnail}
+                schemaData={projectSchema}
+            />
             <div className="pt-20 sm:pt-28 pb-12 sm:pb-20 font-sans max-w-6xl mx-auto px-1 sm:px-0">
 
                 {/* Back button */}

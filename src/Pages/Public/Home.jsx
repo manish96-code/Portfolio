@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import AppLayout, { IconExternal } from '../../Layouts/AppLayout';
+import SEO from '../../Components/SEO';
+import { getPersonSchema, getWebsiteSchema } from '../../utils/seoSchemas';
 
 const scrollToSection = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
@@ -50,8 +52,6 @@ export default function Home({ projects, skills, experiences, certificates, soci
     const [terminalOutput, setTerminalOutput] = React.useState(null);
 
     useEffect(() => {
-        document.title = settings?.meta_title || 'Manish Kumar | Full Stack Developer';
-
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
@@ -65,7 +65,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
 
         document.querySelectorAll('.fade-section').forEach((el) => observer.observe(el));
         return () => observer.disconnect();
-    }, [settings?.meta_title]);
+    }, []);
 
     const handleCopySnippet = () => {
         const codeText = activeTab === 'developer.js'
