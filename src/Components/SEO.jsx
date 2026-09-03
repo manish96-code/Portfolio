@@ -19,7 +19,7 @@ export default function SEO({
     const metaDescription = description 
         || 'Personal portfolio of Manish Kumar. Full Stack Software Engineer specializing in Laravel, React, Inertia.js, and MySQL. Building SaaS platforms & web applications.';
 
-    const siteUrl = 'https://manish.dev';
+    const siteUrl = typeof window !== 'undefined' && window.location.origin ? window.location.origin : 'https://manish.dev';
     const pageUrl = canonicalUrl ? `${siteUrl}${canonicalUrl}` : siteUrl;
     const defaultOgImage = `${siteUrl}/images/projects/gymmitra-thumb.png`;
     const imageToUse = ogImage ? (ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`) : defaultOgImage;
@@ -42,7 +42,7 @@ export default function SEO({
         // Standard Meta Tags
         setMeta('name', 'description', metaDescription);
         setMeta('name', 'author', 'Manish Kumar');
-        setMeta('name', 'keywords', 'Manish Kumar, Full Stack Engineer, Laravel Developer, React Developer, Inertia.js, GymMitra SaaS, KitabiAdda, Jaipur Developer');
+        setMeta('name', 'keywords', 'Manish, Manish Kumar, Manish Kumar Developer, Laravel Developer, React Developer, PHP Developer, Full Stack Developer, Web Developer Jaipur, Inertia.js Developer, Software Engineer Manish Kumar, GymMitra SaaS, KitabiAdda');
 
         // Open Graph Meta Tags (for WhatsApp, LinkedIn, Facebook preview cards)
         setMeta('property', 'og:site_name', 'Manish Kumar Portfolio');
