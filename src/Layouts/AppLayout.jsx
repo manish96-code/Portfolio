@@ -51,6 +51,18 @@ const IconFolder = () => (
     </svg>
 );
 
+const IconSun = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.2">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m0 13.5V21m8.966-8.966h-2.25M4.284 12h-2.25m15.364-6.364l-1.591 1.591M6.758 17.242l-1.591 1.591m12.728 0l-1.591-1.591M6.758 6.758L5.167 5.167M12 8.25a3.75 3.75 0 100 7.5 3.75 3.75 0 000-7.5z" />
+    </svg>
+);
+
+const IconMoon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.2">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+    </svg>
+);
+
 const renderIcon = (iconName) => {
     switch (iconName?.toLowerCase()) {
         case 'github':
@@ -75,8 +87,35 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
     const [showBackToTop, setShowBackToTop] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+    
+    // Dedicated Dark Mode State
+    const [isDark, setIsDark] = useState(() => {
+        if (typeof window !== 'undefined') {
+            const saved = localStorage.getItem('portfolio_theme');
+            if (saved) return saved === 'dark';
+            return true; // Default to dark mode for developer vibe
+        }
+        return true;
+    });
+
     const name = settings?.name || 'Manish Kumar';
     const email = settings?.email || 'manish966128@gmail.com';
+
+    useEffect(() => {
+        const root = document.documentElement;
+        const body = document.body;
+        if (isDark) {
+            root.classList.add('dark');
+            body.classList.add('dark');
+            root.setAttribute('data-theme', 'dark');
+            localStorage.setItem('portfolio_theme', 'dark');
+        } else {
+            root.classList.remove('dark');
+            body.classList.remove('dark');
+            root.setAttribute('data-theme', 'light');
+            localStorage.setItem('portfolio_theme', 'light');
+        }
+    }, [isDark]);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -138,44 +177,44 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
     ];
 
     return (
-        <div className="min-h-screen bg-zinc-50/50 text-zinc-900 font-sans antialiased relative overflow-hidden">
+        <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 font-sans antialiased relative overflow-hidden transition-colors duration-300">
 
             {/* Ambient background glows */}
-            <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-indigo-500/[0.03] rounded-full blur-[120px] pointer-events-none -z-10"></div>
-            <div className="absolute top-1/3 right-1/4 w-[400px] h-[400px] bg-cyan-500/[0.02] rounded-full blur-[100px] pointer-events-none -z-10"></div>
-            <div className="absolute bottom-10 left-1/3 w-[600px] h-[600px] bg-indigo-500/[0.02] rounded-full blur-[150px] pointer-events-none -z-10"></div>
+            <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-indigo-500/[0.04] dark:bg-indigo-500/[0.08] rounded-full blur-[120px] pointer-events-none -z-10"></div>
+            <div className="absolute top-1/3 right-1/4 w-[400px] h-[400px] bg-cyan-500/[0.03] dark:bg-cyan-500/[0.06] rounded-full blur-[100px] pointer-events-none -z-10"></div>
+            <div className="absolute bottom-10 left-1/3 w-[600px] h-[600px] bg-indigo-500/[0.03] dark:bg-indigo-500/[0.06] rounded-full blur-[150px] pointer-events-none -z-10"></div>
 
             {/* Fixed Left Social Bar - Sleek Minimalist Badges */}
-            <div className="hidden lg:flex fixed bottom-0 left-8 z-30 flex-col items-center gap-4">
+            <div className="hidden lg:flex fixed bottom-0 left-8 z-30 flex-col items-center gap-3.5">
                 {socialLinks && socialLinks.map((link, idx) => (
                     <a
                         key={idx}
                         href={link.url}
                         target="_blank"
                         rel="noreferrer"
-                        className="flex items-center justify-center w-10 h-10 border border-zinc-200 bg-white/80 backdrop-blur-md rounded-full text-zinc-500 hover:text-indigo-650 hover:-translate-y-1 transition-all duration-300 shadow-sm"
+                        className="flex items-center justify-center w-9 h-9 border border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md rounded-full text-zinc-500 dark:text-zinc-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:border-indigo-400/50 dark:hover:border-indigo-500/50 hover:-translate-y-1 transition-all duration-300 shadow-xs"
                         title={link.platform}
                     >
                         {renderIcon(link.icon || link.platform)}
                     </a>
                 ))}
-                <div className="w-px h-24 bg-gradient-to-t from-transparent to-zinc-300"></div>
+                <div className="w-px h-24 bg-gradient-to-t from-transparent to-zinc-300 dark:to-zinc-800"></div>
             </div>
 
             {/* Fixed Right Email Bar - Sleek Vertical Label */}
             <div className="hidden lg:flex fixed bottom-0 right-8 z-30 flex-col items-center gap-5">
                 <a
                     href={`mailto:${email}`}
-                    className="text-zinc-500 hover:text-indigo-655 text-xs font-mono tracking-wider hover:-translate-y-1 transition-all duration-300 py-2"
+                    className="text-zinc-500 dark:text-zinc-400 hover:text-indigo-600 dark:hover:text-indigo-400 text-xs font-mono tracking-wider hover:-translate-y-1 transition-all duration-300 py-2"
                     style={{ writingMode: 'vertical-rl' }}
                 >
                     {email}
                 </a>
-                <div className="w-px h-20 bg-gradient-to-t from-transparent to-zinc-300"></div>
+                <div className="w-px h-20 bg-gradient-to-t from-transparent to-zinc-300 dark:to-zinc-800"></div>
             </div>
 
             {/* Header / Navigation - Glassmorphic Header */}
-            <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white/95 backdrop-blur-md border-b border-zinc-200/80 ${
+            <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white/90 dark:bg-zinc-950/90 backdrop-blur-md border-b border-zinc-200/80 dark:border-zinc-800/80 ${
                 scrolled ? 'py-2.5 shadow-xs' : 'py-3'
             }`}>
                 <div className="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-12 flex justify-between items-center">
@@ -193,75 +232,107 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                                 window.location.href = '/';
                             }
                         }}
-                        className="font-mono text-xs font-bold tracking-tight border border-zinc-200 px-2.5 sm:px-3 py-1 rounded-lg bg-white shadow-xs hover:border-indigo-500/50 hover:bg-indigo-50/30 transition-all duration-200 inline-flex items-center gap-1.5"
+                        className="font-mono text-xs font-bold tracking-tight border border-zinc-200 dark:border-zinc-800 px-2.5 sm:px-3 py-1 rounded-lg bg-white dark:bg-zinc-900 shadow-xs hover:border-indigo-500/50 hover:bg-indigo-50/30 dark:hover:bg-indigo-950/30 transition-all duration-200 inline-flex items-center gap-1.5"
                     >
                         <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span>
-                        <span className="text-indigo-600 font-extrabold">&lt;</span>
-                        <span className="text-zinc-900 font-bold">manish.dev</span>
-                        <span className="text-indigo-600 font-extrabold">/&gt;</span>
+                        <span className="text-indigo-600 dark:text-indigo-400 font-extrabold">&lt;</span>
+                        <span className="text-zinc-900 dark:text-zinc-100 font-bold">manish.dev</span>
+                        <span className="text-indigo-600 dark:text-indigo-400 font-extrabold">/&gt;</span>
                     </a>
 
-                    {/* Desktop Nav & System Status */}
-                    <div className="hidden md:flex items-center gap-4">
+                    {/* Desktop Nav & System Status & Dark Toggle */}
+                    <div className="hidden md:flex items-center gap-3.5">
                         <nav className="flex items-center gap-1">
                             {navItems.map((item, idx) => (
                                 <a
                                     key={idx}
                                     href={item.href}
                                     onClick={(e) => handleNavClick(e, item.href)}
-                                    className="px-3 py-1.5 text-xs font-semibold text-zinc-600 hover:text-indigo-600 hover:bg-zinc-100 rounded-md transition-colors duration-200 font-sans"
+                                    className="px-3 py-1.5 text-xs font-semibold text-zinc-600 dark:text-zinc-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-zinc-100 dark:hover:bg-zinc-900 rounded-md transition-colors duration-200 font-sans"
                                 >
                                     {item.label}
                                 </a>
                             ))}
                         </nav>
 
+                        {/* Theme Switcher Button */}
+                        <button
+                            type="button"
+                            onClick={() => setIsDark(!isDark)}
+                            className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300 hover:border-indigo-400/50 dark:hover:border-indigo-500/50 transition-all cursor-pointer font-mono text-[11px]"
+                            title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
+                            aria-label="Toggle Theme"
+                        >
+                            {isDark ? <IconSun /> : <IconMoon />}
+                            <span>{isDark ? 'Dark' : 'Light'}</span>
+                        </button>
+
                         {/* Tech Environment Status Pill */}
-                        <div className="hidden lg:flex items-center gap-2 px-2.5 py-1 rounded-md bg-zinc-100 border border-zinc-200 font-mono text-[11px]">
-                            <span className="text-emerald-600 font-bold">git:</span>
-                            <span className="text-zinc-700">main</span>
-                            <span className="text-zinc-300">•</span>
-                            <span className="text-indigo-600 font-semibold">Laravel + React</span>
+                        <div className="hidden lg:flex items-center gap-2 px-2.5 py-1 rounded-md bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 font-mono text-[11px]">
+                            <span className="text-emerald-600 dark:text-emerald-400 font-bold">git:</span>
+                            <span className="text-zinc-700 dark:text-zinc-300">main</span>
+                            <span className="text-zinc-300 dark:text-zinc-700">•</span>
+                            <span className="text-indigo-600 dark:text-indigo-400 font-semibold">Laravel + React</span>
                         </div>
                     </div>
 
-                    {/* Mobile Hamburger Button */}
-                    <button
-                        className="md:hidden text-zinc-700 p-2 border border-zinc-200 bg-white/90 backdrop-blur-sm rounded-lg shadow-xs hover:bg-zinc-50 active:scale-95 transition-all"
-                        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                        aria-label="Toggle menu"
-                    >
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
-                            {mobileMenuOpen ? (
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                            ) : (
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                            )}
-                        </svg>
-                    </button>
+                    {/* Mobile Hamburger & Theme Toggle Button */}
+                    <div className="flex items-center gap-2 md:hidden">
+                        <button
+                            type="button"
+                            onClick={() => setIsDark(!isDark)}
+                            className="p-2 border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 rounded-lg shadow-xs text-zinc-700 dark:text-zinc-300 cursor-pointer"
+                            aria-label="Toggle Theme"
+                        >
+                            {isDark ? <IconSun /> : <IconMoon />}
+                        </button>
+
+                        <button
+                            className="text-zinc-700 dark:text-zinc-300 p-2 border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 rounded-lg shadow-xs hover:bg-zinc-50 dark:hover:bg-zinc-800 active:scale-95 transition-all"
+                            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                            aria-label="Toggle menu"
+                        >
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
+                                {mobileMenuOpen ? (
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                ) : (
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                                )}
+                            </svg>
+                        </button>
+                    </div>
                 </div>
 
             </header>
 
             {/* Mobile Menu Overlay Drawer - OUTSIDE header to avoid stacking context issues */}
             {mobileMenuOpen && (
-                <div className="md:hidden fixed inset-0 bg-white z-[100] flex flex-col justify-between p-6 text-zinc-900">
+                <div className="md:hidden fixed inset-0 bg-white dark:bg-zinc-950 z-[100] flex flex-col justify-between p-6 text-zinc-900 dark:text-zinc-100 transition-colors duration-300">
                     {/* Drawer Header */}
-                    <div className="flex items-center justify-between border-b border-zinc-200 pb-4">
+                    <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-4">
                         <div className="font-mono text-xs font-bold tracking-tight inline-flex items-center gap-1.5">
                             <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-ping"></span>
-                            <span className="text-indigo-600 font-extrabold">&lt;</span>
-                            <span className="text-zinc-900 font-bold">manish.dev</span>
-                            <span className="text-indigo-600 font-extrabold">/&gt;</span>
+                            <span className="text-indigo-600 dark:text-indigo-400 font-extrabold">&lt;</span>
+                            <span className="text-zinc-900 dark:text-zinc-100 font-bold">manish.dev</span>
+                            <span className="text-indigo-600 dark:text-indigo-400 font-extrabold">/&gt;</span>
                         </div>
-                        <button
-                            className="text-zinc-500 p-2 border border-zinc-200 bg-zinc-50 rounded-lg shadow-xs hover:text-zinc-900 cursor-pointer"
-                            onClick={() => setMobileMenuOpen(false)}
-                        >
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                        </button>
+                        <div className="flex items-center gap-2">
+                            <button
+                                type="button"
+                                onClick={() => setIsDark(!isDark)}
+                                className="p-2 border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 rounded-lg shadow-xs text-zinc-700 dark:text-zinc-300 cursor-pointer"
+                            >
+                                {isDark ? <IconSun /> : <IconMoon />}
+                            </button>
+                            <button
+                                className="text-zinc-500 dark:text-zinc-400 p-2 border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 rounded-lg shadow-xs hover:text-zinc-900 dark:hover:text-white cursor-pointer"
+                                onClick={() => setMobileMenuOpen(false)}
+                            >
+                                <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
                     </div>
 
                     {/* Navigation Links */}
@@ -274,7 +345,7 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                                     setMobileMenuOpen(false);
                                     handleNavClick(e, item.href);
                                 }}
-                                className="text-zinc-800 text-xl font-bold hover:text-indigo-600 py-2 border-b border-zinc-100 transition-colors"
+                                className="text-zinc-800 dark:text-zinc-200 text-xl font-bold hover:text-indigo-600 dark:hover:text-indigo-400 py-2 border-b border-zinc-100 dark:border-zinc-900 transition-colors"
                             >
                                 {item.label}
                             </a>
@@ -282,7 +353,7 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                     </div>
 
                     {/* Mobile Social Links & Footer Status */}
-                    <div className="border-t border-zinc-200 pt-5 space-y-4 text-center">
+                    <div className="border-t border-zinc-200 dark:border-zinc-800 pt-5 space-y-4 text-center">
                         <div className="flex items-center justify-center gap-3">
                             {socialLinks && socialLinks.map((link, idx) => (
                                 <a
@@ -290,14 +361,14 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                                     href={link.url}
                                     target="_blank"
                                     rel="noreferrer"
-                                    className="flex items-center justify-center w-9 h-9 border border-zinc-200 bg-zinc-50 rounded-full text-zinc-500 hover:text-indigo-600 hover:border-indigo-300 transition-all"
+                                    className="flex items-center justify-center w-9 h-9 border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 rounded-full text-zinc-500 dark:text-zinc-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:border-indigo-300 dark:hover:border-indigo-700 transition-all"
                                     title={link.platform}
                                 >
                                     {renderIcon(link.icon || link.platform)}
                                 </a>
                             ))}
                         </div>
-                        <p className="font-mono text-[11px] text-zinc-400">
+                        <p className="font-mono text-[11px] text-zinc-400 dark:text-zinc-500">
                             $ status: 200 OK • Full Stack Software Engineer
                         </p>
                     </div>
@@ -310,16 +381,16 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
             </main>
 
             {/* Footer */}
-            <footer className="py-6 border-t border-zinc-200 mt-6 bg-zinc-50/50 relative z-10">
+            <footer className="py-6 border-t border-zinc-200 dark:border-zinc-800/80 mt-6 bg-zinc-50/50 dark:bg-zinc-950/50 relative z-10">
                 <div className="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-12 flex flex-col sm:flex-row items-center justify-between gap-4 font-sans text-center sm:text-left">
-                    <p className="text-xs sm:text-sm text-zinc-500">
+                    <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400">
                         © {new Date().getFullYear()} {name}. All rights reserved.
                     </p>
                     <a
                         href="https://github.com/manish96-code"
                         target="_blank"
                         rel="noreferrer"
-                        className="text-xs font-mono font-semibold text-zinc-600 hover:text-indigo-600 transition-colors duration-300 border border-zinc-200 bg-white px-3.5 py-1.5 rounded-lg shadow-xs"
+                        className="text-xs font-mono font-semibold text-zinc-600 dark:text-zinc-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-300 border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-3.5 py-1.5 rounded-lg shadow-xs"
                     >
                         Built by {name}
                     </a>
@@ -330,7 +401,7 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
             {showBackToTop && (
                 <button
                     onClick={scrollToTop}
-                    className="fixed bottom-6 right-6 z-40 w-10 h-10 rounded-full bg-white border border-zinc-200 text-zinc-500 flex items-center justify-center hover:bg-zinc-100 hover:text-zinc-900 transition-all duration-300 shadow-sm lg:hidden"
+                    className="fixed bottom-6 right-6 z-40 w-10 h-10 rounded-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-500 dark:text-zinc-400 flex items-center justify-center hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-zinc-900 dark:hover:text-white transition-all duration-300 shadow-sm lg:hidden"
                     title="Back to Top"
                 >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
