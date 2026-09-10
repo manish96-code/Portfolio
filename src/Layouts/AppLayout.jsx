@@ -196,7 +196,7 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                     >
                         <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span>
                         <span className="text-indigo-600 font-extrabold">&lt;</span>
-                        <span className="text-zinc-900 font-bold">manish.dev</span>
+                        <span className="text-zinc-900 font-bold">techmanish.in</span>
                         <span className="text-indigo-600 font-extrabold">/&gt;</span>
                     </a>
 
@@ -250,7 +250,7 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                         <div className="font-mono text-xs font-bold tracking-tight inline-flex items-center gap-1.5">
                             <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-ping"></span>
                             <span className="text-indigo-600 font-extrabold">&lt;</span>
-                            <span className="text-zinc-900 font-bold">manish.dev</span>
+                            <span className="text-zinc-900 font-bold">techmanish.in</span>
                             <span className="text-indigo-600 font-extrabold">/&gt;</span>
                         </div>
                         <button

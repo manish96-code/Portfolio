@@ -1,208 +1,61 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- =========================
-         BASIC DOCUMENT SETTINGS
-    ========================== -->
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#4F46E5" />
+    <meta name="color-scheme" content="light dark" />
 
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%234F46E5' d='M12 2L2 7v10l10 5 10-5V7L12 2z'/%3E%3C/svg%3E" />
 
-    <meta
-      name="theme-color"
-      content="#4F46E5"
-    />
-
-    <meta
-      name="color-scheme"
-      content="light"
-    />
-
-    <!-- =========================
-         FAVICON
-    ========================== -->
-    <link
-      rel="icon"
-      type="image/svg+xml"
-      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%234F46E5' d='M12 2L2 7v10l10 5 10-5V7L12 2z'/%3E%3C/svg%3E"
-    />
-
-    <!-- =========================
-         PRIMARY SEO
-    ========================== -->
-
-    <title>
-      Manish Kumar | Full-Stack Software Engineer | Laravel & React Developer
-    </title>
-
-    <meta
-      name="description"
-      content="Manish Kumar is a Full-Stack Software Engineer specializing in Laravel, PHP, React, Inertia.js and MySQL. Explore his projects, technical skills, experience and software development portfolio."
-    />
-
-    <meta
-      name="author"
-      content="Manish Kumar"
-    />
-
-    <meta
-      name="robots"
-      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
-    />
-
-    <meta
-      name="googlebot"
-      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
-    />
-
-    <meta
-      name="language"
-      content="English"
-    />
-
+    <!-- Primary SEO Meta Tags -->
+    <title>Manish Kumar | Full-Stack Software Engineer (Laravel & React)</title>
+    <meta name="title" content="Manish Kumar | Full-Stack Software Engineer (Laravel & React)" />
+    <meta name="description" content="Official portfolio of Manish Kumar (techmanish.in). Full Stack Software Engineer from Purnea, Bihar (BCA Purnea University) working in Jaipur. Specializing in Laravel, React, Inertia.js, and MySQL. Creator of GymMitra SaaS & KitabiAdda." />
+    <meta name="author" content="Manish Kumar" />
+    <meta name="keywords" content="techmanish, techmanish.in, Manish, Manish Kumar, Manish Kumar Developer, Manish Kumar Software Engineer Purnea, Manish Kumar Purnea, Software Engineer Purnea, Purnea University, Laravel Developer, React Developer, PHP Developer, Full Stack Developer, Web Developer Jaipur, Inertia.js Developer, GymMitra SaaS, KitabiAdda" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    
     <!-- Canonical URL -->
-    <link
-      rel="canonical"
-      href="https://manish.dev/"
-    />
+    <link rel="canonical" href="https://techmanish.in/" />
 
-    <!-- =========================
-         OPEN GRAPH
-         Facebook / WhatsApp / LinkedIn
-    ========================== -->
+    <!-- Open Graph / Facebook / WhatsApp / LinkedIn -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://techmanish.in/" />
+    <meta property="og:site_name" content="Manish Kumar Portfolio (techmanish.in)" />
+    <meta property="og:title" content="Manish Kumar | Full-Stack Software Engineer" />
+    <meta property="og:description" content="Full-Stack Software Engineer specializing in Laravel, React, PHP, Inertia.js, and MySQL. Building GymMitra SaaS & web applications." />
+    <meta property="og:image" content="https://techmanish.in/images/projects/gymmitra-thumb.png" />
+    <meta property="og:locale" content="en_IN" />
 
-    <meta
-      property="og:type"
-      content="website"
-    />
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://techmanish.in/" />
+    <meta name="twitter:title" content="Manish Kumar | Full-Stack Software Engineer" />
+    <meta name="twitter:description" content="Full-Stack Software Engineer specializing in Laravel, React, PHP, Inertia.js, and MySQL." />
+    <meta name="twitter:image" content="https://techmanish.in/images/projects/gymmitra-thumb.png" />
 
-    <meta
-      property="og:url"
-      content="https://manish.dev/"
-    />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-    <meta
-      property="og:site_name"
-      content="Manish Kumar"
-    />
-
-    <meta
-      property="og:title"
-      content="Manish Kumar | Full-Stack Software Engineer"
-    />
-
-    <meta
-      property="og:description"
-      content="Full-Stack Software Engineer specializing in Laravel, React, PHP, Inertia.js and MySQL. Explore my projects, skills and software development work."
-    />
-
-    <meta
-      property="og:image"
-      content="https://manish.dev/images/og-image.png"
-    />
-
-    <meta
-      property="og:image:alt"
-      content="Manish Kumar - Full-Stack Software Engineer"
-    />
-
-    <meta
-      property="og:image:width"
-      content="1200"
-    />
-
-    <meta
-      property="og:image:height"
-      content="630"
-    />
-
-    <meta
-      property="og:locale"
-      content="en_IN"
-    />
-
-    <!-- =========================
-         TWITTER / X CARD
-    ========================== -->
-
-    <meta
-      name="twitter:card"
-      content="summary_large_image"
-    />
-
-    <meta
-      name="twitter:title"
-      content="Manish Kumar | Full-Stack Software Engineer"
-    />
-
-    <meta
-      name="twitter:description"
-      content="Full-Stack Software Engineer specializing in Laravel, React, PHP, Inertia.js and MySQL."
-    />
-
-    <meta
-      name="twitter:image"
-      content="https://manish.dev/images/og-image.png"
-    />
-
-    <meta
-      name="twitter:image:alt"
-      content="Manish Kumar - Full-Stack Software Engineer"
-    />
-
-    <!-- Add these only if you have an X/Twitter account -->
-    <!--
-    <meta name="twitter:site" content="@yourusername" />
-    <meta name="twitter:creator" content="@yourusername" />
-    -->
-
-    <!-- =========================
-         PERFORMANCE
-    ========================== -->
-
-    <link
-      rel="preconnect"
-      href="https://fonts.googleapis.com"
-    />
-
-    <link
-      rel="preconnect"
-      href="https://fonts.gstatic.com"
-      crossorigin
-    />
-
-    <link
-      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-
-    <!-- =========================
-         WEB APP MANIFEST
-    ========================== -->
-
-    <link
-      rel="manifest"
-      href="/site.webmanifest"
-    />
-
-    <!-- =========================
-         STRUCTURED DATA
-         Person Schema
-    ========================== -->
-
+    <!-- Structured Data - Person Schema -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "Person",
-        "@id": "https://manish.dev/#person",
+        "@id": "https://techmanish.in/#person",
         "name": "Manish Kumar",
-        "url": "https://manish.dev/",
+        "url": "https://techmanish.in/",
         "jobTitle": "Full-Stack Software Engineer",
         "description": "Full-Stack Software Engineer specializing in Laravel, PHP, React, Inertia.js and MySQL.",
+        "homeLocation": {
+          "@type": "Place",
+          "name": "Purnea, Bihar, India"
+        },
         "knowsAbout": [
           "Laravel",
           "PHP",
@@ -210,40 +63,32 @@
           "JavaScript",
           "Inertia.js",
           "MySQL",
-          "HTML",
-          "CSS",
-          "REST API",
           "Full-Stack Web Development",
           "Software Engineering",
-          "SaaS Development",
-          "Web Application Development"
+          "SaaS Development"
         ],
         "alumniOf": {
           "@type": "CollegeOrUniversity",
           "name": "Purnea University"
         },
         "sameAs": [
-          "https://github.com/YOUR_USERNAME",
-          "https://www.linkedin.com/in/YOUR_USERNAME"
+          "https://github.com/manish96-code",
+          "https://manish.echovel.com"
         ]
       }
     </script>
 
-    <!-- =========================
-         STRUCTURED DATA
-         Website Schema
-    ========================== -->
-
+    <!-- Structured Data - WebSite Schema -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "WebSite",
-        "@id": "https://manish.dev/#website",
-        "url": "https://manish.dev/",
+        "@id": "https://techmanish.in/#website",
+        "url": "https://techmanish.in/",
         "name": "Manish Kumar",
-        "description": "Official portfolio of Manish Kumar, Full-Stack Software Engineer specializing in Laravel, React, PHP, Inertia.js and MySQL.",
+        "description": "Official portfolio of Manish Kumar (techmanish.in), Full-Stack Software Engineer specializing in Laravel, React, PHP, Inertia.js and MySQL.",
         "publisher": {
-          "@id": "https://manish.dev/#person"
+          "@id": "https://techmanish.in/#person"
         }
       }
     </script>
@@ -251,11 +96,6 @@
 
   <body class="bg-cream text-body antialiased">
     <div id="root"></div>
-
-    <script
-      type="module"
-      src="/src/main.jsx"
-    ></script>
+    <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
-```

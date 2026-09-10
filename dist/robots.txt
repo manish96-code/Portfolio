@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://manish.dev/sitemap.xml
+Sitemap: https://techmanish.in/sitemap.xml

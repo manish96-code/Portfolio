@@ -19,7 +19,7 @@ export default function SEO({
     const metaDescription = description 
         || 'Personal portfolio of Manish Kumar. Full Stack Software Engineer specializing in Laravel, React, Inertia.js, and MySQL. Building SaaS platforms & web applications.';
 
-    const siteUrl = typeof window !== 'undefined' && window.location.origin ? window.location.origin : 'https://manish.dev';
+    const siteUrl = typeof window !== 'undefined' && window.location.origin ? window.location.origin : 'https://techmanish.in';
     const pageUrl = canonicalUrl ? `${siteUrl}${canonicalUrl}` : siteUrl;
     const defaultOgImage = `${siteUrl}/images/projects/gymmitra-thumb.png`;
     const imageToUse = ogImage ? (ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`) : defaultOgImage;
