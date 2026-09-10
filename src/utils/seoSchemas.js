@@ -26,6 +26,10 @@ export const getPersonSchema = (settings, socialLinks) => {
             'addressRegion': 'Rajasthan',
             'addressCountry': 'India'
         },
+        'homeLocation': {
+            '@type': 'Place',
+            'name': 'Purnea, Bihar, India'
+        },
         'sameAs': sameAs,
         'knowsAbout': [
             'Laravel',

@@ -42,7 +42,7 @@ export default function SEO({
         // Standard Meta Tags
         setMeta('name', 'description', metaDescription);
         setMeta('name', 'author', 'Manish Kumar');
-        setMeta('name', 'keywords', 'Manish, Manish Kumar, Manish Kumar Developer, Laravel Developer, React Developer, PHP Developer, Full Stack Developer, Web Developer Jaipur, Inertia.js Developer, Software Engineer Manish Kumar, GymMitra SaaS, KitabiAdda');
+        setMeta('name', 'keywords', 'Manish, Manish Kumar, Manish Kumar Developer, Manish Kumar Software Engineer Purnea, Manish Kumar Purnea, Software Engineer Purnea, Purnea University, Laravel Developer, React Developer, PHP Developer, Full Stack Developer, Web Developer Jaipur, India, Inertia.js Developer, GymMitra SaaS, KitabiAdda');
 
         // Open Graph Meta Tags (for WhatsApp, LinkedIn, Facebook preview cards)
         setMeta('property', 'og:site_name', 'Manish Kumar Portfolio');
