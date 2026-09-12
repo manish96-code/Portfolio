@@ -18,7 +18,7 @@ export const getPersonSchema = (settings, socialLinks) => {
             '@type': 'EducationalOrganization',
             'name': 'Purnea University'
         },
-        'url': 'https://techmanish.in',
+        'url': 'https://www.techmanish.in',
         'email': `mailto:${settings?.email || 'manish966128@gmail.com'}`,
         'address': {
             '@type': 'PostalAddress',
@@ -49,7 +49,7 @@ export const getWebsiteSchema = (settings) => {
         '@context': 'https://schema.org',
         '@type': 'WebSite',
         'name': settings?.name ? `${settings.name} Portfolio` : 'Manish Kumar | Full Stack Software Engineer',
-        'url': 'https://techmanish.in',
+        'url': 'https://www.techmanish.in',
         'description': settings?.meta_description || 'Personal portfolio of Manish Kumar. Full Stack Software Engineer specializing in Laravel, React, and MySQL.',
         'author': {
             '@type': 'Person',
@@ -77,7 +77,7 @@ export const getProjectSchema = (project, settings) => {
             'price': '0.00',
             'priceCurrency': 'USD'
         },
-        'url': project.live_url || project.github_url || `https://techmanish.in/project/${project.slug}`
+        'url': project.live_url || project.github_url || `https://www.techmanish.in/project/${project.slug}`
     };
 };
 
@@ -96,7 +96,7 @@ export const getBlogSchema = (blog, settings) => {
         'datePublished': blog.created_at || '2026-07-06',
         'mainEntityOfPage': {
             '@type': 'WebPage',
-            '@id': `https://techmanish.in/blog/${blog.slug}`
+            '@id': `https://www.techmanish.in/blog/${blog.slug}`
         }
     };
 };

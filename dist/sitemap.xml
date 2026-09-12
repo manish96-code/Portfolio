@@ -3,67 +3,67 @@
 
   <!-- HOMEPAGE -->
   <url>
-    <loc>https://techmanish.in/</loc>
-    <lastmod>2026-09-10</lastmod>
+    <loc>https://www.techmanish.in/</loc>
+    <lastmod>2026-09-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
   <!-- PROJECTS -->
   <url>
-    <loc>https://techmanish.in/project/gymmitra</loc>
-    <lastmod>2026-09-10</lastmod>
+    <loc>https://www.techmanish.in/project/gymmitra</loc>
+    <lastmod>2026-09-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://techmanish.in/project/kitabi-adda</loc>
-    <lastmod>2026-09-10</lastmod>
+    <loc>https://www.techmanish.in/project/kitabi-adda</loc>
+    <lastmod>2026-09-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://techmanish.in/project/linkup</loc>
-    <lastmod>2026-09-10</lastmod>
+    <loc>https://www.techmanish.in/project/linkup</loc>
+    <lastmod>2026-09-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://techmanish.in/project/campus-connect</loc>
-    <lastmod>2026-09-10</lastmod>
+    <loc>https://www.techmanish.in/project/campus-connect</loc>
+    <lastmod>2026-09-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://techmanish.in/project/recipe-finder</loc>
-    <lastmod>2026-09-10</lastmod>
+    <loc>https://www.techmanish.in/project/recipe-finder</loc>
+    <lastmod>2026-09-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <!-- BLOG INDEX -->
   <url>
-    <loc>https://techmanish.in/blogs</loc>
-    <lastmod>2026-09-10</lastmod>
+    <loc>https://www.techmanish.in/blogs</loc>
+    <lastmod>2026-09-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- BLOG POSTS -->
   <url>
-    <loc>https://techmanish.in/blog/react-19-compiler</loc>
-    <lastmod>2026-09-10</lastmod>
+    <loc>https://www.techmanish.in/blog/react-19-compiler</loc>
+    <lastmod>2026-09-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://techmanish.in/blog/laravel-query-optimization</loc>
-    <lastmod>2026-09-10</lastmod>
+    <loc>https://www.techmanish.in/blog/laravel-query-optimization</loc>
+    <lastmod>2026-09-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
