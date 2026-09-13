@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import AppLayout, { IconExternal } from '../../Layouts/AppLayout';
 import SEO from '../../Components/SEO';
 import { getPersonSchema, getWebsiteSchema } from '../../utils/seoSchemas';
@@ -7,21 +7,18 @@ const scrollToSection = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 };
 
-const SectionHeader = ({ eyebrow, title, copy, centered = false }) => (
-    <div className={`mb-10 font-sans ${centered ? 'text-center max-w-2xl mx-auto' : 'grid gap-4 md:grid-cols-[0.65fr_1fr] md:items-end'}`}>
+const SectionHeader = ({ eyebrow, title, copy }) => (
+    <div className="mb-10 grid gap-4 md:grid-cols-[0.65fr_1fr] md:items-end font-sans">
         <div>
-            <div className={`section-accent mb-3 ${centered ? 'mx-auto' : ''}`}></div>
-            {eyebrow && (
-                <span className="inline-block px-3 py-1 font-mono text-[11px] font-semibold tracking-wider text-indigo-600 bg-indigo-50 border border-indigo-200 rounded-full mb-2">
-                    {eyebrow}
-                </span>
-            )}
-            <h2 className="font-display text-2xl font-bold tracking-tight text-zinc-900 md:text-3xl leading-snug">
+            <span className="inline-block px-3 py-1 font-mono text-[11px] font-semibold tracking-wider text-indigo-600 bg-indigo-50 border border-indigo-200 rounded-full">
+                {eyebrow}
+            </span>
+            <h2 className="mt-3 font-display text-2xl font-bold tracking-tight text-zinc-900 md:text-3xl leading-snug">
                 {title}
             </h2>
         </div>
         {copy && (
-            <p className={`text-xs sm:text-sm leading-relaxed text-zinc-600 ${centered ? 'mt-3' : 'md:ml-auto border-l border-zinc-200 pl-5 max-w-2xl'}`}>
+            <p className="max-w-2xl text-xs sm:text-sm leading-relaxed text-zinc-600 md:ml-auto border-l border-zinc-200 pl-5">
                 {copy}
             </p>
         )}
@@ -39,7 +36,7 @@ const ProjectMonogram = ({ title, thumbnail }) => (
         ) : (
             <>
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:14px_24px] opacity-30"></div>
-                <div className="relative flex h-16 w-16 items-center justify-center rounded-xl border border-zinc-200 bg-white text-2xl font-display font-bold text-indigo-600 shadow-sm group-hover:scale-105 group-hover:text-indigo-700 transition-all duration-300">
+                <div className="relative flex h-16 w-16 items-center justify-center rounded-xl border border-zinc-200 bg-white text-2xl font-display font-bold text-indigo-600 shadow-sm group-hover:scale-105 group-hover:text-cyan-600 transition-all duration-300">
                     {title.substring(0, 2).toUpperCase()}
                 </div>
             </>
@@ -49,10 +46,10 @@ const ProjectMonogram = ({ title, thumbnail }) => (
 
 export default function Home({ projects, skills, experiences, certificates, socialLinks, settings, navigate }) {
 
-    const [activeTab, setActiveTab] = useState('developer.js');
-    const [copied, setCopied] = useState(false);
-    const [isExecuting, setIsExecuting] = useState(false);
-    const [terminalOutput, setTerminalOutput] = useState(null);
+    const [activeTab, setActiveTab] = React.useState('developer.js');
+    const [copied, setCopied] = React.useState(false);
+    const [isExecuting, setIsExecuting] = React.useState(false);
+    const [terminalOutput, setTerminalOutput] = React.useState(null);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -72,8 +69,8 @@ export default function Home({ projects, skills, experiences, certificates, soci
 
     const handleCopySnippet = () => {
         const codeText = activeTab === 'developer.js'
-            ? `const developer = {\n  name: '${settings?.name || 'Manish Kumar'}',\n  role: 'Full Stack Software Engineer',\n  location: 'Jaipur, India',\n  coreSkills: ['Laravel 11', 'React 19', 'PHP 8.3', 'MySQL', 'Tailwind CSS'],\n  availableForRoles: true\n};`
-            : `{\n  "name": "${settings?.name || 'Manish Kumar'}",\n  "company": "${settings?.current_company || 'Comestro Techlabs'}",\n  "stack": {\n    "frontend": ["React 19", "JavaScript", "Tailwind CSS", "Inertia.js"],\n    "backend": ["Laravel 11", "PHP 8.3", "REST APIs"],\n    "database": ["MySQL", "Eloquent ORM"]\n  }\n}`;
+            ? `const developer = {\n  name: '${settings?.name || 'Manish Kumar'}',\n  role: 'Full Stack Web Developer',\n  location: 'Purnea, Bihar, India',\n  coreSkills: ['Laravel', 'React', 'PHP', 'MySQL', 'Tailwind CSS'],\n  availableForRoles: true\n};`
+            : `{\n  "name": "${settings?.name || 'Manish Kumar'}",\n  "stack": {\n    "frontend": ["React", "JavaScript", "Tailwind CSS"],\n    "backend": ["Laravel", "PHP", "REST APIs"],\n    "database": ["MySQL"]\n  }\n}`;
         navigator.clipboard.writeText(codeText);
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
@@ -102,264 +99,47 @@ export default function Home({ projects, skills, experiences, certificates, soci
     };
 
     const skillCategories = skills ? Object.keys(skills) : [];
+    const primarySkills = skills ? Object.values(skills).flat().map((skill) => skill.name).slice(0, 10) : [];
     const activeExperience = experiences?.[0];
-
-    // Comestro-inspired 8-card expertise list
-    const expertiseList = [
-        {
-            title: 'SaaS Product Architecture',
-            category: 'Architecture',
-            desc: 'Building multi-tenant SaaS platforms with automated tenant provisioning, subscription lifecycles, and RBAC permission models (e.g. GymMitra).',
-            tech: ['Laravel 11', 'Multi-Tenant', 'MySQL', 'Stripe'],
-            colorClass: 'icon-box-indigo',
-            icon: (
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                </svg>
-            )
-        },
-        {
-            title: 'Full-Stack Web Development',
-            category: 'Web Apps',
-            desc: 'Delivering end-to-end production web applications connecting high-performance Laravel APIs with dynamic React user interfaces.',
-            tech: ['Laravel', 'React 19', 'Inertia.js', 'Vite'],
-            colorClass: 'icon-box-sky',
-            icon: (
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-            )
-        },
-        {
-            title: 'RESTful APIs & Microservices',
-            category: 'Backend',
-            desc: 'Crafting clean, documented RESTful endpoints, API resources, token authentication with Laravel Sanctum, and external service webhooks.',
-            tech: ['REST', 'Sanctum', 'JSON API', 'Webhooks'],
-            colorClass: 'icon-box-teal',
-            icon: (
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-            )
-        },
-        {
-            title: 'Relational Database Engineering',
-            category: 'Database',
-            desc: 'Designing normalized MySQL database schemas, foreign key constraints, indexing strategies, and eliminating N+1 Eloquent bottlenecks.',
-            tech: ['MySQL', 'Eloquent ORM', 'Indexing', 'Query Optimization'],
-            colorClass: 'icon-box-violet',
-            icon: (
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
-                </svg>
-            )
-        },
-        {
-            title: 'Multi-Vendor Marketplaces',
-            category: 'E-Commerce',
-            desc: 'Building multi-store e-commerce systems with product catalogs, shopping cart logic, order fulfillment states, and payment flows (KitabiAdda).',
-            tech: ['E-Commerce', 'Cart Logic', 'Order State Machine', 'Razorpay'],
-            colorClass: 'icon-box-emerald',
-            icon: (
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                </svg>
-            )
-        },
-        {
-            title: 'Modern Reactive SPAs',
-            category: 'Frontend',
-            desc: 'Creating fluid, responsive single-page interfaces with React 19, Tailwind CSS, custom hooks, smooth transitions, and instant user feedback.',
-            tech: ['React 19', 'Tailwind CSS', 'State Management', 'UI/UX'],
-            colorClass: 'icon-box-sky',
-            icon: (
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
-                </svg>
-            )
-        },
-        {
-            title: 'Authentication & Security (RBAC)',
-            category: 'Security',
-            desc: 'Implementing multi-guard user authentication, email verifications, password resets, role-permission matrix, and CSRF protection.',
-            tech: ['Bcrypt', 'RBAC', 'Middleware', 'Sanctum'],
-            colorClass: 'icon-box-amber',
-            icon: (
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
-            )
-        },
-        {
-            title: 'Real-Time Systems & WebSockets',
-            category: 'Interactive',
-            desc: 'Deploying real-time notifications, event broadcasting, live status indicators, and interactive communication channels.',
-            tech: ['Event Broadcasting', 'WebSockets', 'Pusher', 'Polling'],
-            colorClass: 'icon-box-indigo',
-            icon: (
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-            )
-        }
-    ];
-
-    // Engineering process workflow steps
-    const processSteps = [
-        {
-            step: '01',
-            title: 'Discovery & System Specs',
-            desc: 'Unpacking business logic into exact user stories, entity-relationship diagrams, edge cases, and architectural milestones.',
-            icon: '📋'
-        },
-        {
-            step: '02',
-            title: 'Database Schema Modeling',
-            desc: 'Drafting normalized MySQL migrations, foreign key cascading rules, indexes, and Eloquent relationships before touching UI.',
-            icon: '🗄️'
-        },
-        {
-            step: '03',
-            title: 'Backend & API Layer',
-            desc: 'Implementing secure Laravel controllers, form requests, policies, business service layers, and RESTful resources.',
-            icon: '⚡'
-        },
-        {
-            step: '04',
-            title: 'Reactive Frontend Experience',
-            desc: 'Building responsive React 19 components with Tailwind CSS and Inertia.js for seamless single-page interactivity.',
-            icon: '🎨'
-        },
-        {
-            step: '05',
-            title: 'Verification & Production Launch',
-            desc: 'End-to-end testing, query optimization, SSL/environment verification, and continuous maintenance in production.',
-            icon: '🚀'
-        }
-    ];
-
-    // Value pillars for "Why Work With Me"
-    const valuePillars = [
-        {
-            title: 'Enterprise-Grade Clean Code',
-            desc: 'I write organized Laravel services, single-responsibility controllers, and modular React components that any engineer can maintain and scale.',
-            colorClass: 'icon-box-indigo',
-            icon: (
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                </svg>
-            )
-        },
-        {
-            title: 'Production-First Reliability',
-            desc: 'Every endpoint and screen is built with schema integrity, robust form request validations, exception handling, and device responsiveness.',
-            colorClass: 'icon-box-emerald',
-            icon: (
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
-            )
-        },
-        {
-            title: 'Fast Execution & Clear Delivery',
-            desc: 'Experienced with rapid agile iteration, breaking complex product specs into achievable milestones, and communicating proactively.',
-            colorClass: 'icon-box-sky',
-            icon: (
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-            )
-        },
-        {
-            title: 'Full-Cycle Engineering Mindset',
-            desc: 'From initial database ER diagrams and REST APIs to pixel-accurate UI styling and deployment, I take ownership of the whole cycle.',
-            colorClass: 'icon-box-violet',
-            icon: (
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                </svg>
-            )
-        }
-    ];
-
-    // Client and team endorsements
-    const testimonials = [
-        {
-            quote: 'Manish demonstrated exceptional proficiency in structuring multi-tenant database schemas and developing smooth reactive interfaces. His commitment to code quality and delivery speed is outstanding.',
-            author: 'Engineering Lead',
-            role: 'Comestro Techlabs Pvt Ltd',
-            avatar: 'CL',
-            stars: 5
-        },
-        {
-            quote: 'The GymMitra SaaS platform built by Manish is robust, fast, and handles member attendance and billing with zero hiccups. The code is modular, well-commented, and reliable.',
-            author: 'Product Stakeholder',
-            role: 'GymMitra Management',
-            avatar: 'GM',
-            stars: 5
-        },
-        {
-            quote: 'Strong problem-solving capability in full-stack Laravel and React ecosystems. He designs clean database models and writes predictable, clean APIs.',
-            author: 'Senior Developer',
-            role: 'Peer Review & Collaboration',
-            avatar: 'SD',
-            stars: 5
-        }
-    ];
 
     return (
         <AppLayout settings={settings} socialLinks={socialLinks} navigate={navigate}>
-            <SEO
-                title={`${settings?.name || 'Manish Kumar'} | Full-Stack Software Engineer`}
-                description={settings?.meta_description || "Full-Stack Software Engineer specializing in Laravel, React, Inertia.js, and MySQL. Building scalable SaaS applications, e-commerce marketplaces, and production web platforms."}
-                canonicalUrl="/"
-            />
 
             {/* HERO SECTION */}
-            <section className="relative pt-12 pb-6 sm:pt-16 sm:pb-8 lg:pt-20 overflow-hidden font-sans">
-                <div className="w-full max-w-full grid gap-8 sm:gap-10 lg:grid-cols-[1.15fr_0.85fr] items-center relative z-10 min-w-0">
+            <section className="relative pt-20 pb-6 sm:pt-24 sm:pb-8 lg:pt-28 overflow-hidden font-sans">
+                <div className="w-full max-w-full grid gap-8 sm:gap-10 lg:grid-cols-[1.1fr_0.9fr] items-center relative z-10 min-w-0">
 
                     {/* Left Column - Main Intro & CTAs */}
                     <div className="text-center sm:text-left w-full min-w-0 overflow-hidden px-1 sm:px-0">
-                        {/* Status & Role Eyebrow Badges */}
-                        <div className="mb-4 flex flex-wrap items-center justify-center sm:justify-start gap-2 sm:gap-2.5 w-full min-w-0">
-                            <span className="inline-flex items-center justify-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-200 font-mono text-[10px] sm:text-[11px] font-semibold text-indigo-700 shadow-xs max-w-full">
+                        {/* Status & Terminal Badges - Vertically Stacked on Mobile to Prevent Flex Overflow */}
+                        <div className="mb-4 flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-2 sm:gap-2.5 w-full min-w-0">
+                            <span className="inline-flex items-center justify-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 font-mono text-[10px] sm:text-[11px] font-semibold text-emerald-700 shadow-xs max-w-full">
                                 <span className="relative flex h-2 w-2 shrink-0">
-                                    <span className="status-pulse-dot absolute inline-flex h-full w-full rounded-full bg-indigo-500 opacity-75"></span>
-                                    <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-600"></span>
+                                    <span className="status-pulse-dot absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
+                                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-600"></span>
                                 </span>
-                                <span className="truncate">🚀 Full-Stack Engineer • Laravel & React Specialist</span>
+                                <span className="truncate">Available for full-stack roles</span>
                             </span>
                             <span className="inline-flex items-center justify-center gap-1 px-3 py-1 rounded-full bg-zinc-100 border border-zinc-200 font-mono text-[10px] sm:text-[11px] font-semibold text-zinc-700 max-w-full">
                                 <span className="text-indigo-600 font-bold">$</span> php artisan serve
                             </span>
                         </div>
 
-                        {/* Comestro-Inspired Two-Tone Headline */}
-                        <h1 className="max-w-3xl mx-auto sm:mx-0 font-display text-2xl sm:text-3xl lg:text-[42px] font-extrabold leading-snug sm:leading-[1.22] tracking-tight text-zinc-900 break-words min-w-0">
-                            I Build Software <span className="text-indigo-600 font-extrabold block sm:inline">That Powers</span> Scalable Web Products
+                        {/* Main Headline */}
+                        <h1 className="max-w-3xl mx-auto sm:mx-0 font-display text-xl sm:text-3xl lg:text-[40px] font-extrabold leading-snug sm:leading-[1.25] tracking-tight text-zinc-900 break-words min-w-0">
+                            Full-Stack Software Engineer building scalable{' '}
+                            <span className="text-indigo-600 font-extrabold block sm:inline">
+                                SaaS Apps & Web Products
+                            </span>
                         </h1>
 
                         {/* Bio Summary */}
                         <p className="mt-3.5 max-w-xl mx-auto sm:mx-0 text-xs sm:text-sm leading-relaxed text-zinc-600 break-words min-w-0">
-                            I am <strong className="text-zinc-900 font-semibold">{settings?.name || 'Manish Kumar'}</strong>, a full-stack software engineer based in Jaipur. I specialize in building multi-tenant SaaS platforms (GymMitra), e-commerce marketplaces (KitabiAdda), and reactive single-page user interfaces with solid Laravel backends and MySQL database engines.
+                            I am <strong className="text-zinc-900 font-semibold">{settings?.name || 'Manish Kumar'}</strong>, a full-stack software engineer based in Purnea, Bihar. I specialize in building multi-tenant SaaS platforms (GymMitra), e-commerce marketplaces (KitabiAdda), and reactive single-page user interfaces with solid Laravel backends and MySQL database engines.
                         </p>
 
-                        {/* Comestro Trust Badges */}
-                        <div className="mt-4 flex flex-wrap items-center justify-center sm:justify-start gap-2 text-xs text-zinc-600 font-medium">
-                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-zinc-100/90 border border-zinc-200">
-                                <span className="text-indigo-600 font-bold">🛡️</span> Clean DB Schemas
-                            </span>
-                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-zinc-100/90 border border-zinc-200">
-                                <span className="text-indigo-600 font-bold">⚡</span> High-Throughput APIs
-                            </span>
-                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-zinc-100/90 border border-zinc-200">
-                                <span className="text-indigo-600 font-bold">💼</span> Production-Ready Code
-                            </span>
-                        </div>
-
                         {/* Core Stack Pills */}
-                        <div className="mt-4 flex flex-wrap items-center justify-center sm:justify-start gap-1 sm:gap-1.5 font-mono text-[10px] sm:text-[11px] w-full min-w-0">
+                        <div className="mt-4 sm:mt-5 flex flex-wrap items-center justify-center sm:justify-start gap-1 sm:gap-1.5 font-mono text-[10px] sm:text-[11px] w-full min-w-0">
                             <span className="font-semibold text-zinc-500 mr-1 text-[10px] w-full sm:w-auto text-center sm:text-left">// Core Stack:</span>
                             {['Laravel 11', 'React 19', 'Inertia.js', 'MySQL', 'PHP 8.3', 'Tailwind CSS'].map((tech) => (
                                 <span key={tech} className="px-2 py-0.5 rounded-md bg-zinc-100 border border-zinc-200 text-zinc-800 font-semibold shrink-0">
@@ -369,11 +149,11 @@ export default function Home({ projects, skills, experiences, certificates, soci
                         </div>
 
                         {/* Action Buttons */}
-                        <div className="mt-5 sm:mt-6 flex flex-wrap gap-2.5 sm:gap-3 items-center justify-center sm:justify-start w-full max-w-md mx-auto sm:mx-0 min-w-0">
+                        <div className="mt-5 sm:mt-6 flex flex-col sm:flex-row gap-2.5 sm:gap-3 items-center justify-center sm:justify-start w-full max-w-md mx-auto sm:mx-0 min-w-0">
                             <button
                                 type="button"
                                 onClick={() => scrollToSection('projects')}
-                                className="w-full sm:w-auto group relative inline-flex items-center justify-center gap-2 px-5 py-2.5 text-xs sm:text-sm font-semibold rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 shadow-sm shadow-indigo-600/20 active:scale-95 transition-all duration-200 cursor-pointer"
+                                className="w-full sm:w-auto max-w-xs sm:max-w-none group relative inline-flex items-center justify-center gap-2 px-5 py-2.5 text-xs sm:text-sm font-semibold rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 shadow-sm shadow-indigo-600/20 active:scale-95 transition-all duration-200 cursor-pointer"
                             >
                                 <span>View Selected Works</span>
                                 <svg className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -383,38 +163,25 @@ export default function Home({ projects, skills, experiences, certificates, soci
                             <button
                                 type="button"
                                 onClick={() => scrollToSection('contact')}
-                                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 text-xs sm:text-sm font-semibold rounded-lg text-zinc-800 bg-white border border-zinc-300 hover:border-zinc-400 hover:bg-zinc-50 shadow-sm active:scale-95 transition-all duration-200 cursor-pointer font-mono"
+                                className="w-full sm:w-auto max-w-xs sm:max-w-none inline-flex items-center justify-center gap-2 px-5 py-2.5 text-xs sm:text-sm font-semibold rounded-lg text-zinc-800 bg-white border border-zinc-300 hover:border-zinc-400 hover:bg-zinc-50 shadow-sm active:scale-95 transition-all duration-200 cursor-pointer font-mono"
                             >
                                 <span>$ contact --email</span>
                             </button>
-                            {settings?.resume_file && (
-                                <a
-                                    href={settings.resume_file}
-                                    download
-                                    className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2.5 text-xs sm:text-sm font-semibold rounded-lg text-indigo-700 bg-indigo-50 border border-indigo-200 hover:bg-indigo-100 transition-all cursor-pointer font-sans"
-                                >
-                                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                                    </svg>
-                                    <span>Resume (PDF)</span>
-                                </a>
-                            )}
                         </div>
 
                         {/* Metric Highlights */}
-                        <div className="mt-6 sm:mt-8 grid max-w-xl mx-auto sm:mx-0 grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-2.5 border-t border-zinc-200 pt-4 sm:pt-5 w-full min-w-0">
+                        <div className="mt-6 sm:mt-8 grid max-w-xl mx-auto sm:mx-0 grid-cols-3 gap-1.5 sm:gap-3 border-t border-zinc-200 pt-4 sm:pt-5 w-full min-w-0">
                             {[
-                                { value: '5+', title: 'Shipped Builds', tag: 'Repos' },
                                 { value: '2026', title: 'BCA Graduate', tag: 'Academic' },
-                                { value: '100%', title: 'Code Quality', tag: 'Standard' },
-                                { value: 'Comestro', title: 'Techlabs Dev', tag: 'Experience' },
+                                { value: '5+', title: 'Shipped Builds', tag: 'Repos' },
+                                { value: 'Full Stack', title: 'Laravel + React', tag: 'Stack' },
                             ].map((item) => (
-                                <div key={item.title} className="p-2 sm:p-2.5 rounded-lg border border-zinc-200 bg-white hover:border-indigo-500/40 shadow-xs transition-all duration-200 text-center sm:text-left overflow-hidden min-w-0">
-                                    <div className="flex items-center justify-between gap-0.5">
-                                        <p className="font-display text-xs sm:text-base font-bold text-zinc-900">{item.value}</p>
-                                        <span className="text-[8px] font-mono font-semibold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-1 py-0.5 rounded border border-indigo-100 hidden sm:inline-block">{item.tag}</span>
+                                <div key={item.title} className="p-1.5 sm:p-3 rounded-lg border border-zinc-200 bg-white hover:border-indigo-500/40 shadow-xs transition-all duration-200 text-center sm:text-left overflow-hidden min-w-0">
+                                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-0.5">
+                                        <p className="font-display text-xs sm:text-lg font-bold text-zinc-900">{item.value}</p>
+                                        <span className="text-[7px] sm:text-[9px] font-mono font-semibold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-1 py-0.5 rounded border border-indigo-100 self-center sm:self-auto hidden xs:inline-block">{item.tag}</span>
                                     </div>
-                                    <p className="mt-0.5 text-[10px] sm:text-[11px] font-medium text-zinc-500 truncate">{item.title}</p>
+                                    <p className="mt-0.5 text-[9px] sm:text-[11px] font-medium text-zinc-500 truncate">{item.title}</p>
                                 </div>
                             ))}
                         </div>
@@ -507,12 +274,11 @@ export default function Home({ projects, skills, experiences, certificates, soci
                                         <p><span className="text-pink-400">const</span> <span className="text-blue-300">developer</span> <span className="text-zinc-500">=</span> &#123;</p>
                                         <p className="pl-4 sm:pl-6">name<span className="text-zinc-500">:</span> <span className="text-emerald-300">'{settings?.name || 'Manish Kumar'}'</span>,</p>
                                         <p className="pl-4 sm:pl-6">title<span className="text-zinc-500">:</span> <span className="text-emerald-300">'Full Stack Software Engineer'</span>,</p>
-                                        <p className="pl-4 sm:pl-6">company<span className="text-zinc-500">:</span> <span className="text-indigo-400">'{settings?.current_company || 'Comestro Techlabs'}'</span>,</p>
-                                        <p className="pl-4 sm:pl-6">location<span className="text-zinc-500">:</span> <span className="text-emerald-300">'Jaipur, Rajasthan, India'</span>,</p>
+                                        <p className="pl-4 sm:pl-6">location<span className="text-zinc-500">:</span> <span className="text-emerald-300">'Purnea, Bihar, India'</span>,</p>
                                         <p className="pl-4 sm:pl-6">featuredApps<span className="text-zinc-500">:</span> [<span className="text-cyan-300">'GymMitra SaaS'</span>, <span className="text-cyan-300">'KitabiAdda'</span>, <span className="text-cyan-300">'LinkUp'</span>],</p>
                                         <p className="pl-4 sm:pl-6">openForRoles<span className="text-zinc-500">:</span> <span className="text-amber-400">true</span></p>
                                         <p>&#125;;</p>
-                                        <p className="mt-2 text-zinc-500">// Engineering clean, scalable web systems</p>
+                                        <p className="mt-2 text-zinc-500">// Engineering clean web applications</p>
                                         <p><span className="text-purple-400">export default</span> developer;</p>
                                     </div>
                                 ) : (
@@ -521,7 +287,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
                                         <p className="pl-4 sm:pl-6"><span className="text-cyan-300">"developer"</span>: <span className="text-emerald-300">"{settings?.name || 'Manish Kumar'}"</span>,</p>
                                         <p className="pl-4 sm:pl-6"><span className="text-cyan-300">"degree"</span>: <span className="text-emerald-300">"BCA (Purnea University)"</span>,</p>
                                         <p className="pl-4 sm:pl-6"><span className="text-cyan-300">"frontend"</span>: [<span className="text-amber-300">"React 19"</span>, <span className="text-amber-300">"Tailwind CSS"</span>, <span className="text-amber-300">"Inertia.js"</span>],</p>
-                                        <p className="pl-4 sm:pl-6"><span className="text-cyan-300">"backend"</span>: [<span className="text-amber-300">"Laravel 11"</span>, <span className="text-amber-300">"PHP 8.3"</span>, <span className="text-amber-300">"REST APIs"</span>],</p>
+                                        <p className="pl-4 sm:pl-6"><span className="text-cyan-300">"backend"</span>: [<span className="text-amber-300">"Laravel 11"</span>, <span className="text-amber-300">"PHP"</span>, <span className="text-amber-300">"REST APIs"</span>],</p>
                                         <p className="pl-4 sm:pl-6"><span className="text-cyan-300">"database"</span>: [<span className="text-amber-300">"MySQL"</span>, <span className="text-amber-300">"Eloquent ORM"</span>]</p>
                                         <p>&#125;</p>
                                     </div>
@@ -556,17 +322,17 @@ export default function Home({ projects, skills, experiences, certificates, soci
             </section>
 
             {/* FEATURED SAAS SPOTLIGHT BANNER */}
-            <div className="my-6 p-4 rounded-xl border border-indigo-200 bg-indigo-50/60 flex flex-col sm:flex-row items-center justify-between gap-4 font-sans shadow-xs text-center sm:text-left">
+            <div className="my-5 sm:my-6 p-3.5 sm:p-4 rounded-xl border border-indigo-200 bg-indigo-50/50 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 font-sans shadow-xs text-center sm:text-left">
                 <div className="flex flex-col sm:flex-row items-center gap-3">
-                    <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600 text-white font-mono text-xs font-bold shadow-sm shrink-0">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-indigo-600 text-white font-mono text-xs font-bold shadow-sm shrink-0">
                         SaaS
                     </span>
                     <div>
                         <div className="flex items-center justify-center sm:justify-start gap-2">
-                            <span className="font-bold text-zinc-900 text-sm">GymMitra SaaS Platform</span>
-                            <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-100 text-emerald-700 border border-emerald-200">LIVE PRODUCTION</span>
+                            <span className="font-bold text-zinc-900 text-xs sm:text-sm">GymMitra SaaS Platform</span>
+                            <span className="px-2 py-0.5 rounded text-[9px] sm:text-[10px] font-mono font-bold bg-emerald-100 text-emerald-700 border border-emerald-200">LIVE</span>
                         </div>
-                        <p className="text-xs text-zinc-600 mt-0.5">Multi-tenant Gym Management software with QR attendance, automated billing, and locker allocation.</p>
+                        <p className="text-[11px] sm:text-xs text-zinc-600 mt-0.5">Multi-tenant Gym Management software with QR attendance, locker allocation & billing.</p>
                     </div>
                 </div>
                 <a
@@ -575,129 +341,96 @@ export default function Home({ projects, skills, experiences, certificates, soci
                     rel="noreferrer"
                     className="w-full sm:w-auto justify-center px-4 py-2 text-xs font-semibold font-mono rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition-all flex items-center gap-1.5 whitespace-nowrap cursor-pointer shadow-sm active:scale-95"
                 >
-                    <span>Visit Live Platform</span>
+                    <span>Visit GymMitra</span>
                     <IconExternal />
                 </a>
             </div>
 
-            {/* COMESTRO-STYLE SECTION 1: MY EXPERTISE (8-CARD GRID) */}
-            <section id="expertise" className="fade-section py-8 md:py-12 border-t border-zinc-200">
+            {/* ABOUT SECTION */}
+            <section id="about" className="fade-section py-6 md:py-8 border-t border-zinc-200">
                 <SectionHeader
-                    eyebrow="// 01. CAPABILITIES & DOMAINS"
-                    title={
-                        <span>
-                            My <span className="text-indigo-600">Expertise</span>
-                        </span>
-                    }
-                    copy="Specialized engineering capabilities refined through real production systems: multi-tenant SaaS, marketplace engines, REST APIs, and responsive web platforms."
+                    eyebrow="// 01. ABOUT THE ENGINEER"
+                    title="Practical engineering with product sense."
+                    copy="I like web apps that feel calm on the surface and solid underneath: clear database relationships, predictable APIs, and interfaces that are pleasant to navigate."
                 />
 
-                <div className="grid gap-4 sm:gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-                    {expertiseList.map((item, idx) => (
-                        <div
-                            key={idx}
-                            className="group p-5 rounded-xl border border-zinc-200 bg-white hover:border-indigo-400 hover:shadow-md transition-all duration-300 flex flex-col justify-between"
-                        >
-                            <div>
-                                <div className="flex items-center justify-between mb-3">
-                                    <div className={`w-10 h-10 rounded-lg flex items-center justify-center transition-colors ${item.colorClass}`}>
-                                        {item.icon}
-                                    </div>
-                                    <span className="font-mono text-[10px] font-semibold text-zinc-500 uppercase tracking-wider bg-zinc-100 px-2 py-0.5 rounded border border-zinc-200">
-                                        {item.category}
-                                    </span>
-                                </div>
-                                <h3 className="font-display text-base font-bold text-zinc-900 group-hover:text-indigo-600 transition-colors">
-                                    {item.title}
-                                </h3>
-                                <p className="mt-2 text-xs text-zinc-600 leading-relaxed">
-                                    {item.desc}
-                                </p>
-                            </div>
+                <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+                    <div className="space-y-4 text-xs sm:text-sm leading-relaxed text-zinc-650 font-sans">
+                        <p>
+                            My development journey started during my BCA program at Purnea University, where database design, web application development, and systems programming clicked together into one discipline.
+                        </p>
+                        <p>
+                            At{' '}
+                            <a href="https://comestro.com" target="_blank" rel="noreferrer" className="text-indigo-600 hover:text-indigo-500 transition-colors font-semibold underline decoration-indigo-500/30 decoration-2 underline-offset-4">
+                                Comestro Techlabs Pvt Ltd
+                            </a>
+                            , I focus on engineering multi-tenant SaaS applications, e-commerce bookstore platforms, social networks, and campus systems using Laravel, React, Inertia, Tailwind CSS, and MySQL database engines, while actively building and learning advanced SaaS software architecture.
+                        </p>
+                    </div>
 
-                            <div className="mt-4 pt-3 border-t border-zinc-100 flex flex-wrap gap-1">
-                                {item.tech.map((t) => (
-                                    <span key={t} className="text-[10px] font-mono font-medium text-zinc-600 bg-zinc-50 border border-zinc-200 px-1.5 py-0.5 rounded">
-                                        {t}
-                                    </span>
-                                ))}
-                            </div>
+                    {/* Developer Class Definition Card */}
+                    <div className="border border-zinc-800 bg-zinc-950 p-5 shadow-xl rounded-xl font-mono text-xs text-zinc-300">
+                        <div className="flex items-center justify-between border-b border-zinc-800 pb-3 mb-3 text-[11px] text-zinc-500">
+                            <span>App/Engineer/ManishKumar.php</span>
+                            <span className="text-indigo-400 font-bold">PHP 8.3</span>
                         </div>
-                    ))}
+                        <div className="leading-6">
+                            <p><span className="text-pink-400">namespace</span> App\Engineer;</p>
+                            <p className="mt-2"><span className="text-blue-400">class</span> <span className="text-yellow-300">ManishKumar</span> &#123;</p>
+                            <p className="pl-4"><span className="text-indigo-300">public string</span> <span className="text-zinc-400">$role</span> = <span className="text-emerald-300">'Full-Stack Engineer'</span>;</p>
+                            <p className="pl-4"><span className="text-indigo-300">public string</span> <span className="text-zinc-400">$location</span> = <span className="text-emerald-300">'Purnea, Bihar, India'</span>;</p>
+                            <p className="pl-4"><span className="text-indigo-300">public array</span> <span className="text-zinc-400">$stack</span> = [<span className="text-cyan-300">'Laravel'</span>, <span className="text-cyan-300">'React'</span>, <span className="text-cyan-300">'MySQL'</span>];</p>
+                            <p className="pl-4"><span className="text-indigo-300">public bool</span> <span className="text-zinc-400">$available</span> = <span className="text-amber-400">true</span>;</p>
+                            <p>&#125;</p>
+                        </div>
+                    </div>
                 </div>
             </section>
 
-            {/* COMESTRO-STYLE SECTION 2: WHY WORK WITH ME (2-COLUMN) */}
-            <section id="why-me" className="fade-section py-8 md:py-12 border-t border-zinc-200">
+            {/* EXPERIENCE SECTION */}
+            <section id="experience" className="fade-section py-6 md:py-8 border-t border-zinc-200">
                 <SectionHeader
-                    eyebrow="// 02. VALUE PROPOSITION"
-                    title={
-                        <span>
-                            Why <span className="text-indigo-600">Work With Me?</span>
-                        </span>
-                    }
-                    copy="Combining modern software engineering rigour with a strong product mindset to ship reliable web platforms on schedule."
+                    eyebrow="// 02. WORK EXPERIENCE & CONTRIBUTIONS"
+                    title="Work History"
+                    copy="Internship experience building production-level features, database optimizations, and integrating client side frameworks with Laravel backends."
                 />
 
-                <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] items-center">
-                    {/* Left: 4 Value Pillars */}
-                    <div className="grid gap-4 sm:grid-cols-2">
-                        {valuePillars.map((pillar, idx) => (
-                            <div key={idx} className="p-4 rounded-xl border border-zinc-200 bg-white hover:border-indigo-300 hover:shadow-sm transition-all duration-300">
-                                <div className={`w-9 h-9 rounded-lg flex items-center justify-center mb-3 ${pillar.colorClass}`}>
-                                    {pillar.icon}
-                                </div>
-                                <h4 className="font-display text-sm font-bold text-zinc-900">
-                                    {pillar.title}
-                                </h4>
-                                <p className="mt-1.5 text-xs text-zinc-600 leading-relaxed">
-                                    {pillar.desc}
-                                </p>
+                <div className="border border-zinc-200 bg-white p-5 md:p-6 shadow-sm rounded-xl hover:border-zinc-300 transition-all duration-300 font-sans">
+                    <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between border-b border-zinc-200 pb-4">
+                        <div>
+                            <div className="flex items-center gap-2">
+                                <span className="font-mono text-xs text-indigo-600 font-bold">commit #comestro-2024</span>
+                                <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-indigo-50 text-indigo-700 border border-indigo-100">MAIN</span>
                             </div>
+                            <p className="font-display text-xl font-bold text-zinc-900 mt-1">{activeExperience?.designation || 'Laravel Developer'}</p>
+                            <p className="mt-0.5 text-xs sm:text-sm font-semibold text-indigo-600">@ {activeExperience?.company || settings?.current_company}</p>
+                        </div>
+                        <p className="font-mono text-[11px] font-semibold text-zinc-550 border border-zinc-200 bg-zinc-50 px-2.5 py-0.5 rounded-full">
+                            {activeExperience?.duration || 'May 2024 - Present'}
+                        </p>
+                    </div>
+                    <p className="mt-4 text-xs sm:text-sm leading-relaxed text-zinc-650 pr-4">{activeExperience?.description}</p>
+                    <div className="mt-6 flex flex-wrap gap-2">
+                        {activeExperience?.skills_used?.map((skill) => (
+                            <span key={skill} className="border border-indigo-200 bg-indigo-50 text-indigo-600 px-2.5 py-0.5 font-mono text-[10px] font-semibold rounded-full">
+                                {skill}
+                            </span>
                         ))}
                     </div>
-
-                    {/* Right: 2x3 Statistics Grid */}
-                    <div className="border border-zinc-200 bg-zinc-50/70 p-5 sm:p-6 rounded-2xl shadow-xs">
-                        <h4 className="font-display text-xs font-bold text-zinc-900 uppercase tracking-wider mb-4 flex items-center gap-2">
-                            <span className="w-2 h-2 rounded-full bg-indigo-600"></span>
-                            Performance & Engineering Metrics
-                        </h4>
-                        <div className="grid grid-cols-2 gap-3 sm:gap-4">
-                            {[
-                                { value: '5+', label: 'Delivered Projects', sub: 'Production builds' },
-                                { value: '100%', label: 'Clean Standards', sub: 'PSR & ESLint rules' },
-                                { value: '15+', label: 'DB Tables Modeled', sub: 'Normalized MySQL' },
-                                { value: '99.9%', label: 'Uptime Focus', sub: 'Reliable backend code' },
-                                { value: '< 24h', label: 'Issue Turnaround', sub: 'Prompt responses' },
-                                { value: '1 yr+', label: 'Industry Internship', sub: 'Comestro Techlabs' }
-                            ].map((stat, idx) => (
-                                <div key={idx} className="p-3 bg-white border border-zinc-200 rounded-xl shadow-xs">
-                                    <p className="font-display text-lg sm:text-xl font-bold text-indigo-600">{stat.value}</p>
-                                    <p className="text-xs font-semibold text-zinc-900 mt-0.5">{stat.label}</p>
-                                    <p className="text-[10px] text-zinc-500 font-mono mt-0.5">{stat.sub}</p>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
                 </div>
             </section>
 
-            {/* COMESTRO-STYLE SECTION 3: FEATURED PROJECTS */}
-            <section id="projects" className="fade-section py-8 md:py-12 border-t border-zinc-200">
+            {/* PROJECTS SECTION */}
+            <section id="projects" className="fade-section py-6 md:py-8 border-t border-zinc-200">
                 <SectionHeader
                     eyebrow="// 03. FEATURED CODE REPOSITORIES"
-                    title={
-                        <span>
-                            Selected <span className="text-indigo-600">Projects</span>
-                        </span>
-                    }
-                    copy="A curated portfolio of SaaS applications, e-commerce marketplaces, and community platforms built with Laravel, React, and MySQL."
+                    title="Selected Works"
+                    copy="A curated selection of social, marketplace, educational, and utility projects, built primarily with React and Laravel."
                 />
 
                 <div className="grid gap-6">
                     {(projects || []).map((project) => (
-                        <article key={project.id} className="grid gap-5 border border-zinc-200 bg-white p-4 sm:p-5 shadow-sm rounded-xl hover:border-zinc-350 hover:shadow-md transition-all duration-300 lg:grid-cols-[0.85fr_1.15fr] group">
+                        <article key={project.id} className="grid gap-5 border border-zinc-200 bg-white p-4 sm:p-5 shadow-sm rounded-xl hover:border-zinc-350 hover:shadow-md transition-all duration-300 lg:grid-cols-[0.8fr_1.2fr] group">
                             <a
                                 href={`/project/${project.slug}`}
                                 onClick={(e) => {
@@ -794,165 +527,11 @@ export default function Home({ projects, skills, experiences, certificates, soci
                 </div>
             </section>
 
-            {/* COMESTRO-STYLE SECTION 4: MY ENGINEERING PROCESS */}
-            <section id="process" className="fade-section py-8 md:py-12 border-t border-zinc-200">
-                <SectionHeader
-                    eyebrow="// 04. METHODOLOGY & WORKFLOW"
-                    title={
-                        <span>
-                            My Engineering <span className="text-indigo-600">Process</span>
-                        </span>
-                    }
-                    copy="How I take a software idea from business requirements to a reliable, maintainable, and deployed web product."
-                />
-
-                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-                    {processSteps.map((p, idx) => (
-                        <div key={idx} className="relative p-5 rounded-xl border border-zinc-200 bg-white hover:border-indigo-400 hover:shadow-md transition-all duration-300 flex flex-col justify-between">
-                            <div>
-                                <div className="flex items-center justify-between mb-3">
-                                    <span className="font-mono text-sm font-extrabold text-indigo-600 bg-indigo-50 border border-indigo-200 px-2.5 py-1 rounded-lg">
-                                        {p.step}
-                                    </span>
-                                    <span className="text-xl">{p.icon}</span>
-                                </div>
-                                <h4 className="font-display text-sm font-bold text-zinc-900">
-                                    {p.title}
-                                </h4>
-                                <p className="mt-2 text-xs text-zinc-600 leading-relaxed">
-                                    {p.desc}
-                                </p>
-                            </div>
-                            <div className="mt-4 pt-2 border-t border-zinc-100 flex items-center text-[10px] font-mono text-zinc-400 font-medium">
-                                <span>Phase {idx + 1} of 5</span>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </section>
-
-            {/* COMESTRO-STYLE SECTION 5: TESTIMONIALS & ENDORSEMENTS */}
-            <section id="testimonials" className="fade-section py-8 md:py-12 border-t border-zinc-200">
-                <SectionHeader
-                    eyebrow="// 05. ENDORSEMENTS & FEEDBACK"
-                    title={
-                        <span>
-                            Team & Client <span className="text-indigo-600">Endorsements</span>
-                        </span>
-                    }
-                    copy="What teammates, mentors, and project stakeholders say about code execution, database structuring, and turnaround speed."
-                />
-
-                <div className="grid gap-5 md:grid-cols-3">
-                    {testimonials.map((t, idx) => (
-                        <div key={idx} className="p-5 rounded-xl border border-zinc-200 bg-white hover:border-indigo-300 hover:shadow-sm transition-all duration-300 flex flex-col justify-between">
-                            <div>
-                                <div className="flex items-center gap-1 text-amber-400 mb-3 text-sm">
-                                    {[...Array(t.stars)].map((_, i) => (
-                                        <span key={i}>★</span>
-                                    ))}
-                                </div>
-                                <p className="text-xs sm:text-sm text-zinc-700 leading-relaxed italic">
-                                    "{t.quote}"
-                                </p>
-                            </div>
-                            <div className="mt-5 pt-3 border-t border-zinc-100 flex items-center gap-3">
-                                <div className="w-8 h-8 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-700 font-mono text-xs font-bold flex items-center justify-center">
-                                    {t.avatar}
-                                </div>
-                                <div>
-                                    <p className="font-display text-xs font-bold text-zinc-900">{t.author}</p>
-                                    <p className="text-[11px] text-zinc-500 font-sans">{t.role}</p>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </section>
-
-            {/* ABOUT & EXPERIENCE SECTION */}
-            <section id="about" className="fade-section py-8 md:py-12 border-t border-zinc-200">
-                <SectionHeader
-                    eyebrow="// 06. CAREER & BACKGROUND"
-                    title={
-                        <span>
-                            About <span className="text-indigo-600">The Engineer</span>
-                        </span>
-                    }
-                    copy="Practical software engineering with deep database foundations and a dedication to writing clean, maintainable web applications."
-                />
-
-                <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-                    <div className="space-y-4 text-xs sm:text-sm leading-relaxed text-zinc-700 font-sans">
-                        <p>
-                            My development journey started during my BCA program at Purnea University (2023-2026), where relational database design, data structures, and web development converged into a passion for software craftsmanship.
-                        </p>
-                        <p>
-                            At{' '}
-                            <a href="https://comestro.com" target="_blank" rel="noreferrer" className="text-indigo-600 hover:text-indigo-700 transition-colors font-semibold underline decoration-indigo-500/30 decoration-2 underline-offset-4">
-                                Comestro Techlabs Pvt Ltd
-                            </a>
-                            , I focus on engineering multi-tenant SaaS applications, e-commerce bookstore platforms, social networks, and campus systems using Laravel 11, React 19, Inertia.js, Tailwind CSS, and MySQL database engines.
-                        </p>
-                        <p>
-                            I prioritize writing readable code, enforcing schema-level constraints, avoiding N+1 query traps, and delivering responsive, accessible web interfaces that users love.
-                        </p>
-                    </div>
-
-                    {/* Developer Class Definition Card */}
-                    <div className="border border-zinc-800 bg-zinc-950 p-5 shadow-xl rounded-xl font-mono text-xs text-zinc-300">
-                        <div className="flex items-center justify-between border-b border-zinc-800 pb-3 mb-3 text-[11px] text-zinc-500">
-                            <span>App/Engineer/ManishKumar.php</span>
-                            <span className="text-indigo-400 font-bold">PHP 8.3</span>
-                        </div>
-                        <div className="leading-6">
-                            <p><span className="text-pink-400">namespace</span> App\Engineer;</p>
-                            <p className="mt-2"><span className="text-blue-400">class</span> <span className="text-yellow-300">ManishKumar</span> &#123;</p>
-                            <p className="pl-4"><span className="text-indigo-300">public string</span> <span className="text-zinc-400">$role</span> = <span className="text-emerald-300">'Full-Stack Engineer'</span>;</p>
-                            <p className="pl-4"><span className="text-indigo-300">public string</span> <span className="text-zinc-400">$company</span> = <span className="text-emerald-300">'Comestro Techlabs'</span>;</p>
-                            <p className="pl-4"><span className="text-indigo-300">public string</span> <span className="text-zinc-400">$location</span> = <span className="text-emerald-300">'Jaipur, India'</span>;</p>
-                            <p className="pl-4"><span className="text-indigo-300">public array</span> <span className="text-zinc-400">$stack</span> = [<span className="text-cyan-300">'Laravel 11'</span>, <span className="text-cyan-300">'React 19'</span>, <span className="text-cyan-300">'MySQL'</span>];</p>
-                            <p className="pl-4"><span className="text-indigo-300">public bool</span> <span className="text-zinc-400">$available</span> = <span className="text-amber-400">true</span>;</p>
-                            <p>&#125;</p>
-                        </div>
-                    </div>
-                </div>
-
-                {/* EXPERIENCE TIMELINE CARD */}
-                <div id="experience" className="mt-8 border border-zinc-200 bg-white p-5 md:p-6 shadow-sm rounded-xl hover:border-zinc-300 transition-all duration-300 font-sans">
-                    <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between border-b border-zinc-200 pb-4">
-                        <div>
-                            <div className="flex items-center gap-2">
-                                <span className="font-mono text-xs text-indigo-600 font-bold">commit #comestro-2024</span>
-                                <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-indigo-50 text-indigo-700 border border-indigo-100">MAIN BRANCH</span>
-                            </div>
-                            <p className="font-display text-xl font-bold text-zinc-900 mt-1">{activeExperience?.designation || 'Laravel Developer'}</p>
-                            <p className="mt-0.5 text-xs sm:text-sm font-semibold text-indigo-600">@ {activeExperience?.company || settings?.current_company}</p>
-                        </div>
-                        <p className="font-mono text-[11px] font-semibold text-zinc-600 border border-zinc-200 bg-zinc-50 px-2.5 py-0.5 rounded-full">
-                            {activeExperience?.duration || 'May 2024 - Present'}
-                        </p>
-                    </div>
-                    <p className="mt-4 text-xs sm:text-sm leading-relaxed text-zinc-600 pr-4">{activeExperience?.description}</p>
-                    <div className="mt-6 flex flex-wrap gap-2">
-                        {activeExperience?.skills_used?.map((skill) => (
-                            <span key={skill} className="border border-indigo-200 bg-indigo-50 text-indigo-600 px-2.5 py-0.5 font-mono text-[10px] font-semibold rounded-full">
-                                {skill}
-                            </span>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
             {/* SKILLS SECTION */}
-            <section id="skills" className="fade-section py-8 md:py-12 border-t border-zinc-200">
+            <section id="skills" className="fade-section py-6 md:py-8 border-t border-zinc-200">
                 <SectionHeader
-                    eyebrow="// 07. TECHNICAL STACK & TOOLING"
-                    title={
-                        <span>
-                            Technical <span className="text-indigo-600">Stack</span>
-                        </span>
-                    }
+                    eyebrow="// 04. TECHNICAL STACK & TOOLING"
+                    title="Technical Stack"
                     copy="Languages, database engines, backend structures, and frontend frameworks."
                 />
 
@@ -967,7 +546,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
                             </div>
                             <div className="flex flex-wrap gap-1.5">
                                 {skills[category].map((skill) => (
-                                    <span key={skill.name} className="border border-zinc-200 bg-zinc-50 px-2.5 py-1 text-xs font-semibold text-zinc-700 hover:border-indigo-500/20 hover:text-indigo-600 transition-all duration-200 rounded-lg font-sans">
+                                    <span key={skill.name} className="border border-zinc-200 bg-zinc-50 px-2.5 py-1 text-xs font-semibold text-zinc-650 hover:border-indigo-500/20 hover:text-indigo-650 transition-all duration-200 rounded-lg font-sans">
                                         {skill.name}
                                     </span>
                                 ))}
@@ -979,15 +558,8 @@ export default function Home({ projects, skills, experiences, certificates, soci
 
             {/* CREDENTIALS SECTION */}
             {certificates?.length > 0 && (
-                <section className="fade-section py-8 md:py-12 border-t border-zinc-200">
-                    <SectionHeader
-                        eyebrow="// 08. CERTIFICATIONS & LEARNING"
-                        title={
-                            <span>
-                                Certifications & <span className="text-indigo-600">Credentials</span>
-                            </span>
-                        }
-                    />
+                <section className="fade-section py-6 md:py-8 border-t border-zinc-200">
+                    <SectionHeader eyebrow="// 05. CERTIFICATIONS & LEARNING" title="Certifications" />
                     <div className="grid gap-4 md:grid-cols-2">
                         {certificates.map((certificate) => (
                             <a
@@ -1008,46 +580,20 @@ export default function Home({ projects, skills, experiences, certificates, soci
                 </section>
             )}
 
-            {/* CONTACT CTA BANNER */}
-            <section id="contact" className="fade-section py-10 md:py-16 border-t border-zinc-200 text-center max-w-2xl mx-auto font-sans relative">
-                <div className="section-accent mb-3 mx-auto"></div>
+            {/* CONTACT SECTION */}
+            <section id="contact" className="fade-section py-8 md:py-10 border-t border-zinc-200 text-center max-w-xl mx-auto font-sans relative">
                 <span className="inline-block px-3 py-1 font-mono text-[11px] font-semibold tracking-wider text-indigo-600 bg-indigo-50 border border-indigo-200 rounded-full mb-4">
-                    // 09. CONNECT & START A PROJECT
+                    // 06. CONTACT & CONNECT
                 </span>
                 <h2 className="font-display text-2xl md:text-3xl font-bold tracking-tight text-zinc-900 leading-snug">
-                    Let's Build Something <span className="text-indigo-600">Exceptional Together</span>
+                    Let us build something useful.
                 </h2>
-                <p className="mt-3 text-xs sm:text-sm leading-relaxed text-zinc-600 max-w-xl mx-auto">
-                    I am actively open to full-stack software engineering roles, multi-tenant SaaS collaborations, and client projects. Feel free to reach out directly.
+                <p className="mt-3 text-xs sm:text-sm leading-relaxed text-zinc-600">
+                    I am currently open to full stack software engineering roles, SaaS collaborations, and projects. Feel free to reach out and I will reply as soon as possible.
                 </p>
-
-                <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-                    <a
-                        href={`mailto:${settings?.email || 'manish966128@gmail.com'}`}
-                        className="px-6 py-3 text-xs sm:text-sm font-semibold font-mono rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 shadow-md shadow-indigo-600/20 active:scale-95 transition-all duration-200 inline-flex items-center gap-2"
-                    >
-                        <span>$ sendmail --to={settings?.email || 'manish966128@gmail.com'}</span>
-                        <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                        </svg>
-                    </a>
-                    <a
-                        href="https://wa.me/918207593672?text=Hello%20Manish%2C%20I%20visited%20your%20portfolio%20and%20wanted%20to%20connect!"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="px-5 py-3 text-xs sm:text-sm font-semibold rounded-lg text-emerald-800 bg-emerald-50 border border-emerald-200 hover:bg-emerald-100 transition-all inline-flex items-center gap-2"
-                    >
-                        <span>WhatsApp Chat</span>
-                        <IconExternal />
-                    </a>
-                </div>
-
-                <div className="mt-8 p-4 rounded-xl border border-zinc-200 bg-white/70 max-w-md mx-auto text-left flex items-start gap-3">
-                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 mt-1.5 shrink-0 animate-pulse"></span>
-                    <div className="text-xs text-zinc-600">
-                        <strong className="text-zinc-900 font-semibold">Immediate Availability</strong>: Ready for interviews, full-time engineering positions, or contract MVP builds. Usually responds within 2 hours.
-                    </div>
-                </div>
+                <a href={`mailto:${settings?.email}`} className="btn-hand-primary mt-8 inline-block text-sm px-6 py-3.5 font-bold shadow-lg font-mono">
+                    $ sendmail --to={settings?.email}
+                </a>
             </section>
         </AppLayout>
     );

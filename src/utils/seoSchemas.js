@@ -16,20 +16,27 @@ export const getPersonSchema = (settings, socialLinks) => {
         },
         'alumniOf': {
             '@type': 'EducationalOrganization',
-            'name': 'Purnea University'
+            'name': 'Purnea University',
+            'alternateName': 'Purnia University'
         },
         'url': 'https://www.techmanish.in',
         'email': `mailto:${settings?.email || 'manish966128@gmail.com'}`,
         'address': {
             '@type': 'PostalAddress',
-            'addressLocality': 'Jaipur',
-            'addressRegion': 'Rajasthan',
+            'addressLocality': 'Purnea',
+            'addressRegion': 'Bihar',
             'addressCountry': 'India'
         },
-        'homeLocation': {
-            '@type': 'Place',
-            'name': 'Purnea, Bihar, India'
-        },
+        'homeLocation': [
+            {
+                '@type': 'Place',
+                'name': 'Purnea, Bihar, India'
+            },
+            {
+                '@type': 'Place',
+                'name': 'Purnia, Bihar, India'
+            }
+        ],
         'sameAs': sameAs,
         'knowsAbout': [
             'Laravel',

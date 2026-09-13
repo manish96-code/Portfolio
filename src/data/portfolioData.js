@@ -2,7 +2,7 @@ export const portfolioData = {
     settings: {
         name: 'Manish Kumar',
         title: 'Full Stack Web Developer | Laravel | React | PHP',
-        location: 'Jaipur, Rajasthan, India',
+        location: 'Purnea, Bihar, India',
         current_company: 'Comestro Techlabs Pvt Ltd',
         education: 'BCA, Purnea University (2023-2026)',
         objective: 'Seeking to leverage solid expertise in Laravel, React, and MySQL database management to build modern, high-performance web environments.',

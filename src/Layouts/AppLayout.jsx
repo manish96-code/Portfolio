@@ -147,7 +147,7 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
             <div className="absolute top-1/3 right-1/4 w-[400px] h-[400px] bg-cyan-500/[0.02] rounded-full blur-[100px] pointer-events-none -z-10"></div>
             <div className="absolute bottom-10 left-1/3 w-[600px] h-[600px] bg-indigo-500/[0.02] rounded-full blur-[150px] pointer-events-none -z-10"></div>
 
-            {/* Fixed Left Social Bar - Sleek Minimalist Badges */}
+            {/* Fixed Left Social Bar */}
             <div className="hidden lg:flex fixed bottom-0 left-8 z-30 flex-col items-center gap-4">
                 {socialLinks && socialLinks.map((link, idx) => (
                     <a
@@ -164,7 +164,7 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                 <div className="w-px h-24 bg-gradient-to-t from-transparent to-zinc-300"></div>
             </div>
 
-            {/* Fixed Right Email Bar - Sleek Vertical Label */}
+            {/* Fixed Right Email Bar */}
             <div className="hidden lg:flex fixed bottom-0 right-8 z-30 flex-col items-center gap-5">
                 <a
                     href={`mailto:${email}`}
@@ -176,7 +176,7 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                 <div className="w-px h-20 bg-gradient-to-t from-transparent to-zinc-300"></div>
             </div>
 
-            {/* Comestro-Inspired Top Info Bar */}
+            {/* Top Information Strip */}
             <div className="bg-zinc-100/95 border-b border-zinc-200/80 text-zinc-600 text-xs py-1.5 px-4 sm:px-6 lg:px-12 relative z-50">
                 <div className="max-w-[1100px] mx-auto flex flex-wrap items-center justify-between gap-2">
                     <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-[11px] sm:text-xs">
@@ -194,12 +194,12 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                             <span>+91 8207593672</span>
                         </a>
                         <span className="text-zinc-300 hidden md:inline">|</span>
-                        <span className="text-zinc-500 flex items-center gap-1.5 hidden md:flex">
+                        <span className="text-zinc-600 flex items-center gap-1.5 hidden md:flex font-medium">
                             <svg className="w-3.5 h-3.5 text-indigo-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                             </svg>
-                            <span>Jaipur, RJ / Purnea, BR</span>
+                            <span>Purnea, Bihar, India</span>
                         </span>
                     </div>
                     <div className="flex items-center gap-3 text-[11px] sm:text-xs">
@@ -222,12 +222,12 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                 </div>
             </div>
 
-            {/* Header / Navigation - Sticky Glassmorphic Header */}
+            {/* Sticky Navigation Bar */}
             <header className={`sticky top-0 left-0 right-0 z-40 transition-all duration-300 bg-white/95 backdrop-blur-md border-b border-zinc-200/80 ${scrolled ? 'py-2.5 shadow-sm' : 'py-3'
                 }`}>
                 <div className="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-12 flex justify-between items-center">
 
-                    {/* Developer Code Brand Logo */}
+                    {/* Developer Brand Logo */}
                     <a
                         href="/"
                         onClick={(e) => {
@@ -248,7 +248,7 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                         <span className="text-indigo-600 font-extrabold">/&gt;</span>
                     </a>
 
-                    {/* Desktop Nav & System Status */}
+                    {/* Desktop Nav */}
                     <div className="hidden md:flex items-center gap-3">
                         <nav className="flex items-center gap-0.5">
                             {navItems.map((item, idx) => (
@@ -263,7 +263,7 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                             ))}
                         </nav>
 
-                        {/* Comestro-Inspired CTA Button */}
+                        {/* CTA Button */}
                         <a
                             href="#contact"
                             onClick={(e) => handleNavClick(e, '#contact')}
@@ -291,13 +291,11 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                         </svg>
                     </button>
                 </div>
-
             </header>
 
             {/* Mobile Menu Overlay Drawer */}
             {mobileMenuOpen && (
                 <div className="md:hidden fixed inset-0 bg-white z-[100] flex flex-col justify-between p-6 text-zinc-900">
-                    {/* Drawer Header */}
                     <div className="flex items-center justify-between border-b border-zinc-200 pb-4">
                         <div className="font-mono text-xs font-bold tracking-tight inline-flex items-center gap-1.5">
                             <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-ping"></span>
@@ -315,7 +313,6 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                         </button>
                     </div>
 
-                    {/* Navigation Links */}
                     <div className="flex flex-col gap-3 font-sans text-center my-auto py-6">
                         {navItems.map((item, idx) => (
                             <a
@@ -342,7 +339,6 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                         </a>
                     </div>
 
-                    {/* Mobile Social Links & Footer Status */}
                     <div className="border-t border-zinc-200 pt-5 space-y-4 text-center">
                         <div className="flex items-center justify-center gap-3">
                             {socialLinks && socialLinks.map((link, idx) => (
@@ -359,7 +355,7 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                             ))}
                         </div>
                         <p className="font-mono text-[11px] text-zinc-400">
-                            $ status: 200 OK • Full Stack Software Engineer
+                            Purnea, Bihar, India • Full Stack Software Engineer
                         </p>
                     </div>
                 </div>
@@ -370,7 +366,7 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                 {children}
             </main>
 
-            {/* Comestro-Inspired Structured 4-Column Footer (Indigo Theme) */}
+            {/* Structured 4-Column Footer */}
             <footer className="py-12 border-t border-zinc-200 mt-12 bg-white/90 backdrop-blur-md relative z-10 font-sans">
                 <div className="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-12">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pb-10 border-b border-zinc-200">
@@ -460,7 +456,7 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                             <div className="space-y-2 text-xs text-zinc-600">
                                 <p className="flex items-start gap-2">
                                     <span className="text-indigo-600 font-semibold shrink-0">HQ:</span>
-                                    <span>Jaipur, RJ & Purnea, BR, India</span>
+                                    <span>Purnea, Bihar, India</span>
                                 </p>
                                 <p className="flex items-center gap-2">
                                     <span className="text-indigo-600 font-semibold shrink-0">Email:</span>
