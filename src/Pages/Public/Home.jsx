@@ -92,7 +92,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
             setTerminalOutput(prev => [
                 ...prev,
                 `[SUCCESS] System status: Ready for full-stack deployment.`,
-                `[RESULT] 5+ projects built & active!`
+                `[RESULT] 6+ projects built & active!`
             ]);
             setIsExecuting(false);
         }, 900);
@@ -135,7 +135,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
 
                         {/* Bio Summary */}
                         <p className="mt-3 max-w-xl mx-auto sm:mx-0 text-xs sm:text-sm leading-relaxed text-zinc-600 break-words min-w-0">
-                            I am <strong className="text-zinc-900 font-semibold">{settings?.name || 'Manish Kumar'}</strong>, a full-stack software engineer based in Purnea, Bihar. I specialize in building multi-tenant SaaS platforms (GymMitra), e-commerce marketplaces (KitabiAdda), and reactive single-page user interfaces with solid Laravel backends and MySQL database engines.
+                            I am <strong className="text-zinc-900 font-semibold">{settings?.name || 'Manish Kumar'}</strong>, a full-stack software engineer based in Purnea, Bihar. I specialize in building enterprise pharmaceutical ERPs (Ciplon), multi-tenant SaaS platforms (GymMitra), e-commerce marketplaces (KitabiAdda), and reactive single-page user interfaces with solid Laravel backends and MySQL database engines.
                         </p>
 
                         {/* Core Stack Pills */}
@@ -183,7 +183,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
                         <div className="mt-5 sm:mt-6 grid max-w-xl mx-auto sm:mx-0 grid-cols-3 gap-1.5 sm:gap-2.5 border-t border-zinc-200 pt-3.5 sm:pt-4 w-full min-w-0">
                             {[
                                 { value: '2026', title: 'BCA Graduate', tag: 'Academic' },
-                                { value: '5+', title: 'Shipped Builds', tag: 'Repos' },
+                                { value: '6+', title: 'Shipped Builds', tag: 'Repos' },
                                 { value: 'Full Stack', title: 'Laravel + React', tag: 'Stack' },
                             ].map((item) => (
                                 <div key={item.title} className="p-1.5 sm:p-2.5 rounded-lg border border-zinc-200 bg-white hover:border-indigo-500/40 shadow-xs transition-all duration-200 text-center sm:text-left overflow-hidden min-w-0">
@@ -285,7 +285,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
                                         <p className="pl-4 sm:pl-6">name<span className="text-zinc-500">:</span> <span className="text-emerald-300">'{settings?.name || 'Manish Kumar'}'</span>,</p>
                                         <p className="pl-4 sm:pl-6">title<span className="text-zinc-500">:</span> <span className="text-emerald-300">'Full Stack Software Engineer'</span>,</p>
                                         <p className="pl-4 sm:pl-6">location<span className="text-zinc-500">:</span> <span className="text-emerald-300">'Purnea, Bihar, India'</span>,</p>
-                                        <p className="pl-4 sm:pl-6">featuredApps<span className="text-zinc-500">:</span> [<span className="text-cyan-300">'GymMitra SaaS'</span>, <span className="text-cyan-300">'KitabiAdda'</span>, <span className="text-cyan-300">'LinkUp'</span>],</p>
+                                        <p className="pl-4 sm:pl-6">featuredApps<span className="text-zinc-500">:</span> [<span className="text-cyan-300">'Ciplon Pharma'</span>, <span className="text-cyan-300">'GymMitra SaaS'</span>, <span className="text-cyan-300">'KitabiAdda'</span>],</p>
                                         <p className="pl-4 sm:pl-6">openForRoles<span className="text-zinc-500">:</span> <span className="text-amber-400">true</span></p>
                                         <p>&#125;;</p>
                                         <p className="mt-2 text-zinc-500">// Engineering clean web applications</p>

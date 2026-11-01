@@ -58,11 +58,88 @@ export const portfolioData = {
             company: 'Comestro Techlabs Pvt Ltd',
             designation: 'Laravel Developer',
             duration: 'May 2026 - Present',
-            description: "Developed multi-vendor e-commerce bookstore marketplaces (KitabiAdda) and campus networking portals (Campus Connect) using Laravel, React, Inertia, and MySQL. Experienced in writing clean code, designing database schemas, and managing repository integrations.",
+            description: "Developed enterprise pharmaceutical company management systems (Ciplon), multi-vendor e-commerce bookstore marketplaces (KitabiAdda), and campus networking portals (Campus Connect) using Laravel, React, Inertia, and MySQL. Experienced in writing clean code, designing database schemas, and managing repository integrations.",
             skills_used: ['Laravel', 'React', 'PHP', 'MySQL', 'Git', 'GitHub', 'Inertia.js']
         }
     ],
     projects: [
+        {
+            id: 6,
+            title: 'Ciplon',
+            slug: 'ciplon',
+            description: 'A web-based pharmaceutical management platform integrating Super Admin, Company Admin, and Medical Representative (MR) field visit planning, DCR reporting, and POB sales operations.',
+            content: `# Ciplon – Pharmaceutical Company Management System
+
+## Overview
+Ciplon is a web-based pharmaceutical company management platform designed to automate and streamline core company operations, medicine catalogs, administrative workflows, sales operations, and Medical Representative (MR) field activities.
+
+The system provides a centralized platform connecting company administrators and field representatives through fine-grained Role-Based Access Control (RBAC), built on a single integrated **Laravel + React + Inertia.js** architecture with MySQL.
+
+---
+
+## Main Application Panels
+
+### 🛡️ Super Admin Panel
+Responsible for global system governance and multi-organization administration:
+- Manage administrative users and system-wide configurations.
+- Configure granular roles and permissions.
+- Control modular access policies across all system services.
+- Super Admin edit/delete safeguards for data integrity.
+
+### 🏢 Company Admin Panel
+Central control panel for pharmaceutical company operations:
+- **Staff & Team Management**: Manage employee records, roles, and authorization policies.
+- **Doctor Management**: Centralized doctor directory with specialization, clinic details, and dynamic MR doctor assignments.
+- **Product & Category Management**: Comprehensive medicine catalog supporting generic formulas, brand names, dosage forms, indications, precautions, and storage rules.
+- **Sales & Target Monitoring**: Set monthly MR sales quotas, review primary sales, track POB order pipelines, and monitor target achievement.
+- **Leave & HR Operations**: Employee leave request reviews, approvals, rejection tracking, and history logs.
+- **Commercial Enquiries**: Manage business inquiries with robust validation.
+- **Administrative Reports**: Generate analytical reports on sales, MR productivity, and field visits.
+
+### 🩺 Medical Representative (MR) Field Panel
+A field-optimized portal for representatives who visit doctors, detail medicines, book purchase orders, and report daily progress:
+- **MR Dashboard**: Quick overview of monthly sales target progress, today's planned visits, and notifications.
+- **My Doctors**: Search, view, and manage authorized doctor profiles and clinic locations.
+- **Call & Visits Planner**: Plan daily itineraries by sequencing doctors, and execute visits in real time with visit notes, promoted medicines, and next follow-up dates.
+- **Daily Call Reports (DCR)**: Seamlessly close field days with automated visit summaries, feedback recording, and planned vs. actual analytics.
+- **Sales & Targets**: Track target amounts and compare real-time achievements calculated from eligible primary sales.
+- **Purchase Order Booking (POB)**: Book orders from distributors and stockists with instant quantity calculations and status tracking.
+- **Product Catalogue**: Quick mobile-friendly reference for approved medicine formulations, strengths, and promotional materials.
+
+---
+
+## Core Workflows & Architectural Highlights
+
+### 1. Plan-versus-Execution Visit Planner
+The Call & Visits Planner follows a strict plan-versus-execution model:
+- **Planning**: The MR selects a date, chooses assigned doctors, and arranges the visit sequence. Saving a plan never prematurely marks any doctor as visited.
+- **Execution**: During actual field visits, the MR marks doctors as visited, logging real-time timestamps, promoted products, doctor feedback, and follow-up dates.
+- **Visit Statuses**: Planned → In Progress → Visited → Not Visited / Cancelled.
+- **Daily Call Reports (DCR)**: Automated roll-up of daily visit outcomes with planned vs. actual comparison.
+
+### 2. Primary Sales vs. POB Order Tracking
+- Distinguishes company-to-distributor primary sales from Purchase Order Bookings (POB).
+- Target achievement calculations are derived from actual verified eligible sales rather than unfulfilled booking orders.
+
+### 3. Centralized Doctor Assignment Relationship
+- Doctors are linked to MRs via an explicit assignment relationship, ensuring representatives access only their authorized territory while managers maintain team-level visibility.
+
+---
+
+## Technical Implementation
+- **Backend**: Built with Laravel and PHP 8.3 powering controllers, business logic, role-based authorization, and REST APIs.
+- **Frontend**: Built with React.js, Inertia.js, and Tailwind CSS delivering a fast single-page app interface.
+- **Architecture**: Single unified **Laravel + React + Inertia.js** project, avoiding separate REST/CORS boilerplate while retaining modern reactive UI performance.
+- **Database**: Relational MySQL schema handling users, roles, permissions, doctors, assignments, products, visits, DCRs, POB orders, and sales targets.
+- **Security & Authorization**: Role-Based Access Control (RBAC) enforced on the backend with protection against unauthorized edits.`,
+            thumbnail: '/images/projects/ciplon-thumb.jpg',
+            images: ['/images/projects/ciplon-thumb.jpg'],
+            technologies: ['Laravel', 'React.js', 'Inertia.js', 'MySQL', 'Tailwind CSS', 'PHP 8.3', 'REST API', 'RBAC'],
+            github_url: 'https://github.com/Comestro/ciplon',
+            live_url: 'https://ciplonpharma.in/',
+            status: 'Completed',
+            is_featured: true
+        },
         {
             id: 4,
             title: 'GymMitra',
