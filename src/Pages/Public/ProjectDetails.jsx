@@ -8,38 +8,38 @@ function SimpleMarkdown({ content }) {
 
     const lines = content.split('\n');
     return (
-        <div className="space-y-2.5 text-zinc-650 leading-relaxed text-xs sm:text-sm font-sans">
+        <div className="space-y-1.5 text-zinc-650 leading-relaxed text-xs sm:text-sm font-sans">
             {lines.map((line, idx) => {
                 if (line.startsWith('# ')) {
                     return (
-                        <h1 key={idx} className="text-lg sm:text-xl font-display font-bold text-zinc-900 mt-6 mb-3 pb-1.5 border-b border-zinc-200">
+                        <h1 key={idx} className="text-base sm:text-lg font-display font-bold text-zinc-900 mt-4 first:mt-0 mb-2 pb-1 border-b border-zinc-200">
                             {line.replace('# ', '')}
                         </h1>
                     );
                 }
                 if (line.startsWith('## ')) {
                     return (
-                        <h2 key={idx} className="text-base font-display font-semibold text-zinc-900 mt-5 mb-2 border-b border-zinc-150 pb-1">
+                        <h2 key={idx} className="text-sm sm:text-base font-display font-semibold text-zinc-900 mt-3.5 first:mt-0 mb-1.5 border-b border-zinc-150 pb-1">
                             {line.replace('## ', '')}
                         </h2>
                     );
                 }
                 if (line.startsWith('### ')) {
                     return (
-                        <h3 key={idx} className="text-sm font-semibold text-indigo-600 mt-4 mb-1.5 font-display">
+                        <h3 key={idx} className="text-xs sm:text-sm font-semibold text-indigo-600 mt-2.5 first:mt-0 mb-1 font-display">
                             {line.replace('### ', '')}
                         </h3>
                     );
                 }
                 if (line.startsWith('---')) {
-                    return <hr key={idx} className="my-4 border-zinc-200" />;
+                    return <hr key={idx} className="my-2.5 border-zinc-200" />;
                 }
                 if (line.startsWith('- ') || line.startsWith('  - ')) {
                     const isIndent = line.startsWith('  - ');
                     const rawText = line.replace(/^(  - |- )/, '');
                     const parts = rawText.split(/(`[^`]+`|\*\*.*?\*\*)/g);
                     return (
-                        <li key={idx} className={`list-none ${isIndent ? 'ml-6' : 'ml-2'} mt-1 text-zinc-650 flex items-start gap-2`}>
+                        <li key={idx} className={`list-none ${isIndent ? 'ml-5' : 'ml-1.5'} mt-0.5 text-zinc-650 flex items-start gap-2`}>
                             <span className="w-1.5 h-1.5 rounded-full bg-indigo-600 mt-1.5 flex-shrink-0" />
                             <span>
                                 {parts.map((part, pIdx) => {
@@ -59,7 +59,7 @@ function SimpleMarkdown({ content }) {
                     const rawText = line.replace(/^\d+\.\s/, '');
                     const parts = rawText.split(/(`[^`]+`|\*\*.*?\*\*)/g);
                     return (
-                        <div key={idx} className="ml-2 mt-1.5 font-medium text-zinc-800 flex items-start gap-2">
+                        <div key={idx} className="ml-1.5 mt-1 font-medium text-zinc-800 flex items-start gap-2">
                             <span className="font-bold text-indigo-600">{line.match(/^\d+/)?.[0]}.</span>
                             <span>
                                 {parts.map((part, pIdx) => {
@@ -79,7 +79,7 @@ function SimpleMarkdown({ content }) {
                     return null;
                 }
                 if (line.trim() === '') {
-                    return <div key={idx} className="h-1"></div>;
+                    return null;
                 }
 
                 const parts = line.split(/(`[^`]+`|\*\*.*?\*\*)/g);
@@ -123,22 +123,22 @@ export default function ProjectDetails({ project, socialLinks, settings, navigat
                 ogImage={project.thumbnail}
                 schemaData={projectSchema}
             />
-            <div className="pt-20 sm:pt-28 pb-12 sm:pb-20 font-sans max-w-6xl mx-auto px-1 sm:px-0">
+            <div className="pt-6 sm:pt-8 pb-8 sm:pb-12 font-sans max-w-6xl mx-auto px-1 sm:px-0">
 
                 {/* Back button */}
                 <a
                     href="/"
                     onClick={(e) => { e.preventDefault(); navigate('/'); }}
-                    className="inline-flex items-center gap-2 text-xs font-semibold text-zinc-600 hover:text-zinc-950 border border-zinc-200 bg-white/80 hover:bg-zinc-50 px-3.5 py-1.5 rounded-lg transition-all duration-300 mb-6 group shadow-sm"
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-zinc-600 hover:text-zinc-950 border border-zinc-200 bg-white/80 hover:bg-zinc-50 px-3 py-1.5 rounded-lg transition-all duration-200 mb-4 group shadow-xs"
                 >
                     <span className="group-hover:-translate-x-0.5 transition-transform">←</span> Back to Portfolio
                 </a>
 
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-start">
 
                     {/* Project Main Content */}
-                    <div className="lg:col-span-8 space-y-4">
-                        <div className="flex flex-wrap items-center gap-2">
+                    <div className="lg:col-span-8 space-y-3">
+                        <div className="flex flex-wrap items-center gap-1.5">
                             <span className="inline-block border border-indigo-200 bg-indigo-50 text-indigo-700 px-2.5 py-0.5 text-[10px] font-semibold font-mono rounded-md">
                                 CASE STUDY 📝
                             </span>
@@ -153,7 +153,7 @@ export default function ProjectDetails({ project, socialLinks, settings, navigat
                             ))}
                         </div>
 
-                        <h1 className="text-2xl sm:text-3xl font-display font-extrabold text-zinc-900 tracking-tight leading-snug">
+                        <h1 className="text-xl sm:text-2xl lg:text-3xl font-display font-extrabold text-zinc-900 tracking-tight leading-snug">
                             {project.title}
                         </h1>
 
@@ -162,45 +162,45 @@ export default function ProjectDetails({ project, socialLinks, settings, navigat
                         </p>
 
                         {/* Detailed content card */}
-                        <div className="bg-white border border-zinc-200/90 p-5 sm:p-7 mt-6 rounded-xl shadow-sm">
+                        <div className="bg-white border border-zinc-200/90 p-4 sm:p-5 mt-4 rounded-xl shadow-xs">
                             <SimpleMarkdown content={project.content} />
                         </div>
                     </div>
 
                     {/* Metadata Sidebar */}
                     <div className="lg:col-span-4">
-                        <div className="border border-zinc-200 bg-white p-5 space-y-5 sticky top-24 shadow-sm rounded-xl relative overflow-hidden text-zinc-700">
+                        <div className="border border-zinc-200 bg-white p-4 space-y-4 sticky top-20 shadow-xs rounded-xl relative overflow-hidden text-zinc-700">
                             {/* Solid accent top border */}
                             <div className="absolute top-0 left-0 right-0 h-[3px] bg-indigo-600"></div>
 
-                            <h3 className="font-display text-base font-bold text-zinc-900 border-b border-zinc-150 pb-2.5">
+                            <h3 className="font-display text-sm sm:text-base font-bold text-zinc-900 border-b border-zinc-150 pb-2">
                                 Project Overview
                             </h3>
 
-                            <div className="space-y-3 text-xs font-medium">
-                                <div className="flex justify-between py-1.5 border-b border-zinc-100">
+                            <div className="space-y-2 text-xs font-medium">
+                                <div className="flex justify-between py-1 border-b border-zinc-100">
                                     <span className="text-zinc-500">Status</span>
                                     <span className={`font-bold ${project.status === 'Completed' ? 'text-emerald-600' : 'text-amber-600'}`}>
                                         {project.status}
                                     </span>
                                 </div>
-                                <div className="flex justify-between py-1.5 border-b border-zinc-100 font-sans">
+                                <div className="flex justify-between py-1 border-b border-zinc-100 font-sans">
                                     <span className="text-zinc-500">Type</span>
                                     <span className="text-zinc-800 font-semibold">Full Stack</span>
                                 </div>
-                                <div className="flex justify-between py-1.5 font-sans">
+                                <div className="flex justify-between py-1 font-sans">
                                     <span className="text-zinc-500">Stack</span>
                                     <span className="text-zinc-800 font-semibold">Laravel & React</span>
                                 </div>
                             </div>
 
-                            <div className="space-y-2.5 pt-3 border-t border-zinc-100">
+                            <div className="space-y-2 pt-2.5 border-t border-zinc-100">
                                 {project.live_url && (
                                     <a
                                         href={project.live_url}
                                         target="_blank"
                                         rel="noreferrer"
-                                        className="flex items-center justify-center gap-2 w-full py-2.5 px-4 text-xs font-semibold rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm transition-all duration-200"
+                                        className="flex items-center justify-center gap-2 w-full py-2 px-3 text-xs font-semibold rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white shadow-xs transition-all duration-200"
                                     >
                                         <IconExternal /> Live Demo
                                     </a>
@@ -210,7 +210,7 @@ export default function ProjectDetails({ project, socialLinks, settings, navigat
                                         href={project.github_url}
                                         target="_blank"
                                         rel="noreferrer"
-                                        className="flex items-center justify-center gap-2 w-full py-2.5 px-4 text-xs font-semibold rounded-lg bg-white border border-zinc-300 hover:border-zinc-400 text-zinc-800 hover:bg-zinc-50 shadow-sm transition-all duration-200"
+                                        className="flex items-center justify-center gap-2 w-full py-2 px-3 text-xs font-semibold rounded-lg bg-white border border-zinc-300 hover:border-zinc-400 text-zinc-800 hover:bg-zinc-50 shadow-xs transition-all duration-200"
                                     >
                                         <IconGitHub /> Source Code
                                     </a>

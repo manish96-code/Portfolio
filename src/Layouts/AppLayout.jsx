@@ -109,6 +109,14 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
 
     const handleNavClick = (e, href) => {
         e.preventDefault();
+        if (href.startsWith('/')) {
+            if (navigate) {
+                navigate(href);
+            } else {
+                window.location.href = href;
+            }
+            return;
+        }
         const targetId = href.replace('#', '');
 
         if (window.location.pathname === '/') {
@@ -131,11 +139,10 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
 
     const navItems = [
         { label: 'About', href: '#about' },
-        { label: 'Expertise', href: '#expertise' },
-        { label: 'Why Me', href: '#why-me' },
-        { label: 'Projects', href: '#projects' },
-        { label: 'Process', href: '#process' },
         { label: 'Experience', href: '#experience' },
+        { label: 'Projects', href: '#projects' },
+        { label: 'Skills', href: '#skills' },
+        { label: 'Articles', href: '/blogs' },
         { label: 'Contact', href: '#contact' },
     ];
 
@@ -367,9 +374,9 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
             </main>
 
             {/* Structured 4-Column Footer */}
-            <footer className="py-12 border-t border-zinc-200 mt-12 bg-white/90 backdrop-blur-md relative z-10 font-sans">
+            <footer className="py-8 sm:py-10 border-t border-zinc-200 mt-6 bg-white/90 backdrop-blur-md relative z-10 font-sans">
                 <div className="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-12">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pb-10 border-b border-zinc-200">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 pb-6 sm:pb-8 border-b border-zinc-200">
                         {/* Col 1: Brand & About */}
                         <div className="space-y-3">
                             <div className="font-mono text-xs font-bold tracking-tight border border-zinc-200 px-3 py-1.5 rounded-lg bg-zinc-50 inline-flex items-center gap-1.5">

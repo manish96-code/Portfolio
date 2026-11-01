@@ -8,17 +8,17 @@ const scrollToSection = (id) => {
 };
 
 const SectionHeader = ({ eyebrow, title, copy }) => (
-    <div className="mb-10 grid gap-4 md:grid-cols-[0.65fr_1fr] md:items-end font-sans">
+    <div className="mb-5 sm:mb-6 grid gap-3 md:grid-cols-[0.65fr_1fr] md:items-end font-sans">
         <div>
             <span className="inline-block px-3 py-1 font-mono text-[11px] font-semibold tracking-wider text-indigo-600 bg-indigo-50 border border-indigo-200 rounded-full">
                 {eyebrow}
             </span>
-            <h2 className="mt-3 font-display text-2xl font-bold tracking-tight text-zinc-900 md:text-3xl leading-snug">
+            <h2 className="mt-2 font-display text-xl font-bold tracking-tight text-zinc-900 md:text-2xl leading-snug">
                 {title}
             </h2>
         </div>
         {copy && (
-            <p className="max-w-2xl text-xs sm:text-sm leading-relaxed text-zinc-600 md:ml-auto border-l border-zinc-200 pl-5">
+            <p className="max-w-2xl text-xs sm:text-sm leading-relaxed text-zinc-600 md:ml-auto border-l border-zinc-200 pl-4">
                 {copy}
             </p>
         )}
@@ -106,13 +106,13 @@ export default function Home({ projects, skills, experiences, certificates, soci
         <AppLayout settings={settings} socialLinks={socialLinks} navigate={navigate}>
 
             {/* HERO SECTION */}
-            <section className="relative pt-20 pb-6 sm:pt-24 sm:pb-8 lg:pt-28 overflow-hidden font-sans">
-                <div className="w-full max-w-full grid gap-8 sm:gap-10 lg:grid-cols-[1.1fr_0.9fr] items-center relative z-10 min-w-0">
+            <section className="relative pt-6 pb-4 sm:pt-8 sm:pb-5 lg:pt-10 lg:pb-6 overflow-hidden font-sans">
+                <div className="w-full max-w-full grid gap-6 sm:gap-8 lg:grid-cols-[1.1fr_0.9fr] items-center relative z-10 min-w-0">
 
                     {/* Left Column - Main Intro & CTAs */}
                     <div className="text-center sm:text-left w-full min-w-0 overflow-hidden px-1 sm:px-0">
                         {/* Status & Terminal Badges - Vertically Stacked on Mobile to Prevent Flex Overflow */}
-                        <div className="mb-4 flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-2 sm:gap-2.5 w-full min-w-0">
+                        <div className="mb-3 flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-2 sm:gap-2.5 w-full min-w-0">
                             <span className="inline-flex items-center justify-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 font-mono text-[10px] sm:text-[11px] font-semibold text-emerald-700 shadow-xs max-w-full">
                                 <span className="relative flex h-2 w-2 shrink-0">
                                     <span className="status-pulse-dot absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
@@ -126,7 +126,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
                         </div>
 
                         {/* Main Headline */}
-                        <h1 className="max-w-3xl mx-auto sm:mx-0 font-display text-xl sm:text-3xl lg:text-[40px] font-extrabold leading-snug sm:leading-[1.25] tracking-tight text-zinc-900 break-words min-w-0">
+                        <h1 className="max-w-3xl mx-auto sm:mx-0 font-display text-xl sm:text-3xl lg:text-[38px] font-extrabold leading-snug sm:leading-[1.25] tracking-tight text-zinc-900 break-words min-w-0">
                             Full-Stack Software Engineer building scalable{' '}
                             <span className="text-indigo-600 font-extrabold block sm:inline">
                                 SaaS Apps & Web Products
@@ -134,12 +134,12 @@ export default function Home({ projects, skills, experiences, certificates, soci
                         </h1>
 
                         {/* Bio Summary */}
-                        <p className="mt-3.5 max-w-xl mx-auto sm:mx-0 text-xs sm:text-sm leading-relaxed text-zinc-600 break-words min-w-0">
+                        <p className="mt-3 max-w-xl mx-auto sm:mx-0 text-xs sm:text-sm leading-relaxed text-zinc-600 break-words min-w-0">
                             I am <strong className="text-zinc-900 font-semibold">{settings?.name || 'Manish Kumar'}</strong>, a full-stack software engineer based in Purnea, Bihar. I specialize in building multi-tenant SaaS platforms (GymMitra), e-commerce marketplaces (KitabiAdda), and reactive single-page user interfaces with solid Laravel backends and MySQL database engines.
                         </p>
 
                         {/* Core Stack Pills */}
-                        <div className="mt-4 sm:mt-5 flex flex-wrap items-center justify-center sm:justify-start gap-1 sm:gap-1.5 font-mono text-[10px] sm:text-[11px] w-full min-w-0">
+                        <div className="mt-3.5 sm:mt-4 flex flex-wrap items-center justify-center sm:justify-start gap-1 sm:gap-1.5 font-mono text-[10px] sm:text-[11px] w-full min-w-0">
                             <span className="font-semibold text-zinc-500 mr-1 text-[10px] w-full sm:w-auto text-center sm:text-left">// Core Stack:</span>
                             {['Laravel 11', 'React 19', 'Inertia.js', 'MySQL', 'PHP 8.3', 'Tailwind CSS'].map((tech) => (
                                 <span key={tech} className="px-2 py-0.5 rounded-md bg-zinc-100 border border-zinc-200 text-zinc-800 font-semibold shrink-0">
@@ -149,36 +149,46 @@ export default function Home({ projects, skills, experiences, certificates, soci
                         </div>
 
                         {/* Action Buttons */}
-                        <div className="mt-5 sm:mt-6 flex flex-col sm:flex-row gap-2.5 sm:gap-3 items-center justify-center sm:justify-start w-full max-w-md mx-auto sm:mx-0 min-w-0">
+                        <div className="mt-4 sm:mt-5 flex flex-wrap gap-2 sm:gap-2.5 items-center justify-center sm:justify-start w-full max-w-lg mx-auto sm:mx-0 min-w-0">
                             <button
                                 type="button"
                                 onClick={() => scrollToSection('projects')}
-                                className="w-full sm:w-auto max-w-xs sm:max-w-none group relative inline-flex items-center justify-center gap-2 px-5 py-2.5 text-xs sm:text-sm font-semibold rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 shadow-sm shadow-indigo-600/20 active:scale-95 transition-all duration-200 cursor-pointer"
+                                className="w-full sm:w-auto group relative inline-flex items-center justify-center gap-2 px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 shadow-sm shadow-indigo-600/20 active:scale-95 transition-all duration-200 cursor-pointer"
                             >
                                 <span>View Selected Works</span>
                                 <svg className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                                 </svg>
                             </button>
+                            <a
+                                href={settings?.resume_file || '/downloads/resume.pdf'}
+                                download
+                                className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-3.5 py-2 text-xs sm:text-sm font-semibold rounded-lg text-indigo-700 bg-indigo-50 border border-indigo-200 hover:bg-indigo-100 shadow-xs active:scale-95 transition-all duration-200 cursor-pointer"
+                            >
+                                <svg className="w-3.5 h-3.5 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                </svg>
+                                <span>Download CV</span>
+                            </a>
                             <button
                                 type="button"
                                 onClick={() => scrollToSection('contact')}
-                                className="w-full sm:w-auto max-w-xs sm:max-w-none inline-flex items-center justify-center gap-2 px-5 py-2.5 text-xs sm:text-sm font-semibold rounded-lg text-zinc-800 bg-white border border-zinc-300 hover:border-zinc-400 hover:bg-zinc-50 shadow-sm active:scale-95 transition-all duration-200 cursor-pointer font-mono"
+                                className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-3.5 py-2 text-xs sm:text-sm font-semibold rounded-lg text-zinc-800 bg-white border border-zinc-300 hover:border-zinc-400 hover:bg-zinc-50 shadow-xs active:scale-95 transition-all duration-200 cursor-pointer font-mono"
                             >
-                                <span>$ contact --email</span>
+                                <span>$ contact</span>
                             </button>
                         </div>
 
                         {/* Metric Highlights */}
-                        <div className="mt-6 sm:mt-8 grid max-w-xl mx-auto sm:mx-0 grid-cols-3 gap-1.5 sm:gap-3 border-t border-zinc-200 pt-4 sm:pt-5 w-full min-w-0">
+                        <div className="mt-5 sm:mt-6 grid max-w-xl mx-auto sm:mx-0 grid-cols-3 gap-1.5 sm:gap-2.5 border-t border-zinc-200 pt-3.5 sm:pt-4 w-full min-w-0">
                             {[
                                 { value: '2026', title: 'BCA Graduate', tag: 'Academic' },
                                 { value: '5+', title: 'Shipped Builds', tag: 'Repos' },
                                 { value: 'Full Stack', title: 'Laravel + React', tag: 'Stack' },
                             ].map((item) => (
-                                <div key={item.title} className="p-1.5 sm:p-3 rounded-lg border border-zinc-200 bg-white hover:border-indigo-500/40 shadow-xs transition-all duration-200 text-center sm:text-left overflow-hidden min-w-0">
+                                <div key={item.title} className="p-1.5 sm:p-2.5 rounded-lg border border-zinc-200 bg-white hover:border-indigo-500/40 shadow-xs transition-all duration-200 text-center sm:text-left overflow-hidden min-w-0">
                                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-0.5">
-                                        <p className="font-display text-xs sm:text-lg font-bold text-zinc-900">{item.value}</p>
+                                        <p className="font-display text-xs sm:text-base font-bold text-zinc-900">{item.value}</p>
                                         <span className="text-[7px] sm:text-[9px] font-mono font-semibold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-1 py-0.5 rounded border border-indigo-100 self-center sm:self-auto hidden xs:inline-block">{item.tag}</span>
                                     </div>
                                     <p className="mt-0.5 text-[9px] sm:text-[11px] font-medium text-zinc-500 truncate">{item.title}</p>
@@ -322,7 +332,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
             </section>
 
             {/* FEATURED SAAS SPOTLIGHT BANNER */}
-            <div className="my-5 sm:my-6 p-3.5 sm:p-4 rounded-xl border border-indigo-200 bg-indigo-50/50 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 font-sans shadow-xs text-center sm:text-left">
+            <div className="my-3 sm:my-4 p-3.5 sm:p-4 rounded-xl border border-indigo-200 bg-indigo-50/50 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 font-sans shadow-xs text-center sm:text-left">
                 <div className="flex flex-col sm:flex-row items-center gap-3">
                     <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-indigo-600 text-white font-mono text-xs font-bold shadow-sm shrink-0">
                         SaaS
@@ -347,7 +357,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
             </div>
 
             {/* ABOUT SECTION */}
-            <section id="about" className="fade-section py-6 md:py-8 border-t border-zinc-200">
+            <section id="about" className="fade-section py-4 sm:py-5 border-t border-zinc-200">
                 <SectionHeader
                     eyebrow="// 01. ABOUT THE ENGINEER"
                     title="Practical engineering with product sense."
@@ -388,29 +398,29 @@ export default function Home({ projects, skills, experiences, certificates, soci
             </section>
 
             {/* EXPERIENCE SECTION */}
-            <section id="experience" className="fade-section py-6 md:py-8 border-t border-zinc-200">
+            <section id="experience" className="fade-section py-4 sm:py-5 border-t border-zinc-200">
                 <SectionHeader
                     eyebrow="// 02. WORK EXPERIENCE & CONTRIBUTIONS"
                     title="Work History"
                     copy="Internship experience building production-level features, database optimizations, and integrating client side frameworks with Laravel backends."
                 />
 
-                <div className="border border-zinc-200 bg-white p-5 md:p-6 shadow-sm rounded-xl hover:border-zinc-300 transition-all duration-300 font-sans">
-                    <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between border-b border-zinc-200 pb-4">
+                <div className="border border-zinc-200 bg-white p-4 sm:p-5 shadow-sm rounded-xl hover:border-zinc-300 transition-all duration-300 font-sans">
+                    <div className="flex flex-col gap-2.5 md:flex-row md:items-start md:justify-between border-b border-zinc-200 pb-3">
                         <div>
                             <div className="flex items-center gap-2">
                                 <span className="font-mono text-xs text-indigo-600 font-bold">commit #comestro-2024</span>
                                 <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-indigo-50 text-indigo-700 border border-indigo-100">MAIN</span>
                             </div>
-                            <p className="font-display text-xl font-bold text-zinc-900 mt-1">{activeExperience?.designation || 'Laravel Developer'}</p>
+                            <p className="font-display text-lg sm:text-xl font-bold text-zinc-900 mt-1">{activeExperience?.designation || 'Laravel Developer'}</p>
                             <p className="mt-0.5 text-xs sm:text-sm font-semibold text-indigo-600">@ {activeExperience?.company || settings?.current_company}</p>
                         </div>
-                        <p className="font-mono text-[11px] font-semibold text-zinc-550 border border-zinc-200 bg-zinc-50 px-2.5 py-0.5 rounded-full">
-                            {activeExperience?.duration || 'May 2024 - Present'}
+                        <p className="font-mono text-[11px] font-semibold text-zinc-550 border border-zinc-200 bg-zinc-50 px-2.5 py-0.5 rounded-full self-start">
+                            {activeExperience?.duration || 'May 2026 - Present'}
                         </p>
                     </div>
-                    <p className="mt-4 text-xs sm:text-sm leading-relaxed text-zinc-650 pr-4">{activeExperience?.description}</p>
-                    <div className="mt-6 flex flex-wrap gap-2">
+                    <p className="mt-3 text-xs sm:text-sm leading-relaxed text-zinc-650 pr-2">{activeExperience?.description}</p>
+                    <div className="mt-4 flex flex-wrap gap-1.5">
                         {activeExperience?.skills_used?.map((skill) => (
                             <span key={skill} className="border border-indigo-200 bg-indigo-50 text-indigo-600 px-2.5 py-0.5 font-mono text-[10px] font-semibold rounded-full">
                                 {skill}
@@ -421,7 +431,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
             </section>
 
             {/* PROJECTS SECTION */}
-            <section id="projects" className="fade-section py-6 md:py-8 border-t border-zinc-200">
+            <section id="projects" className="fade-section py-4 sm:py-5 border-t border-zinc-200">
                 <SectionHeader
                     eyebrow="// 03. FEATURED CODE REPOSITORIES"
                     title="Selected Works"
@@ -528,25 +538,25 @@ export default function Home({ projects, skills, experiences, certificates, soci
             </section>
 
             {/* SKILLS SECTION */}
-            <section id="skills" className="fade-section py-6 md:py-8 border-t border-zinc-200">
+            <section id="skills" className="fade-section py-4 sm:py-5 border-t border-zinc-200">
                 <SectionHeader
                     eyebrow="// 04. TECHNICAL STACK & TOOLING"
                     title="Technical Stack"
                     copy="Languages, database engines, backend structures, and frontend frameworks."
                 />
 
-                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                <div className="grid gap-3 sm:gap-4 md:grid-cols-2 lg:grid-cols-3">
                     {skillCategories.map((category) => (
-                        <div key={category} className="border border-zinc-200 bg-white p-5 shadow-sm rounded-xl hover:border-zinc-300 transition-all duration-300">
-                            <div className="flex items-center justify-between border-b border-zinc-200 pb-2 mb-3">
-                                <h3 className="font-display text-base font-bold text-zinc-900">
+                        <div key={category} className="border border-zinc-200 bg-white p-4 sm:p-5 shadow-sm rounded-xl hover:border-zinc-300 transition-all duration-300">
+                            <div className="flex items-center justify-between border-b border-zinc-200 pb-2 mb-2.5">
+                                <h3 className="font-display text-sm sm:text-base font-bold text-zinc-900">
                                     {category}
                                 </h3>
                                 <span className="font-mono text-[10px] text-zinc-400">config.json</span>
                             </div>
                             <div className="flex flex-wrap gap-1.5">
                                 {skills[category].map((skill) => (
-                                    <span key={skill.name} className="border border-zinc-200 bg-zinc-50 px-2.5 py-1 text-xs font-semibold text-zinc-650 hover:border-indigo-500/20 hover:text-indigo-650 transition-all duration-200 rounded-lg font-sans">
+                                    <span key={skill.name} className="border border-zinc-200 bg-zinc-50 px-2 py-0.5 text-xs font-semibold text-zinc-650 hover:border-indigo-500/20 hover:text-indigo-650 transition-all duration-200 rounded-lg font-sans">
                                         {skill.name}
                                     </span>
                                 ))}
@@ -558,20 +568,20 @@ export default function Home({ projects, skills, experiences, certificates, soci
 
             {/* CREDENTIALS SECTION */}
             {certificates?.length > 0 && (
-                <section className="fade-section py-6 md:py-8 border-t border-zinc-200">
+                <section className="fade-section py-4 sm:py-5 border-t border-zinc-200">
                     <SectionHeader eyebrow="// 05. CERTIFICATIONS & LEARNING" title="Certifications" />
-                    <div className="grid gap-4 md:grid-cols-2">
+                    <div className="grid gap-3 sm:gap-4 md:grid-cols-2">
                         {certificates.map((certificate) => (
                             <a
                                 key={certificate.id}
                                 href={certificate.credential_url}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="border border-zinc-200 bg-white p-5 shadow-sm rounded-xl hover:border-indigo-500/30 transition-all duration-300 block font-sans"
+                                className="border border-zinc-200 bg-white p-4 sm:p-5 shadow-sm rounded-xl hover:border-indigo-500/30 transition-all duration-300 block font-sans"
                             >
-                                <p className="font-display text-base font-bold text-zinc-900">{certificate.title}</p>
-                                <p className="mt-1 text-xs font-semibold text-indigo-600">{certificate.organization}</p>
-                                <p className="mt-3 font-mono text-[10px] font-semibold text-zinc-500 border border-zinc-200 bg-zinc-50 px-2.5 py-0.5 rounded inline-block">
+                                <p className="font-display text-sm sm:text-base font-bold text-zinc-900">{certificate.title}</p>
+                                <p className="mt-0.5 text-xs font-semibold text-indigo-600">{certificate.organization}</p>
+                                <p className="mt-2.5 font-mono text-[10px] font-semibold text-zinc-500 border border-zinc-200 bg-zinc-50 px-2.5 py-0.5 rounded inline-block">
                                     {certificate.issue_date}
                                 </p>
                             </a>
@@ -581,17 +591,17 @@ export default function Home({ projects, skills, experiences, certificates, soci
             )}
 
             {/* CONTACT SECTION */}
-            <section id="contact" className="fade-section py-8 md:py-10 border-t border-zinc-200 text-center max-w-xl mx-auto font-sans relative">
-                <span className="inline-block px-3 py-1 font-mono text-[11px] font-semibold tracking-wider text-indigo-600 bg-indigo-50 border border-indigo-200 rounded-full mb-4">
+            <section id="contact" className="fade-section py-6 sm:py-8 border-t border-zinc-200 text-center max-w-xl mx-auto font-sans relative">
+                <span className="inline-block px-3 py-1 font-mono text-[11px] font-semibold tracking-wider text-indigo-600 bg-indigo-50 border border-indigo-200 rounded-full mb-3">
                     // 06. CONTACT & CONNECT
                 </span>
-                <h2 className="font-display text-2xl md:text-3xl font-bold tracking-tight text-zinc-900 leading-snug">
+                <h2 className="font-display text-xl sm:text-2xl md:text-3xl font-bold tracking-tight text-zinc-900 leading-snug">
                     Let us build something useful.
                 </h2>
-                <p className="mt-3 text-xs sm:text-sm leading-relaxed text-zinc-600">
+                <p className="mt-2 text-xs sm:text-sm leading-relaxed text-zinc-600">
                     I am currently open to full stack software engineering roles, SaaS collaborations, and projects. Feel free to reach out and I will reply as soon as possible.
                 </p>
-                <a href={`mailto:${settings?.email}`} className="btn-hand-primary mt-8 inline-block text-sm px-6 py-3.5 font-bold shadow-lg font-mono">
+                <a href={`mailto:${settings?.email}`} className="btn-hand-primary mt-5 inline-block text-xs sm:text-sm px-5 py-3 font-bold shadow-md font-mono">
                     $ sendmail --to={settings?.email}
                 </a>
             </section>
