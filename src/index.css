@@ -48,19 +48,14 @@
 /* Smooth scrolling */
 html {
     scroll-behavior: smooth;
-    background-color: #fafafa;
+    background-color: #ffffff;
     overflow-x: hidden;
 }
 
-/* High-tech mesh & dot grid background (light version) */
+/* Clean modern SaaS-grade canvas */
 body {
-    background-color: #fafafa;
-    background-image:
-        radial-gradient(rgba(79, 70, 229, 0.05) 1.5px, transparent 1.5px),
-        radial-gradient(rgba(13, 148, 136, 0.03) 1px, transparent 1px);
-    background-size: 24px 24px, 32px 32px;
-    background-position: 0 0, 12px 12px;
-    color: #09090b;
+    background-color: #ffffff;
+    color: #0f172a;
     font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
     overflow-x: hidden;
     max-width: 100vw;
@@ -365,8 +360,8 @@ body {
 
 /* Admin Sidebar */
 .admin-sidebar {
-    background: linear-gradient(180deg, #0f172a 0%, #1e1b4b 100%);
-    border-right: 1px solid rgba(99, 102, 241, 0.1);
+    background: #131c2e;
+    border-right: 1px solid #1e293b;
     transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -374,12 +369,12 @@ body {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    padding: 0.625rem 1rem;
+    padding: 0.6rem 0.875rem;
     border-radius: 0.5rem;
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     font-weight: 500;
-    color: rgba(203, 213, 225, 0.8);
-    transition: all 0.2s ease;
+    color: #94a3b8;
+    transition: all 0.15s ease;
     cursor: pointer;
     text-decoration: none;
     border: none;
@@ -389,23 +384,19 @@ body {
 }
 
 .admin-sidebar-link:hover {
-    color: #e0e7ff;
-    background: rgba(99, 102, 241, 0.1);
+    color: #f8fafc;
+    background: rgba(255, 255, 255, 0.06);
 }
 
 .admin-sidebar-link.active {
     color: #ffffff;
-    background: rgba(99, 102, 241, 0.2);
-    border: 1px solid rgba(99, 102, 241, 0.25);
-    box-shadow: 0 0 20px rgba(99, 102, 241, 0.08);
+    background: #2563eb;
+    box-shadow: 0 2px 10px rgba(37, 99, 235, 0.35);
 }
 
 /* Admin Content Area */
 .admin-content {
     background-color: #f8fafc;
-    background-image:
-        radial-gradient(rgba(79, 70, 229, 0.03) 1px, transparent 1px);
-    background-size: 20px 20px;
     min-height: 100vh;
 }
 
