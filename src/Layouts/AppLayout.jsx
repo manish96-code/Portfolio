@@ -279,14 +279,11 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                     {/* Right Action Buttons */}
                     <div className="hidden md:flex items-center gap-3 shrink-0">
                         <a
-                            href="/admin"
-                            onClick={(e) => {
-                                e.preventDefault();
-                                navigate ? navigate('/admin') : (window.location.href = '/admin');
-                            }}
-                            className="text-xs font-medium text-slate-600 hover:text-slate-900 px-2.5 py-1.5 rounded-lg hover:bg-slate-50 transition-colors"
+                            href="#contact"
+                            onClick={(e) => handleNavClick(e, '#contact')}
+                            className="text-xs font-semibold text-slate-600 hover:text-blue-600 px-3 py-1.5 rounded-lg hover:bg-slate-50 transition-colors"
                         >
-                            Admin
+                            Let&apos;s Talk
                         </a>
                         <a
                             href={settings?.resume_file || '/downloads/resume.pdf'}
@@ -370,15 +367,14 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                                 Download CV →
                             </a>
                             <a
-                                href="/admin"
+                                href="#contact"
                                 onClick={(e) => {
-                                    e.preventDefault();
                                     setMobileMenuOpen(false);
-                                    navigate ? navigate('/admin') : (window.location.href = '/admin');
+                                    handleNavClick(e, '#contact');
                                 }}
-                                className="py-2.5 px-4 rounded-xl border border-slate-200 text-slate-700 font-semibold text-sm text-center"
+                                className="py-2.5 px-4 rounded-xl border border-slate-200 text-slate-700 font-semibold text-sm text-center hover:bg-slate-50 transition-colors"
                             >
-                                Admin Dashboard
+                                Let&apos;s Connect →
                             </a>
                         </div>
                     </div>
@@ -489,7 +485,7 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                                 <li><a href="/project/gymmitra" onClick={(e) => handleNavClick(e, '/project/gymmitra')} className="hover:text-slate-900 transition-colors">GymMitra SaaS</a></li>
                                 <li><a href="/project/kitabi-adda" onClick={(e) => handleNavClick(e, '/project/kitabi-adda')} className="hover:text-slate-900 transition-colors">KitabiAdda Marketplace</a></li>
                                 <li><a href="/project/linkup" onClick={(e) => handleNavClick(e, '/project/linkup')} className="hover:text-slate-900 transition-colors">LinkUp Social Network</a></li>
-                                <li><a href="/admin" onClick={(e) => handleNavClick(e, '/admin')} className="hover:text-slate-900 transition-colors">Admin Portal</a></li>
+                                <li><a href="#contact" onClick={(e) => handleNavClick(e, '#contact')} className="hover:text-slate-900 transition-colors">Get in Touch</a></li>
                             </ul>
                         </div>
                     </div>
