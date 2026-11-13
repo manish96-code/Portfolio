@@ -114,7 +114,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
 
             {/* 1. CLEAN HERO SECTION */}
             <section className="bg-white border-b border-slate-100">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-14">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-14 xl:px-16 py-8 sm:py-12 lg:py-14">
                     <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] items-center">
 
                         {/* Left Column */}
@@ -283,7 +283,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
 
             {/* 2. ALL PROJECTS SECTION (Clean Grid inspired by LearnSyntax Courses) */}
             <section id="projects" className="fade-section bg-slate-50/50 py-10 sm:py-12 border-b border-slate-100">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-14 xl:px-16">
                     <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-7">
                         <div>
                             <h2 className="font-display text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
@@ -404,7 +404,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
 
             {/* 3. MILESTONES & WHY CHOOSE ME SECTION (Inspired by Image 1 & 3) */}
             <section className="fade-section bg-white py-10 sm:py-12 border-b border-slate-100">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-14 xl:px-16">
                     <div className="mb-7">
                         <h2 className="font-display text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
                             Milestones &amp; engineering standards
@@ -503,7 +503,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
 
             {/* 4. ENGINEERING WORKFLOW TIMELINE (Inspired by Image 2 "Today's timetable") */}
             <section id="workflow" className="fade-section bg-slate-50/50 py-10 sm:py-12 border-b border-slate-100">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-14 xl:px-16">
                     <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-6">
                         <div>
                             <h2 className="font-display text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
@@ -572,7 +572,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
 
             {/* 5. ABOUT, QUOTE & EXPERIENCE JOURNEY (Inspired by Image 3) */}
             <section id="about" className="fade-section bg-white py-10 sm:py-12 border-b border-slate-100">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-14 xl:px-16 space-y-10">
 
                     {/* Quote Spotlight Card */}
                     <div className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-2xs grid gap-6 lg:grid-cols-[0.8fr_1.5fr] items-center">
@@ -684,7 +684,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
 
             {/* 6. TECHNICAL STACK & CREDENTIALS */}
             <section id="skills" className="fade-section bg-slate-50/50 py-10 sm:py-12 border-b border-slate-100">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-14 xl:px-16">
                     <div className="mb-7">
                         <h2 className="font-display text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
                             Technical stack &amp; certifications
@@ -745,7 +745,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
 
             {/* 7. CLEAN CONTACT CTA BANNER (Inspired by Image 2 Bottom Card) */}
             <section id="contact" className="fade-section bg-white py-10 sm:py-12">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-14 xl:px-16">
                     <div className="bg-slate-50/70 border border-slate-200 rounded-2xl p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
                         <div>
                             <h2 className="font-display text-lg sm:text-xl font-bold text-slate-900">

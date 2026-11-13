@@ -123,7 +123,7 @@ export default function ProjectDetails({ project, socialLinks, settings, navigat
                 ogImage={project.thumbnail}
                 schemaData={projectSchema}
             />
-            <div className="py-6 sm:py-8 font-sans max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="py-6 sm:py-8 font-sans max-w-7xl mx-auto px-4 sm:px-6 lg:px-14 xl:px-16">
 
                 {/* Back button */}
                 <a

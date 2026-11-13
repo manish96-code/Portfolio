@@ -20,7 +20,7 @@ export default function BlogList({ blogs, categories, socialLinks, settings, nav
                 description="Technical articles on Laravel, React 19, Inertia.js, and database query optimization strategies by Manish Kumar."
                 canonicalUrl="/blogs"
             />
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 font-sans">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-14 xl:px-16 py-8 sm:py-10 font-sans">
 
                 {/* Header */}
                 <div className="max-w-2xl mb-8 space-y-2">

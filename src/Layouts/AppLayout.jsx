@@ -80,6 +80,15 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
     const email = settings?.email || 'manish966128@gmail.com';
     const phone = settings?.phone || '+91 8207593672';
 
+    const fallbackSocials = [
+        { platform: 'GitHub', url: 'https://github.com/manish96-code', icon: 'github' },
+        { platform: 'LinkedIn', url: 'https://www.linkedin.com/in/manish-kumar-9661link', icon: 'linkedin' },
+        { platform: 'Facebook', url: 'https://www.facebook.com/share/1MArsUNxGr/', icon: 'facebook' },
+        { platform: 'Instagram', url: 'https://www.instagram.com/manish_kumar_9661?igsh=MTQxdmY2ajJrem9ocw==', icon: 'instagram' },
+        { platform: 'WhatsApp', url: 'https://wa.me/918207593672?text=Hello%20Manish%2C%20I%20visited%20your%20portfolio%20and%20wanted%20to%20connect!', icon: 'whatsapp' },
+    ];
+    const displaySocials = (socialLinks && socialLinks.length > 0) ? socialLinks : fallbackSocials;
+
     useEffect(() => {
         const handleScroll = () => {
             setShowBackToTop(window.scrollY > 400);
@@ -160,7 +169,43 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
     };
 
     return (
-        <div id="top" className="min-h-screen bg-white text-slate-900 font-sans antialiased flex flex-col">
+        <div id="top" className="min-h-screen bg-white text-slate-900 font-sans antialiased flex flex-col relative overflow-x-clip">
+
+            {/* Ambient background glows */}
+            <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-indigo-500/[0.03] rounded-full blur-[120px] pointer-events-none -z-10"></div>
+            <div className="absolute top-1/3 right-1/4 w-[400px] h-[400px] bg-cyan-500/[0.02] rounded-full blur-[100px] pointer-events-none -z-10"></div>
+            <div className="absolute bottom-10 left-1/3 w-[600px] h-[600px] bg-indigo-500/[0.02] rounded-full blur-[150px] pointer-events-none -z-10"></div>
+
+            {/* Fixed Left Social Bar */}
+            <div className="hidden lg:flex fixed bottom-0 left-5 xl:left-8 z-30 flex-col items-center gap-3">
+                {displaySocials.filter(l => !['email', 'mail'].includes(l.platform?.toLowerCase())).map((link, idx) => (
+                    <a
+                        key={idx}
+                        href={link.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="flex items-center justify-center w-9 h-9 border border-slate-200 bg-white/90 backdrop-blur-md rounded-full text-slate-500 hover:text-blue-600 hover:border-blue-300 hover:-translate-y-1 transition-all duration-200 shadow-2xs"
+                        title={link.platform}
+                        aria-label={link.platform}
+                    >
+                        {renderIcon(link.icon || link.platform)}
+                    </a>
+                ))}
+                <div className="w-px h-20 bg-gradient-to-t from-transparent to-slate-300"></div>
+            </div>
+
+            {/* Fixed Right Email Bar */}
+            <div className="hidden lg:flex fixed bottom-0 right-5 xl:right-8 z-30 flex-col items-center gap-4">
+                <a
+                    href={`mailto:${email}`}
+                    className="text-slate-500 hover:text-blue-600 text-xs font-mono tracking-wider hover:-translate-y-1 transition-all duration-200 py-2"
+                    style={{ writingMode: 'vertical-rl' }}
+                    title={`Email ${email}`}
+                >
+                    {email}
+                </a>
+                <div className="w-px h-20 bg-gradient-to-t from-transparent to-slate-300"></div>
+            </div>
 
             {/* Clean Standard Sticky Header */}
             <header className={`sticky top-0 left-0 right-0 z-40 transition-all duration-200 bg-white/95 backdrop-blur-md border-b ${scrolled ? 'border-slate-200 shadow-xs py-2.5' : 'border-slate-100 py-3'}`}>
@@ -454,8 +499,9 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
             {showBackToTop && (
                 <button
                     onClick={scrollToTop}
-                    className="fixed bottom-6 right-6 z-40 w-10 h-10 rounded-full bg-white border border-slate-200 text-slate-600 flex items-center justify-center hover:bg-slate-900 hover:text-white hover:border-slate-900 transition-all duration-200 shadow-md"
+                    className="fixed bottom-6 right-6 lg:right-20 z-40 w-10 h-10 rounded-full bg-white border border-slate-200 text-slate-600 flex items-center justify-center hover:bg-slate-900 hover:text-white hover:border-slate-900 transition-all duration-200 shadow-md cursor-pointer"
                     title="Back to Top"
+                    aria-label="Back to Top"
                 >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
