@@ -113,7 +113,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
             />
 
             {/* 1. CLEAN HERO SECTION */}
-            <section className="bg-white border-b border-slate-100">
+            <section id="top" className="fade-section bg-white border-b border-slate-100 scroll-mt-24">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-14 xl:px-16 py-8 sm:py-12 lg:py-14">
                     <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] items-center">
 
@@ -282,7 +282,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
             </section>
 
             {/* 2. ALL PROJECTS SECTION (Clean Grid inspired by LearnSyntax Courses) */}
-            <section id="projects" className="fade-section bg-slate-50/50 py-10 sm:py-12 border-b border-slate-100">
+            <section id="projects" className="fade-section bg-slate-50/50 py-10 sm:py-12 border-b border-slate-100 scroll-mt-24">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-14 xl:px-16">
                     <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-7">
                         <div>
@@ -502,7 +502,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
             </section>
 
             {/* 4. ENGINEERING WORKFLOW TIMELINE (Inspired by Image 2 "Today's timetable") */}
-            <section id="workflow" className="fade-section bg-slate-50/50 py-10 sm:py-12 border-b border-slate-100">
+            <section id="workflow" className="fade-section bg-slate-50/50 py-10 sm:py-12 border-b border-slate-100 scroll-mt-24">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-14 xl:px-16">
                     <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-6">
                         <div>
@@ -571,7 +571,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
             </section>
 
             {/* 5. ABOUT, QUOTE & EXPERIENCE JOURNEY (Inspired by Image 3) */}
-            <section id="about" className="fade-section bg-white py-10 sm:py-12 border-b border-slate-100">
+            <section id="about" className="fade-section bg-white py-10 sm:py-12 border-b border-slate-100 scroll-mt-24">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-14 xl:px-16 space-y-10">
 
                     {/* Quote Spotlight Card */}
@@ -683,7 +683,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
             </section>
 
             {/* 6. TECHNICAL STACK & CREDENTIALS */}
-            <section id="skills" className="fade-section bg-slate-50/50 py-10 sm:py-12 border-b border-slate-100">
+            <section id="skills" className="fade-section bg-slate-50/50 py-10 sm:py-12 border-b border-slate-100 scroll-mt-24">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-14 xl:px-16">
                     <div className="mb-7">
                         <h2 className="font-display text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
@@ -744,7 +744,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
             </section>
 
             {/* 7. CLEAN CONTACT CTA BANNER (Inspired by Image 2 Bottom Card) */}
-            <section id="contact" className="fade-section bg-white py-10 sm:py-12">
+            <section id="contact" className="fade-section bg-white py-10 sm:py-12 scroll-mt-24">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-14 xl:px-16">
                     <div className="bg-slate-50/70 border border-slate-200 rounded-2xl p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
                         <div>

@@ -75,7 +75,7 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
     const [showBackToTop, setShowBackToTop] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
-    const [activeSection, setActiveSection] = useState('about');
+    const [activeSection, setActiveSection] = useState('top');
     const name = settings?.name || 'Manish Kumar';
     const email = settings?.email || 'manish966128@gmail.com';
     const phone = settings?.phone || '+91 8207593672';
@@ -135,6 +135,10 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
         setActiveSection(targetId);
 
         if (window.location.pathname === '/') {
+            if (targetId === 'top') {
+                scrollToTop();
+                return;
+            }
             const element = document.getElementById(targetId);
             if (element) {
                 element.scrollIntoView({ behavior: 'smooth' });
@@ -142,9 +146,13 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
         } else if (navigate) {
             navigate('/');
             setTimeout(() => {
-                const element = document.getElementById(targetId);
-                if (element) {
-                    element.scrollIntoView({ behavior: 'smooth' });
+                if (targetId === 'top') {
+                    scrollToTop();
+                } else {
+                    const element = document.getElementById(targetId);
+                    if (element) {
+                        element.scrollIntoView({ behavior: 'smooth' });
+                    }
                 }
             }, 100);
         } else {
@@ -169,12 +177,14 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
     };
 
     return (
-        <div id="top" className="min-h-screen bg-white text-slate-900 font-sans antialiased flex flex-col relative overflow-x-clip">
+        <div id="top" className="min-h-screen bg-white text-slate-900 font-sans antialiased flex flex-col relative">
 
-            {/* Ambient background glows */}
-            <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-indigo-500/[0.03] rounded-full blur-[120px] pointer-events-none -z-10"></div>
-            <div className="absolute top-1/3 right-1/4 w-[400px] h-[400px] bg-cyan-500/[0.02] rounded-full blur-[100px] pointer-events-none -z-10"></div>
-            <div className="absolute bottom-10 left-1/3 w-[600px] h-[600px] bg-indigo-500/[0.02] rounded-full blur-[150px] pointer-events-none -z-10"></div>
+            {/* Ambient background glows (Isolated clipping) */}
+            <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10">
+                <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-indigo-500/[0.03] rounded-full blur-[120px]"></div>
+                <div className="absolute top-1/3 right-1/4 w-[400px] h-[400px] bg-cyan-500/[0.02] rounded-full blur-[100px]"></div>
+                <div className="absolute bottom-10 left-1/3 w-[600px] h-[600px] bg-indigo-500/[0.02] rounded-full blur-[150px]"></div>
+            </div>
 
             {/* Fixed Left Social Bar */}
             <div className="hidden lg:flex fixed bottom-0 left-5 xl:left-8 z-30 flex-col items-center gap-3">
@@ -207,9 +217,9 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                 <div className="w-px h-20 bg-gradient-to-t from-transparent to-slate-300"></div>
             </div>
 
-            {/* Clean Standard Sticky Header */}
-            <header className={`sticky top-0 left-0 right-0 z-40 transition-all duration-200 bg-white/95 backdrop-blur-md border-b ${scrolled ? 'border-slate-200 shadow-xs py-2.5' : 'border-slate-100 py-3'}`}>
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center gap-4">
+            {/* Clean Fixed Header (Always Pinned at Top) */}
+            <header className={`fixed top-0 left-0 right-0 z-40 transition-all duration-200 bg-white/95 backdrop-blur-md border-b ${scrolled ? 'border-slate-200 shadow-xs py-2.5' : 'border-slate-100 py-3'}`}>
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-14 xl:px-16 flex justify-between items-center gap-4">
 
                     {/* Brand Logo (Left) */}
                     <a
@@ -218,6 +228,7 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                             e.preventDefault();
                             if (window.location.pathname === '/') {
                                 scrollToTop();
+                                setActiveSection('top');
                             } else if (navigate) {
                                 navigate('/');
                             } else {
@@ -252,8 +263,8 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                                         }
                                     }}
                                     className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-150 ${active
-                                        ? 'bg-slate-100 text-slate-900 font-semibold'
-                                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                                        ? 'bg-blue-50 text-blue-700 font-semibold border border-blue-200/60 shadow-2xs'
+                                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 border border-transparent'
                                         }`}
                                 >
                                     <span className={`w-4 h-4 rounded-sm ${item.badgeBg} text-white text-[9px] font-bold flex items-center justify-center shrink-0`}>
@@ -394,8 +405,8 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                 </div>
             )}
 
-            {/* Main Content */}
-            <main className="flex-1 w-full">
+            {/* Main Content with top padding offset for Fixed Header */}
+            <main className="flex-1 w-full pt-16 sm:pt-[68px]">
                 {children}
             </main>
 
