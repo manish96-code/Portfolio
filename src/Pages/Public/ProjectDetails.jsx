@@ -123,84 +123,84 @@ export default function ProjectDetails({ project, socialLinks, settings, navigat
                 ogImage={project.thumbnail}
                 schemaData={projectSchema}
             />
-            <div className="pt-6 sm:pt-8 pb-8 sm:pb-12 font-sans max-w-6xl mx-auto px-1 sm:px-0">
+            <div className="py-6 sm:py-8 font-sans max-w-7xl mx-auto px-4 sm:px-6 lg:px-14 xl:px-16">
 
                 {/* Back button */}
                 <a
                     href="/"
                     onClick={(e) => { e.preventDefault(); navigate('/'); }}
-                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-zinc-600 hover:text-zinc-950 border border-zinc-200 bg-white/80 hover:bg-zinc-50 px-3 py-1.5 rounded-lg transition-all duration-200 mb-4 group shadow-xs"
+                    className="inline-flex items-center gap-2 text-xs font-semibold text-slate-700 hover:text-slate-900 border border-slate-200 bg-white hover:bg-slate-50 px-3.5 py-1.5 rounded-lg transition-colors mb-5 group shadow-2xs"
                 >
-                    <span className="group-hover:-translate-x-0.5 transition-transform">←</span> Back to Portfolio
+                    <span className="group-hover:-translate-x-0.5 transition-transform">←</span> Back to Projects
                 </a>
 
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-start">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
 
                     {/* Project Main Content */}
-                    <div className="lg:col-span-8 space-y-3">
+                    <div className="lg:col-span-8 space-y-4">
                         <div className="flex flex-wrap items-center gap-1.5">
-                            <span className="inline-block border border-indigo-200 bg-indigo-50 text-indigo-700 px-2.5 py-0.5 text-[10px] font-semibold font-mono rounded-md">
+                            <span className="inline-block border border-blue-200 bg-blue-50 text-blue-700 px-2.5 py-0.5 text-[10px] font-semibold font-mono rounded-md">
                                 CASE STUDY 📝
                             </span>
 
                             {tags.map((t, idx) => (
                                 <span
                                     key={idx}
-                                    className="px-2 py-0.5 rounded border border-zinc-200 bg-zinc-50 text-zinc-600 text-[10px] font-mono font-medium"
+                                    className="px-2 py-0.5 rounded-md border border-slate-200 bg-slate-50 text-slate-600 text-[10px] font-mono font-medium"
                                 >
                                     {t}
                                 </span>
                             ))}
                         </div>
 
-                        <h1 className="text-xl sm:text-2xl lg:text-3xl font-display font-extrabold text-zinc-900 tracking-tight leading-snug">
+                        <h1 className="text-2xl sm:text-3xl font-display font-extrabold text-slate-900 tracking-tight leading-snug">
                             {project.title}
                         </h1>
 
-                        <p className="text-zinc-600 text-xs sm:text-sm leading-relaxed max-w-2xl font-normal">
+                        <p className="text-slate-600 text-xs sm:text-sm leading-relaxed max-w-2xl font-normal">
                             {project.description}
                         </p>
 
                         {/* Detailed content card */}
-                        <div className="bg-white border border-zinc-200/90 p-4 sm:p-5 mt-4 rounded-xl shadow-xs">
+                        <div className="bg-white border border-slate-200 p-5 sm:p-7 mt-5 rounded-2xl shadow-2xs">
                             <SimpleMarkdown content={project.content} />
                         </div>
                     </div>
 
                     {/* Metadata Sidebar */}
                     <div className="lg:col-span-4">
-                        <div className="border border-zinc-200 bg-white p-4 space-y-4 sticky top-20 shadow-xs rounded-xl relative overflow-hidden text-zinc-700">
+                        <div className="border border-slate-200 bg-white p-5 space-y-4 sticky top-20 shadow-2xs rounded-2xl relative overflow-hidden text-slate-700">
                             {/* Solid accent top border */}
-                            <div className="absolute top-0 left-0 right-0 h-[3px] bg-indigo-600"></div>
+                            <div className="absolute top-0 left-0 right-0 h-[3px] bg-blue-600"></div>
 
-                            <h3 className="font-display text-sm sm:text-base font-bold text-zinc-900 border-b border-zinc-150 pb-2">
+                            <h3 className="font-display text-sm sm:text-base font-bold text-slate-900 border-b border-slate-100 pb-2.5">
                                 Project Overview
                             </h3>
 
-                            <div className="space-y-2 text-xs font-medium">
-                                <div className="flex justify-between py-1 border-b border-zinc-100">
-                                    <span className="text-zinc-500">Status</span>
+                            <div className="space-y-2.5 text-xs font-medium">
+                                <div className="flex justify-between py-1 border-b border-slate-100">
+                                    <span className="text-slate-500">Status</span>
                                     <span className={`font-bold ${project.status === 'Completed' ? 'text-emerald-600' : 'text-amber-600'}`}>
                                         {project.status}
                                     </span>
                                 </div>
-                                <div className="flex justify-between py-1 border-b border-zinc-100 font-sans">
-                                    <span className="text-zinc-500">Type</span>
-                                    <span className="text-zinc-800 font-semibold">Full Stack</span>
+                                <div className="flex justify-between py-1 border-b border-slate-100 font-sans">
+                                    <span className="text-slate-500">Type</span>
+                                    <span className="text-slate-800 font-semibold">Full Stack</span>
                                 </div>
                                 <div className="flex justify-between py-1 font-sans">
-                                    <span className="text-zinc-500">Stack</span>
-                                    <span className="text-zinc-800 font-semibold">Laravel & React</span>
+                                    <span className="text-slate-500">Stack</span>
+                                    <span className="text-slate-800 font-semibold">Laravel &amp; React</span>
                                 </div>
                             </div>
 
-                            <div className="space-y-2 pt-2.5 border-t border-zinc-100">
+                            <div className="space-y-2 pt-3 border-t border-slate-100">
                                 {project.live_url && (
                                     <a
                                         href={project.live_url}
                                         target="_blank"
                                         rel="noreferrer"
-                                        className="flex items-center justify-center gap-2 w-full py-2 px-3 text-xs font-semibold rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white shadow-xs transition-all duration-200"
+                                        className="flex items-center justify-center gap-2 w-full py-2.5 px-3 text-xs font-semibold rounded-lg bg-slate-900 hover:bg-slate-800 text-white shadow-xs transition-colors"
                                     >
                                         <IconExternal /> Live Demo
                                     </a>
@@ -210,7 +210,7 @@ export default function ProjectDetails({ project, socialLinks, settings, navigat
                                         href={project.github_url}
                                         target="_blank"
                                         rel="noreferrer"
-                                        className="flex items-center justify-center gap-2 w-full py-2 px-3 text-xs font-semibold rounded-lg bg-white border border-zinc-300 hover:border-zinc-400 text-zinc-800 hover:bg-zinc-50 shadow-xs transition-all duration-200"
+                                        className="flex items-center justify-center gap-2 w-full py-2.5 px-3 text-xs font-semibold rounded-lg bg-white border border-slate-200 hover:border-slate-300 text-slate-800 hover:bg-slate-50 shadow-2xs transition-colors"
                                     >
                                         <IconGitHub /> Source Code
                                     </a>

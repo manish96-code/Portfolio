@@ -80,42 +80,42 @@ export default function BlogShow({ blog, socialLinks, settings, navigate }) {
                 ogType="article"
                 schemaData={blogSchema}
             />
-            <article className="max-w-[700px] mx-auto pt-32 pb-24 font-sans relative">
+            <article className="max-w-3xl mx-auto py-6 sm:py-8 px-4 sm:px-6 font-sans">
 
                 {/* Back button */}
                 <a
                     href="/blogs"
                     onClick={(e) => { e.preventDefault(); navigate('/blogs'); }}
-                    className="inline-flex items-center gap-2 text-xs font-semibold text-zinc-600 hover:text-zinc-950 border border-zinc-200 bg-white/80 hover:bg-zinc-50 px-4 py-2 rounded-lg transition-all duration-300 mb-8 group"
+                    className="inline-flex items-center gap-2 text-xs font-semibold text-slate-700 hover:text-slate-900 border border-slate-200 bg-white hover:bg-slate-50 px-3.5 py-1.5 rounded-lg transition-colors mb-6 group shadow-2xs"
                 >
                     <span className="group-hover:-translate-x-0.5 transition-transform">←</span> Back to Articles
                 </a>
 
                 {/* Article Header */}
-                <header className="space-y-6 mb-10 pb-10 border-b border-zinc-200">
-                    <div className="flex items-center gap-3 text-[10px] font-mono font-semibold">
-                        <span className="text-indigo-650 bg-indigo-50 border border-indigo-100 px-2.5 py-0.5 rounded">
+                <header className="space-y-4 mb-8 pb-8 border-b border-slate-200">
+                    <div className="flex items-center gap-3 text-xs font-semibold">
+                        <span className="text-blue-700 bg-blue-50 border border-blue-100 px-2.5 py-0.5 rounded-md">
                             {blog.category}
                         </span>
-                        <span className="text-zinc-300">•</span>
-                        <span className="text-zinc-500">
+                        <span className="text-slate-300">•</span>
+                        <span className="text-slate-500">
                             {new Date(blog.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
                         </span>
                     </div>
 
-                    <h1 className="text-3xl md:text-4xl font-display font-extrabold text-zinc-900 tracking-tight leading-tight">
+                    <h1 className="text-2xl sm:text-3xl font-display font-extrabold text-slate-900 tracking-tight leading-snug">
                         {blog.title}
                     </h1>
 
-                    <p className="text-zinc-650 text-base leading-relaxed italic border-l-2 border-indigo-500 pl-4">
+                    <p className="text-slate-600 text-sm leading-relaxed border-l-2 border-blue-500 pl-4">
                         {blog.summary}
                     </p>
 
-                    <div className="flex flex-wrap gap-2 pt-2">
+                    <div className="flex flex-wrap gap-1.5 pt-2">
                         {tags.map((t, idx) => (
                             <span
                                 key={idx}
-                                className="px-2.5 py-0.5 rounded border border-zinc-200 bg-zinc-50 text-zinc-500 text-[10px] font-mono font-medium"
+                                className="px-2.5 py-0.5 rounded-md border border-slate-200 bg-slate-50 text-slate-600 text-[11px] font-medium"
                             >
                                 {t}
                             </span>
@@ -124,7 +124,7 @@ export default function BlogShow({ blog, socialLinks, settings, navigate }) {
                 </header>
 
                 {/* Main Content Pane */}
-                <div className="bg-white border border-zinc-200 p-8 md:p-10 rounded-xl shadow-md">
+                <div className="bg-white border border-slate-200 p-6 sm:p-8 rounded-2xl shadow-2xs">
                     <BlogMarkdown content={blog.content} />
                 </div>
             </article>

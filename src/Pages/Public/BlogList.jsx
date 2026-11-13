@@ -20,34 +20,31 @@ export default function BlogList({ blogs, categories, socialLinks, settings, nav
                 description="Technical articles on Laravel, React 19, Inertia.js, and database query optimization strategies by Manish Kumar."
                 canonicalUrl="/blogs"
             />
-            <div className="pt-32 pb-24 font-sans relative">
-
-                {/* Background ambient light */}
-                <div className="absolute top-12 left-1/2 -translate-x-1/2 w-[350px] h-[350px] bg-indigo-500/[0.02] rounded-full blur-[100px] pointer-events-none -z-10"></div>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-14 xl:px-16 py-8 sm:py-10 font-sans">
 
                 {/* Header */}
-                <div className="text-center max-w-xl mx-auto mb-16 space-y-4">
-                    <span className="inline-block px-3 py-1 font-mono text-xs font-semibold tracking-wider text-indigo-650 bg-indigo-500/10 border border-indigo-500/20 rounded-full">
+                <div className="max-w-2xl mb-8 space-y-2">
+                    <span className="inline-block px-3 py-1 text-xs font-semibold text-blue-700 bg-blue-50 border border-blue-100 rounded-full">
                         Writing & Insights
                     </span>
-                    <h1 className="text-3xl font-extrabold text-zinc-900 tracking-tight md:text-4xl">
-                        Articles & Blog
+                    <h1 className="font-display text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+                        Articles &amp; Engineering Blog
                     </h1>
-                    <p className="text-zinc-550 text-sm leading-relaxed max-w-sm mx-auto">
-                        Deep dives into Laravel backends, React applications, and modern development workflows.
+                    <p className="text-slate-500 text-xs sm:text-sm leading-relaxed">
+                        Deep dives into Laravel backends, React 19 applications, and modern development workflows.
                     </p>
                 </div>
 
                 {/* Filters & Search */}
-                <div className="flex flex-col md:flex-row gap-6 justify-between items-center mb-12 pb-6 border-b border-zinc-200">
-                    <div className="flex flex-wrap gap-2">
+                <div className="flex flex-col md:flex-row gap-4 justify-between items-center mb-8 pb-5 border-b border-slate-200">
+                    <div className="flex flex-wrap gap-2 w-full md:w-auto">
                         {categories.map((cat, idx) => (
                             <button
                                 key={idx}
                                 onClick={() => setSelectedCategory(cat)}
-                                className={`px-4 py-1.5 rounded-lg text-xs font-semibold border transition-all duration-300 ${selectedCategory === cat
-                                    ? 'bg-indigo-600 border-indigo-500 text-white shadow-sm'
-                                    : 'bg-white border-zinc-200 text-zinc-500 hover:border-zinc-300 hover:text-zinc-900'
+                                className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold border transition-colors cursor-pointer ${selectedCategory === cat
+                                    ? 'bg-slate-900 border-slate-900 text-white shadow-xs'
+                                    : 'bg-white border-slate-200 text-slate-600 hover:border-slate-300 hover:text-slate-900'
                                     }`}
                             >
                                 {cat.charAt(0).toUpperCase() + cat.slice(1)}
@@ -61,27 +58,27 @@ export default function BlogList({ blogs, categories, socialLinks, settings, nav
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             placeholder="Search articles..."
-                            className="w-full bg-white border border-zinc-200 rounded-lg px-4 py-2 text-sm text-zinc-800 placeholder:text-zinc-400 outline-none focus:border-indigo-500/60 focus:ring-1 focus:ring-indigo-500/10 transition-all duration-300 font-sans"
+                            className="w-full bg-white border border-slate-200 rounded-lg px-3.5 py-2 text-xs sm:text-sm text-slate-800 placeholder:text-slate-400 outline-none focus:border-blue-500 transition-colors"
                         />
                     </div>
                 </div>
 
                 {/* Articles Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     {filteredBlogs.length > 0 ? (
                         filteredBlogs.map((blog) => {
                             const tags = blog.tags || [];
                             return (
                                 <article
                                     key={blog.id}
-                                    className="bg-white border border-zinc-200 p-6 md:p-8 flex flex-col justify-between rounded-xl hover:border-indigo-500/10 hover:shadow-xl transition-all duration-300 group shadow-sm relative overflow-hidden"
+                                    className="bg-white border border-slate-200 p-5 sm:p-6 flex flex-col justify-between rounded-2xl hover:border-slate-300 hover:shadow-md transition-all duration-200 group shadow-2xs"
                                 >
-                                    <div className="space-y-4">
-                                        <div className="flex items-center justify-between text-[10px] font-mono font-semibold">
-                                            <span className="text-indigo-650 bg-indigo-50 border border-indigo-100 px-2 py-0.5 rounded">
+                                    <div className="space-y-3">
+                                        <div className="flex items-center justify-between text-[11px] font-semibold">
+                                            <span className="text-blue-700 bg-blue-50 border border-blue-100 px-2.5 py-0.5 rounded-md">
                                                 {blog.category}
                                             </span>
-                                            <span className="text-zinc-500">
+                                            <span className="text-slate-400">
                                                 {new Date(blog.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                                             </span>
                                         </div>
@@ -91,20 +88,20 @@ export default function BlogList({ blogs, categories, socialLinks, settings, nav
                                             onClick={(e) => { e.preventDefault(); navigate(`/blog/${blog.slug}`); }}
                                             className="block"
                                         >
-                                            <h3 className="text-xl font-bold text-zinc-900 group-hover:text-indigo-650 transition-colors leading-snug">
+                                            <h3 className="font-display text-lg sm:text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors leading-snug">
                                                 {blog.title}
                                             </h3>
                                         </a>
 
-                                        <p className="text-zinc-600 text-sm leading-relaxed line-clamp-3">
+                                        <p className="text-slate-600 text-xs sm:text-sm leading-relaxed line-clamp-3">
                                             {blog.summary}
                                         </p>
                                     </div>
 
-                                    <div className="flex items-center justify-between pt-6 mt-6 border-t border-zinc-100">
+                                    <div className="flex items-center justify-between pt-4 mt-5 border-t border-slate-100">
                                         <div className="flex flex-wrap gap-1.5">
                                             {tags.slice(0, 3).map((t, idx) => (
-                                                <span key={idx} className="text-[10px] font-medium text-zinc-500 border border-zinc-200 bg-zinc-50 px-2 py-0.5 rounded">
+                                                <span key={idx} className="text-[10px] font-medium text-slate-600 border border-slate-200 bg-slate-50 px-2 py-0.5 rounded">
                                                     {t}
                                                 </span>
                                             ))}
@@ -112,9 +109,9 @@ export default function BlogList({ blogs, categories, socialLinks, settings, nav
                                         <a
                                             href={`/blog/${blog.slug}`}
                                             onClick={(e) => { e.preventDefault(); navigate(`/blog/${blog.slug}`); }}
-                                            className="text-xs font-semibold text-indigo-600 hover:text-indigo-550 transition-colors"
+                                            className="text-xs font-semibold text-blue-600 hover:text-blue-700 transition-colors"
                                         >
-                                            Read Article ➜
+                                            Read Article →
                                         </a>
                                     </div>
                                 </article>
