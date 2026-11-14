@@ -141,7 +141,10 @@ The application is architected into four distinct portals with Role-Based Access
             github_url: 'https://github.com/Comestro/learnsyntax-laravel',
             live_url: 'https://darkgoldenrod-elk-780267.hostingersite.com',
             status: 'Completed',
-            is_featured: true
+            is_featured: true,
+            contribution_type: 'major',
+            role: 'Lead Full-Stack Engineer',
+            contribution_scope: 'LMS Platform Architecture, 4 Multi-Portals, Reverb WebSockets & Canvas Certificate Engine'
         },
         {
             id: 6,
@@ -218,7 +221,10 @@ The Call & Visits Planner follows a strict plan-versus-execution model:
             github_url: 'https://github.com/Comestro/ciplon',
             live_url: 'https://ciplonpharma.in/',
             status: 'Completed',
-            is_featured: true
+            is_featured: true,
+            contribution_type: 'major',
+            role: 'Full-Stack Developer',
+            contribution_scope: 'Pharma Management, MR Field Itinerary Planner, DCR Reporting & RBAC Access Matrix'
         },
         {
             id: 4,
@@ -249,7 +255,10 @@ Laravel, React, PHP, MySQL, Tailwind CSS, Inertia.js`,
             github_url: 'https://github.com/manish96-code',
             live_url: 'https://manish.echovel.com',
             status: 'Completed',
-            is_featured: true
+            is_featured: true,
+            contribution_type: 'major',
+            role: 'Lead Full-Stack Developer',
+            contribution_scope: 'Multi-Tenant SaaS Engine, QR Attendance Scanning & Automated GST Invoicing'
         },
         {
             id: 1,
@@ -261,7 +270,10 @@ Laravel, React, PHP, MySQL, Tailwind CSS, Inertia.js`,
             technologies: ['Laravel', 'React', 'Inertia', 'MySQL', 'Tailwind CSS'],
             github_url: 'https://github.com/manish96-code/LinkUp',
             status: 'Completed',
-            is_featured: true
+            is_featured: true,
+            contribution_type: 'major',
+            role: 'Full-Stack Developer',
+            contribution_scope: 'SPA Social Network, Feed Interactions, Real-Time Messaging & Media Handling'
         },
         {
             id: 2,
@@ -373,7 +385,10 @@ After a vendor processes an order, the order needs to move through the delivery 
             technologies: ['Laravel', 'React.js', 'Inertia.js', 'MySQL', 'Tailwind CSS', 'JavaScript'],
             github_url: 'https://github.com/manish96-code/KitabiAdda',
             status: 'Completed',
-            is_featured: true
+            is_featured: true,
+            contribution_type: 'major',
+            role: 'Full-Stack Developer',
+            contribution_scope: 'Multi-Vendor Marketplace, 4 Role Portals, Inventory & Delivery Rider Assignment'
         },
         {
             id: 3,
@@ -385,7 +400,10 @@ After a vendor processes an order, the order needs to move through the delivery 
             technologies: ['Laravel', 'Livewire', 'MySQL', 'Tailwind CSS'],
             github_url: 'https://github.com/manish96-code/CampusConnect',
             status: 'Completed',
-            is_featured: true
+            is_featured: true,
+            contribution_type: 'major',
+            role: 'Full-Stack Developer',
+            contribution_scope: 'Campus Management System, Real-Time Resource Sharing & Student Timelines'
         },
         {
             id: 5,
@@ -399,7 +417,10 @@ After a vendor processes an order, the order needs to move through the delivery 
             github_url: 'https://github.com/manish96-code',
             live_url: 'https://the-recipe-finder-three.vercel.app/',
             status: 'Completed',
-            is_featured: false
+            is_featured: false,
+            contribution_type: 'minor',
+            role: 'Frontend Contributor',
+            contribution_scope: 'Third-party Recipe REST API Integration & Dynamic Dietary Filtering UI'
         }
     ],
     certificates: [

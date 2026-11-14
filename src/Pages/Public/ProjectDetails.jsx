@@ -161,6 +161,29 @@ export default function ProjectDetails({ project, socialLinks, settings, navigat
                             {project.description}
                         </p>
 
+                        {/* Contribution Scope Banner */}
+                        <div className={`p-4 rounded-xl border flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${project.contribution_type === 'minor'
+                            ? 'bg-amber-50/70 border-amber-200 text-amber-950'
+                            : 'bg-blue-50/70 border-blue-200 text-blue-950'
+                            }`}>
+                            <div className="flex items-center gap-2.5">
+                                <span className={`px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider font-mono shadow-2xs ${project.contribution_type === 'minor'
+                                    ? 'bg-amber-200/90 text-amber-900'
+                                    : 'bg-blue-200/90 text-blue-900'
+                                    }`}>
+                                    {project.contribution_type === 'minor' ? 'Module Contribution' : 'Core Architecture'}
+                                </span>
+                                <span className="text-xs font-semibold text-slate-800">
+                                    Role: {project.role || 'Full-Stack Developer'}
+                                </span>
+                            </div>
+                            {project.contribution_scope && (
+                                <p className="text-xs text-slate-600 sm:text-right">
+                                    <strong className="text-slate-800 font-medium">Contributed:</strong> {project.contribution_scope}
+                                </p>
+                            )}
+                        </div>
+
                         {/* Detailed content card */}
                         <div className="bg-white border border-slate-200 p-5 sm:p-7 mt-5 rounded-2xl shadow-2xs">
                             <SimpleMarkdown content={project.content} />
@@ -211,6 +234,16 @@ export default function ProjectDetails({ project, socialLinks, settings, navigat
                                     </span>
                                 </div>
                                 <div className="flex justify-between py-1 border-b border-slate-100 font-sans">
+                                    <span className="text-slate-500">Contribution</span>
+                                    <span className={`font-semibold ${project.contribution_type === 'minor' ? 'text-amber-700' : 'text-blue-700'}`}>
+                                        {project.contribution_type === 'minor' ? 'Module Contributor' : 'Core Build'}
+                                    </span>
+                                </div>
+                                <div className="flex justify-between py-1 border-b border-slate-100 font-sans">
+                                    <span className="text-slate-500">My Role</span>
+                                    <span className="text-slate-800 font-semibold text-right">{project.role || 'Full-Stack Developer'}</span>
+                                </div>
+                                <div className="flex justify-between py-1 font-sans">
                                     <span className="text-slate-500">Type</span>
                                     <span className="text-slate-800 font-semibold">Full Stack</span>
                                 </div>
