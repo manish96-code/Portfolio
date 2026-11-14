@@ -64,6 +64,86 @@ export const portfolioData = {
     ],
     projects: [
         {
+            id: 7,
+            title: 'Learn Syntax',
+            slug: 'learn-syntax',
+            description: 'Enterprise-grade cohort-based Learning Management System (LMS) & EdTech platform featuring live batch management, structured curricula, proctored examinations, canvas certificate designer, and real-time WebSockets.',
+            content: `# Learn Syntax — Cohort-Based EdTech LMS & Engineering Academy
+
+## 1. Executive Overview
+Learn Syntax (Learnsyntax-laravel) is an enterprise-grade, cohort-based Learning Management System (LMS) & EdTech platform engineered for intensive software engineering education. It bridges the gap between traditional pre-recorded video courses and live cohort bootcamps by offering live batch management, structured curricula, assignments, evaluations, attendance registers, proctored examinations, automated certificate issuance, and comprehensive administrative controls.
+
+---
+
+## 2. Technical Stack & Foundation
+- **Backend Core**: Laravel 13 running on PHP 8.5 with strict typed services, Eloquent ORM, Gates & Authorization Policies, Queues, and Mailers.
+- **Client-Side SPA**: React 19 + Inertia.js v3 (@inertiajs/react) delivering a lightning-fast single-page application with server-driven props hydration and zero REST boilerplate.
+- **Styling Architecture**: Modern Tailwind CSS v4 CSS-first utility architecture, responsive dark/light theme switching, and accessible component states.
+- **Real-Time Sync**: Laravel Reverb (WebSockets) and Laravel Echo powering instant live announcements, student chat messages, and push notifications.
+- **Automated Verification & Tests**: 489 Automated PHPUnit 12 tests (100% passing) with 4,007 assertions, backed by Laravel Pint PSR-12 code style compliance.
+- **Asset Bundler & Storage**: Vite 8 bundler with ImageKit and Cloudflare asset delivery.
+
+---
+
+## 3. Multi-Portal System Architecture
+The application is architected into four distinct portals with Role-Based Access Control (RBAC):
+- **Student Portal**: Personalized dashboard, enrolled courses, interactive batch timetable, video player, assignment submissions, proctored exams, and earned certificates.
+- **Instructor Portal**: Cohort schedule, batch attendance registers, assignment evaluations, grading rubrics, and student progress monitoring.
+- **Admin Portal**: Academy-wide operations including course tracks, batch allocations, coupon management, GST invoicing, and teacher assignments.
+- **Super Admin Portal**: Global role permissions, tenant settings, and system-wide audit logs.
+
+---
+
+## 4. Key Functional Modules
+
+### 4.1. Course & Curriculum Management
+- **Hierarchical Structure**: Category → Course → CourseTopic (Modules) → CourseSubtopic (Lessons).
+- **Batch Customization**: Cohorts can use canonical course topics or define specialized BatchModule overrides.
+- **Content Delivery**: Integrated video lecture player with support for direct video streaming and Vimeo/YouTube embeds with graceful offline states.
+
+### 4.2. Daily Attendance & Schedule Intelligence
+- **Smart Register**: Real-time batch attendance marking with bulk "Mark All Present" and individual status toggling (Present, Absent, Leave).
+- **Off-Day Detection**: Auto-detects unscheduled days according to cohort schedules, offering clear Off-Day indicators with an option for extra/makeup class attendance.
+- **Student History Audit**: In-depth individual student attendance history tracking sessions, percentages, and instructor audit logs.
+
+### 4.3. Assignments & Evaluations
+- **Scoped Assignments**: Strict enrollment scoping ensuring students only receive coursework from active courses and batches.
+- **Submission Workflow**: Students submit GitHub repository links, live demos, and notes; instructors review, grade, and provide rubric feedback.
+- **Grade Tracking**: Historical audit of mark updates via MarkChangeHistory.
+
+### 4.4. Exams & Proctored Assessments
+- **Assessment Engine**: Timed online quizzes and exams with randomized multiple-choice questions, auto-evaluation, and detailed attempt tracking.
+- **Instant Results**: Detailed scorecards with percentage calculation, pass/fail status, and question-by-question review.
+
+### 4.5. Certificate Engine & Public Verification
+- **Canvas-based Designer**: Visual certificate customizer (CertificateTemplate) allowing dynamic drag-and-drop placement of student names, course titles, QR codes, issue dates, and instructor signatures.
+- **Public Verification Endpoint**: Real-time verification portal at \`/verify/{certificate_number}\` validating certificate authenticity and integrity.
+
+### 4.6. Payments, Invoicing & Coupons
+- **Promo Engine**: Percentage and flat discount coupons with validity windows, expiry limits, and usage quotas.
+- **GST Invoicing**: Automated GST-compliant invoice generation with sequential invoice numbers and downloadable PDF receipts.
+
+---
+
+## 5. Quality & Verification Metrics
+- **Tests Run**: 489 tests (100% Passing)
+- **Assertions**: 4,007 assertions across unit and feature suites
+- **Code Standards**: Compliant with Laravel Pint (PSR-12 standard)
+- **Asset Bundling**: Clean production build via Vite 8 with zero errors`,
+            thumbnail: '/images/projects/learn-syntax-thumb.jpg',
+            images: [
+                '/images/projects/learn-syntax-thumb.jpg',
+                '/images/projects/learn-syntax-admin.jpg',
+                '/images/projects/learn-syntax-timetable.jpg',
+                '/images/projects/learn-syntax-certificates.png'
+            ],
+            technologies: ['Laravel 13', 'React 19', 'Inertia.js v3', 'Tailwind CSS v4', 'Laravel Reverb', 'WebSockets', 'MySQL', 'PHP 8.5', 'PHPUnit (489 Tests)'],
+            github_url: 'https://github.com/Comestro/learnsyntax-laravel',
+            live_url: 'https://darkgoldenrod-elk-780267.hostingersite.com',
+            status: 'Completed',
+            is_featured: true
+        },
+        {
             id: 6,
             title: 'Ciplon',
             slug: 'ciplon',

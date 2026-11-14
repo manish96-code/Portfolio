@@ -481,6 +481,7 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                         <div>
                             <h4 className="text-xs font-bold text-slate-900 mb-3.5">Featured Builds</h4>
                             <ul className="space-y-2.5 text-xs text-slate-500">
+                                <li><a href="/project/learn-syntax" onClick={(e) => handleNavClick(e, '/project/learn-syntax')} className="hover:text-slate-900 transition-colors font-medium text-slate-800">Learn Syntax LMS</a></li>
                                 <li><a href="/project/ciplon" onClick={(e) => handleNavClick(e, '/project/ciplon')} className="hover:text-slate-900 transition-colors">Ciplon Pharma ERP</a></li>
                                 <li><a href="/project/gymmitra" onClick={(e) => handleNavClick(e, '/project/gymmitra')} className="hover:text-slate-900 transition-colors">GymMitra SaaS</a></li>
                                 <li><a href="/project/kitabi-adda" onClick={(e) => handleNavClick(e, '/project/kitabi-adda')} className="hover:text-slate-900 transition-colors">KitabiAdda Marketplace</a></li>

@@ -165,6 +165,32 @@ export default function ProjectDetails({ project, socialLinks, settings, navigat
                         <div className="bg-white border border-slate-200 p-5 sm:p-7 mt-5 rounded-2xl shadow-2xs">
                             <SimpleMarkdown content={project.content} />
                         </div>
+
+                        {/* Screenshot Gallery if available */}
+                        {project.images && project.images.length > 0 && (
+                            <div className="bg-white border border-slate-200 p-5 sm:p-7 mt-5 rounded-2xl shadow-2xs space-y-4">
+                                <div className="border-b border-slate-100 pb-3">
+                                    <h2 className="font-display text-base font-bold text-slate-900">
+                                        Interface &amp; System Screenshots
+                                    </h2>
+                                    <p className="text-xs text-slate-500 mt-0.5">
+                                        Production portals, live dashboard metrics, and interactive student/admin views.
+                                    </p>
+                                </div>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    {project.images.map((img, i) => (
+                                        <div key={i} className="group rounded-xl overflow-hidden border border-slate-200 bg-slate-50 shadow-2xs hover:border-blue-400 transition-all">
+                                            <img
+                                                src={img}
+                                                alt={`${project.title} Screenshot ${i + 1}`}
+                                                className="w-full h-auto object-cover group-hover:scale-[1.02] transition-transform duration-300"
+                                                loading="lazy"
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
                     </div>
 
                     {/* Metadata Sidebar */}

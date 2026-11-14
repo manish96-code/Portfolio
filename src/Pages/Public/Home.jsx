@@ -8,15 +8,18 @@ const scrollToSection = (id) => {
 };
 
 const ProjectPreviewBanner = ({ project }) => {
+    const isLMS = project.slug === 'learn-syntax';
     const isEnterprise = project.slug === 'ciplon';
     const isSaaS = project.slug === 'gymmitra';
-    const badgeLabel = isEnterprise
-        ? 'Enterprise ERP'
-        : isSaaS
-            ? 'Live SaaS'
-            : project.live_url
-                ? 'Live Web App'
-                : 'Full-Stack Build';
+    const badgeLabel = isLMS
+        ? 'EdTech LMS • Cohorts'
+        : isEnterprise
+            ? 'Enterprise ERP'
+            : isSaaS
+                ? 'Live SaaS'
+                : project.live_url
+                    ? 'Live Web App'
+                    : 'Full-Stack Build';
 
     if (project.thumbnail) {
         return (
@@ -132,7 +135,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
 
                             <p className="mt-4 text-sm sm:text-base text-slate-600 leading-relaxed max-w-xl">
                                 I am <strong className="text-slate-900 font-semibold">{settings?.name || 'Manish Kumar'}</strong>, a full-stack engineer at{' '}
-                                <strong className="text-slate-800 font-semibold">Comestro Techlabs</strong>. I build enterprise pharma ERPs (<strong className="text-slate-800">Ciplon</strong>), multi-tenant SaaS platforms (<strong className="text-slate-800">GymMitra</strong>), and marketplaces (<strong className="text-slate-800">KitabiAdda</strong>).
+                                <strong className="text-slate-800 font-semibold">Comestro Techlabs</strong>. I build cohort-based EdTech LMS platforms (<strong className="text-slate-800">Learn Syntax</strong>), enterprise pharma ERPs (<strong className="text-slate-800">Ciplon</strong>), multi-tenant SaaS platforms (<strong className="text-slate-800">GymMitra</strong>), and marketplaces (<strong className="text-slate-800">KitabiAdda</strong>).
                             </p>
 
                             {/* Action Buttons */}
@@ -227,6 +230,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
                             {activeDeckTab === 'overview' ? (
                                 <div className="mt-4 space-y-2.5">
                                     {[
+                                        { name: 'Learn Syntax LMS', tag: 'Cohort EdTech • Laravel + React', status: 'Live', url: '/project/learn-syntax', badge: 'bg-indigo-100 text-indigo-600' },
                                         { name: 'Ciplon Pharma ERP', tag: 'Enterprise • Laravel + React', status: 'Live', url: '/project/ciplon', badge: 'bg-blue-100 text-blue-600' },
                                         { name: 'GymMitra SaaS', tag: 'Multi-Tenant • QR & Billing', status: 'Live', url: '/project/gymmitra', badge: 'bg-violet-100 text-violet-600' },
                                         { name: 'KitabiAdda Marketplace', tag: '4 Role Portals • Inertia.js', status: 'Shipped', url: '/project/kitabi-adda', badge: 'bg-amber-100 text-amber-600' },
