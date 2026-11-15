@@ -470,6 +470,7 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                             <h4 className="text-xs font-bold text-slate-900 mb-3.5">Explore</h4>
                             <ul className="space-y-2.5 text-xs text-slate-500">
                                 <li><a href="#projects" onClick={(e) => handleNavClick(e, '#projects')} className="hover:text-slate-900 transition-colors">Selected Projects</a></li>
+                                <li><a href="#activity" onClick={(e) => handleNavClick(e, '#activity')} className="hover:text-slate-900 transition-colors">GitHub &amp; Activity</a></li>
                                 <li><a href="#workflow" onClick={(e) => handleNavClick(e, '#workflow')} className="hover:text-slate-900 transition-colors">Engineering Workflow</a></li>
                                 <li><a href="#about" onClick={(e) => handleNavClick(e, '#about')} className="hover:text-slate-900 transition-colors">Experience & Journey</a></li>
                                 <li><a href="#skills" onClick={(e) => handleNavClick(e, '#skills')} className="hover:text-slate-900 transition-colors">Technical Stack</a></li>

@@ -406,6 +406,102 @@ export default function Home({ projects, skills, experiences, certificates, soci
                 </div>
             </section>
 
+            {/* 2.5 GITHUB CONTRIBUTIONS & ACTIVITY SECTION (Option 1 + Option 3) */}
+            <section id="activity" className="fade-section bg-slate-50/50 py-10 sm:py-12 border-b border-slate-100 scroll-mt-24">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-14 xl:px-16">
+                    <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-7">
+                        <div>
+                            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-700 text-[11px] font-semibold mb-2 shadow-2xs">
+                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                                <span>Live Activity &amp; Streak</span>
+                            </div>
+                            <h2 className="font-display text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
+                                GitHub contributions &amp; activity
+                            </h2>
+                            <p className="text-xs sm:text-sm text-slate-500 mt-1">
+                                Continuous code delivery, production commits, and real-time open-source activity.
+                            </p>
+                        </div>
+                        <a
+                            href={githubUrl || 'https://github.com/manish96-code'}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 hover:text-slate-900 text-xs font-semibold shadow-2xs transition-all duration-150 self-start sm:self-auto hover:border-slate-300"
+                        >
+                            <IconGitHub />
+                            <span>@manish96-code</span>
+                            <span>↗</span>
+                        </a>
+                    </div>
+
+                    {/* Option 1: Live Contribution Heatmap Graph */}
+                    <div className="bg-white border border-slate-200 rounded-2xl p-5 sm:p-6 shadow-2xs mb-6">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 mb-4 border-b border-slate-100">
+                            <div className="flex items-center gap-2">
+                                <span className="w-2 h-2 rounded-full bg-indigo-600" />
+                                <span className="text-xs font-bold text-slate-900">
+                                    Contribution Calendar (Last 12 Months)
+                                </span>
+                            </div>
+                            <span className="text-[11px] text-slate-400 font-mono">
+                                Live data synchronized with GitHub
+                            </span>
+                        </div>
+                        <div className="overflow-x-auto pb-2 scrollbar-thin">
+                            <img
+                                src="https://ghchart.rshah.org/4f46e5/manish96-code"
+                                alt="Manish Kumar GitHub Contribution Graph"
+                                className="w-full min-w-[720px] h-auto object-contain"
+                                loading="lazy"
+                            />
+                        </div>
+                    </div>
+
+                    {/* Option 3: GitHub Streak & Profile Stats */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        {/* Streak Card */}
+                        <div className="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-2xs flex flex-col justify-between">
+                            <div className="flex items-center justify-between border-b border-slate-100 pb-2.5 mb-3">
+                                <span className="text-xs font-bold text-slate-900 flex items-center gap-2">
+                                    <span>🔥 Commit Streak &amp; Consistency</span>
+                                </span>
+                                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-amber-50 text-amber-700 border border-amber-200">
+                                    Streak
+                                </span>
+                            </div>
+                            <div className="flex items-center justify-center py-2 overflow-hidden">
+                                <img
+                                    src="https://github-readme-streak-stats.herokuapp.com/?user=manish96-code&theme=transparent&hide_border=true&stroke=4f46e5&ring=4f46e5&fire=f59e0b&currStreakLabel=4f46e5&currStreakNum=0f172a&sideNums=0f172a&sideLabels=64748b&dates=94a3b8"
+                                    alt="GitHub Streak Stats"
+                                    className="w-full h-auto max-h-[195px] object-contain"
+                                    loading="lazy"
+                                />
+                            </div>
+                        </div>
+
+                        {/* Overall Stats Card */}
+                        <div className="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-2xs flex flex-col justify-between">
+                            <div className="flex items-center justify-between border-b border-slate-100 pb-2.5 mb-3">
+                                <span className="text-xs font-bold text-slate-900 flex items-center gap-2">
+                                    <span>⚡ Repository &amp; Commit Insights</span>
+                                </span>
+                                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-indigo-50 text-indigo-700 border border-indigo-200">
+                                    Stats
+                                </span>
+                            </div>
+                            <div className="flex items-center justify-center py-2 overflow-hidden">
+                                <img
+                                    src="https://github-readme-stats.vercel.app/api?username=manish96-code&show_icons=true&theme=transparent&hide_border=true&title_color=0f172a&text_color=64748b&icon_color=4f46e5&text_bold=false"
+                                    alt="GitHub Profile Overview"
+                                    className="w-full h-auto max-h-[195px] object-contain"
+                                    loading="lazy"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             {/* 3. MILESTONES & WHY CHOOSE ME SECTION (Inspired by Image 1 & 3) */}
             <section className="fade-section bg-white py-10 sm:py-12 border-b border-slate-100">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-14 xl:px-16">
