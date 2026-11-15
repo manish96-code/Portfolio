@@ -20,7 +20,7 @@ const THEMES = {
         cardBg: '#f6f8fa',
         subtleBorder: 'rgba(0, 0, 0, 0.06)',
         levels: ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'],
-        outline: 'rgba(27, 31, 36, 0.06)'
+        outline: '#d0d7de'
     }
 };
 
@@ -159,6 +159,15 @@ export default function GitHubCalendar({ username = 'manish96-code' }) {
         });
     };
 
+    // Responsive SVG Grid Calculations
+    // 53 columns distributed across width 860px (zero empty space on right!)
+    const leftOffset = 28;
+    const svgWidth = 860;
+    const colStep = (svgWidth - leftOffset - 4) / Math.max(weeks.length, 53);
+    const boxSize = 11.2;
+    const rowStep = 15;
+    const svgHeight = 20 + 7 * rowStep;
+
     return (
         <div
             className="rounded-2xl transition-all duration-300 shadow-md overflow-hidden relative"
@@ -242,58 +251,61 @@ export default function GitHubCalendar({ username = 'manish96-code' }) {
                 </div>
             </div>
 
-            {/* Calendar Canvas / Grid */}
+            {/* Calendar Canvas: Full-Width SVG with ViewBox (Spans 100% of card width - ZERO extra space!) */}
             <div className="p-5 overflow-x-auto scrollbar-thin">
-                <div className="min-w-[730px] flex flex-col gap-1.5 select-none">
-
-                    {/* Month Header Row */}
-                    <div className="flex text-[10px] h-4 font-mono pl-7 relative" style={{ color: theme.textSecondary }}>
+                <div className="w-full min-w-[720px] select-none">
+                    <svg
+                        viewBox={`0 0 ${svgWidth} ${svgHeight}`}
+                        className="w-full h-auto block"
+                        style={{ overflow: 'visible' }}
+                    >
+                        {/* Month Labels */}
                         {monthLabels.map((m, idx) => (
-                            <span
+                            <text
                                 key={idx}
-                                className="absolute"
-                                style={{
-                                    left: `${m.weekIndex * 13.5 + 28}px`
-                                }}
+                                x={leftOffset + m.weekIndex * colStep}
+                                y={12}
+                                fill={theme.textSecondary}
+                                fontSize="10"
+                                fontFamily="monospace"
                             >
                                 {m.label}
-                            </span>
+                            </text>
                         ))}
-                    </div>
 
-                    {/* Main Grid: Days of week (Mon, Wed, Fri) + 53 Week Columns */}
-                    <div className="flex gap-1.5 items-start">
-                        {/* Day labels on left (Mon, Wed, Fri) */}
-                        <div
-                            className="flex flex-col justify-between text-[10px] font-mono pr-1 h-[94px] select-none"
-                            style={{ color: theme.textSecondary }}
-                        >
-                            <span className="leading-none pt-0.5"></span>
-                            <span className="leading-none">Mon</span>
-                            <span className="leading-none">Wed</span>
-                            <span className="leading-none">Fri</span>
-                            <span className="leading-none"></span>
-                        </div>
+                        {/* Day Labels on left: Mon, Wed, Fri */}
+                        <text x={0} y={20 + 1 * rowStep + 9} fill={theme.textSecondary} fontSize="10" fontFamily="monospace">
+                            Mon
+                        </text>
+                        <text x={0} y={20 + 3 * rowStep + 9} fill={theme.textSecondary} fontSize="10" fontFamily="monospace">
+                            Wed
+                        </text>
+                        <text x={0} y={20 + 5 * rowStep + 9} fill={theme.textSecondary} fontSize="10" fontFamily="monospace">
+                            Fri
+                        </text>
 
-                        {/* Weeks grid */}
-                        <div className="flex gap-[3.2px]">
-                            {weeks.map((week, wIdx) => (
-                                <div key={wIdx} className="flex flex-col gap-[3.2px]">
+                        {/* 53 Week Columns */}
+                        {weeks.map((week, wIdx) => {
+                            const x = leftOffset + wIdx * colStep;
+                            return (
+                                <g key={wIdx}>
                                     {week.map((day, dIdx) => {
-                                        if (!day) {
-                                            return (
-                                                <div
-                                                    key={dIdx}
-                                                    className="w-[10.5px] h-[10.5px] rounded-[2.5px] opacity-0"
-                                                />
-                                            );
-                                        }
-
+                                        if (!day) return null;
+                                        const y = 20 + dIdx * rowStep;
                                         const color = theme.levels[day.level || 0];
 
                                         return (
-                                            <div
+                                            <rect
                                                 key={dIdx}
+                                                x={x}
+                                                y={y}
+                                                width={boxSize}
+                                                height={boxSize}
+                                                rx={2.5}
+                                                fill={color}
+                                                stroke={day.level === 0 ? theme.outline : color}
+                                                strokeWidth={0.8}
+                                                className="transition-all hover:opacity-80 cursor-pointer"
                                                 onMouseEnter={(e) => {
                                                     const rect = e.currentTarget.getBoundingClientRect();
                                                     setTooltip({
@@ -303,18 +315,13 @@ export default function GitHubCalendar({ username = 'manish96-code' }) {
                                                     });
                                                 }}
                                                 onMouseLeave={() => setTooltip(null)}
-                                                className="w-[10.5px] h-[10.5px] rounded-[2.5px] transition-transform hover:scale-125 cursor-pointer relative"
-                                                style={{
-                                                    backgroundColor: color,
-                                                    border: day.level === 0 ? `1px solid ${theme.outline}` : `1px solid ${color}`
-                                                }}
                                             />
                                         );
                                     })}
-                                </div>
-                            ))}
-                        </div>
-                    </div>
+                                </g>
+                            );
+                        })}
+                    </svg>
                 </div>
             </div>
 
@@ -367,4 +374,3 @@ export default function GitHubCalendar({ username = 'manish96-code' }) {
         </div>
     );
 }
-
