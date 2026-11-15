@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import AppLayout, { IconExternal, IconGitHub } from '../../Layouts/AppLayout';
 import SEO from '../../Components/SEO';
+import GitHubCalendar from '../../Components/GitHubCalendar';
 import { getPersonSchema, getWebsiteSchema } from '../../utils/seoSchemas';
 
 const scrollToSection = (id) => {
@@ -17,11 +18,9 @@ const ProjectPreviewBanner = ({ project }) => {
             ? 'Enterprise ERP'
             : isSaaS
                 ? 'Live SaaS'
-                : project.contribution_type === 'minor'
-                    ? 'Module Contribution'
-                    : project.live_url
-                        ? 'Live Web App'
-                        : 'Full-Stack Build';
+                : project.live_url
+                    ? 'Live Web App'
+                    : 'Full-Stack Build';
 
     if (project.thumbnail) {
         return (
@@ -67,16 +66,6 @@ const ProjectPreviewBanner = ({ project }) => {
 
 export default function Home({ projects, skills, experiences, certificates, socialLinks, settings, navigate }) {
     const [activeDeckTab, setActiveDeckTab] = useState('overview');
-    const [projectFilter, setProjectFilter] = useState('all'); // 'all' | 'major' | 'minor'
-
-    const majorCount = (projects || []).filter((p) => p.contribution_type !== 'minor').length;
-    const minorCount = (projects || []).filter((p) => p.contribution_type === 'minor').length;
-
-    const filteredProjects = (projects || []).filter((p) => {
-        if (projectFilter === 'major') return p.contribution_type !== 'minor';
-        if (projectFilter === 'minor') return p.contribution_type === 'minor';
-        return true;
-    });
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -297,16 +286,16 @@ export default function Home({ projects, skills, experiences, certificates, soci
                 </div>
             </section>
 
-            {/* 2. ALL PROJECTS SECTION (Clean Grid with Contribution Filters) */}
+            {/* 2. ALL PROJECTS SECTION (Clean Grid inspired by LearnSyntax Courses) */}
             <section id="projects" className="fade-section bg-slate-50/50 py-10 sm:py-12 border-b border-slate-100 scroll-mt-24">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-14 xl:px-16">
-                    <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-6">
+                    <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-7">
                         <div>
                             <h2 className="font-display text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
                                 Selected projects
                             </h2>
                             <p className="text-xs sm:text-sm text-slate-500 mt-1">
-                                Production-grade enterprise systems, SaaS platforms, and collaborative module contributions.
+                                Production-grade enterprise systems, SaaS platforms, and multi-vendor marketplaces.
                             </p>
                         </div>
                         <a
@@ -320,184 +309,208 @@ export default function Home({ projects, skills, experiences, certificates, soci
                         </a>
                     </div>
 
-                    {/* Contribution Tabs Filter */}
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-7 pb-3 border-b border-slate-200/70">
-                        <div className="inline-flex flex-wrap items-center p-1 bg-slate-200/60 rounded-xl gap-1">
-                            <button
-                                type="button"
-                                onClick={() => setProjectFilter('all')}
-                                className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer flex items-center gap-1.5 ${projectFilter === 'all'
-                                    ? 'bg-white text-slate-900 shadow-xs'
-                                    : 'text-slate-600 hover:text-slate-900'
-                                    }`}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                        {(projects || []).map((project) => (
+                            <article
+                                key={project.id}
+                                className="bg-white border border-slate-200 rounded-2xl overflow-hidden flex flex-col hover:shadow-md hover:border-slate-300 transition-all duration-200 group"
                             >
-                                <span>All Projects</span>
-                                <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ${projectFilter === 'all' ? 'bg-slate-100 text-slate-700' : 'bg-slate-300/60 text-slate-600'}`}>
-                                    {(projects || []).length}
-                                </span>
-                            </button>
-                            <button
-                                type="button"
-                                onClick={() => setProjectFilter('major')}
-                                className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer flex items-center gap-1.5 ${projectFilter === 'major'
-                                    ? 'bg-white text-blue-700 shadow-xs'
-                                    : 'text-slate-600 hover:text-slate-900'
-                                    }`}
-                            >
-                                <span>🌟 Core &amp; Lead Builds</span>
-                                <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ${projectFilter === 'major' ? 'bg-blue-100 text-blue-700' : 'bg-slate-300/60 text-slate-600'}`}>
-                                    {majorCount}
-                                </span>
-                            </button>
-                            <button
-                                type="button"
-                                onClick={() => setProjectFilter('minor')}
-                                className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer flex items-center gap-1.5 ${projectFilter === 'minor'
-                                    ? 'bg-white text-amber-700 shadow-xs'
-                                    : 'text-slate-600 hover:text-slate-900'
-                                    }`}
-                            >
-                                <span>🤝 Module &amp; Collaborative</span>
-                                <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ${projectFilter === 'minor' ? 'bg-amber-100 text-amber-700' : 'bg-slate-300/60 text-slate-600'}`}>
-                                    {minorCount}
-                                </span>
-                            </button>
-                        </div>
-
-                        <span className="text-xs text-slate-500 font-medium">
-                            Showing {filteredProjects.length} {filteredProjects.length === 1 ? 'project' : 'projects'}
-                        </span>
-                    </div>
-
-                    {filteredProjects.length === 0 ? (
-                        <div className="py-12 text-center bg-white border border-dashed border-slate-200 rounded-2xl p-6">
-                            <p className="text-sm font-semibold text-slate-700">No projects found in this category.</p>
-                            <button
-                                onClick={() => setProjectFilter('all')}
-                                className="mt-3 inline-flex text-xs font-semibold text-blue-600 hover:underline"
-                            >
-                                View all projects →
-                            </button>
-                        </div>
-                    ) : (
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                            {filteredProjects.map((project) => (
-                                <article
-                                    key={project.id}
-                                    className="bg-white border border-slate-200 rounded-2xl overflow-hidden flex flex-col hover:shadow-md hover:border-slate-300 transition-all duration-200 group"
+                                <a
+                                    href={`/project/${project.slug}`}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        navigate(`/project/${project.slug}`);
+                                    }}
+                                    className="block"
                                 >
-                                    <a
-                                        href={`/project/${project.slug}`}
-                                        onClick={(e) => {
-                                            e.preventDefault();
-                                            navigate(`/project/${project.slug}`);
-                                        }}
-                                        className="block"
-                                    >
-                                        <ProjectPreviewBanner project={project} />
-                                    </a>
+                                    <ProjectPreviewBanner project={project} />
+                                </a>
 
-                                    <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
-                                        <div>
-                                            <h3 className="font-display font-bold text-base text-slate-900 group-hover:text-blue-600 transition-colors">
-                                                <a
-                                                    href={`/project/${project.slug}`}
-                                                    onClick={(e) => {
-                                                        e.preventDefault();
-                                                        navigate(`/project/${project.slug}`);
-                                                    }}
-                                                >
-                                                    {project.title}
-                                                </a>
-                                            </h3>
-
-                                            {/* Role & Contribution Pill */}
-                                            <div className="flex items-center justify-between gap-2 mt-2">
-                                                <div className="flex items-center gap-1.5 min-w-0">
-                                                    <span className={`w-4 h-4 rounded-full text-[8px] font-bold flex items-center justify-center shrink-0 ${project.contribution_type === 'minor'
-                                                        ? 'bg-amber-100 text-amber-700'
-                                                        : 'bg-indigo-100 text-indigo-700'
-                                                        }`}>
-                                                        MK
-                                                    </span>
-                                                    <span className="text-[11px] font-medium text-slate-500 truncate">
-                                                        {project.role || (project.contribution_type === 'minor' ? 'Contributor' : 'Lead Developer')}
-                                                    </span>
-                                                </div>
-                                                <span className={`shrink-0 px-2 py-0.5 rounded-md text-[10px] font-semibold ${project.contribution_type === 'minor'
-                                                    ? 'bg-amber-50 text-amber-700 border border-amber-200/80'
-                                                    : 'bg-blue-50 text-blue-700 border border-blue-200/80'
-                                                    }`}>
-                                                    {project.contribution_type === 'minor' ? 'Module Contribution' : 'Core Build'}
-                                                </span>
-                                            </div>
-
-                                            {/* Contribution Scope Snippet */}
-                                            {project.contribution_scope && (
-                                                <div className="mt-2.5 px-2.5 py-1.5 rounded-lg bg-slate-50 border border-slate-200/70 text-[11px] text-slate-600 flex items-start gap-1.5 leading-snug">
-                                                    <span className="text-slate-400 shrink-0 font-bold">↳</span>
-                                                    <span className="line-clamp-2">
-                                                        <strong className="text-slate-700 font-medium">Contributed:</strong> {project.contribution_scope}
-                                                    </span>
-                                                </div>
-                                            )}
-
-                                            <p className="mt-2.5 text-xs text-slate-600 leading-relaxed line-clamp-2">
-                                                {project.description}
-                                            </p>
-
-                                            <div className="mt-3 flex flex-wrap gap-1.5">
-                                                {project.technologies?.slice(0, 4).map((tech) => (
-                                                    <span
-                                                        key={tech}
-                                                        className="px-2 py-0.5 rounded-md bg-slate-50 border border-slate-200/80 text-[10px] font-medium text-slate-600"
-                                                    >
-                                                        {tech}
-                                                    </span>
-                                                ))}
-                                            </div>
-                                        </div>
-
-                                        <div className="mt-4 pt-3.5 border-t border-slate-100 flex items-center gap-2">
+                                <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
+                                    <div>
+                                        <h3 className="font-display font-bold text-base text-slate-900 group-hover:text-blue-600 transition-colors">
                                             <a
                                                 href={`/project/${project.slug}`}
                                                 onClick={(e) => {
                                                     e.preventDefault();
                                                     navigate(`/project/${project.slug}`);
                                                 }}
-                                                className="flex-1 py-2 px-3 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 hover:border-slate-300 text-slate-800 text-xs font-semibold text-center transition-colors"
                                             >
-                                                View Case Study
+                                                {project.title}
                                             </a>
-                                            {project.live_url && (
-                                                <a
-                                                    href={project.live_url}
-                                                    target="_blank"
-                                                    rel="noreferrer"
-                                                    className="inline-flex items-center justify-center gap-1 px-3 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold transition-colors"
-                                                    title="Live Website"
+                                        </h3>
+
+                                        <div className="flex items-center gap-2 mt-2">
+                                            <span className="w-4 h-4 rounded-full bg-indigo-100 text-indigo-700 text-[8px] font-bold flex items-center justify-center">
+                                                MK
+                                            </span>
+                                            <span className="text-[11px] font-medium text-slate-500">
+                                                By Manish Kumar • {project.status}
+                                            </span>
+                                        </div>
+
+                                        <p className="mt-2.5 text-xs text-slate-600 leading-relaxed line-clamp-2">
+                                            {project.description}
+                                        </p>
+
+                                        <div className="mt-3 flex flex-wrap gap-1.5">
+                                            {project.technologies?.slice(0, 4).map((tech) => (
+                                                <span
+                                                    key={tech}
+                                                    className="px-2 py-0.5 rounded-md bg-slate-50 border border-slate-200/80 text-[10px] font-medium text-slate-600"
                                                 >
-                                                    <span>Live</span>
-                                                    <IconExternal />
-                                                </a>
-                                            )}
-                                            {project.github_url && (
-                                                <a
-                                                    href={project.github_url}
-                                                    target="_blank"
-                                                    rel="noreferrer"
-                                                    className="inline-flex items-center justify-center w-8 h-8 rounded-lg border border-slate-200 bg-white text-slate-600 hover:text-slate-900 hover:border-slate-300 transition-colors"
-                                                    title="GitHub Repository"
-                                                >
-                                                    <IconGitHub />
-                                                </a>
-                                            )}
+                                                    {tech}
+                                                </span>
+                                            ))}
                                         </div>
                                     </div>
-                                </article>
-                            ))}
+
+                                    <div className="mt-4 pt-3.5 border-t border-slate-100 flex items-center gap-2">
+                                        <a
+                                            href={`/project/${project.slug}`}
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                navigate(`/project/${project.slug}`);
+                                            }}
+                                            className="flex-1 py-2 px-3 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 hover:border-slate-300 text-slate-800 text-xs font-semibold text-center transition-colors"
+                                        >
+                                            View Case Study
+                                        </a>
+                                        {project.live_url && (
+                                            <a
+                                                href={project.live_url}
+                                                target="_blank"
+                                                rel="noreferrer"
+                                                className="inline-flex items-center justify-center gap-1 px-3 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold transition-colors"
+                                                title="Live Website"
+                                            >
+                                                <span>Live</span>
+                                                <IconExternal />
+                                            </a>
+                                        )}
+                                        {project.github_url && (
+                                            <a
+                                                href={project.github_url}
+                                                target="_blank"
+                                                rel="noreferrer"
+                                                className="inline-flex items-center justify-center w-8 h-8 rounded-lg border border-slate-200 bg-white text-slate-600 hover:text-slate-900 hover:border-slate-300 transition-colors"
+                                                title="GitHub Repository"
+                                            >
+                                                <IconGitHub />
+                                            </a>
+                                        )}
+                                    </div>
+                                </div>
+                            </article>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* 2.5 GITHUB CONTRIBUTIONS & ACTIVITY SECTION (Option 1 + Option 3) */}
+            <section id="activity" className="fade-section bg-slate-50/50 py-10 sm:py-12 border-b border-slate-100 scroll-mt-24">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-14 xl:px-16">
+                    <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-7">
+                        <div>
+                            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-700 text-[11px] font-semibold mb-2 shadow-2xs">
+                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                                <span>Live Activity &amp; Streak</span>
+                            </div>
+                            <h2 className="font-display text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
+                                GitHub contributions &amp; activity
+                            </h2>
+                            <p className="text-xs sm:text-sm text-slate-500 mt-1">
+                                Continuous code delivery, production commits, and real-time open-source activity.
+                            </p>
                         </div>
-                    )}
+                        <a
+                            href={githubUrl || 'https://github.com/manish96-code'}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 hover:text-slate-900 text-xs font-semibold shadow-2xs transition-all duration-150 self-start sm:self-auto hover:border-slate-300"
+                        >
+                            <IconGitHub />
+                            <span>@manish96-code</span>
+                            <span>↗</span>
+                        </a>
+                    </div>
+
+                    {/* Interactive GitHub Calendar matching GitHub Dark & Light Modes */}
+                    <div className="mb-6">
+                        <GitHubCalendar username="manish96-code" />
+                    </div>
+
+                    {/* GitHub Streak & Verified Metrics */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        {/* Streak Card */}
+                        <div className="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-2xs flex flex-col justify-between">
+                            <div className="flex items-center justify-between border-b border-slate-100 pb-2.5 mb-3">
+                                <span className="text-xs font-bold text-slate-900 flex items-center gap-2">
+                                    <span>🔥 Commit Streak &amp; Consistency</span>
+                                </span>
+                                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-amber-50 text-amber-700 border border-amber-200">
+                                    Live Streak
+                                </span>
+                            </div>
+                            <div className="flex items-center justify-center py-2 overflow-hidden">
+                                <img
+                                    src="https://github-readme-streak-stats.herokuapp.com/?user=manish96-code&theme=transparent&hide_border=true&stroke=22c55e&ring=22c55e&fire=f59e0b&currStreakLabel=16a34a&currStreakNum=0f172a&sideNums=0f172a&sideLabels=64748b&dates=94a3b8"
+                                    alt="GitHub Streak Stats"
+                                    className="w-full h-auto max-h-[195px] object-contain"
+                                    loading="lazy"
+                                />
+                            </div>
+                        </div>
+
+                        {/* Verified GitHub Insights Card (Native React - 100% reliable, zero broken images) */}
+                        <div className="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-2xs flex flex-col justify-between">
+                            <div className="flex items-center justify-between border-b border-slate-100 pb-2.5 mb-3">
+                                <span className="text-xs font-bold text-slate-900 flex items-center gap-2">
+                                    <span>⚡ Verified GitHub Insights</span>
+                                </span>
+                                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                                    Verified
+                                </span>
+                            </div>
+
+                            {/* Metric Grid */}
+                            <div className="grid grid-cols-2 gap-3 my-auto py-1">
+                                <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
+                                    <p className="text-[11px] text-slate-500 font-medium">Annual Contributions</p>
+                                    <p className="text-xl font-display font-extrabold text-slate-900 mt-0.5">1,261+</p>
+                                    <p className="text-[10px] text-emerald-600 font-semibold mt-0.5">Top 1% Consistency</p>
+                                </div>
+                                <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
+                                    <p className="text-[11px] text-slate-500 font-medium">Recent Commits</p>
+                                    <p className="text-xl font-display font-extrabold text-slate-900 mt-0.5">147+</p>
+                                    <p className="text-[10px] text-slate-500 mt-0.5">Across 4 Repositories</p>
+                                </div>
+                                <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
+                                    <p className="text-[11px] text-slate-500 font-medium">Longest Streak</p>
+                                    <p className="text-xl font-display font-extrabold text-slate-900 mt-0.5">156 Days</p>
+                                    <p className="text-[10px] text-slate-500 mt-0.5">May 5 – Oct 7</p>
+                                </div>
+                                <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
+                                    <p className="text-[11px] text-slate-500 font-medium">Current Streak</p>
+                                    <p className="text-xl font-display font-extrabold text-slate-900 mt-0.5">24 Days</p>
+                                    <p className="text-[10px] text-emerald-600 font-semibold mt-0.5">Active Daily Streak</p>
+                                </div>
+                            </div>
+
+                            <div className="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px]">
+                                <span className="text-slate-500 font-mono">PHP • React • MySQL</span>
+                                <a
+                                    href="https://github.com/manish96-code?tab=repositories"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="text-blue-600 font-semibold hover:underline"
+                                >
+                                    View repositories →
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
