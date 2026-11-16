@@ -340,16 +340,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
                                             </a>
                                         </h3>
 
-                                        <div className="flex items-center gap-2 mt-2">
-                                            <span className="w-4 h-4 rounded-full bg-indigo-100 text-indigo-700 text-[8px] font-bold flex items-center justify-center">
-                                                MK
-                                            </span>
-                                            <span className="text-[11px] font-medium text-slate-500">
-                                                By Manish Kumar • {project.status}
-                                            </span>
-                                        </div>
-
-                                        <p className="mt-2.5 text-xs text-slate-600 leading-relaxed line-clamp-2">
+                                        <p className="mt-2 text-xs text-slate-600 leading-relaxed line-clamp-2">
                                             {project.description}
                                         </p>
 
@@ -772,7 +763,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
                                     badgeBg: 'bg-emerald-500',
                                     period: 'May 2026 – Present',
                                     title: 'Laravel Developer @ Comestro Techlabs Pvt Ltd',
-                                    desc: 'Developing enterprise pharmaceutical ERPs (Ciplon), multi-vendor marketplaces (KitabiAdda), and campus portals (Campus Connect).'
+                                    desc: 'Developing cohort-based LMS platforms (Learn Syntax), enterprise pharmaceutical ERPs (Ciplon), and multi-vendor marketplaces (KitabiAdda).'
                                 }
                             ].map((item) => (
                                 <div key={item.step} className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6">
