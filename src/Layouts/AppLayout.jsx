@@ -287,12 +287,13 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                         </a>
                         <a
                             href={settings?.resume_file || '/downloads/resume.pdf'}
-                            download
+                            target="_blank"
+                            rel="noreferrer"
                             className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold rounded-lg text-white bg-slate-900 hover:bg-slate-800 shadow-xs active:scale-[0.98] transition-all duration-150"
                         >
-                            <span>Download CV</span>
+                            <span>View CV</span>
                             <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                             </svg>
                         </a>
                     </div>
@@ -361,10 +362,11 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                         <div className="pt-4 mt-2 border-t border-slate-100 flex flex-col gap-2.5">
                             <a
                                 href={settings?.resume_file || '/downloads/resume.pdf'}
-                                download
+                                target="_blank"
+                                rel="noreferrer"
                                 className="py-3 px-4 rounded-xl bg-slate-900 text-white font-semibold text-sm text-center shadow-xs"
                             >
-                                Download CV →
+                                View CV ↗
                             </a>
                             <a
                                 href="#contact"
@@ -498,7 +500,7 @@ export default function AppLayout({ children, settings, socialLinks, navigate })
                         <div className="flex items-center gap-4">
                             <a href="#about" onClick={(e) => handleNavClick(e, '#about')} className="hover:text-slate-700 transition-colors">About</a>
                             <a href="#projects" onClick={(e) => handleNavClick(e, '#projects')} className="hover:text-slate-700 transition-colors">Projects</a>
-                            <a href={settings?.resume_file || '/downloads/resume.pdf'} download className="hover:text-slate-700 transition-colors">Resume</a>
+                            <a href={settings?.resume_file || '/downloads/resume.pdf'} target="_blank" rel="noreferrer" className="hover:text-slate-700 transition-colors">Resume ↗</a>
                         </div>
                     </div>
                 </div>

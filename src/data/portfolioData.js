@@ -58,7 +58,7 @@ export const portfolioData = {
             company: 'Comestro Techlabs Pvt Ltd',
             designation: 'Laravel Developer',
             duration: 'May 2026 - Present',
-            description: "Developed enterprise pharmaceutical company management systems (Ciplon), multi-vendor e-commerce bookstore marketplaces (KitabiAdda), and campus networking portals (Campus Connect) using Laravel, React, Inertia, and MySQL. Experienced in writing clean code, designing database schemas, and managing repository integrations.",
+            description: "Developed cohort-based learning management systems (Learn Syntax), enterprise pharmaceutical company management systems (Ciplon), and multi-vendor e-commerce bookstore marketplaces (KitabiAdda) using Laravel, React, Inertia, and MySQL. Experienced in writing clean code, designing database schemas, and managing repository integrations.",
             skills_used: ['Laravel', 'React', 'PHP', 'MySQL', 'Git', 'GitHub', 'Inertia.js']
         }
     ],
