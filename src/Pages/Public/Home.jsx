@@ -153,11 +153,12 @@ export default function Home({ projects, skills, experiences, certificates, soci
                                 </button>
                                 <a
                                     href={settings?.resume_file || '/downloads/resume.pdf'}
-                                    download
+                                    target="_blank"
+                                    rel="noreferrer"
                                     className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-white border border-slate-200 hover:border-slate-300 hover:bg-slate-50 text-slate-800 text-xs sm:text-sm font-semibold transition-all"
                                 >
-                                    <span>Download CV</span>
-                                    <span className="text-slate-400">›</span>
+                                    <span>View CV</span>
+                                    <span className="text-slate-400">↗</span>
                                 </a>
                             </div>
 
