@@ -132,10 +132,10 @@ The application is architected into four distinct portals with Role-Based Access
 - **Asset Bundling**: Clean production build via Vite 8 with zero errors`,
             thumbnail: '/images/projects/learn-syntax-thumb.jpg',
             images: [
-                '/images/projects/learn-syntax-thumb.jpg',
                 '/images/projects/learn-syntax-admin.jpg',
                 '/images/projects/learn-syntax-timetable.jpg',
-                '/images/projects/learn-syntax-certificates.png'
+                '/images/projects/learn-syntax-certificates.png',
+                '/images/projects/learn-syntax-thumb.jpg'
             ],
             technologies: ['Laravel 13', 'React 19', 'Inertia.js v3', 'Tailwind CSS v4', 'Laravel Reverb', 'WebSockets', 'MySQL', 'PHP 8.5', 'PHPUnit (489 Tests)'],
             github_url: 'https://github.com/Comestro/learnsyntax-laravel',
