@@ -142,20 +142,23 @@ function ProjectGallery({ images, title, liveUrl }) {
     };
 
     return (
-        <div className="bg-white border border-slate-200 p-5 sm:p-7 mt-5 rounded-2xl shadow-2xs space-y-4">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
+        <div className="bg-white border border-slate-200 p-4 sm:p-5 rounded-2xl shadow-2xs space-y-3.5">
+            <div className="flex items-center justify-between gap-2 border-b border-slate-100 pb-2.5">
                 <div>
-                    <h2 className="font-display text-base font-bold text-slate-900">
-                        Interface &amp; System Screenshots
+                    <h2 className="font-display text-sm sm:text-base font-bold text-slate-900 flex items-center gap-2">
+                        <span>Project Screenshots</span>
+                        <span className="text-[10px] font-semibold font-mono px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
+                            {images.length} Views
+                        </span>
                     </h2>
-                    <p className="text-xs text-slate-500 mt-0.5">
-                        Interactive portals, operational views, and system workflows. Click any view below to switch or zoom.
+                    <p className="text-[11px] text-slate-500 mt-0.5">
+                        Interactive portals &amp; workflows. Click to zoom.
                     </p>
                 </div>
                 <button
                     type="button"
                     onClick={() => setLightboxOpen(true)}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700 text-xs font-semibold transition-colors cursor-pointer self-start sm:self-auto shadow-2xs"
+                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg border border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700 text-xs font-semibold transition-colors cursor-pointer shadow-2xs"
                 >
                     <svg className="w-3.5 h-3.5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
@@ -164,55 +167,83 @@ function ProjectGallery({ images, title, liveUrl }) {
                 </button>
             </div>
 
-            {/* Browser Mockup Showcase (Zero empty space) */}
-            <div className="rounded-xl overflow-hidden border border-slate-200 bg-slate-900 shadow-sm">
+            {/* Browser Mockup Showcase */}
+            <div className="rounded-xl overflow-hidden border border-slate-200 bg-slate-900 shadow-sm relative group">
                 {/* Browser Header Bar */}
-                <div className="px-4 py-2 bg-slate-100 border-b border-slate-200 flex items-center justify-between gap-3">
+                <div className="px-3 py-1.5 bg-slate-100 border-b border-slate-200 flex items-center justify-between gap-2">
                     <div className="flex items-center gap-1.5">
-                        <span className="w-2.5 h-2.5 rounded-full bg-rose-400 inline-block" />
-                        <span className="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block" />
-                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block" />
+                        <span className="w-2 h-2 rounded-full bg-rose-400 inline-block" />
+                        <span className="w-2 h-2 rounded-full bg-amber-400 inline-block" />
+                        <span className="w-2 h-2 rounded-full bg-emerald-400 inline-block" />
                     </div>
-                    <div className="flex-1 max-w-md mx-auto hidden sm:flex items-center justify-center px-3 py-1 rounded-md bg-white border border-slate-200 text-[11px] text-slate-500 font-mono truncate">
-                        <span className="text-slate-400 mr-1.5">🔒</span>
-                        <span className="truncate">{liveUrl || 'https://darkgoldenrod-elk-780267.hostingersite.com'}</span>
+                    <div className="flex-1 max-w-[220px] mx-auto flex items-center justify-center px-2 py-0.5 rounded bg-white border border-slate-200 text-[10px] text-slate-500 font-mono truncate">
+                        <span className="text-slate-400 mr-1 text-[9px]">🔒</span>
+                        <span className="truncate">{liveUrl ? liveUrl.replace(/^https?:\/\//, '').replace(/\/$/, '') : 'Verified Interface'}</span>
                     </div>
-                    <div className="text-[11px] font-semibold text-slate-600 bg-white px-2 py-0.5 rounded border border-slate-200 shadow-2xs">
-                        {activeIdx + 1} / {images.length}
+                    <div className="text-[10px] font-semibold text-slate-600 bg-white px-1.5 py-0.5 rounded border border-slate-200 shadow-2xs">
+                        {activeIdx + 1}/{images.length}
                     </div>
                 </div>
 
-                {/* Active View Box (object-contain with max-h so no tall image breaks layout) */}
+                {/* Active View Box */}
                 <div
-                    className="relative bg-slate-950 flex items-center justify-center overflow-hidden cursor-zoom-in group min-h-[300px] max-h-[520px]"
+                    className="relative bg-slate-950 flex items-center justify-center overflow-hidden cursor-zoom-in aspect-[16/10]"
                     onClick={() => setLightboxOpen(true)}
                 >
                     <img
                         src={activeImage}
                         alt={`${title} - ${getImageLabel(activeImage, activeIdx)}`}
-                        className="w-full h-auto max-h-[520px] object-contain mx-auto transition-transform duration-200 group-hover:scale-[1.01]"
+                        className="w-full h-full object-contain mx-auto transition-transform duration-200 group-hover:scale-[1.01]"
                         loading="lazy"
                     />
                     <div className="absolute inset-0 bg-slate-950/0 group-hover:bg-slate-950/15 transition-colors pointer-events-none" />
-                    <span className="absolute bottom-3 right-3 px-2.5 py-1 rounded-md bg-slate-900/85 backdrop-blur-xs text-white text-[10px] font-medium opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1.5 shadow-md">
-                        <span>🔍 Click to View Full Resolution</span>
+                    <span className="absolute bottom-2 right-2 px-2 py-0.5 rounded-md bg-slate-900/85 backdrop-blur-xs text-white text-[10px] font-medium opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 shadow-md pointer-events-none">
+                        <span>🔍 Zoom</span>
                     </span>
+
+                    {/* Arrow Navigation inside card */}
+                    {images.length > 1 && (
+                        <>
+                            <button
+                                type="button"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    setActiveIdx((prev) => (prev - 1 + images.length) % images.length);
+                                }}
+                                className="absolute left-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-slate-900/80 hover:bg-slate-900 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity text-sm font-bold shadow-md cursor-pointer border border-white/10"
+                                title="Previous Screenshot"
+                            >
+                                ‹
+                            </button>
+                            <button
+                                type="button"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    setActiveIdx((prev) => (prev + 1) % images.length);
+                                }}
+                                className="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-slate-900/80 hover:bg-slate-900 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity text-sm font-bold shadow-md cursor-pointer border border-white/10"
+                                title="Next Screenshot"
+                            >
+                                ›
+                            </button>
+                        </>
+                    )}
                 </div>
 
                 {/* Caption Bar */}
-                <div className="px-4 py-2.5 bg-slate-50 border-t border-slate-200 flex items-center justify-between text-xs text-slate-700">
-                    <span className="font-semibold text-slate-800 flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-blue-600" />
-                        {getImageLabel(activeImage, activeIdx)}
+                <div className="px-3 py-2 bg-slate-50 border-t border-slate-200 flex items-center justify-between text-xs text-slate-700">
+                    <span className="font-semibold text-slate-800 text-[11px] truncate flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-blue-600 flex-shrink-0" />
+                        <span className="truncate">{getImageLabel(activeImage, activeIdx)}</span>
                     </span>
-                    <span className="text-[11px] text-slate-500 hidden sm:inline">
-                        Verified production interface
+                    <span className="text-[10px] text-slate-400 font-mono hidden sm:inline flex-shrink-0">
+                        Live UI
                     </span>
                 </div>
             </div>
 
-            {/* Thumbnail Selectors (Uniform 16:10 aspect ratio - ZERO blank spaces!) */}
-            <div className={`grid grid-cols-2 ${images.length >= 5 ? 'sm:grid-cols-5' : images.length === 4 ? 'sm:grid-cols-4' : 'sm:grid-cols-3'} gap-3 pt-1`}>
+            {/* Thumbnail Selectors (Uniform 16:10 aspect ratio) */}
+            <div className={`grid ${images.length === 5 ? 'grid-cols-5' : images.length === 4 ? 'grid-cols-4' : 'grid-cols-3'} gap-2 pt-1`}>
                 {images.map((img, i) => {
                     const isActive = i === activeIdx;
                     return (
@@ -220,10 +251,11 @@ function ProjectGallery({ images, title, liveUrl }) {
                             key={i}
                             type="button"
                             onClick={() => setActiveIdx(i)}
-                            className={`group rounded-xl overflow-hidden border text-left transition-all duration-200 cursor-pointer flex flex-col ${
+                            title={getImageLabel(img, i)}
+                            className={`group rounded-lg overflow-hidden border text-left transition-all duration-200 cursor-pointer flex flex-col ${
                                 isActive
                                     ? 'border-blue-600 ring-2 ring-blue-600/30 shadow-xs'
-                                    : 'border-slate-200 hover:border-slate-300 bg-slate-50'
+                                    : 'border-slate-200 hover:border-slate-300 bg-slate-50 opacity-75 hover:opacity-100'
                             }`}
                         >
                             <div className="aspect-[16/10] w-full overflow-hidden bg-slate-100 relative">
@@ -234,13 +266,8 @@ function ProjectGallery({ images, title, liveUrl }) {
                                     loading="lazy"
                                 />
                                 {isActive && (
-                                    <span className="absolute top-1.5 left-1.5 w-2 h-2 rounded-full bg-blue-600 ring-2 ring-white" />
+                                    <span className="absolute top-1 left-1 w-1.5 h-1.5 rounded-full bg-blue-600 ring-1.5 ring-white" />
                                 )}
-                            </div>
-                            <div className="p-2 bg-white flex-1 border-t border-slate-100">
-                                <p className={`text-[11px] font-semibold truncate ${isActive ? 'text-blue-700 font-bold' : 'text-slate-700'}`}>
-                                    {getImageLabel(img, i)}
-                                </p>
                             </div>
                         </button>
                     );
@@ -381,8 +408,8 @@ export default function ProjectDetails({ project, socialLinks, settings, navigat
 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
 
-                    {/* Project Main Content */}
-                    <div className="lg:col-span-8 space-y-4">
+                    {/* Project Main Content (Left Column) */}
+                    <div className="lg:col-span-7 space-y-4">
                         <div className="flex flex-wrap items-center gap-1.5">
                             <span className="inline-block border border-blue-200 bg-blue-50 text-blue-700 px-2.5 py-0.5 text-[10px] font-semibold font-mono rounded-md">
                                 CASE STUDY 📝
@@ -410,20 +437,12 @@ export default function ProjectDetails({ project, socialLinks, settings, navigat
                         <div className="bg-white border border-slate-200 p-5 sm:p-7 mt-5 rounded-2xl shadow-2xs">
                             <SimpleMarkdown content={project.content} />
                         </div>
-
-                        {/* Interactive Screenshot Showcase Gallery */}
-                        {project.images && project.images.length > 0 && (
-                            <ProjectGallery
-                                images={project.images}
-                                title={project.title}
-                                liveUrl={project.live_url}
-                            />
-                        )}
                     </div>
 
-                    {/* Metadata Sidebar */}
-                    <div className="lg:col-span-4">
-                        <div className="border border-slate-200 bg-white p-5 space-y-4 sticky top-20 shadow-2xs rounded-2xl relative overflow-hidden text-slate-700">
+                    {/* Metadata & Media Showcase Sidebar (Right Column - Fills Empty Space) */}
+                    <div className="lg:col-span-5 space-y-5">
+                        {/* Project Overview Card */}
+                        <div className="border border-slate-200 bg-white p-5 space-y-4 shadow-2xs rounded-2xl relative overflow-hidden text-slate-700">
                             {/* Solid accent top border */}
                             <div className="absolute top-0 left-0 right-0 h-[3px] bg-blue-600"></div>
 
@@ -444,7 +463,7 @@ export default function ProjectDetails({ project, socialLinks, settings, navigat
                                 </div>
                                 <div className="flex justify-between py-1 font-sans">
                                     <span className="text-slate-500">Stack</span>
-                                    <span className="text-slate-800 font-semibold">Laravel &amp; React</span>
+                                    <span className="text-slate-800 font-semibold">{project.technologies ? project.technologies.slice(0, 3).join(', ') : 'Laravel & React'}</span>
                                 </div>
                             </div>
 
@@ -471,6 +490,17 @@ export default function ProjectDetails({ project, socialLinks, settings, navigat
                                 )}
                             </div>
                         </div>
+
+                        {/* Interactive Screenshot Showcase Gallery (Directly on the Right Side) */}
+                        {project.images && project.images.length > 0 && (
+                            <div className="sticky top-20">
+                                <ProjectGallery
+                                    images={project.images}
+                                    title={project.title}
+                                    liveUrl={project.live_url}
+                                />
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
