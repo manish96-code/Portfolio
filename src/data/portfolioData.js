@@ -213,7 +213,13 @@ The Call & Visits Planner follows a strict plan-versus-execution model:
 - **Database**: Relational MySQL schema handling users, roles, permissions, doctors, assignments, products, visits, DCRs, POB orders, and sales targets.
 - **Security & Authorization**: Role-Based Access Control (RBAC) enforced on the backend with protection against unauthorized edits.`,
             thumbnail: '/images/projects/ciplon-thumb.jpg',
-            images: ['/images/projects/ciplon-thumb.jpg'],
+            images: [
+                '/images/projects/ciplon-mr-dashboard.jpg',
+                '/images/projects/ciplon-route-map.jpg',
+                '/images/projects/ciplon-mr-directory.png',
+                '/images/projects/ciplon-telemetry.jpg',
+                '/images/projects/ciplon-rnd.jpg'
+            ],
             technologies: ['Laravel', 'React.js', 'Inertia.js', 'MySQL', 'Tailwind CSS', 'PHP 8.3', 'REST API', 'RBAC'],
             github_url: 'https://github.com/Comestro/ciplon',
             live_url: 'https://ciplonpharma.in/',

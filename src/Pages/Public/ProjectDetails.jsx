@@ -119,10 +119,25 @@ function ProjectGallery({ images, title, liveUrl }) {
     }, [lightboxOpen, images.length]);
 
     const getImageLabel = (imgUrl, idx) => {
+        // Learn Syntax labels
+        if (imgUrl.includes('learn-syntax-admin')) return 'Admin Management Portal';
+        if (imgUrl.includes('learn-syntax-timetable')) return 'Live Cohort Timetable';
+        if (imgUrl.includes('learn-syntax-certificates')) return 'Student Certificate & Verification';
+        if (imgUrl.includes('learn-syntax-thumb')) return 'Platform Landing Page & Courses Track';
+
+        // Ciplon labels
+        if (imgUrl.includes('ciplon-mr-dashboard')) return 'MR Field Operations Dashboard';
+        if (imgUrl.includes('ciplon-route-map')) return 'Doctor Movement & Route Map';
+        if (imgUrl.includes('ciplon-mr-directory')) return 'Medical Representatives Directory';
+        if (imgUrl.includes('ciplon-telemetry')) return 'Live GPS Telemetry & Tracking';
+        if (imgUrl.includes('ciplon-rnd')) return 'R&D & Formulations Overview';
+        if (imgUrl.includes('ciplon-thumb')) return 'Field Interface Overview';
+
+        // Generic fallbacks
         if (imgUrl.includes('admin')) return 'Admin Management Portal';
         if (imgUrl.includes('timetable')) return 'Live Cohort Timetable';
         if (imgUrl.includes('certificates')) return 'Student Certificate & Verification';
-        if (imgUrl.includes('thumb')) return 'Platform Landing Page & Courses Track';
+        if (imgUrl.includes('thumb')) return 'Platform Overview';
         return `System View ${idx + 1}`;
     };
 
@@ -197,7 +212,7 @@ function ProjectGallery({ images, title, liveUrl }) {
             </div>
 
             {/* Thumbnail Selectors (Uniform 16:10 aspect ratio - ZERO blank spaces!) */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
+            <div className={`grid grid-cols-2 ${images.length >= 5 ? 'sm:grid-cols-5' : images.length === 4 ? 'sm:grid-cols-4' : 'sm:grid-cols-3'} gap-3 pt-1`}>
                 {images.map((img, i) => {
                     const isActive = i === activeIdx;
                     return (
