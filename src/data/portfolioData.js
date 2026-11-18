@@ -250,7 +250,13 @@ GymMitra is a comprehensive, web-based gym management application designed to au
 ## Technologies Used
 Laravel, React, PHP, MySQL, Tailwind CSS, Inertia.js`,
             thumbnail: '/images/projects/gymmitra-thumb.png',
-            images: [],
+            images: [
+                '/images/projects/gymmitra-dashboard.png',
+                '/images/projects/gymmitra-members.jpg',
+                '/images/projects/gymmitra-attendance.jpg',
+                '/images/projects/gymmitra-packages.jpg',
+                '/images/projects/gymmitra-landing.jpg'
+            ],
             technologies: ['Laravel', 'React', 'PHP', 'MySQL', 'Tailwind CSS', 'Inertia.js'],
             github_url: 'https://github.com/manish96-code',
             live_url: 'https://manish.echovel.com',

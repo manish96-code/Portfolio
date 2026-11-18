@@ -133,6 +133,14 @@ function ProjectGallery({ images, title, liveUrl }) {
         if (imgUrl.includes('ciplon-rnd')) return 'R&D & Formulations Overview';
         if (imgUrl.includes('ciplon-thumb')) return 'Field Interface Overview';
 
+        // GymMitra labels
+        if (imgUrl.includes('gymmitra-dashboard')) return 'Admin Operations Dashboard';
+        if (imgUrl.includes('gymmitra-members')) return 'Member Directory & Management';
+        if (imgUrl.includes('gymmitra-attendance')) return 'Live Attendance & Check-in Tracker';
+        if (imgUrl.includes('gymmitra-packages')) return 'Membership Plans & Packages';
+        if (imgUrl.includes('gymmitra-landing')) return 'Landing Page & Feature Highlights';
+        if (imgUrl.includes('gymmitra-thumb')) return 'Gym Management Platform';
+
         // Generic fallbacks
         if (imgUrl.includes('admin')) return 'Admin Management Portal';
         if (imgUrl.includes('timetable')) return 'Live Cohort Timetable';
