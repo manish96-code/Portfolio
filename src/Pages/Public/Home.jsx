@@ -8,64 +8,8 @@ const scrollToSection = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 };
 
-const ProjectPreviewBanner = ({ project }) => {
-    const isLMS = project.slug === 'learn-syntax';
-    const isEnterprise = project.slug === 'ciplon';
-    const isSaaS = project.slug === 'gymmitra';
-    const badgeLabel = isLMS
-        ? 'EdTech LMS • Cohorts'
-        : isEnterprise
-            ? 'Enterprise ERP'
-            : isSaaS
-                ? 'Live SaaS'
-                : project.live_url
-                    ? 'Live Web App'
-                    : 'Full-Stack Build';
-
-    if (project.thumbnail) {
-        return (
-            <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-100 border-b border-slate-100">
-                <img
-                    src={project.thumbnail}
-                    alt={project.title}
-                    className="w-full h-full object-cover object-left-top group-hover:scale-[1.03] transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 via-transparent to-transparent pointer-events-none" />
-                <span className="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-slate-900/80 backdrop-blur-sm text-white text-[10px] font-semibold tracking-wide">
-                    {badgeLabel}
-                </span>
-                {project.live_url && (
-                    <span className="absolute top-3 right-3 px-2 py-0.5 rounded-md bg-emerald-500 text-white text-[10px] font-semibold shadow-xs flex items-center gap-1">
-                        <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-                        Live
-                    </span>
-                )}
-            </div>
-        );
-    }
-
-    return (
-        <div className="relative aspect-[16/10] w-full overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-5 flex flex-col justify-between border-b border-slate-100">
-            <div className="flex items-center justify-between">
-                <span className="px-2.5 py-1 rounded-md bg-white/10 text-slate-200 text-[10px] font-semibold backdrop-blur-xs border border-white/10">
-                    {badgeLabel}
-                </span>
-                <span className="w-7 h-7 rounded-lg bg-white/10 text-white font-display font-bold text-xs flex items-center justify-center border border-white/10">
-                    {project.title.substring(0, 2).toUpperCase()}
-                </span>
-            </div>
-            <div>
-                <p className="text-white font-display font-bold text-base tracking-tight">{project.title}</p>
-                <p className="text-slate-400 text-[11px] mt-0.5 font-mono truncate">
-                    {project.technologies?.slice(0, 3).join(' • ')}
-                </p>
-            </div>
-        </div>
-    );
-};
-
 export default function Home({ projects, skills, experiences, certificates, socialLinks, settings, navigate }) {
-    const [activeDeckTab, setActiveDeckTab] = useState('overview');
+    const [heroTab, setHeroTab] = useState('platforms');
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -85,28 +29,14 @@ export default function Home({ projects, skills, experiences, certificates, soci
     const skillCategories = skills ? Object.keys(skills) : [];
     const activeExperience = experiences?.[0];
 
-    const coreTechChips = [
-        { name: 'Laravel 11', letter: 'L', bg: 'bg-rose-100 text-rose-600' },
-        { name: 'React 19', letter: 'R', bg: 'bg-sky-100 text-sky-600' },
-        { name: 'Inertia.js', letter: 'I', bg: 'bg-violet-100 text-violet-600' },
-        { name: 'PHP 8.3', letter: 'P', bg: 'bg-indigo-100 text-indigo-600' },
-        { name: 'MySQL', letter: 'M', bg: 'bg-amber-100 text-amber-600' },
-        { name: 'Tailwind CSS', letter: 'T', bg: 'bg-teal-100 text-teal-600' },
-        { name: 'REST APIs', letter: 'A', bg: 'bg-emerald-100 text-emerald-600' },
-        { name: 'Git & GitHub', letter: 'G', bg: 'bg-slate-200 text-slate-700' },
-    ];
-
-    const categoryStyleMap = {
-        Frontend: { letter: 'F', bg: 'bg-sky-100 text-sky-600' },
-        Backend: { letter: 'B', bg: 'bg-violet-100 text-violet-600' },
-        Database: { letter: 'D', bg: 'bg-amber-100 text-amber-600' },
-        'Programming Languages': { letter: 'C', bg: 'bg-rose-100 text-rose-600' },
-        Tools: { letter: 'T', bg: 'bg-emerald-100 text-emerald-600' },
-    };
-
     const linkedinUrl = socialLinks?.find((l) => l.platform === 'LinkedIn')?.url || 'https://www.linkedin.com/in/manish-kumar-9661link';
     const githubUrl = socialLinks?.find((l) => l.platform === 'GitHub')?.url || 'https://github.com/manish96-code';
     const whatsappUrl = socialLinks?.find((l) => l.platform === 'WhatsApp')?.url || 'https://wa.me/918207593672';
+
+    const ciplonProject = projects?.find((p) => p.slug === 'ciplon');
+    const learnSyntaxProject = projects?.find((p) => p.slug === 'learn-syntax');
+    const gymmitraProject = projects?.find((p) => p.slug === 'gymmitra');
+    const kitabiAddaProject = projects?.find((p) => p.slug === 'kitabi-adda');
 
     return (
         <AppLayout settings={settings} socialLinks={socialLinks} navigate={navigate}>
@@ -116,169 +46,172 @@ export default function Home({ projects, skills, experiences, certificates, soci
                 schemaData={[getPersonSchema(settings, socialLinks), getWebsiteSchema(settings)]}
             />
 
-            {/* 1. CLEAN HERO SECTION */}
-            <section id="top" className="fade-section bg-white border-b border-slate-100 scroll-mt-24">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-14 xl:px-16 py-8 sm:py-12 lg:py-14">
-                    <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] items-center">
+            {/* 1. HERO SECTION (Minimalist Linear/Vercel Aesthetic + Top Bento Grid) */}
+            <section id="top" className="fade-section bg-white border-b border-slate-100 scroll-mt-24 pt-4 sm:pt-6 pb-12 sm:pb-16">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-14 xl:px-16">
 
-                        {/* Left Column */}
-                        <div>
-                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-xs font-medium mb-4">
-                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                                <span>Available for Full-Stack Roles • Purnea, Bihar</span>
-                            </div>
-
-                            <h1 className="font-display text-3xl sm:text-4xl lg:text-[46px] font-extrabold text-slate-900 tracking-tight leading-[1.15]">
-                                Full-Stack{' '}
-                                <span className="text-blue-600">Laravel &amp; React</span>
-                                <br className="hidden sm:inline" /> Software Engineer.
-                            </h1>
-
-                            <p className="mt-4 text-sm sm:text-base text-slate-600 leading-relaxed max-w-xl">
-                                I am <strong className="text-slate-900 font-semibold">{settings?.name || 'Manish Kumar'}</strong>, a full-stack engineer at{' '}
-                                <strong className="text-slate-800 font-semibold">Comestro Techlabs</strong>. I build cohort-based EdTech LMS platforms (<strong className="text-slate-800">Learn Syntax</strong>), enterprise pharma ERPs (<strong className="text-slate-800">Ciplon</strong>), multi-tenant SaaS platforms (<strong className="text-slate-800">GymMitra</strong>), and marketplaces (<strong className="text-slate-800">KitabiAdda</strong>).
-                            </p>
-
-                            {/* Action Buttons */}
-                            <div className="mt-6 flex flex-wrap items-center gap-3">
-                                <button
-                                    type="button"
-                                    onClick={() => scrollToSection('projects')}
-                                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs sm:text-sm font-semibold shadow-xs transition-all cursor-pointer active:scale-[0.98]"
-                                >
-                                    <span>View Selected Works</span>
-                                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                                    </svg>
-                                </button>
-                                <a
-                                    href={settings?.resume_file || '/downloads/resume.pdf'}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-white border border-slate-200 hover:border-slate-300 hover:bg-slate-50 text-slate-800 text-xs sm:text-sm font-semibold transition-all"
-                                >
-                                    <span>View CV</span>
-                                    <span className="text-slate-400">↗</span>
-                                </a>
-                            </div>
-
-                            {/* Core Stack Strip (like LearnSyntax Hero tech icons) */}
-                            <div className="mt-8 pt-6 border-t border-slate-100">
-                                <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-3">
-                                    Core Engineering Stack
-                                </p>
-                                <div className="flex flex-wrap items-center gap-2">
-                                    {coreTechChips.map((chip) => (
-                                        <span
-                                            key={chip.name}
-                                            className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-50 border border-slate-200/80 text-xs font-medium text-slate-700"
-                                        >
-                                            <span className={`w-4 h-4 rounded-sm ${chip.bg} text-[9px] font-bold flex items-center justify-center`}>
-                                                {chip.letter}
-                                            </span>
-                                            {chip.name}
-                                        </span>
-                                    ))}
-                                </div>
-                            </div>
+                    {/* Top Narrative Header */}
+                    <div className="max-w-3xl mb-10 sm:mb-12">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/[0.04] border border-slate-200/80 text-slate-700 text-[11px] font-mono mb-5 shadow-2xs">
+                            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                            <span>AVAILABLE FOR FULL-STACK ROLES • PURNEA, BIHAR</span>
                         </div>
 
-                        {/* Right Column: Clean Standard Engineer Profile Card */}
-                        <div className="bg-slate-50/70 border border-slate-200 rounded-2xl p-5 sm:p-6 shadow-xs">
-                            <div className="flex items-center justify-between pb-4 border-b border-slate-200/80">
-                                <div className="flex items-center gap-3">
-                                    <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-indigo-600 to-violet-600 text-white font-display font-extrabold text-sm flex items-center justify-center shadow-xs">
-                                        MK
-                                    </div>
-                                    <div>
-                                        <h2 className="font-display font-bold text-sm sm:text-base text-slate-900">
-                                            {settings?.name || 'Manish Kumar'}
-                                        </h2>
-                                        <p className="text-xs text-slate-500">
-                                            Laravel Developer • Comestro Techlabs
-                                        </p>
-                                    </div>
+                        <h1 className="font-display text-3xl sm:text-4xl lg:text-[50px] font-extrabold text-slate-900 tracking-tight leading-[1.15]">
+                            Architecting resilient full-stack systems with{' '}
+                            <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent">
+                                Laravel &amp; React.
+                            </span>
+                        </h1>
+
+                        <p className="mt-4 text-sm sm:text-base text-slate-600 leading-relaxed max-w-2xl font-normal">
+                            I&apos;m <strong className="text-slate-900 font-semibold">{settings?.name || 'Manish Kumar'}</strong>, full-stack software engineer at <strong className="text-slate-900 font-semibold">{activeExperience?.company || 'Comestro Techlabs'}</strong>. I engineer cohort-based EdTech LMS platforms (<strong className="text-slate-800">Learn Syntax</strong>), enterprise pharmaceutical ERPs (<strong className="text-slate-800">Ciplon</strong>), multi-tenant SaaS tools (<strong className="text-slate-800">GymMitra</strong>), and marketplaces.
+                        </p>
+
+                        {/* Direct Action Links */}
+                        <div className="mt-6 flex flex-wrap items-center gap-3">
+                            <button
+                                type="button"
+                                onClick={() => scrollToSection('projects')}
+                                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs sm:text-sm font-semibold shadow-xs transition-all cursor-pointer active:scale-[0.98]"
+                            >
+                                <span>Explore Selected Work</span>
+                                <span>↓</span>
+                            </button>
+                            <a
+                                href={settings?.resume_file || '/downloads/resume.pdf'}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white border border-slate-200 hover:border-slate-300 hover:bg-slate-50 text-slate-800 text-xs sm:text-sm font-semibold transition-all shadow-2xs"
+                            >
+                                <span>View Resume / CV</span>
+                                <span className="text-slate-400">↗</span>
+                            </a>
+                            <a
+                                href={githubUrl}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="inline-flex items-center justify-center w-10 h-10 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 hover:text-slate-900 transition-colors shadow-2xs"
+                                title="GitHub Profile"
+                            >
+                                <IconGitHub />
+                            </a>
+                        </div>
+                    </div>
+
+                    {/* HERO BENTO GRID (Clean Linear-Style Architecture Deck) */}
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
+
+                        {/* Bento Card 1: Production Engineering Deck (7 cols) */}
+                        <div className="md:col-span-7 bg-slate-50/70 border border-slate-200 rounded-2xl p-5 sm:p-6 shadow-2xs flex flex-col justify-between">
+                            <div className="flex items-center justify-between border-b border-slate-200/80 pb-3 mb-4">
+                                <div className="flex items-center gap-2.5">
+                                    <span className="w-2.5 h-2.5 rounded-full bg-blue-600" />
+                                    <span className="font-display font-bold text-xs sm:text-sm text-slate-900">
+                                        Flagship Production Platforms
+                                    </span>
                                 </div>
-                                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-[11px] font-semibold">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                                    Operational
-                                </span>
+                                <div className="flex items-center gap-1 bg-slate-200/70 p-0.5 rounded-lg text-[11px] font-semibold">
+                                    <button
+                                        type="button"
+                                        onClick={() => setHeroTab('platforms')}
+                                        className={`px-2.5 py-1 rounded-md transition-all cursor-pointer ${heroTab === 'platforms' ? 'bg-white text-slate-900 shadow-2xs' : 'text-slate-600 hover:text-slate-900'}`}
+                                    >
+                                        Live Apps
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={() => setHeroTab('config')}
+                                        className={`px-2.5 py-1 rounded-md transition-all cursor-pointer ${heroTab === 'config' ? 'bg-white text-slate-900 shadow-2xs' : 'text-slate-600 hover:text-slate-900'}`}
+                                    >
+                                        stack.config
+                                    </button>
+                                </div>
                             </div>
 
-                            {/* Clean Tab Switcher */}
-                            <div className="flex gap-1 bg-slate-200/60 p-1 rounded-lg mt-4">
-                                <button
-                                    type="button"
-                                    onClick={() => setActiveDeckTab('overview')}
-                                    className={`flex-1 py-1.5 text-xs font-semibold rounded-md transition-all cursor-pointer ${activeDeckTab === 'overview'
-                                        ? 'bg-white text-slate-900 shadow-xs'
-                                        : 'text-slate-600 hover:text-slate-900'
-                                        }`}
-                                >
-                                    Production Apps
-                                </button>
-                                <button
-                                    type="button"
-                                    onClick={() => setActiveDeckTab('stack')}
-                                    className={`flex-1 py-1.5 text-xs font-semibold rounded-md transition-all cursor-pointer ${activeDeckTab === 'stack'
-                                        ? 'bg-white text-slate-900 shadow-xs'
-                                        : 'text-slate-600 hover:text-slate-900'
-                                        }`}
-                                >
-                                    developer.config.json
-                                </button>
-                            </div>
-
-                            {activeDeckTab === 'overview' ? (
-                                <div className="mt-4 space-y-2.5">
+                            {heroTab === 'platforms' ? (
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                                     {[
-                                        { name: 'Learn Syntax LMS', tag: 'Cohort EdTech • Laravel + React', status: 'Live', url: '/project/learn-syntax', badge: 'bg-indigo-100 text-indigo-600' },
-                                        { name: 'Ciplon Pharma ERP', tag: 'Enterprise • Laravel + React', status: 'Live', url: '/project/ciplon', badge: 'bg-blue-100 text-blue-600' },
-                                        { name: 'GymMitra SaaS', tag: 'Multi-Tenant • QR & Billing', status: 'Live', url: '/project/gymmitra', badge: 'bg-violet-100 text-violet-600' },
-                                        { name: 'KitabiAdda Marketplace', tag: '4 Role Portals • Inertia.js', status: 'Shipped', url: '/project/kitabi-adda', badge: 'bg-amber-100 text-amber-600' },
-                                    ].map((item) => (
+                                        { name: 'Ciplon Pharma ERP', tag: 'Enterprise • Route Map & Telemetry', status: 'Live', slug: 'ciplon', color: 'border-blue-200 bg-white hover:border-blue-400' },
+                                        { name: 'Learn Syntax LMS', tag: 'EdTech • WebSockets & Cohorts', status: 'Live', slug: 'learn-syntax', color: 'border-indigo-200 bg-white hover:border-indigo-400' },
+                                        { name: 'GymMitra SaaS', tag: 'Multi-Tenant • QR Attendance & Invoices', status: 'Live', slug: 'gymmitra', color: 'border-violet-200 bg-white hover:border-violet-400' },
+                                        { name: 'KitabiAdda', tag: 'Marketplace • 4 Role Portals', status: 'Shipped', slug: 'kitabi-adda', color: 'border-amber-200 bg-white hover:border-amber-400' },
+                                    ].map((app) => (
                                         <a
-                                            key={item.name}
-                                            href={item.url}
+                                            key={app.slug}
+                                            href={`/project/${app.slug}`}
                                             onClick={(e) => {
                                                 e.preventDefault();
-                                                navigate(item.url);
+                                                navigate(`/project/${app.slug}`);
                                             }}
-                                            className="flex items-center justify-between p-3 rounded-xl bg-white border border-slate-200/80 hover:border-blue-300 hover:shadow-xs transition-all group"
+                                            className={`p-3 rounded-xl border ${app.color} transition-all duration-150 flex flex-col justify-between group shadow-2xs`}
                                         >
-                                            <div className="flex items-center gap-3 min-w-0">
-                                                <span className={`w-8 h-8 rounded-lg ${item.badge} font-display font-bold text-xs flex items-center justify-center shrink-0`}>
-                                                    {item.name.charAt(0)}
+                                            <div className="flex items-center justify-between mb-1.5">
+                                                <span className="font-display font-bold text-xs text-slate-900 group-hover:text-blue-600 transition-colors">
+                                                    {app.name}
                                                 </span>
-                                                <div className="min-w-0">
-                                                    <p className="text-xs font-bold text-slate-900 group-hover:text-blue-600 transition-colors truncate">
-                                                        {item.name}
-                                                    </p>
-                                                    <p className="text-[11px] text-slate-500 truncate">{item.tag}</p>
-                                                </div>
+                                                <span className="px-1.5 py-0.5 rounded text-[9px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                                    {app.status}
+                                                </span>
                                             </div>
-                                            <span className="px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-semibold shrink-0 ml-2">
-                                                {item.status}
-                                            </span>
+                                            <p className="text-[11px] text-slate-500 leading-tight truncate">{app.tag}</p>
                                         </a>
                                     ))}
                                 </div>
                             ) : (
-                                <div className="mt-4 rounded-xl bg-slate-900 p-4 text-xs font-mono text-slate-300 leading-relaxed overflow-x-auto">
-                                    <p>&#123;</p>
-                                    <p className="pl-4"><span className="text-sky-300">"developer"</span>: <span className="text-emerald-300">"{settings?.name || 'Manish Kumar'}"</span>,</p>
-                                    <p className="pl-4"><span className="text-sky-300">"degree"</span>: <span className="text-emerald-300">"BCA, Purnea University (2023-2026)"</span>,</p>
-                                    <p className="pl-4"><span className="text-sky-300">"backend"</span>: [<span className="text-amber-300">"Laravel 11"</span>, <span className="text-amber-300">"PHP 8.3"</span>, <span className="text-amber-300">"MySQL"</span>],</p>
-                                    <p className="pl-4"><span className="text-sky-300">"frontend"</span>: [<span className="text-amber-300">"React 19"</span>, <span className="text-amber-300">"Inertia.js"</span>, <span className="text-amber-300">"Tailwind"</span>],</p>
-                                    <p className="pl-4"><span className="text-sky-300">"available"</span>: <span className="text-violet-300">true</span></p>
-                                    <p>&#125;</p>
+                                <div className="bg-slate-900 rounded-xl p-3.5 font-mono text-[11px] text-slate-300 leading-relaxed overflow-x-auto">
+                                    <p><span className="text-slate-500">// Architecture runtime</span></p>
+                                    <p><span className="text-sky-300">"backend"</span>: <span className="text-amber-300">"Laravel 13 (PHP 8.3, Eloquent, Reverb)"</span>,</p>
+                                    <p><span className="text-sky-300">"frontend"</span>: <span className="text-amber-300">"React 19 + Inertia.js v3 + Tailwind v4"</span>,</p>
+                                    <p><span className="text-sky-300">"database"</span>: <span className="text-amber-300">"MySQL 8 (Normalized, Indexed Constraints)"</span>,</p>
+                                    <p><span className="text-sky-300">"testing"</span>: <span className="text-emerald-300">"PHPUnit (4,000+ Assertions, PSR-12)"</span></p>
                                 </div>
                             )}
 
-                            <div className="mt-4 pt-3.5 border-t border-slate-200/80 flex items-center justify-between text-xs text-slate-500">
-                                <span>BCA (2023–2026) • Purnea University</span>
-                                <a href={githubUrl} target="_blank" rel="noreferrer" className="font-semibold text-blue-600 hover:underline">
-                                    GitHub →
+                            <div className="mt-4 pt-3 border-t border-slate-200/80 flex items-center justify-between text-[11px] text-slate-500">
+                                <span>Comestro Techlabs • Production Engineering</span>
+                                <span className="font-mono text-slate-400">Laravel + React SPA</span>
+                            </div>
+                        </div>
+
+                        {/* Bento Card 2: Verified Engineering Metrics (5 cols) */}
+                        <div className="md:col-span-5 bg-white border border-slate-200 rounded-2xl p-5 sm:p-6 shadow-2xs flex flex-col justify-between">
+                            <div className="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
+                                <span className="font-display font-bold text-xs sm:text-sm text-slate-900 flex items-center gap-2">
+                                    <span>⚡ Verified Engineering Standards</span>
+                                </span>
+                                <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
+                                    PROD READY
+                                </span>
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-3 my-auto">
+                                <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
+                                    <p className="text-xl font-display font-black text-slate-900 leading-none">4,000+</p>
+                                    <p className="text-xs font-semibold text-slate-800 mt-1">Test Assertions</p>
+                                    <p className="text-[10px] text-emerald-600 font-medium mt-0.5">PHPUnit suites</p>
+                                </div>
+                                <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
+                                    <p className="text-xl font-display font-black text-slate-900 leading-none">1,260+</p>
+                                    <p className="text-xs font-semibold text-slate-800 mt-1">Yearly Commits</p>
+                                    <p className="text-[10px] text-blue-600 font-medium mt-0.5">Continuous delivery</p>
+                                </div>
+                                <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
+                                    <p className="text-xl font-display font-black text-slate-900 leading-none">4 Apps</p>
+                                    <p className="text-xs font-semibold text-slate-800 mt-1">Enterprise Builds</p>
+                                    <p className="text-[10px] text-slate-500 font-medium mt-0.5">ERP, LMS &amp; SaaS</p>
+                                </div>
+                                <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
+                                    <p className="text-xl font-display font-black text-slate-900 leading-none">100%</p>
+                                    <p className="text-xs font-semibold text-slate-800 mt-1">Code Standard</p>
+                                    <p className="text-[10px] text-amber-600 font-medium mt-0.5">Laravel Pint / PSR-12</p>
+                                </div>
+                            </div>
+
+                            <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+                                <span>BCA (2023–2026) • Purnea Univ</span>
+                                <a href="#activity" onClick={(e) => { e.preventDefault(); scrollToSection('activity'); }} className="font-semibold text-blue-600 hover:underline">
+                                    View Activity →
                                 </a>
                             </div>
                         </div>
@@ -287,139 +220,416 @@ export default function Home({ projects, skills, experiences, certificates, soci
                 </div>
             </section>
 
-            {/* 2. ALL PROJECTS SECTION (Clean Grid inspired by LearnSyntax Courses) */}
-            <section id="projects" className="fade-section bg-slate-50/50 py-10 sm:py-12 border-b border-slate-100 scroll-mt-24">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-14 xl:px-16">
-                    <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-7">
+            {/* 2. SELECTED PROJECTS (Modern Minimalist Asymmetric Bento Grid) */}
+            <section id="projects" className="fade-section bg-slate-50/50 py-12 sm:py-16 border-b border-slate-100 scroll-mt-24">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-14 xl:px-16 space-y-8">
+
+                    {/* Section Header */}
+                    <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
                         <div>
-                            <h2 className="font-display text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
-                                Selected projects
+                            <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-blue-50 border border-blue-200/80 text-blue-700 text-[10px] font-bold tracking-wider uppercase font-mono mb-2">
+                                SELECTED PRODUCTION BUILDS
+                            </div>
+                            <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+                                Enterprise ERPs, EdTech LMS &amp; SaaS Architectures
                             </h2>
                             <p className="text-xs sm:text-sm text-slate-500 mt-1">
-                                Production-grade enterprise systems, SaaS platforms, and multi-vendor marketplaces.
+                                Production-grade web applications engineered and shipped at Comestro Techlabs.
                             </p>
                         </div>
                         <a
                             href={githubUrl}
                             target="_blank"
                             rel="noreferrer"
-                            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-700 hover:text-blue-600 transition-colors self-start sm:self-auto"
+                            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold shadow-2xs transition-colors self-start sm:self-auto"
                         >
-                            <span>View GitHub</span>
-                            <span>→</span>
+                            <IconGitHub />
+                            <span>View All Repositories</span>
+                            <span>↗</span>
                         </a>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                        {(projects || []).map((project) => (
-                            <article
-                                key={project.id}
-                                className="bg-white border border-slate-200 rounded-2xl overflow-hidden flex flex-col hover:shadow-md hover:border-slate-300 transition-all duration-200 group"
-                            >
-                                <a
-                                    href={`/project/${project.slug}`}
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        navigate(`/project/${project.slug}`);
-                                    }}
-                                    className="block"
-                                >
-                                    <ProjectPreviewBanner project={project} />
-                                </a>
+                    {/* ASYMMETRIC BENTO GRID */}
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
-                                <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
-                                    <div>
-                                        <h3 className="font-display font-bold text-base text-slate-900 group-hover:text-blue-600 transition-colors">
-                                            <a
-                                                href={`/project/${project.slug}`}
-                                                onClick={(e) => {
-                                                    e.preventDefault();
-                                                    navigate(`/project/${project.slug}`);
-                                                }}
-                                            >
-                                                {project.title}
-                                            </a>
-                                        </h3>
-
-                                        <p className="mt-2 text-xs text-slate-600 leading-relaxed line-clamp-2">
-                                            {project.description}
-                                        </p>
-
-                                        <div className="mt-3 flex flex-wrap gap-1.5">
-                                            {project.technologies?.slice(0, 4).map((tech) => (
-                                                <span
-                                                    key={tech}
-                                                    className="px-2 py-0.5 rounded-md bg-slate-50 border border-slate-200/80 text-[10px] font-medium text-slate-600"
-                                                >
-                                                    {tech}
+                        {/* FEATURED BENTO 1: CIPLON PHARMA ERP (12 cols Wide Split Card) */}
+                        {ciplonProject && (
+                            <div className="lg:col-span-12 bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-2xs hover:border-slate-300 transition-all duration-200">
+                                <div className="grid grid-cols-1 lg:grid-cols-12 items-center">
+                                    {/* Left Narrative */}
+                                    <div className="lg:col-span-6 p-6 sm:p-8 lg:p-10 flex flex-col justify-between">
+                                        <div>
+                                            <div className="flex items-center gap-2 mb-3">
+                                                <span className="px-2.5 py-0.5 rounded-md bg-blue-50 border border-blue-200 text-blue-700 text-[10px] font-semibold font-mono uppercase">
+                                                    Enterprise ERP
                                                 </span>
-                                            ))}
+                                                <span className="px-2 py-0.5 rounded-md bg-emerald-50 border border-emerald-200 text-emerald-700 text-[10px] font-semibold">
+                                                    Live Platform
+                                                </span>
+                                            </div>
+
+                                            <h3 className="font-display text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
+                                                <a
+                                                    href={`/project/${ciplonProject.slug}`}
+                                                    onClick={(e) => { e.preventDefault(); navigate(`/project/${ciplonProject.slug}`); }}
+                                                    className="hover:text-blue-600 transition-colors"
+                                                >
+                                                    Ciplon – Pharmaceutical Management System
+                                                </a>
+                                            </h3>
+
+                                            <p className="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+                                                Web-based pharmaceutical ERP integrating Super Admin, Company Admin, and Medical Representative field operations. Features plan-versus-execution visit itineraries, Mapbox doctor route tracking, live GPS telemetry, and Daily Call Reports (DCR).
+                                            </p>
+
+                                            <div className="mt-4 flex flex-wrap gap-1.5">
+                                                {['Laravel 13', 'React.js', 'Inertia.js', 'MySQL 8', 'Mapbox Route Map', 'RBAC Policies'].map((tag) => (
+                                                    <span key={tag} className="px-2.5 py-1 rounded-lg bg-slate-50 border border-slate-200/80 text-[11px] font-medium text-slate-700 font-mono">
+                                                        {tag}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                        <div className="mt-6 pt-5 border-t border-slate-100 flex flex-wrap items-center gap-3">
+                                            <a
+                                                href={`/project/${ciplonProject.slug}`}
+                                                onClick={(e) => { e.preventDefault(); navigate(`/project/${ciplonProject.slug}`); }}
+                                                className="px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow-xs transition-colors"
+                                            >
+                                                View Case Study →
+                                            </a>
+                                            {ciplonProject.live_url && (
+                                                <a
+                                                    href={ciplonProject.live_url}
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                    className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-semibold transition-colors"
+                                                >
+                                                    <span>Live Demo</span>
+                                                    <IconExternal />
+                                                </a>
+                                            )}
+                                            {ciplonProject.github_url && (
+                                                <a
+                                                    href={ciplonProject.github_url}
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                    className="inline-flex items-center gap-1 px-3 py-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 hover:text-slate-900 text-xs font-medium transition-colors"
+                                                    title="Source Code"
+                                                >
+                                                    <IconGitHub />
+                                                </a>
+                                            )}
                                         </div>
                                     </div>
 
-                                    <div className="mt-4 pt-3.5 border-t border-slate-100 flex items-center gap-2">
-                                        <a
-                                            href={`/project/${project.slug}`}
-                                            onClick={(e) => {
-                                                e.preventDefault();
-                                                navigate(`/project/${project.slug}`);
-                                            }}
-                                            className="flex-1 py-2 px-3 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 hover:border-slate-300 text-slate-800 text-xs font-semibold text-center transition-colors"
-                                        >
-                                            View Case Study
-                                        </a>
-                                        {project.live_url && (
-                                            <a
-                                                href={project.live_url}
-                                                target="_blank"
-                                                rel="noreferrer"
-                                                className="inline-flex items-center justify-center gap-1 px-3 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold transition-colors"
-                                                title="Live Website"
-                                            >
-                                                <span>Live</span>
-                                                <IconExternal />
-                                            </a>
-                                        )}
-                                        {project.github_url && (
-                                            <a
-                                                href={project.github_url}
-                                                target="_blank"
-                                                rel="noreferrer"
-                                                className="inline-flex items-center justify-center w-8 h-8 rounded-lg border border-slate-200 bg-white text-slate-600 hover:text-slate-900 hover:border-slate-300 transition-colors"
-                                                title="GitHub Repository"
-                                            >
-                                                <IconGitHub />
-                                            </a>
-                                        )}
+                                    {/* Right Browser Mockup Showcase */}
+                                    <div className="lg:col-span-6 p-4 sm:p-6 lg:p-8 bg-slate-100/70 border-t lg:border-t-0 lg:border-l border-slate-200/80 flex items-center justify-center">
+                                        <div className="w-full rounded-2xl overflow-hidden border border-slate-200 bg-slate-950 shadow-md group">
+                                            <div className="px-3 py-2 bg-slate-100 border-b border-slate-200 flex items-center justify-between text-[11px] text-slate-500 font-mono">
+                                                <div className="flex items-center gap-1.5">
+                                                    <span className="w-2.5 h-2.5 rounded-full bg-rose-400" />
+                                                    <span className="w-2.5 h-2.5 rounded-full bg-amber-400" />
+                                                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
+                                                </div>
+                                                <span className="truncate max-w-[200px] text-slate-600">ciplonpharma.in/mr/dashboard</span>
+                                                <span className="text-[10px] text-slate-400">MR Portal</span>
+                                            </div>
+                                            <div className="aspect-[16/10] overflow-hidden bg-slate-900 relative">
+                                                <img
+                                                    src="/images/projects/ciplon-mr-dashboard.jpg"
+                                                    alt="Ciplon MR Dashboard"
+                                                    className="w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-300"
+                                                    loading="lazy"
+                                                />
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </article>
-                        ))}
+                            </div>
+                        )}
+
+                        {/* FEATURED BENTO 2: LEARN SYNTAX LMS (12 cols Wide Split Card) */}
+                        {learnSyntaxProject && (
+                            <div className="lg:col-span-12 bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-2xs hover:border-slate-300 transition-all duration-200">
+                                <div className="grid grid-cols-1 lg:grid-cols-12 items-center">
+                                    {/* Left Browser Mockup Showcase */}
+                                    <div className="order-2 lg:order-1 lg:col-span-6 p-4 sm:p-6 lg:p-8 bg-slate-100/70 border-t lg:border-t-0 lg:border-r border-slate-200/80 flex items-center justify-center">
+                                        <div className="w-full rounded-2xl overflow-hidden border border-slate-200 bg-slate-950 shadow-md group">
+                                            <div className="px-3 py-2 bg-slate-100 border-b border-slate-200 flex items-center justify-between text-[11px] text-slate-500 font-mono">
+                                                <div className="flex items-center gap-1.5">
+                                                    <span className="w-2.5 h-2.5 rounded-full bg-rose-400" />
+                                                    <span className="w-2.5 h-2.5 rounded-full bg-amber-400" />
+                                                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
+                                                </div>
+                                                <span className="truncate max-w-[200px] text-slate-600">learnsyntax.com/admin</span>
+                                                <span className="text-[10px] text-slate-400">Admin Portal</span>
+                                            </div>
+                                            <div className="aspect-[16/10] overflow-hidden bg-slate-900 relative">
+                                                <img
+                                                    src="/images/projects/learn-syntax-admin.jpg"
+                                                    alt="Learn Syntax Admin Portal"
+                                                    className="w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-300"
+                                                    loading="lazy"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Right Narrative */}
+                                    <div className="order-1 lg:order-2 lg:col-span-6 p-6 sm:p-8 lg:p-10 flex flex-col justify-between">
+                                        <div>
+                                            <div className="flex items-center gap-2 mb-3">
+                                                <span className="px-2.5 py-0.5 rounded-md bg-indigo-50 border border-indigo-200 text-indigo-700 text-[10px] font-semibold font-mono uppercase">
+                                                    EdTech LMS • Cohorts
+                                                </span>
+                                                <span className="px-2 py-0.5 rounded-md bg-emerald-50 border border-emerald-200 text-emerald-700 text-[10px] font-semibold">
+                                                    Production Live
+                                                </span>
+                                            </div>
+
+                                            <h3 className="font-display text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
+                                                <a
+                                                    href={`/project/${learnSyntaxProject.slug}`}
+                                                    onClick={(e) => { e.preventDefault(); navigate(`/project/${learnSyntaxProject.slug}`); }}
+                                                    className="hover:text-blue-600 transition-colors"
+                                                >
+                                                    Learn Syntax – Cohort-Based LMS Platform
+                                                </a>
+                                            </h3>
+
+                                            <p className="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+                                                Enterprise-grade cohort Learning Management System (LMS) with live cohort timetable management, automated student certificate generation with public QR verification, and real-time WebSockets via Laravel Reverb.
+                                            </p>
+
+                                            <div className="mt-4 flex flex-wrap gap-1.5">
+                                                {['Laravel 13', 'React 19', 'Inertia.js v3', 'Laravel Reverb', 'WebSockets', '489 Tests'].map((tag) => (
+                                                    <span key={tag} className="px-2.5 py-1 rounded-lg bg-slate-50 border border-slate-200/80 text-[11px] font-medium text-slate-700 font-mono">
+                                                        {tag}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                        <div className="mt-6 pt-5 border-t border-slate-100 flex flex-wrap items-center gap-3">
+                                            <a
+                                                href={`/project/${learnSyntaxProject.slug}`}
+                                                onClick={(e) => { e.preventDefault(); navigate(`/project/${learnSyntaxProject.slug}`); }}
+                                                className="px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow-xs transition-colors"
+                                            >
+                                                View Case Study →
+                                            </a>
+                                            {learnSyntaxProject.live_url && (
+                                                <a
+                                                    href={learnSyntaxProject.live_url}
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                    className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-semibold transition-colors"
+                                                >
+                                                    <span>Live Demo</span>
+                                                    <IconExternal />
+                                                </a>
+                                            )}
+                                            {learnSyntaxProject.github_url && (
+                                                <a
+                                                    href={learnSyntaxProject.github_url}
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                    className="inline-flex items-center gap-1 px-3 py-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 hover:text-slate-900 text-xs font-medium transition-colors"
+                                                    title="Source Code"
+                                                >
+                                                    <IconGitHub />
+                                                </a>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* COMPACT BENTO 3: GYMMITRA SAAS (6 cols) */}
+                        {gymmitraProject && (
+                            <div className="lg:col-span-6 bg-white border border-slate-200 rounded-3xl p-5 sm:p-7 shadow-2xs hover:border-slate-300 transition-all duration-200 flex flex-col justify-between">
+                                <div>
+                                    <div className="rounded-xl overflow-hidden border border-slate-200 bg-slate-950 shadow-xs mb-5 group">
+                                        <div className="px-3 py-1.5 bg-slate-100 border-b border-slate-200 flex items-center justify-between text-[10px] text-slate-500 font-mono">
+                                            <span className="flex items-center gap-1">
+                                                <span className="w-2 h-2 rounded-full bg-rose-400" />
+                                                <span className="w-2 h-2 rounded-full bg-amber-400" />
+                                                <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                                            </span>
+                                            <span>manish.echovel.com/admin</span>
+                                            <span className="text-emerald-600 font-semibold">Live SaaS</span>
+                                        </div>
+                                        <div className="aspect-[16/10] overflow-hidden bg-slate-900">
+                                            <img
+                                                src="/images/projects/gymmitra-dashboard.png"
+                                                alt="GymMitra SaaS Dashboard"
+                                                className="w-full h-full object-cover object-top group-hover:scale-[1.03] transition-transform duration-300"
+                                                loading="lazy"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-violet-50 text-violet-700 border border-violet-200">
+                                            Multi-Tenant SaaS
+                                        </span>
+                                        <span className="text-xs text-slate-400 font-mono">QR &amp; Billing</span>
+                                    </div>
+
+                                    <h3 className="font-display font-bold text-lg text-slate-900 group-hover:text-blue-600 transition-colors">
+                                        <a
+                                            href={`/project/${gymmitraProject.slug}`}
+                                            onClick={(e) => { e.preventDefault(); navigate(`/project/${gymmitraProject.slug}`); }}
+                                        >
+                                            GymMitra – Gym Management SaaS Platform
+                                        </a>
+                                    </h3>
+
+                                    <p className="mt-2 text-xs text-slate-600 leading-relaxed font-normal">
+                                        Modern multi-gym management system with automated QR code attendance scanning, 1-click locker allocation grid, trainer assignment, and automated GST invoice billing.
+                                    </p>
+
+                                    <div className="mt-3 flex flex-wrap gap-1.5">
+                                        {['Laravel', 'React', 'Inertia.js', 'MySQL', 'QR Scanner'].map((t) => (
+                                            <span key={t} className="px-2 py-0.5 rounded-md bg-slate-50 border border-slate-200 text-[10px] font-mono text-slate-600">
+                                                {t}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <div className="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between">
+                                    <a
+                                        href={`/project/${gymmitraProject.slug}`}
+                                        onClick={(e) => { e.preventDefault(); navigate(`/project/${gymmitraProject.slug}`); }}
+                                        className="text-xs font-semibold text-blue-600 hover:underline"
+                                    >
+                                        View Case Study →
+                                    </a>
+                                    {gymmitraProject.live_url && (
+                                        <a
+                                            href={gymmitraProject.live_url}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            className="inline-flex items-center gap-1 text-xs font-semibold text-slate-700 hover:text-slate-900"
+                                        >
+                                            <span>Live App</span>
+                                            <IconExternal />
+                                        </a>
+                                    )}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* COMPACT BENTO 4: KITABIADDA MARKETPLACE (6 cols) */}
+                        {kitabiAddaProject && (
+                            <div className="lg:col-span-6 bg-white border border-slate-200 rounded-3xl p-5 sm:p-7 shadow-2xs hover:border-slate-300 transition-all duration-200 flex flex-col justify-between">
+                                <div>
+                                    <div className="rounded-xl overflow-hidden border border-slate-200 bg-slate-950 shadow-xs mb-5 group">
+                                        <div className="px-3 py-1.5 bg-slate-100 border-b border-slate-200 flex items-center justify-between text-[10px] text-slate-500 font-mono">
+                                            <span className="flex items-center gap-1">
+                                                <span className="w-2 h-2 rounded-full bg-rose-400" />
+                                                <span className="w-2 h-2 rounded-full bg-amber-400" />
+                                                <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                                            </span>
+                                            <span>github.com/manish96-code/KitabiAdda</span>
+                                            <span className="text-amber-600 font-semibold">Marketplace</span>
+                                        </div>
+                                        <div className="aspect-[16/10] overflow-hidden bg-gradient-to-br from-slate-900 via-amber-950 to-slate-900 p-6 flex flex-col justify-between text-white">
+                                            <div className="flex justify-between items-center">
+                                                <span className="px-2.5 py-1 rounded-md bg-white/10 text-[10px] font-mono font-semibold">
+                                                    4 ROLE-BASED PORTALS
+                                                </span>
+                                                <span className="text-xl">📚</span>
+                                            </div>
+                                            <div>
+                                                <p className="font-display font-black text-xl tracking-tight">KitabiAdda Platform</p>
+                                                <p className="text-xs text-amber-200/80 font-mono mt-0.5">Multi-Vendor Book Commerce &amp; Rider Delivery</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-amber-50 text-amber-700 border border-amber-200">
+                                            Multi-Vendor E-Commerce
+                                        </span>
+                                        <span className="text-xs text-slate-400 font-mono">4 Role Portals</span>
+                                    </div>
+
+                                    <h3 className="font-display font-bold text-lg text-slate-900 group-hover:text-blue-600 transition-colors">
+                                        <a
+                                            href={`/project/${kitabiAddaProject.slug}`}
+                                            onClick={(e) => { e.preventDefault(); navigate(`/project/${kitabiAddaProject.slug}`); }}
+                                        >
+                                            KitabiAdda – Multi-Vendor Book Marketplace
+                                        </a>
+                                    </h3>
+
+                                    <p className="mt-2 text-xs text-slate-600 leading-relaxed font-normal">
+                                        Connecting customers, local book vendors, and delivery riders through 4 dedicated role-based portals with inventory management, cart checkouts, and rider assignment.
+                                    </p>
+
+                                    <div className="mt-3 flex flex-wrap gap-1.5">
+                                        {['Laravel', 'Inertia.js', 'React', 'MySQL', 'RBAC'].map((t) => (
+                                            <span key={t} className="px-2 py-0.5 rounded-md bg-slate-50 border border-slate-200 text-[10px] font-mono text-slate-600">
+                                                {t}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <div className="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between">
+                                    <a
+                                        href={`/project/${kitabiAddaProject.slug}`}
+                                        onClick={(e) => { e.preventDefault(); navigate(`/project/${kitabiAddaProject.slug}`); }}
+                                        className="text-xs font-semibold text-blue-600 hover:underline"
+                                    >
+                                        View Case Study →
+                                    </a>
+                                    {kitabiAddaProject.github_url && (
+                                        <a
+                                            href={kitabiAddaProject.github_url}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            className="inline-flex items-center gap-1 text-xs font-semibold text-slate-700 hover:text-slate-900"
+                                        >
+                                            <span>Repository</span>
+                                            <IconGitHub />
+                                        </a>
+                                    )}
+                                </div>
+                            </div>
+                        )}
+
                     </div>
                 </div>
             </section>
 
-            {/* 2.5 GITHUB CONTRIBUTIONS & ACTIVITY SECTION (Option 1 + Option 3) */}
-            <section id="activity" className="fade-section bg-slate-50/50 py-10 sm:py-12 border-b border-slate-100 scroll-mt-24">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-14 xl:px-16">
-                    <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-7">
+            {/* 3. GITHUB ACTIVITY & VELOCITY (Exact GitHub Colors & Streak Metrics) */}
+            <section id="activity" className="fade-section bg-white py-12 sm:py-16 border-b border-slate-100 scroll-mt-24">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-14 xl:px-16 space-y-7">
+
+                    <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
                         <div>
-                            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-700 text-[11px] font-semibold mb-2 shadow-2xs">
+                            <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-700 text-[10px] font-bold tracking-wider uppercase font-mono mb-2">
                                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                                <span>Live Activity &amp; Streak</span>
+                                <span>LIVE GITHUB TELEMETRY &amp; ACTIVITY</span>
                             </div>
-                            <h2 className="font-display text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
-                                GitHub contributions &amp; activity
+                            <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+                                Continuous Code Delivery &amp; Consistency
                             </h2>
                             <p className="text-xs sm:text-sm text-slate-500 mt-1">
-                                Continuous code delivery, production commits, and real-time open-source activity.
+                                Real-time open source commits, pull requests, and production code delivery.
                             </p>
                         </div>
                         <a
-                            href={githubUrl || 'https://github.com/manish96-code'}
+                            href={githubUrl}
                             target="_blank"
                             rel="noreferrer"
-                            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 hover:text-slate-900 text-xs font-semibold shadow-2xs transition-all duration-150 self-start sm:self-auto hover:border-slate-300"
+                            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold shadow-2xs transition-all self-start sm:self-auto hover:border-slate-300"
                         >
                             <IconGitHub />
                             <span>@manish96-code</span>
@@ -427,15 +637,15 @@ export default function Home({ projects, skills, experiences, certificates, soci
                         </a>
                     </div>
 
-                    {/* Interactive GitHub Calendar matching GitHub Dark & Light Modes */}
-                    <div className="mb-6">
+                    {/* Interactive GitHub Calendar */}
+                    <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-2xs">
                         <GitHubCalendar username="manish96-code" />
                     </div>
 
-                    {/* GitHub Streak & Verified Metrics */}
+                    {/* Streak & Insights Bento Row */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                         {/* Streak Card */}
-                        <div className="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-2xs flex flex-col justify-between">
+                        <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-2xs flex flex-col justify-between">
                             <div className="flex items-center justify-between border-b border-slate-100 pb-2.5 mb-3">
                                 <span className="text-xs font-bold text-slate-900 flex items-center gap-2">
                                     <span>🔥 Commit Streak &amp; Consistency</span>
@@ -454,11 +664,11 @@ export default function Home({ projects, skills, experiences, certificates, soci
                             </div>
                         </div>
 
-                        {/* Verified GitHub Insights Card (Native React - 100% reliable, zero broken images) */}
-                        <div className="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-2xs flex flex-col justify-between">
+                        {/* Verified Metric Card */}
+                        <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-2xs flex flex-col justify-between">
                             <div className="flex items-center justify-between border-b border-slate-100 pb-2.5 mb-3">
                                 <span className="text-xs font-bold text-slate-900 flex items-center gap-2">
-                                    <span>⚡ Verified GitHub Insights</span>
+                                    <span>⚡ Verified Repository Insights</span>
                                 </span>
                                 <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1">
                                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
@@ -466,7 +676,6 @@ export default function Home({ projects, skills, experiences, certificates, soci
                                 </span>
                             </div>
 
-                            {/* Metric Grid */}
                             <div className="grid grid-cols-2 gap-3 my-auto py-1">
                                 <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
                                     <p className="text-[11px] text-slate-500 font-medium">Annual Contributions</p>
@@ -491,7 +700,7 @@ export default function Home({ projects, skills, experiences, certificates, soci
                             </div>
 
                             <div className="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px]">
-                                <span className="text-slate-500 font-mono">PHP • React • MySQL</span>
+                                <span className="text-slate-500 font-mono">PHP 8.3 • React 19 • MySQL</span>
                                 <a
                                     href="https://github.com/manish96-code?tab=repositories"
                                     target="_blank"
@@ -506,303 +715,238 @@ export default function Home({ projects, skills, experiences, certificates, soci
                 </div>
             </section>
 
-            {/* 3. MILESTONES & WHY CHOOSE ME SECTION (Inspired by Image 1 & 3) */}
-            <section className="fade-section bg-white py-10 sm:py-12 border-b border-slate-100">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-14 xl:px-16">
-                    <div className="mb-7">
-                        <h2 className="font-display text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
-                            Milestones &amp; engineering standards
+            {/* 4. ENGINEERING WORKFLOW (Linear-Style Systematic 4-Stage Pipeline) */}
+            <section id="workflow" className="fade-section bg-slate-50/50 py-12 sm:py-16 border-b border-slate-100 scroll-mt-24">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-14 xl:px-16 space-y-7">
+                    <div>
+                        <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-indigo-50 border border-indigo-200/80 text-indigo-700 text-[10px] font-bold tracking-wider uppercase font-mono mb-2">
+                            SYSTEMATIC PIPELINE
+                        </div>
+                        <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+                            How I Architect, Build &amp; Ship
                         </h2>
                         <p className="text-xs sm:text-sm text-slate-500 mt-1">
-                            Built around clean architecture, database integrity, and fast user interfaces.
+                            Structured 4-stage delivery process from relational modeling to production cloud hosting.
                         </p>
                     </div>
 
-                    {/* 4 Stat Cards Row */}
-                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                         {[
-                            { badge: 'P', badgeBg: 'bg-sky-100 text-sky-600', value: `${projects?.length || 6}+`, label: 'Production Builds', sub: 'SaaS, ERP & Marketplaces' },
-                            { badge: 'L', badgeBg: 'bg-emerald-100 text-emerald-600', value: '3 Live', label: 'Deployed Platforms', sub: 'Ciplon, GymMitra, Recipes' },
-                            { badge: 'B', badgeBg: 'bg-amber-100 text-amber-600', value: '2026', label: 'BCA Graduate', sub: 'Purnea University' },
-                            { badge: 'Q', badgeBg: 'bg-violet-100 text-violet-600', value: '100%', label: 'Clean Architecture', sub: 'Laravel + React + MySQL' },
-                        ].map((stat) => (
-                            <div key={stat.label} className="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 flex items-start gap-3.5 shadow-2xs">
-                                <span className={`w-9 h-9 rounded-xl ${stat.badgeBg} font-display font-bold text-sm flex items-center justify-center shrink-0`}>
-                                    {stat.badge}
-                                </span>
+                            {
+                                step: '01',
+                                phase: 'SCHEMA & PLAN',
+                                title: 'Relational Modeling & Migrations',
+                                desc: 'Normalized MySQL schemas, indexed foreign keys, constraints & Eloquent model relationships.',
+                                tag: 'MySQL 8',
+                                color: 'border-sky-200 bg-white'
+                            },
+                            {
+                                step: '02',
+                                phase: 'BACKEND CORE',
+                                title: 'Controllers, Services & RBAC',
+                                desc: 'Modular Laravel controllers, FormRequest validation, service layers & granular access policies.',
+                                tag: 'Laravel 13',
+                                color: 'border-indigo-200 bg-white'
+                            },
+                            {
+                                step: '03',
+                                phase: 'REACTIVE FRONTEND',
+                                title: 'Inertia.js SPA & Tailwind UI',
+                                desc: 'React 19 single-page interactivity without REST boilerplate, state management & responsive design.',
+                                tag: 'React 19',
+                                color: 'border-violet-200 bg-white'
+                            },
+                            {
+                                step: '04',
+                                phase: 'QUALITY & CLOUD',
+                                title: 'Automated Tests & Production Deploy',
+                                desc: '4,000+ PHPUnit assertions, Vite 8 bundling, PSR-12 Pint standards, and high-uptime hosting.',
+                                tag: 'Vite 8 • Live',
+                                color: 'border-emerald-200 bg-white'
+                            }
+                        ].map((stage) => (
+                            <div key={stage.step} className={`p-5 rounded-2xl border ${stage.color} shadow-2xs flex flex-col justify-between group hover:border-slate-400 transition-all duration-150`}>
                                 <div>
-                                    <p className="font-display text-xl sm:text-2xl font-extrabold text-slate-900 leading-none">
-                                        {stat.value}
+                                    <div className="flex items-center justify-between mb-3 text-[11px] font-mono">
+                                        <span className="font-extrabold text-slate-400 group-hover:text-blue-600 transition-colors">
+                                            STAGE {stage.step}
+                                        </span>
+                                        <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-semibold text-[10px]">
+                                            {stage.tag}
+                                        </span>
+                                    </div>
+                                    <h3 className="font-display font-bold text-sm text-slate-900 leading-snug">
+                                        {stage.title}
+                                    </h3>
+                                    <p className="text-xs text-slate-500 mt-2 leading-relaxed">
+                                        {stage.desc}
                                     </p>
-                                    <p className="text-xs font-semibold text-slate-800 mt-1.5">{stat.label}</p>
-                                    <p className="text-[11px] text-slate-400 mt-0.5">{stat.sub}</p>
+                                </div>
+                                <div className="mt-4 pt-3 border-t border-slate-100 text-[10px] font-mono font-semibold text-slate-400">
+                                    {stage.phase}
                                 </div>
                             </div>
                         ))}
                     </div>
-
-                    {/* 2x2 Visual Engineering Cards (Directly inspired by Image 1) */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                        {/* Card 1 */}
-                        <div className="bg-white border border-slate-200 rounded-2xl p-5 sm:p-6 flex flex-col justify-between">
-                            <div>
-                                <div className="flex items-center gap-2.5 mb-2">
-                                    <span className="w-6 h-6 rounded-md bg-violet-100 text-violet-600 text-xs font-bold flex items-center justify-center">
-                                        1
-                                    </span>
-                                    <h3 className="font-display font-bold text-sm sm:text-base text-slate-900">
-                                        Production-ready multi-role systems
-                                    </h3>
-                                </div>
-                                <p className="text-xs text-slate-500 leading-relaxed">
-                                    Role-based dashboards, fine-grained RBAC permissions, and tenant isolation proven in Ciplon Pharma and GymMitra.
-                                </p>
-                            </div>
-                            <div className="mt-5 p-3.5 rounded-xl bg-slate-50 border border-slate-100 space-y-2">
-                                <div className="flex items-center justify-between text-[11px] font-medium text-slate-600">
-                                    <span>Super Admin • Admin • MR / Staff</span>
-                                    <span className="text-emerald-600 font-semibold">RBAC Active</span>
-                                </div>
-                                <div className="grid grid-cols-4 gap-1.5 h-2">
-                                    <div className="rounded-full bg-sky-400" />
-                                    <div className="rounded-full bg-blue-500" />
-                                    <div className="rounded-full bg-slate-900" />
-                                    <div className="rounded-full bg-indigo-400" />
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Card 2 */}
-                        <div className="bg-white border border-slate-200 rounded-2xl p-5 sm:p-6 flex flex-col justify-between">
-                            <div>
-                                <div className="flex items-center gap-2.5 mb-2">
-                                    <span className="w-6 h-6 rounded-md bg-sky-100 text-sky-600 text-xs font-bold flex items-center justify-center">
-                                        2
-                                    </span>
-                                    <h3 className="font-display font-bold text-sm sm:text-base text-slate-900">
-                                        Unified Laravel + React + Inertia.js
-                                    </h3>
-                                </div>
-                                <p className="text-xs text-slate-500 leading-relaxed">
-                                    Single-page user experiences backed by Laravel controllers, Eloquent ORM, and seamless server-driven routing.
-                                </p>
-                            </div>
-                            <div className="mt-5 p-3.5 rounded-xl bg-slate-50 border border-slate-100 space-y-2">
-                                <div className="flex items-center justify-between text-[11px]">
-                                    <span className="font-semibold text-slate-800">Inertia.js SPA Architecture</span>
-                                    <span className="font-bold text-slate-900">100%</span>
-                                </div>
-                                <div className="w-full h-2 rounded-full bg-slate-200 overflow-hidden">
-                                    <div className="h-full w-full bg-slate-900 rounded-full" />
-                                </div>
-                                <div className="flex items-center justify-between text-[10px] text-slate-500">
-                                    <span>● Zero CORS/API friction</span>
-                                    <span>● Validation &amp; Auth</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </section>
 
-            {/* 4. ENGINEERING WORKFLOW TIMELINE (Inspired by Image 2 "Today's timetable") */}
-            <section id="workflow" className="fade-section bg-slate-50/50 py-10 sm:py-12 border-b border-slate-100 scroll-mt-24">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-14 xl:px-16">
-                    <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-6">
-                        <div>
-                            <h2 className="font-display text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
-                                Engineering workflow
-                            </h2>
-                            <p className="text-xs sm:text-sm text-slate-500 mt-1">
-                                Structured end-to-end delivery process from schema design to live deployment.
-                            </p>
+            {/* 5. ABOUT & JOURNEY (Modern 2-Column Bento Dossier) */}
+            <section id="about" className="fade-section bg-white py-12 sm:py-16 border-b border-slate-100 scroll-mt-24">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-14 xl:px-16 space-y-7">
+                    <div>
+                        <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-amber-50 border border-amber-200/80 text-amber-700 text-[10px] font-bold tracking-wider uppercase font-mono mb-2">
+                            EXPERIENCE &amp; BACKGROUND
                         </div>
-                        <span className="text-xs font-medium text-slate-500">
-                            4 core delivery stages
-                        </span>
+                        <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+                            From CS Foundations to Shipping Production Software
+                        </h2>
+                        <p className="text-xs sm:text-sm text-slate-500 mt-1">
+                            Engineering background, education at Purnea University, and work at Comestro Techlabs.
+                        </p>
                     </div>
 
-                    <div className="bg-white border border-slate-200 rounded-2xl p-4 sm:p-6 shadow-2xs overflow-x-auto">
-                        <div className="min-w-[600px]">
-                            {/* Timeline Markers */}
-                            <div className="grid grid-cols-4 text-[11px] font-medium text-slate-400 pb-3 border-b border-slate-100">
-                                <span>STAGE 01 • PLAN</span>
-                                <span>STAGE 02 • BACKEND</span>
-                                <span>STAGE 03 • FRONTEND</span>
-                                <span className="flex items-center justify-between">
-                                    <span>STAGE 04 • LAUNCH</span>
-                                    <span className="px-2 py-0.5 rounded bg-slate-900 text-white text-[9px] font-bold">LIVE</span>
-                                </span>
-                            </div>
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
-                            {/* Staggered Pastel Pill Cards */}
-                            <div className="py-5 space-y-3">
-                                <div className="w-[45%] ml-0 p-3 rounded-xl bg-sky-50/80 border border-sky-200/80 flex items-center justify-between">
-                                    <div>
-                                        <p className="text-xs font-bold text-slate-900">Relational Schema &amp; Migrations</p>
-                                        <p className="text-[11px] text-slate-500 mt-0.5">MySQL indexing, foreign keys &amp; Eloquent models</p>
+                        {/* Left Card: Dossier & Engineering Focus (5 cols) */}
+                        <div className="lg:col-span-5 bg-slate-50/70 border border-slate-200 rounded-3xl p-6 sm:p-7 shadow-2xs flex flex-col justify-between">
+                            <div>
+                                <div className="flex items-center gap-3.5 pb-5 border-b border-slate-200/80">
+                                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-600 to-violet-600 text-white font-display font-extrabold text-xl flex items-center justify-center shadow-xs">
+                                        MK
                                     </div>
-                                    <span className="px-2 py-0.5 rounded bg-amber-100 text-amber-800 text-[10px] font-semibold">Schema</span>
+                                    <div>
+                                        <h3 className="font-display font-bold text-base text-slate-900">
+                                            {settings?.name || 'Manish Kumar'}
+                                        </h3>
+                                        <p className="text-xs text-blue-600 font-semibold mt-0.5">
+                                            {activeExperience?.designation || 'Laravel Developer'}
+                                        </p>
+                                        <p className="text-[11px] text-slate-500">
+                                            @ {activeExperience?.company || 'Comestro Techlabs Pvt Ltd'}
+                                        </p>
+                                    </div>
                                 </div>
 
-                                <div className="w-[48%] ml-[18%] p-3 rounded-xl bg-violet-50/80 border border-violet-200/80 flex items-center justify-between">
-                                    <div>
-                                        <p className="text-xs font-bold text-slate-900">Laravel Controllers, Auth &amp; RBAC</p>
-                                        <p className="text-[11px] text-slate-500 mt-0.5">Role authorization, form validation &amp; REST APIs</p>
-                                    </div>
-                                    <span className="px-2 py-0.5 rounded bg-violet-100 text-violet-700 text-[10px] font-semibold">Backend</span>
-                                </div>
-
-                                <div className="w-[48%] ml-[36%] p-3 rounded-xl bg-emerald-50/80 border border-emerald-200/80 flex items-center justify-between">
-                                    <div>
-                                        <p className="text-xs font-bold text-slate-900">React 19 + Inertia.js + Tailwind UI</p>
-                                        <p className="text-[11px] text-slate-500 mt-0.5">Responsive dashboards, forms &amp; interactive state</p>
-                                    </div>
-                                    <span className="px-2 py-0.5 rounded bg-emerald-100 text-emerald-700 text-[10px] font-semibold">Frontend</span>
-                                </div>
-
-                                <div className="w-[44%] ml-[56%] p-3 rounded-xl bg-rose-50/80 border border-rose-200/80 flex items-center justify-between">
-                                    <div>
-                                        <p className="text-xs font-bold text-slate-900">Optimization, SEO &amp; Production Deploy</p>
-                                        <p className="text-[11px] text-slate-500 mt-0.5">Vite bundle tuning, query checks &amp; cloud hosting</p>
-                                    </div>
-                                    <span className="px-2 py-0.5 rounded bg-blue-100 text-blue-700 text-[10px] font-semibold">Ship</span>
+                                <div className="py-4 space-y-3 text-xs sm:text-[13px] text-slate-600 leading-relaxed font-normal">
+                                    <blockquote className="font-display font-bold text-sm text-slate-900 italic border-l-2 border-blue-600 pl-3">
+                                        &ldquo;We build problem solvers, not just syntax typers.&rdquo;
+                                    </blockquote>
+                                    <p>
+                                        {activeExperience?.description || settings?.bio}
+                                    </p>
+                                    <p>
+                                        Focusing on tightly-coupled single-page web monoliths using Laravel, React, and MySQL, with full-lifecycle ownership from relational database schema design to cloud deployment.
+                                    </p>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
 
-            {/* 5. ABOUT, QUOTE & EXPERIENCE JOURNEY (Inspired by Image 3) */}
-            <section id="about" className="fade-section bg-white py-10 sm:py-12 border-b border-slate-100 scroll-mt-24">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-14 xl:px-16 space-y-10">
-
-                    {/* Quote Spotlight Card */}
-                    <div className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-2xs grid gap-6 lg:grid-cols-[0.8fr_1.5fr] items-center">
-                        <div className="bg-slate-50 border border-slate-200/80 rounded-2xl p-6 flex flex-col items-center text-center">
-                            <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-indigo-600 to-violet-600 text-white font-display font-extrabold text-2xl flex items-center justify-center shadow-sm">
-                                MK
-                            </div>
-                            <h3 className="font-display font-bold text-base text-slate-900 mt-4">
-                                {settings?.name || 'Manish Kumar'}
-                            </h3>
-                            <p className="text-xs text-blue-600 font-semibold mt-0.5">
-                                {activeExperience?.designation || 'Laravel Developer'}
-                            </p>
-                            <p className="text-[11px] text-slate-500 mt-1">
-                                @ {activeExperience?.company || 'Comestro Techlabs Pvt Ltd'}
-                            </p>
-                            <span className="mt-3 px-2.5 py-0.5 rounded-full bg-white border border-slate-200 text-[10px] font-semibold text-slate-600">
-                                {activeExperience?.duration || 'May 2026 - Present'}
-                            </span>
-                        </div>
-
-                        <div>
-                            <h2 className="font-display text-xl sm:text-2xl lg:text-[26px] font-extrabold text-slate-900 tracking-tight leading-snug">
-                                &ldquo;We build problem solvers, not just syntax typers.&rdquo;
-                            </h2>
-                            <p className="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed">
-                                {activeExperience?.description || settings?.bio}
-                            </p>
-                            <div className="mt-4 flex flex-wrap gap-1.5">
-                                {activeExperience?.skills_used?.map((skill) => (
-                                    <span key={skill} className="px-2.5 py-0.5 rounded-md bg-slate-50 border border-slate-200 text-[11px] font-medium text-slate-700">
-                                        {skill}
-                                    </span>
-                                ))}
-                            </div>
-                            <div className="mt-6 flex flex-wrap items-center gap-3">
-                                <button
-                                    type="button"
-                                    onClick={() => scrollToSection('projects')}
-                                    className="px-4 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold transition-colors cursor-pointer"
-                                >
-                                    ▸ Explore projects
-                                </button>
+                            <div className="pt-4 border-t border-slate-200/80 flex flex-wrap items-center gap-3">
                                 <a
                                     href={linkedinUrl}
                                     target="_blank"
                                     rel="noreferrer"
-                                    className="px-4 py-2 rounded-lg bg-white border border-slate-200 hover:bg-slate-50 text-slate-800 text-xs font-semibold transition-colors"
+                                    className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow-xs transition-colors"
                                 >
-                                    Connect on LinkedIn
+                                    Connect on LinkedIn ↗
                                 </a>
+                                <button
+                                    type="button"
+                                    onClick={() => scrollToSection('projects')}
+                                    className="px-4 py-2 rounded-xl bg-white border border-slate-200 hover:bg-slate-50 text-slate-800 text-xs font-semibold transition-colors cursor-pointer"
+                                >
+                                    Explore Works ↓
+                                </button>
                             </div>
                         </div>
-                    </div>
 
-                    {/* Journey Timeline */}
-                    <div>
-                        <div className="mb-6">
-                            <h2 className="font-display text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
-                                My journey: 2023 to present
-                            </h2>
-                            <p className="text-xs sm:text-sm text-slate-500 mt-1">
-                                From learning computer science fundamentals to shipping production Laravel &amp; React software.
-                            </p>
-                        </div>
+                        {/* Right Card: Chronological Milestones Timeline (7 cols) */}
+                        <div className="lg:col-span-7 bg-white border border-slate-200 rounded-3xl p-6 sm:p-7 shadow-2xs flex flex-col justify-between">
+                            <div>
+                                <h3 className="font-display font-bold text-sm sm:text-base text-slate-900 border-b border-slate-100 pb-3 mb-4 flex items-center justify-between">
+                                    <span>Engineering Timeline</span>
+                                    <span className="text-[11px] font-mono text-slate-400">2023 — Present</span>
+                                </h3>
 
-                        <div className="bg-white border border-slate-200 rounded-2xl divide-y divide-slate-100">
-                            {[
-                                {
-                                    step: '1',
-                                    badgeBg: 'bg-sky-500',
-                                    period: '2023 – 2026',
-                                    title: 'BCA Program at Purnea University',
-                                    desc: 'Built core software engineering foundations in C, C++, Python, DBMS, and relational database architecture.'
-                                },
-                                {
-                                    step: '2',
-                                    badgeBg: 'bg-violet-500',
-                                    period: '2024 – 2026',
-                                    title: 'Full-Stack SaaS & Product Engineering',
-                                    desc: 'Designed and launched GymMitra SaaS, LinkUp social platform, and full-stack web tools using Laravel, React, and Tailwind CSS.'
-                                },
-                                {
-                                    step: '3',
-                                    badgeBg: 'bg-emerald-500',
-                                    period: 'May 2026 – Present',
-                                    title: 'Laravel Developer @ Comestro Techlabs Pvt Ltd',
-                                    desc: 'Developing cohort-based LMS platforms (Learn Syntax), enterprise pharmaceutical ERPs (Ciplon), and multi-vendor marketplaces (KitabiAdda).'
-                                }
-                            ].map((item) => (
-                                <div key={item.step} className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6">
-                                    <div className="flex items-center gap-3 sm:w-48 shrink-0">
-                                        <span className={`w-6 h-6 rounded-md ${item.badgeBg} text-white text-xs font-bold flex items-center justify-center shrink-0`}>
-                                            {item.step}
-                                        </span>
-                                        <span className="text-xs font-semibold text-slate-500">{item.period}</span>
-                                    </div>
-                                    <div>
-                                        <h3 className="text-sm font-bold text-slate-900">{item.title}</h3>
-                                        <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">{item.desc}</p>
-                                    </div>
+                                <div className="space-y-4">
+                                    {[
+                                        {
+                                            badge: '01',
+                                            bg: 'bg-sky-500',
+                                            period: '2023 – 2026',
+                                            title: 'BCA Program at Purnea University',
+                                            desc: 'Built core foundations in C, C++, Python, relational database architecture, SQL query tuning, and computer algorithms.'
+                                        },
+                                        {
+                                            badge: '02',
+                                            bg: 'bg-violet-500',
+                                            period: '2024 – 2026',
+                                            title: 'Full-Stack SaaS & Product Engineering',
+                                            desc: 'Designed and deployed GymMitra SaaS, LinkUp social platform, and full-stack interactive applications using Laravel, React, and Tailwind.'
+                                        },
+                                        {
+                                            badge: '03',
+                                            bg: 'bg-emerald-500',
+                                            period: 'May 2026 – Present',
+                                            title: 'Laravel Developer @ Comestro Techlabs Pvt Ltd',
+                                            desc: 'Developing enterprise pharmaceutical ERPs (Ciplon), cohort EdTech LMS platforms (Learn Syntax), and multi-vendor marketplaces (KitabiAdda).'
+                                        }
+                                    ].map((milestone) => (
+                                        <div key={milestone.badge} className="p-4 rounded-2xl bg-slate-50/70 border border-slate-100 flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-4">
+                                            <div className="flex items-center gap-2 sm:w-44 shrink-0">
+                                                <span className={`w-6 h-6 rounded-md ${milestone.bg} text-white font-display font-bold text-xs flex items-center justify-center shrink-0`}>
+                                                    {milestone.badge}
+                                                </span>
+                                                <span className="text-xs font-mono font-semibold text-slate-500">{milestone.period}</span>
+                                            </div>
+                                            <div>
+                                                <h4 className="font-display font-bold text-xs sm:text-sm text-slate-900">{milestone.title}</h4>
+                                                <p className="text-xs text-slate-500 mt-1 leading-relaxed">{milestone.desc}</p>
+                                            </div>
+                                        </div>
+                                    ))}
                                 </div>
-                            ))}
-                        </div>
-                    </div>
+                            </div>
 
+                            <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
+                                <span>Purnea, Bihar • India</span>
+                                <span>Continuous Full-Stack Delivery</span>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </section>
 
-            {/* 6. TECHNICAL STACK & CREDENTIALS */}
-            <section id="skills" className="fade-section bg-slate-50/50 py-10 sm:py-12 border-b border-slate-100 scroll-mt-24">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-14 xl:px-16">
-                    <div className="mb-7">
-                        <h2 className="font-display text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
-                            Technical stack &amp; certifications
+            {/* 6. TECHNICAL STACK & DISCIPLINES (`#skills`) */}
+            <section id="skills" className="fade-section bg-slate-50/50 py-12 sm:py-16 border-b border-slate-100 scroll-mt-24">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-14 xl:px-16 space-y-7">
+
+                    <div>
+                        <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-teal-50 border border-teal-200/80 text-teal-700 text-[10px] font-bold tracking-wider uppercase font-mono mb-2">
+                            PRODUCTION TOOLING
+                        </div>
+                        <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+                            Technical Stack &amp; Core Disciplines
                         </h2>
                         <p className="text-xs sm:text-sm text-slate-500 mt-1">
-                            Frameworks, languages, databases, and developer tooling used in production.
+                            Frameworks, languages, databases, and developer tooling used in live production systems.
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         {skillCategories.map((category) => {
-                            const style = categoryStyleMap[category] || { letter: category.charAt(0), bg: 'bg-blue-100 text-blue-600' };
+                            const categoryLetters = {
+                                Frontend: { letter: 'F', bg: 'bg-sky-100 text-sky-600' },
+                                Backend: { letter: 'B', bg: 'bg-violet-100 text-violet-600' },
+                                Database: { letter: 'D', bg: 'bg-amber-100 text-amber-600' },
+                                'Programming Languages': { letter: 'C', bg: 'bg-rose-100 text-rose-600' },
+                                Tools: { letter: 'T', bg: 'bg-emerald-100 text-emerald-600' },
+                            };
+                            const style = categoryLetters[category] || { letter: category.charAt(0), bg: 'bg-blue-100 text-blue-600' };
+
                             return (
-                                <div key={category} className="bg-white border border-slate-200 rounded-2xl p-5 shadow-2xs">
+                                <div key={category} className="bg-white border border-slate-200 rounded-2xl p-5 shadow-2xs hover:border-slate-300 transition-all duration-150">
                                     <div className="flex items-center gap-2.5 pb-3 mb-3 border-b border-slate-100">
                                         <span className={`w-7 h-7 rounded-lg ${style.bg} font-display font-bold text-xs flex items-center justify-center`}>
                                             {style.letter}
@@ -826,55 +970,68 @@ export default function Home({ projects, skills, experiences, certificates, soci
                         })}
                     </div>
 
+                    {/* Certifications strip */}
                     {certificates?.length > 0 && (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                            {certificates.map((cert) => (
-                                <div key={cert.id} className="bg-white border border-slate-200 rounded-xl p-4 shadow-2xs">
-                                    <div className="flex items-center justify-between gap-2 mb-2">
-                                        <span className={`px-2 py-0.5 rounded text-[10px] font-semibold ${cert.organization.includes('Completed')
-                                            ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
-                                            : 'bg-amber-50 text-amber-700 border border-amber-200'
-                                            }`}>
+                        <div className="pt-2">
+                            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400 mb-3">
+                                Verified Certifications &amp; Credentials
+                            </h3>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+                                {certificates.map((cert) => (
+                                    <div key={cert.id} className="bg-white border border-slate-200 rounded-xl p-4 shadow-2xs">
+                                        <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
                                             {cert.issue_date}
                                         </span>
+                                        <p className="font-display font-bold text-xs sm:text-sm text-slate-900 mt-2">{cert.title}</p>
+                                        <p className="text-[11px] text-slate-500 mt-0.5">{cert.organization}</p>
                                     </div>
-                                    <p className="font-display font-bold text-xs sm:text-sm text-slate-900">{cert.title}</p>
-                                    <p className="text-[11px] text-slate-500 mt-1">{cert.organization}</p>
-                                </div>
-                            ))}
+                                ))}
+                            </div>
                         </div>
                     )}
                 </div>
             </section>
 
-            {/* 7. CLEAN CONTACT CTA BANNER (Inspired by Image 2 Bottom Card) */}
-            <section id="contact" className="fade-section bg-white py-10 sm:py-12 scroll-mt-24">
+            {/* 7. MINIMALIST CONTACT CTA (High-Contrast Linear Style Banner) */}
+            <section id="contact" className="fade-section bg-white py-12 sm:py-16 scroll-mt-24">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-14 xl:px-16">
-                    <div className="bg-slate-50/70 border border-slate-200 rounded-2xl p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-                        <div>
-                            <h2 className="font-display text-lg sm:text-xl font-bold text-slate-900">
-                                Ready to build something great together?
-                            </h2>
-                            <p className="text-xs sm:text-sm text-slate-500 mt-1 max-w-xl">
-                                Available for full-stack software engineering roles, Laravel + React SaaS builds, and freelance collaborations.
-                            </p>
-                        </div>
-                        <div className="flex flex-wrap items-center gap-3 shrink-0">
-                            <a
-                                href={`mailto:${settings?.email}`}
-                                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow-xs transition-colors"
-                            >
-                                <span>Email Manish</span>
-                                <span>→</span>
-                            </a>
-                            <a
-                                href={whatsappUrl}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-white border border-slate-200 hover:border-slate-300 hover:bg-slate-50 text-slate-800 text-xs font-semibold transition-colors"
-                            >
-                                <span>WhatsApp</span>
-                            </a>
+                    <div className="bg-slate-950 text-white rounded-3xl p-7 sm:p-10 lg:p-12 relative overflow-hidden shadow-xl">
+                        {/* Ambient subtle glow background */}
+                        <div className="absolute top-0 right-0 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
+                        <div className="absolute bottom-0 left-0 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none -ml-20 -mb-20" />
+
+                        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                            <div>
+                                <span className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-white/10 text-emerald-400 text-[10px] font-mono font-semibold mb-3 border border-white/10">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                                    ACCEPTING FULL-STACK OPPORTUNITIES
+                                </span>
+                                <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight">
+                                    Ready to engineer something great together?
+                                </h2>
+                                <p className="text-xs sm:text-sm text-slate-400 mt-2 max-w-xl font-normal leading-relaxed">
+                                    Available for full-time engineering roles, high-concurrency Laravel + React builds, and enterprise technical collaborations.
+                                </p>
+                            </div>
+
+                            <div className="flex flex-wrap items-center gap-3 shrink-0">
+                                <a
+                                    href={`mailto:${settings?.email || 'manish966128@gmail.com'}`}
+                                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white hover:bg-slate-100 text-slate-950 text-xs sm:text-sm font-bold shadow-md transition-all active:scale-95"
+                                >
+                                    <span>Email Manish</span>
+                                    <span>→</span>
+                                </a>
+                                <a
+                                    href={whatsappUrl}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white/10 hover:bg-white/15 text-white border border-white/15 text-xs sm:text-sm font-semibold transition-all backdrop-blur-xs"
+                                >
+                                    <span>WhatsApp</span>
+                                    <span className="text-slate-400">↗</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
